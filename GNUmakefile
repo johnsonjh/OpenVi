@@ -262,20 +262,18 @@ vi: bin/vi
 	@$(TRUE)
 
 bin/ex: vi
-	$(TEST) -d ./bin || $(MKDIR) ./bin
 	$(LNS) vi ./bin/ex
 
 .PHONY: ex
 ex: bin/ex
-	@$(TRUE); $(TRUE)
+	@$(TRUE)
 
 bin/view: vi
-	$(TEST) -d ./bin || $(MKDIR) ./bin
 	$(LNS) vi ./bin/view
 
 .PHONY: view
 view: bin/view
-	@$(TRUE); $(TRUE); $(TRUE)
+	@$(TRUE)
 
 ###############################################################################
 
