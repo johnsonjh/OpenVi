@@ -1,3 +1,3 @@
 # OpenVi
 
-## OpenVi: OpenBSD's `vi` for Linux
+OpenBSD `vi` for Linux
