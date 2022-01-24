@@ -35,10 +35,10 @@ CFLAGS += -pipe -std=gnu99 -I./cl -I./include -I. -MD
 # CFLAGS and LDFLAGS
 ifdef DEBUG_VI
    # Debugging
-   CFLAGS  += -DDEBUG=1 -g3 -ggdb -Og -fno-tree-dominator-opts
+   CFLAGS  += -DDEBUG=1 -g3 -ggdb -Og
 else
    # Optimizing
-   CFLAGS  += -O2 -fomit-frame-pointer -fno-tree-dominator-opts
+   CFLAGS  += -O2 -fomit-frame-pointer
    LDFLAGS += -s
 endif
 
