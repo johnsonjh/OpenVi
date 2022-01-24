@@ -38,8 +38,8 @@ to this copy of the Vi software.
  * SUCH DAMAGE.
  */
 
-Furthermore, some portability and build are distributed under terms of the
-(less restrictive) "Zero-Clause BSD" (0BSD) license, as follows.
+Some portability and build modifications are distributed under
+terms of the following "Zero-Clause BSD" (0BSD) license.
 
 /*
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
