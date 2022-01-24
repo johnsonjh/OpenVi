@@ -19,8 +19,11 @@ LTOC = -flto
 # Uncomment to enable some verbose Makefile debugging
 #MKVERBOSE = 1
 
+# Optimization flags for non-debugging builds
+OPTLEVEL ?= -O2
+
 # Default libraries to use
-CURSESLIB = -lncurses -lutil
+CURSESLIB = -lncurses -lutil $(EXTRA_LIBS)
 
 # Installation prefix
 PREFIX ?= /usr/local
@@ -39,7 +42,7 @@ ifdef DEBUG_VI
    CFLAGS  += -DDEBUG=1 -g3 -ggdb -Og
 else
    # Optimizing
-   CFLAGS  += -O2 -fomit-frame-pointer
+   CFLAGS  += $(OPTLEVEL) -fomit-frame-pointer
    LDFLAGS += -s
 endif
 
