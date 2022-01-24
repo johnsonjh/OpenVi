@@ -1,26 +1,17 @@
-The following are the copyrights and redistribution conditions that apply
-to this copy of the Vi software.
+/*	$OpenBSD: recno.h,v 1.5 2003/06/02 20:18:34 millert Exp $	*/
 
-/*
- * Copyright (c) 1991, 1992, 1993, 1994
- *      The Regents of the University of California
- * Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
- *	    Keith Bostic.
- * Copyright (c) 1999, 2000 Sven Verdoolaege.
- *
- * All rights reserved.
+/*-
+ * Copyright (c) 1991, 1993
+ *	The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -36,22 +27,11 @@ to this copy of the Vi software.
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
+ *
+ *	@(#)recno.h	8.1 (Berkeley) 6/4/93
  */
 
-Furthermore, some portability and build are distributed under terms of the
-(less restrictive) "Zero-Clause BSD" (0BSD) license, as follows.
+enum SRCHOP { SDELETE, SINSERT, SEARCH};	/* Rec_search operation. */
 
-/*
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
- *
- * Permission to use, copy, modify, and/or distribute this software
- * for any purpose with or without fee is hereby granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
+#include "btree.h"
+#include "extern.h"

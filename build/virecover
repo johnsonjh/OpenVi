@@ -1,0 +1,138 @@
+#!/usr/bin/env perl
+#
+# $OpenBSD: recover,v 1.13 2018/09/17 15:41:17 millert Exp $
+#
+# Script to (safely) recover OpenBSD vi edit sessions.
+#
+
+use warnings;
+use strict;
+use Fcntl;
+
+my $recoverdir = $ARGV[0] || "/tmp/vi.recover";
+my $sendmail = "/usr/sbin/sendmail";
+
+die "Sorry, $0 must be run as root\n" if $>;
+
+# Make the recovery dir if it does not already exist.
+if (!sysopen(DIR, $recoverdir, O_RDONLY|O_NOFOLLOW) || !stat(DIR)) {
+	die "Warning! $recoverdir is a symbolic link! (ignoring)\n"
+	    if -l $recoverdir;
+	mkdir($recoverdir, 01777) || die "Unable to create $recoverdir: $!\n";
+	chmod(01777, $recoverdir);
+	exit(0);
+}
+
+#
+# Sanity check the vi recovery dir
+#
+die "Warning! $recoverdir is not a directory! (ignoring)\n"
+    unless -d _;
+die "$0: can't chdir to $recoverdir: $!\n" unless chdir DIR;
+if (! -O _) {
+	warn "Warning! $recoverdir is not owned by root! (fixing)\n";
+	chown(0, 0, ".");
+}
+if (((stat(_))[2] & 07777) != 01777) {
+	warn "Warning! $recoverdir is not mode 01777! (fixing)\n";
+	chmod(01777, ".");
+}
+
+# Check editor backup files.
+opendir(RECDIR, ".") || die "$0: can't open $recoverdir: $!\n";
+foreach my $file (readdir(RECDIR)) {
+	next unless $file =~ /^vi\./;
+
+	#
+	# Unmodified vi editor backup files either have the
+	# execute bit set or are zero length.  Delete them.
+	# Anything that is not a normal file gets deleted too.
+	#
+	lstat($file) || die "$0: can't stat $file: $!\n";
+	if (-x _ || ! -s _ || ! -f _) {
+		unlink($file) unless -d _;
+	}
+}
+
+#
+# It is possible to get incomplete recovery files if the editor crashes
+# at the right time.
+#
+rewinddir(RECDIR);
+foreach my $file (readdir(RECDIR)) {
+	next unless $file =~ /^recover\./;
+
+	if (!sysopen(RECFILE, $file, O_RDONLY|O_NOFOLLOW|O_NONBLOCK)) {
+	    warn "$0: can't open $file: $!\n";
+	    next;
+	}
+
+	#
+	# Delete anything that is not a regular file as that is either
+	# filesystem corruption from fsck or an exploit attempt.
+	# Real vi recovery files are created with mode 0600, ignore others.
+	#
+	if (!stat(RECFILE)) {
+		warn "$0: can't stat $file: $!\n";
+		close(RECFILE);
+		next;
+	}
+	if (((stat(_))[2] & 07777) != 0600) {
+		close(RECFILE);
+		next;
+	}
+	my $owner = (stat(_))[4];
+	if (! -f _ || ! -s _) {
+		unlink($file) unless -d _;
+		close(RECFILE);
+		next;
+	}
+
+	#
+	# Slurp in the recover.* file and search for X-vi-recover-path
+	# (which should point to an existing vi.* file).
+	#
+	my @recfile = <RECFILE>;
+	close(RECFILE);
+
+	#
+	# Delete any recovery files that have no (or more than one)
+	# corresponding backup file.
+	#
+	my @backups = grep(m#^X-vi-recover-path:\s*\Q$recoverdir\E/+#, @recfile);
+	if (@backups != 1) {
+		unlink($file);
+		next;
+	}
+
+	#
+	# Make a copy of the backup file path.
+	# We must not modify @backups directly since it contains
+	# references to data in @recfile which we pipe to sendmail.
+	#
+	$backups[0] =~ m#^X-vi-recover-path:\s*\Q$recoverdir\E/+(.*)[\r\n]*$#;
+	my $backup = $1;
+
+	#
+	# If backup file is not rooted in the recover dir, ignore it.
+	# If backup file owner doesn't match recovery file owner, ignore it.
+	# If backup file is zero length or not a regular file, remove it.
+	# Else send mail to the user.
+	#
+	if ($backup =~ m#/# || !lstat($backup)) {
+		unlink($file);
+	} elsif ($owner != 0 && (stat(_))[4] != $owner) {
+		unlink($file);
+	} elsif (! -f _ || ! -s _) {
+		unlink($file, $backup);
+	} else {
+		open(SENDMAIL, "|$sendmail -t") ||
+		    die "$0: can't run $sendmail -t: $!\n";
+		print SENDMAIL @recfile;
+		close(SENDMAIL);
+	}
+}
+closedir(RECDIR);
+close(DIR);
+
+exit(0);

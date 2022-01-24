@@ -1,26 +1,18 @@
-The following are the copyrights and redistribution conditions that apply
-to this copy of the Vi software.
+/*	$OpenBSD: err.h,v 1.13 2015/08/31 02:53:56 guenther Exp $	*/
+/*	$NetBSD: err.h,v 1.11 1994/10/26 00:55:52 cgd Exp $	*/
 
-/*
- * Copyright (c) 1991, 1992, 1993, 1994
- *      The Regents of the University of California
- * Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
- *	    Keith Bostic.
- * Copyright (c) 1999, 2000 Sven Verdoolaege.
- *
- * All rights reserved.
+/*-
+ * Copyright (c) 1993
+ *	The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -36,22 +28,24 @@ to this copy of the Vi software.
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
+ *
+ *	@(#)err.h	8.1 (Berkeley) 6/2/93
  */
 
-Furthermore, some portability and build are distributed under terms of the
-(less restrictive) "Zero-Clause BSD" (0BSD) license, as follows.
+#ifndef _COMPAT_ERR_H_
+#define	_COMPAT_ERR_H_
 
-/*
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
- *
- * Permission to use, copy, modify, and/or distribute this software
- * for any purpose with or without fee is hereby granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
+#include <stdarg.h> /* for va_list */
+
+void	errc(int, int, const char *, ...)
+			__attribute__((__format__ (printf, 3, 4)));
+void	verrc(int, int, const char *, va_list)
+			__attribute__((__format__ (printf, 3, 0)));
+
+void		warnc(int, const char *, ...)
+			__attribute__((__format__ (printf, 2, 3)));
+void		vwarnc(int, const char *, va_list)
+			__attribute__((__format__ (printf, 2, 0)));
+#endif /* !_COMPAT_ERR_H_ */
+
+#include_next <err.h>

@@ -1,26 +1,18 @@
-The following are the copyrights and redistribution conditions that apply
-to this copy of the Vi software.
+/*	$OpenBSD: string.h,v 1.31 2016/09/09 18:12:37 millert Exp $	*/
+/*	$NetBSD: string.h,v 1.6 1994/10/26 00:56:30 cgd Exp $	*/
 
-/*
- * Copyright (c) 1991, 1992, 1993, 1994
- *      The Regents of the University of California
- * Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
- *	    Keith Bostic.
- * Copyright (c) 1999, 2000 Sven Verdoolaege.
- *
+/*-
+ * Copyright (c) 1990 The Regents of the University of California.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -36,22 +28,26 @@ to this copy of the Vi software.
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
+ *
+ *	@(#)string.h	5.10 (Berkeley) 3/9/91
  */
 
-Furthermore, some portability and build are distributed under terms of the
-(less restrictive) "Zero-Clause BSD" (0BSD) license, as follows.
+#ifndef _COMPAT_STRING_H_
+#define	_COMPAT_STRING_H_
 
-/*
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
- *
- * Permission to use, copy, modify, and/or distribute this software
- * for any purpose with or without fee is hereby granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
+#include <sys/types.h>
+
+void	 explicit_bzero(void *, size_t);
+size_t	 strlcat(char *, const char *, size_t);
+size_t	 strlcpy(char *, const char *, size_t);
+void	 strmode(int, char *);
+
+int	timingsafe_bcmp(const void *, const void *, size_t);
+int	timingsafe_memcmp(const void *, const void *, size_t);
+
+char *strcasestr(const char *, const char *);
+void *memrchr(const void *, int, size_t);
+
+#endif /* _COMPAT_STRING_H_ */
+
+#include_next <string.h>

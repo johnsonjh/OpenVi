@@ -1,26 +1,21 @@
-The following are the copyrights and redistribution conditions that apply
-to this copy of the Vi software.
+/*	$OpenBSD: cclass.h,v 1.5 2003/06/02 20:18:36 millert Exp $	*/
 
-/*
- * Copyright (c) 1991, 1992, 1993, 1994
- *      The Regents of the University of California
- * Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
- *	    Keith Bostic.
- * Copyright (c) 1999, 2000 Sven Verdoolaege.
+/*-
+ * Copyright (c) 1992, 1993, 1994 Henry Spencer.
+ * Copyright (c) 1992, 1993, 1994
+ *	The Regents of the University of California.  All rights reserved.
  *
- * All rights reserved.
+ * This code is derived from software contributed to Berkeley by
+ * Henry Spencer.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -36,22 +31,38 @@ to this copy of the Vi software.
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
+ *
+ *	@(#)cclass.h	8.3 (Berkeley) 3/20/94
  */
 
-Furthermore, some portability and build are distributed under terms of the
-(less restrictive) "Zero-Clause BSD" (0BSD) license, as follows.
-
-/*
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
- *
- * Permission to use, copy, modify, and/or distribute this software
- * for any purpose with or without fee is hereby granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
+/* character-class table */
+static struct cclass {
+	char *name;
+	char *chars;
+	char *multis;
+} cclasses[] = {
+	{ "alnum",	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\
+0123456789",				""} ,
+	{ "alpha",	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+					""} ,
+	{ "blank",	" \t",		""} ,
+	{ "cntrl",	"\007\b\t\n\v\f\r\1\2\3\4\5\6\16\17\20\21\22\23\24\
+\25\26\27\30\31\32\33\34\35\36\37\177",	""} ,
+	{ "digit",	"0123456789",	""} ,
+	{ "graph",	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\
+0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+					""} ,
+	{ "lower",	"abcdefghijklmnopqrstuvwxyz",
+					""} ,
+	{ "print",	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\
+0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ",
+					""} ,
+	{ "punct",	"!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+					""} ,
+	{ "space",	"\t\n\v\f\r ",	""} ,
+	{ "upper",	"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+					""} ,
+	{ "xdigit",	"0123456789ABCDEFabcdef",
+					""} ,
+	{ NULL,		0,		"" }
+};
