@@ -249,7 +249,7 @@ clean:
 
 ###############################################################################
 
-bin/vi: common/options_def.h ex/ex_def.h $(OBJS)
+bin/vi: $(OBJS)
 	$(TEST) -d ./bin || $(MKDIR) ./bin
 	$(CC) -o $@ $^ $(LDFLAGS)
 
