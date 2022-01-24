@@ -110,14 +110,14 @@ DEPZ := ${OBJS:.o=.d}
 ###############################################################################
 
 ifndef DB185
-    unexport DB185EMU
     ifneq (,$(wildcard /usr/include/db_185.h))
         DB185EMU=1
         ifdef MKVERBOSE
-            $(info **** Berkely DB 1.8.5 emulation enabled [/usr])
+            $(info **** Berkeley DB 1.8.5 emulation enabled [/usr])
         endif
     endif
 else
+    unexport DB185EMU
     ifdef MKVERBOSE
         $(info **** Berkeley DB 1.8.5 emulation forcefully disabled)
     endif
