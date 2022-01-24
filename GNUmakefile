@@ -10,7 +10,7 @@
 #DEBUG_VI = 1
 
 # Uncomment to link-time garbage collection for non-debugging builds
-LTGC = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,--print-gc-sections
+LTGC = -fdata-sections -ffunction-sections -Wl,--gc-sections
 
 # Uncomment to enable link-time optimization for non-debugging builds
 LTOC = -flto
@@ -24,10 +24,13 @@ CURSESLIB = -lncurses
 # Installation prefix
 PREFIX ?= /usr/local
 
+# Apparently needed for SH4 to avoid miscompilation
+#CFLAGS += -fno-tree-dominator-opts
+
 ###############################################################################
 
 # Default CFLAGS
-CFLAGS += -pipe -std=gnu99 -fno-tree-dominator-opts -I./cl -I./include -I. -MD
+CFLAGS += -pipe -std=gnu99 -I./cl -I./include -I. -MD
 
 # CFLAGS and LDFLAGS
 ifdef DEBUG_VI
