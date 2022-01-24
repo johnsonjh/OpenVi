@@ -18,8 +18,8 @@ LTOC = -flto
 # Uncomment to enable some verbose Makefile debugging
 #MKVERBOSE = 1
 
-# Curses library to uses (ncurses recommended)
-CURSESLIB = -lncurses
+# Default libraries to use
+CURSESLIB = -lncurses -lutil
 
 # Installation prefix
 PREFIX ?= /usr/local
