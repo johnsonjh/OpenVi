@@ -10,7 +10,8 @@
 #DEBUG_VI = 1
 
 # Uncomment to link-time garbage collection for non-debugging builds
-LTGC = -fdata-sections -ffunction-sections -Wl,--gc-sections
+LTGC = -fdata-sections -ffunction-sections 
+LTGL = -Wl,--gc-sections
 
 # Uncomment to enable link-time optimization for non-debugging builds
 LTOC = -flto
@@ -44,7 +45,7 @@ endif
 
 ifndef DEBUG_VI
     CFLAGS  += $(LTGC) $(LTOC)
-    LDFLAGS += $(LTOC)
+    LDFLAGS += $(LTGL) $(LTOC)
 endif
 
 LDFLAGS += $(CURSESLIB)
