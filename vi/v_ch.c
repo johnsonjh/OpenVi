@@ -161,7 +161,7 @@ empty:		notfound(sp, key);
 	endp = (startp = p) + len;
 	p += vp->m_start.cno;
 	for (cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1; cnt--;) {
-		while (++p < endp && *p != key);
+		while (++p < endp && *p != (char) key);
 		if (p == endp) {
 			notfound(sp, key);
 			return (1);
@@ -243,7 +243,7 @@ empty:		notfound(sp, key);
 	endp = p - 1;
 	p += vp->m_start.cno;
 	for (cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1; cnt--;) {
-		while (--p > endp && *p != key);
+		while (--p > endp && *p != (char) key);
 		if (p == endp) {
 			notfound(sp, key);
 			return (1);
