@@ -1,5 +1,6 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 13:47:31 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 13:55:05 2022
 	+ Documentation: Fix ChangeLog spelling and a minor typo
+	+ Documentation: Update LICENSE text
 
 OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
 	+ Build: Debugging builds now default to compiling with '-Wall -Wextra'
