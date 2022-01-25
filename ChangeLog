@@ -321,7 +321,7 @@ Wed Jan 6 22:46:59 2016
 	  Martijn van Duren
 
 Mon Dec 28 19:24:01 2015
-	+ Use err() instead of custom perr() function.	Also applied by
+	+ Use err() instead of custom perr() function. Also applied by
 	  nvi2 upstream; From Martijn van Duren.
 
 Mon Dec 7 20:39:19 2015
@@ -559,9 +559,9 @@ Tue Apr 12 18:08:00 2011
 	  and config files);
 
 Sun Apr 10 21:21:50 2011
-	+ Fix display glitch leading to crash.	If we're reformatting,
+	+ Fix display glitch leading to crash. If we're reformatting,
 	  check the screens necessary to display the line and modify head
-	  or tail of the smap accordingly;  since it might have changed
+	  or tail of the smap accordingly; since it might have changed
 	  due to e.g. smaller tabstop value.
 
 Thu Mar 31 20:40:51 2011
@@ -1045,7 +1045,7 @@ Wed Sep 19 02:43:19 2001
 	  an ex command from vi. From NetBSD, ok millert@
 
 Mon Sep 17 04:42:55 2001
-	+ Make vi exit if it can't create a temp file.	From NetBSD,
+	+ Make vi exit if it can't create a temp file. From NetBSD,
 	  ok millert@
 
 Sat Sep 15 15:41:19 2001
