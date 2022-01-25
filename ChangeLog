@@ -1,4 +1,6 @@
-OpenVi 7.0.1 -> Unreleased: Tue Jan 25 8:36:27 2022
+OpenVi 7.0.1 -> Unreleased: Tue Jan 25 9:14:39 2022
+	+ Disallow pattern spaces which would cause intermediate
+	  calculations to overflow size_t. (CERT: VU#695940)
 	+ Bump version and use -dev to denote development version
 	+ Reformat ChangeLog for consistency; various spelling corrections
 	+ Update ChangeLog with OpenVi history
