@@ -1,4 +1,5 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 11:09:41 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 11:22:09 2022
+	+ regexec: Change a #define to a typedef in regex library
 	+ Documentation: Fix some typos and minor errors in the tutorials
 	+ Update .gitignore to include patch/diff detritus; no binary change.
 	+ Adjust calculation to avoid "BDB0511 page sizes must be a power-of-2"
