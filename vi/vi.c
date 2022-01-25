@@ -949,6 +949,14 @@ v_init(SCR *sp)
 	sp->rows = vip->srows = O_VAL(sp, O_LINES);
 	sp->cols = O_VAL(sp, O_COLUMNS);
 	sp->t_rows = sp->t_minrows = O_VAL(sp, O_WINDOW);
+	/*
+	 * To avoid segfaults on terminals with only one line,
+	 * catch this corner case now and die explicitly.
+	 */
+	if (sp->t_rows == 0) {
+		(void)fprintf(stderr, "Error: Screen too small for visual mode.\n");
+		return 1;
+	}
 	if (sp->rows != 1) {
 		if (sp->t_rows > sp->rows - 1) {
 			sp->t_minrows = sp->t_rows = sp->rows - 1;

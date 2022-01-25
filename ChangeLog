@@ -1,4 +1,5 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 11:29:48 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 11:34:51 2022
+	+ Exit with error when screen is too small for visual mode
 	+ Apply Debian patch to fix backwards sentence moving
 	+ Fix horizontal scroll count; patch from Debian
 	+ regexec: Change a #define to a typedef in regex library
