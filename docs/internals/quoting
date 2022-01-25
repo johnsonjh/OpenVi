@@ -207,4 +207,3 @@ is interesting:
    In all of the above rules, an escape character (either ^V or a
    backslash) at the end of an argument or file name is not handled
    specially, but used as a literal character.
-

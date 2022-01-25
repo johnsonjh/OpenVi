@@ -55,25 +55,33 @@ the historic maps and @ buffers work.  The summary is as follows:
    buffer when it is executed.  For buffers not cut in line mode and which
    contain portions of only a single line, no additional characters
    appear in the input.
+
 2: Executable buffers that execute other buffers don't load their
    contents until they execute them.
+
 3: Maps and executable buffers are copied when they are executed --
    they can be modified by the command but that does not change their
    actions.
+
 4: Historically, executable buffers are discarded if the editor
    switches between ex and vi modes.
+
 5: Executable buffers inside of map commands are expanded normally.
    Maps inside of executable buffers are expanded normally.
+
 6: If an error is encountered while executing a mapped command or buffer,
    the rest of the mapped command/buffer is discarded.  No user input
    characters are discarded.
+
 7: Characters in executable buffers are remapped.
+
 8: Characters in executable buffers are not quoted.
 
 Individual test cases follow.  Note, in the test cases, control characters
 are not literal and will have to be replaced to make the test cases work.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 1: For buffers that are cut in "line mode", or buffers that are not cut
    in line mode but which contain portions of more than a single line, a
    trailing <newline> character appears in the input for each line in the
@@ -120,6 +128,7 @@ line 3 foo bar baz
    file, a result of pushing "3Gw^Jw^J" onto the stack.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 2: Executable buffers that execute other buffers don't load their
    contents until they execute them.
 
@@ -149,6 +158,7 @@ line 3 foo bar baz
 === end output file ===
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 3: Maps and executable buffers are copied when they are executed --
    they can be modified by the command but that does not change their
    actions.
@@ -195,6 +205,7 @@ line 3 foo bar baz
    changed to 'B'.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 4: Historically, executable buffers are discarded if the editor
    switches between ex and vi modes.
 
@@ -223,6 +234,7 @@ yank a
    causes it not to be seen.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 5: Executable buffers inside of map commands are expanded normally.
    Maps inside of executable buffers are expanded normally.
 
@@ -301,6 +313,7 @@ blank line
 === end output file ===
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 6: If an error is encountered while executing a mapped command or
    a buffer, the rest of the mapped command/buffer is discarded.  No
    user input characters are discarded.
@@ -316,6 +329,7 @@ line 3 foo bar baz
    or 3G, it will succeed.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 7: Characters in executable buffers are remapped.
 
 ===   test file   ===
@@ -334,6 +348,7 @@ ggg
 === end output file ===
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 8: Characters in executable buffers are not quoted.
 
 ===   test file   ===
@@ -349,4 +364,5 @@ iFOO^[
 iFOO^[
 FOO
 === end output file ===
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

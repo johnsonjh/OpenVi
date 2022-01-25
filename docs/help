@@ -22,6 +22,7 @@ MISCELLANEOUS:
  u - undo the last change (enter . after a 'u' to undo more than one change)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 VI COMMANDS:
 	^A search forward for cursor word
 	^B scroll up by screens
@@ -124,7 +125,9 @@ VI COMMANDS:
 	 | move to column
 	 } move forward paragraph
 	 ~ reverse case
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 EX COMMANDS:
 	  ^D: scroll lines
 	   !: filter lines through commands or run commands
@@ -200,7 +203,9 @@ unabbreviate: delete an abbreviation
 	yank: copy lines to a cut buffer
 	   z: display different screens of the file
 	   ~: replace previous RE with previous replacement string,
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 Edit options:
 noaltwerase     filec=""        nomodeline      nosearchincr    timeout
 autoindent      flash           noprint=""      nosecure        nottywerase

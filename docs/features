@@ -1,19 +1,17 @@
 List of things that should be added:
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-+ X11 (Tk, Motif, Xaw) interface.
-+ Interpreted language (Perl, Scheme, Tcl/Rush, Python)
-+ Additional ports: Windows, Windows NT, MSDOS
-+ Forms editing package; use RE's to verify field contents.
 + Internationalization, including wide character and multibyte support.
+
 + Support for single line window editing, including full editing
   capability on the vi colon command line.
-+ Rob Pike's sam style RE's.
-+ Right-to-left and bottom to top text support.
+
 + Quitall command, to leave all windows.  A ! will force the quit.
+
 
 List of suggested features:
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 + It would be nice to have the completion mechanism found in tcsh versions
   >= 6.03.  For instance, the completion for the `:cd' command will be
   directories only.  The completion for the `:set' command will be all
@@ -33,28 +31,10 @@ List of suggested features:
   which allows interactive shell session, instead of just the current
   :script.
 
-+ Add tagging information to the man page so that users can display
-  the part of the man page that discusses the command in which they're
-  interested.
-
-+ Add a zone option so that you can declare that top/bottom few lines
-  of the screen aren't filled except by accident, so that the text
-  you ask for is always concentrated in the center of the screen.
-
 + Change
 	:di[splay] tags		-> :tags
 	:di[splay] screens	-> :screens
 	:di[splay] buffers	-> :buffers
-
-+ A macro record function.  Add the ability to record a sequence
-  of keystrokes into a named buffer for later use.  Handy when
-  you're trying to build a semi-complex macro.
-
-+ The semantics of :split, :bg, and :fg aren't right.  Someone needs to
-  rethink how they should interact.  The main problem arises when users
-  want to get a window into a new file.  Currently, the necessary sequence
-  is  ":split newfile|^W|:bg".  It would be nice if you could simply
-  background the current screen and edit a new one.
 
 + An option to turn on a ``quarter plane'' model so that you can
   go as far to the right or down as you wish.  The File or the

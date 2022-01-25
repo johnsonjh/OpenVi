@@ -15,12 +15,14 @@ vi commands: (, ), {, }, %, [[, ]], ^]
 nvi adds the vi command ^T to this list.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 In historic vi, the previous context mark was set if the
 line changed:
 
 vi commands: '<mark>, G, H, L, M, z
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 In historic vi, the previous context mark was set if the
 line or column changed:
 
@@ -29,6 +31,7 @@ vi commands: `<mark>, /, ?, N, n
 nvi adds the vi command ^A to this list.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 In historic vi, the previous context mark was set in non-visual
 mode for ^R and ^L if the line changed, but I have yet to figure
 out how the line could change.

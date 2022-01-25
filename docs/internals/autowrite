@@ -5,6 +5,7 @@
 Vi autowrite behavior, the fields with *'s are "don't cares".
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 Commands that are affected only by autowrite:
 
 Command	File		Autowrite?	Action:
@@ -32,6 +33,7 @@ Command	File		Autowrite?	Action:
 :!	N		*		Execute.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 Commands that are affected by both autowrite and force:
 
 NOTE: the "force" flag is never passed on, i.e. the write
@@ -70,6 +72,7 @@ Command	File		Autowrite?	Force? 	Action:
 :stop	N		*		*	Suspend.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 Commands that might be affected by autowrite, but aren't:
 
 Command	File		Autowrite?	Force? 	Action:
