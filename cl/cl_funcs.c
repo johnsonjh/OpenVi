@@ -619,15 +619,15 @@ cl_usage()
 		(void)fprintf(stderr, "Usage: "
 #ifndef DB185EMU
 #ifdef DEBUG
-		    "ex [-FRrSsv] [-c cmd] [-t tag] [-w size] [-T tracefile] [file ...]\n");
+		    "ex [ -FRrSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-		    "ex [-FRrSsv] [-c cmd] [-t tag] [-w size] [file ...]\n");
+		    "ex [ -FRrSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif
 #else
 #ifdef DEBUG
-		    "ex [-FRSsv] [-c cmd] [-t tag] [-w size] [-T tracefile] [file ...]\n");
+		    "ex [ -FRSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-		    "ex [-FRSsv] [-c cmd] [-t tag] [-w size] [file ...]\n");
+		    "ex [ -FRSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif
 #endif
 		break;
@@ -635,15 +635,15 @@ cl_usage()
 		(void)fprintf(stderr, "Usage: "
 #ifndef DB185EMU
 #ifdef DEBUG
-		    "vi [-eFRrS] [-c cmd] [-t tag] [-w size] [-T tracefile] [file ...]\n");
+		    "vi [ -eFRrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-		    "vi [-eFRrS] [-c cmd] [-t tag] [-w size] [file ...]\n");
+		    "vi [ -eFRrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif
 #else
 #ifdef DEBUG
-		    "vi [-eFRS] [-c cmd] [-t tag] [-w size] [-T tracefile] [file ...]\n");
+		    "vi [ -eFRS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-		    "vi [-eFRS] [-c cmd] [-t tag] [-w size] [file ...]\n");
+		    "vi [ -eFRS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif
 #endif
 		break;
@@ -651,15 +651,15 @@ cl_usage()
 		(void)fprintf(stderr, "Usage: "
 #ifndef DB185EMU
 #ifdef DEBUG
-		    "view [-eFrS] [-c cmd] [-t tag] [-w size] [-T tracefile] [file ...]\n");
+		    "view [ -eFrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-		    "view [-eFrS] [-c cmd] [-t tag] [-w size] [file ...]\n");
+		    "view [ -eFrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif
 #else
 #ifdef DEBUG
-		    "view [-eFS] [-c cmd] [-t tag] [-w size] [-T tracefile] [file ...]\n");
+		    "view [ -eFS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-		    "view [-eFS] [-c cmd] [-t tag] [-w size] [file ...]\n");
+		    "view [ -eFS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif
 #endif
 		break;

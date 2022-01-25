@@ -1,6 +1,7 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 12:51:09 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 13:34:29 2022
+	+ Build: Expand the formatting of the usage help text
 	+ Build: Change DEBUG_VI flag to sinply DEBUG
-	+ Build: For debugging builds, document use use of -T (Trace) in usage
+	+ Build: For debugging builds, document the use of -T (Trace) in usage
 	+ Build: Don't strip binary by default; add "install-strip" target
 	+ Build: Make clean targets more robust; warn if unable to remove 'bin'
 	+ Build: Add standard "clean", "distclean", "realclean", "mostlyclean",
