@@ -1,4 +1,6 @@
-OpenVi 7.0.1 -> Unreleased: Tue Jan 25 9:14:39 2022
+OpenVi 7.0.1 -> Unreleased: Tue Jan 25 10:29:45 AM UTC 2022
+	+ If TERM is unset, set to null, or otherwise unknown, first attempt
+	  to fallback to "vt100"; exit with a fatal error if "vt100" fails.
 	+ Disallow pattern spaces which would cause intermediate
 	  calculations to overflow size_t. (CERT: VU#695940)
 	+ Bump version and use -dev to denote development version

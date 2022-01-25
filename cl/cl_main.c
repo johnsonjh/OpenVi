@@ -71,6 +71,7 @@ main(int argc, char *argv[])
 	if ((ttype = getenv("TERM")) == NULL)
 		ttype = "unknown";
 	term_init(ttype);
+	ttype = getenv("TERM");
 
 	/* Add the terminal type to the global structure. */
 	if ((OG_D_STR(gp, GO_TERM) =
@@ -205,6 +206,16 @@ term_init(char *ttype)
 
 	/* Set up the terminal database information. */
 	setupterm(ttype, STDOUT_FILENO, &err);
+	if (err == 0) {
+		if (strlen(ttype) == 0)
+			ttype = "unknown";
+		(void)fprintf(stderr,
+			"%s: Unknown terminal type '%s'; falling back to 'vt100'\n",
+				bsd_getprogname(), ttype);
+		sleep(5);
+		setenv("TERM", "vt100", 1);
+		setupterm("vt100", STDOUT_FILENO, &err);
+	}
 	switch (err) {
 	case -1:
 		errx(1, "No terminal database found");
