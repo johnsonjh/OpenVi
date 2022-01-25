@@ -1,48 +1,51 @@
 ###############################################################################
+#                               -  O p e n V i  -                             #
+###############################################################################
 
-# Uncomment to override BDB 1.8.5 emulation detection
-#DB185 = 1
+# Default C compiler and CFLAGS
+CC          ?= cc
+CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
 
-# Uncomment to override BDB library name detection
-#DBLIB = -ldb185
+# Uncomment to override BDB 1.8.5 emulation detection and/or library name
+#DB185       = 1
+#DBLIB       = -ldb185
 
 # Uncomment to enable debugging build
-#DEBUG = 1
+#DEBUG       = 1
 
-# Uncomment to link-time garbage collection for non-debugging builds
-LTGC = -fdata-sections -ffunction-sections 
-LTGL = -Wl,--gc-sections
+# Uncomment to enable link-time garbage collection (for non-debugging builds)
+LTGC         = -fdata-sections -ffunction-sections 
+LTGL         = -Wl,--gc-sections
 
-# Uncomment to enable link-time optimization for non-debugging builds
-LTOC = -flto
+# Uncomment to enable link-time optimization (for non-debugging builds)
+LTOC         = -flto
 
-# Uncomment to enable some verbose Makefile debugging
-#MKVERBOSE = 1
+# Optimization flags (for non-debugging builds)
+OPTLEVEL    ?= -O2
 
-# Optimization flags for non-debugging builds
-OPTLEVEL ?= -O2
+# Extra debugging flags (only used for debugging builds)
+DBGFLAGS    ?= -ggdb
 
-# Default libraries to use
-CURSESLIB = -lncurses -lutil $(EXTRA_LIBS)
+# Default libraries to link
+LINKLIBS    ?= -lncurses -lutil $(EXTRA_LIBS)
 
-# Installation prefix
-PREFIX ?= /usr/local
+# Installation directory prefix for install/uninstall
+PREFIX      ?= /usr/local
 
-# Apparently needed for SH4 to avoid miscompilation
-#CFLAGS += -fno-tree-dominator-opts
+# Executable prefix and/or suffix (e.g. 'o', '-openbsd') for install/uninstall
+BINPREFIX   ?= o
+#BINSUFFIX  ?= -openbsd
+
+# Permissions and user:group to use for installed executables
+IPERM        = 755
+IUSGR        = root:bin
 
 ###############################################################################
 
-# Default CFLAGS
-CFLAGS += -std=gnu99 -I./cl -I./include -I. -MD
-
-# CFLAGS and LDFLAGS
 ifdef DEBUG
-   # Debugging
-   CFLAGS  += -Wall -Wextra -DDEBUG -g3 -ggdb -Og
+   CFLAGS   += $(DBGFLAGS) -Wall -Wextra -DDEBUG -g3 -Og
 else
-   # Optimizing
-   CFLAGS  += -pipe $(OPTLEVEL) -fomit-frame-pointer
+   CFLAGS   += $(OPTLEVEL) -pipe -fomit-frame-pointer
 endif
 
 ifndef DEBUG
@@ -50,35 +53,25 @@ ifndef DEBUG
     LDFLAGS += $(LTGL) $(LTOC)
 endif
 
-LDFLAGS += $(CURSESLIB)
+LDFLAGS     += $(LINKLIBS)
 
 ###############################################################################
 
-# Default PREFIX to /usr/local if unset
-ifndef PREFIX
-    PREFIX = /usr/local
-endif
+AWK         ?= command -p env PATH="$$(command -p getconf PATH)" awk
+CHMOD       ?= chmod
+CHOWN       ?= chown
+CP          ?= cp -f
+LNS         ?= ln -fs
+MKDIR       ?= mkdir -p
+PRINTF      ?= printf
+RMDIR       ?= rmdir
+RMF         ?= rm -f
+SLEEP       ?= sleep
+STRIP       ?= strip
+TEST        ?= test
+TRUE        ?= true
 
 ###############################################################################
-
-# Required POSIX tools
-AWK    ?= awk
-CHMOD  ?= chmod
-CHOWN  ?= chown
-CP     ?= cp -f
-LNS    ?= ln -fs
-MKDIR  ?= mkdir -p
-PRINTF ?= printf
-RMDIR  ?= rmdir
-RMF    ?= rm -f
-SLEEP  ?= sleep
-STRIP  ?= strip
-TEST   ?= test
-TRUE   ?= true
-
-###############################################################################
-
-VPATH = build:cl:common:ex:include:vi:bin
 
 SRCS = cl/cl_funcs.c cl/cl_main.c cl/cl_read.c cl/cl_screen.c cl/cl_term.c    \
        common/cut.c common/delete.c ex/ex.c ex/ex_abbrev.c ex/ex_append.c     \
@@ -105,8 +98,10 @@ SRCS = cl/cl_funcs.c cl/cl_main.c cl/cl_read.c cl/cl_screen.c cl/cl_term.c    \
        cl/pledge.c cl/strtonum.c cl/regcomp.c cl/regerror.c cl/regexec.c      \
        cl/regfree.c cl/getopt_long.c common/mkstemp.c
 
-OBJS := ${SRCS:.c=.o}
+###############################################################################
 
+VPATH = build:cl:common:ex:include:vi:bin
+OBJS := ${SRCS:.c=.o}
 DEPZ := ${OBJS:.o=.d}
 
 ###############################################################################
@@ -114,13 +109,13 @@ DEPZ := ${OBJS:.o=.d}
 ifndef DB185
     ifneq (,$(wildcard /usr/include/db_185.h))
         DB185EMU = 1
-        ifdef MKVERBOSE
+        ifdef DEBUG
             $(info **** Berkeley DB 1.8.5 emulation enabled [/usr])
         endif
     endif
 else
     unexport DB185EMU
-    ifdef MKVERBOSE
+    ifdef DEBUG
         $(info **** Berkeley DB 1.8.5 emulation forcefully disabled)
     endif
 endif
@@ -131,7 +126,7 @@ ifndef DB185
             DB185EMU = 1
             CFLAGS  += -I/usr/local/include
             LDFLAGS += -L/usr/local/lib
-            ifdef MKVERBOSE
+            ifdef DEBUG
                 $(info **** Berkelely DB 1.8.5 emulation enabled [/usr/local])
             endif
         endif
@@ -191,7 +186,7 @@ endif
 DBLIB ?= -ldb
 
 ifdef DB185EMU
-    CFLAGS  += -DDB185EMU
+    CFLAGS += -DDB185EMU
 endif
 
 LDFLAGS += $(DBLIB)
@@ -220,7 +215,8 @@ endif
 
 ###############################################################################
 
-ifdef MKVERBOSE
+ifdef DEBUG
+	$(info **** DEBUG is enabled; a debugging build will be produced)
     $(info **** Using CFLAGS: $(CFLAGS))
     $(info **** Using LDFLAGS: $(LDFLAGS))
 endif
@@ -260,7 +256,7 @@ maintainer-clean:
 	@$(PRINTF) '%s\n' \
         'It may delete files that require special tools to rebuild.'
 	@$(SLEEP) 5
-	$(MAKE) -C . "distclean"
+	$(MAKE) -C "." "distclean"
 
 ###############################################################################
 
@@ -297,35 +293,36 @@ install: vi ex view virecover
 	$(TEST) -d /tmp/vi.recover || \
         $(MKDIR) /tmp/vi.recover
 	$(TEST) -d /tmp/vi.recover && \
-        $(CHOWN) root:root /tmp/vi.recover && \
-        $(CHMOD) 1777 /tmp/vi.recover
+        $(CHOWN) $(IUSGR) /tmp/vi.recover && \
+            $(CHMOD) 1777 /tmp/vi.recover
 	$(TEST) -d $(PREFIX)/bin || \
         $(MKDIR) $(PREFIX)/bin
 	$(TEST) -d $(PREFIX)/libexec || \
         $(MKDIR) $(PREFIX)/libexec
-	$(CP) ./bin/vi $(PREFIX)/bin/vi && \
-        $(CHOWN) root:root $(PREFIX)/bin/vi && \
-        $(CHMOD) 755 $(PREFIX)/bin/vi
-	$(TEST) -x $(PREFIX)/bin/vi && \
-        $(LNS) $(PREFIX)/bin/vi $(PREFIX)/bin/ex
-	$(TEST) -x $(PREFIX)/bin/vi && \
-        $(LNS) $(PREFIX)/bin/vi $(PREFIX)/bin/view
-	$(CP) ./build/virecover $(PREFIX)/libexec/vi.recover && \
-        $(CHMOD) 755 $(PREFIX)/libexec/vi.recover
+	$(CP) ./bin/vi $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX) && \
+        $(CHOWN) $(IUSGR) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX) && \
+        $(CHMOD) $(IPERM) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)
+	$(TEST) -x $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX) && \
+        $(LNS) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX) \
+            $(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)
+	$(TEST) -x $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX) && \
+        $(LNS) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX) \
+            $(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)
+	$(CP) ./build/virecover \
+        $(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX) && \
+        $(CHMOD) $(IPERM) $(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)
 
 ###############################################################################
 
 install-strip: install
-	$(STRIP) $(PREFIX)/bin/vi
+	$(STRIP) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)
 
 ###############################################################################
 
 uninstall:
-	$(RMF) $(PREFIX)/libexec/vi.recover
-	$(RMF) $(PREFIX)/bin/vi
-	$(RMF) $(PREFIX)/bin/ex
-	$(RMF) $(PREFIX)/bin/view
+	$(RMF) $(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)
+	$(RMF) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)
+	$(RMF) $(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)
+	$(RMF) $(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)
 
 ###############################################################################
-
-# EOF

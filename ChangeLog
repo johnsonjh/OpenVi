@@ -1,4 +1,6 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 13:55:05 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 15:22:35 2022
+	+ Build: Explicitly invoke a POSIX-compliant version of the awk utility
+	+ Build: Clarify (and simplify) GNUmakefile and build configuration
 	+ Documentation: Fix ChangeLog spelling and a minor typo
 	+ Documentation: Update LICENSE text
 
