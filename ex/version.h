@@ -18,10 +18,10 @@
 
 #if defined(DB185EMU) || defined(_DB_185_H_)
 #define	VI_VERSION \
-	"Version 7.0.1 (OpenVi) 10/25/2021 - using Berkeley DB 1.85 emulation"
+	"Version 7.0.2-dev (OpenVi) 10/25/2021 - using Berkeley DB 1.85 emulation"
 #else
 #define VI_VERSION \
-	"Version 7.0.1 (OpenVi) 10/25/2021"
+	"Version 7.0.2-dev (OpenVi) 10/25/2021"
 #endif
 
 #endif

@@ -1,4 +1,5 @@
-OpenVi 7.0.1 -> Unreleased: Tue Jan 25 08:23:21 2022
+OpenVi 7.0.1 -> Unreleased: Tue Jan 25 8:36:27 2022
+	+ Bump version and use -dev to denote development version
 	+ Reformat ChangeLog for consistency; various spelling corrections
 	+ Update ChangeLog with OpenVi history
 	+ Format OpenBSD commits to ChangeLog format
