@@ -1,4 +1,6 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 13:34:29 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 13:39:19 2022
+	+ Build: Debugging builds now default to compiling with '-Wall -Wextra'
+	+ Build: Only pass '-pipe' to the compiler for non-debugging builds
 	+ Build: Expand the formatting of the usage help text
 	+ Build: Change DEBUG_VI flag to sinply DEBUG
 	+ Build: For debugging builds, document the use of -T (Trace) in usage

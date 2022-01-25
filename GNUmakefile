@@ -34,15 +34,15 @@ PREFIX ?= /usr/local
 ###############################################################################
 
 # Default CFLAGS
-CFLAGS += -pipe -std=gnu99 -I./cl -I./include -I. -MD
+CFLAGS += -std=gnu99 -I./cl -I./include -I. -MD
 
 # CFLAGS and LDFLAGS
 ifdef DEBUG
    # Debugging
-   CFLAGS  += -DDEBUG -g3 -ggdb -Og
+   CFLAGS  += -Wall -Wextra -DDEBUG -g3 -ggdb -Og
 else
    # Optimizing
-   CFLAGS  += $(OPTLEVEL) -fomit-frame-pointer
+   CFLAGS  += -pipe $(OPTLEVEL) -fomit-frame-pointer
 endif
 
 ifndef DEBUG
