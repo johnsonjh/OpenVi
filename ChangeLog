@@ -1,8 +1,11 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 13:39:19 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 13:47:31 2022
+	+ Documentation: Fix ChangeLog spelling and a minor typo
+
+OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
 	+ Build: Debugging builds now default to compiling with '-Wall -Wextra'
 	+ Build: Only pass '-pipe' to the compiler for non-debugging builds
 	+ Build: Expand the formatting of the usage help text
-	+ Build: Change DEBUG_VI flag to sinply DEBUG
+	+ Build: Change DEBUG_VI flag to simply DEBUG
 	+ Build: For debugging builds, document the use of -T (Trace) in usage
 	+ Build: Don't strip binary by default; add "install-strip" target
 	+ Build: Make clean targets more robust; warn if unable to remove 'bin'
@@ -33,7 +36,7 @@ OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 13:39:19 2022
 	+ Update GNUmakefile; correct a typo in a message
 	+ Update LICENSE text and formatting
 
-OpenBSD 7.0 -> OpenVi 7.0.1: Mon Jan 24 10:37:28 2022
+OpenBSD 7.0.0 -> OpenVi 7.0.1: Mon Jan 24 10:37:28 2022
 	+ OpenVi created supporting glibc-based Linux systems
 	+ Build: Create GNUmakefile
 	+ Build: Attempt to detect and use mtmalloc or jemalloc if available
