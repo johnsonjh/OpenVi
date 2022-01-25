@@ -1019,7 +1019,7 @@ VI(1)                     BSD General Commands Manual                    VI(1)
              commands, instead of initializing them as unset for each new com‐
              mand.
 
-     [1mescapetime [22m[1]
+     [1mescapetime [22m[2]
              The tenths of a second [1mex[22m/[1mvi [22mwaits for a subsequent key to com‐
              plete an ⟨escape⟩ key mapping.
 

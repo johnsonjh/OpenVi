@@ -217,7 +217,7 @@ cedit=""        noleftright     print=""        noslowopen      wraplen=0
 columns=80      lines=36        prompt          nosourceany     wrapmargin=0
 comment         nolisp          readonly        tabstop=8       wrapscan
 noedcompatible  nolist          noredraw        taglength=0     nowriteany
-escapetime=1    lock            remap           tags="tags"
+escapetime=2    lock            remap           tags="tags"
 noerrorbells    magic           report=5        term="xterm"
 exrc            matchtime=7     ruler           noterse
 noextended      mesg            scroll=17       notildeop

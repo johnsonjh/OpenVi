@@ -300,7 +300,7 @@ opts_init(SCR *sp, int *oargs)
 	(void)snprintf(b1, sizeof(b1),
 	    "cdpath=%s", (s = getenv("CDPATH")) == NULL ? ":" : s);
 	OI_b1(O_CDPATH);
-	OI(O_ESCAPETIME, "escapetime=1");
+	OI(O_ESCAPETIME, "escapetime=2");
 	OI(O_FILEC, "filec=\t");
 	OI(O_KEYTIME, "keytime=6");
 	OI(O_MATCHTIME, "matchtime=7");
