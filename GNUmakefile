@@ -63,16 +63,18 @@ endif
 ###############################################################################
 
 # Required POSIX tools
-AWK   ?= awk
-RMF   ?= rm -f
-LNS   ?= ln -fs
-MKDIR ?= mkdir -p
-CHMOD ?= chmod
-RMDIR ?= rmdir
-TEST  ?= test
-TRUE  ?= true
-CP    ?= cp -f
-CHOWN ?= chown
+AWK    ?= awk
+RMF    ?= rm -f
+LNS    ?= ln -fs
+MKDIR  ?= mkdir -p
+CHMOD  ?= chmod
+RMDIR  ?= rmdir
+TEST   ?= test
+TRUE   ?= true
+CP     ?= cp -f
+CHOWN  ?= chown
+PRINTF ?= printf
+SLEEP  ?= sleep
 
 ###############################################################################
 
@@ -239,12 +241,26 @@ common/options_def.h: common/options.awk common/options.c ex/ex_def.h
 
 ###############################################################################
 
-clean:
+clean distclean realclean mostlyclean:
 	$(RMF) ./common/options_def.h ./ex/ex_def.h
 	$(RMF) $(OBJS)
 	$(RMF) $(DEPZ)
-	$(RMF) ./bin/vi ./bin/ex ./bin/view
-	$(RMDIR) ./bin
+	$(TEST) -f ./bin/vi   && $(RMF)   ./bin/vi   || $(TRUE)
+	$(TEST) -e ./bin/ex   && $(RMF)   ./bin/ex   || $(TRUE)
+	$(TEST) -h ./bin/ex   && $(RMF)   ./bin/ex   || $(TRUE)
+	$(TEST) -e ./bin/view && $(RMF)   ./bin/view || $(TRUE)
+	$(TEST) -h ./bin/view && $(RMF)   ./bin/view || $(TRUE)
+	$(TEST) -d ./bin      && $(RMDIR)   ./bin      || $(TRUE)
+	-@$(TEST) -d ./bin    && $(PRINTF) '%s\n' \
+        "WARNING: Build directory './bin' could not be removed." || $(TRUE)
+
+maintainer-clean:
+	@$(PRINTF) '%s\n' \
+        'WARNING: This command is intended for maintainer use only!'
+	@$(PRINTF) '%s\n' \
+        'It may delete files that require special tools to rebuild.'
+	@$(SLEEP) 5
+	$(MAKE) -C . "distclean"
 
 ###############################################################################
 

@@ -1,4 +1,7 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 12:22:38 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 12:51:09 2022
+	+ Build: Make clean targets more robust; warn if unable to remove 'bin'
+	+ Build: Add standard "clean", "distclean", "realclean", "mostlyclean",
+	  and "maintainer-clean" targets to GNUmakefile.
 	+ Increase default escapetime to 2/10ths of a second
 	+ Add OpenBSD-compatible mkstemp function allowing for longer file names
 	+ Silence some potential warnings with explicit casting
