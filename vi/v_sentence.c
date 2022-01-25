@@ -287,7 +287,7 @@ ret:			slno = cs.cs_lno;
 			 * we can end up where we started.  Fix it.
 			 */
 			if (vp->m_start.lno != cs.cs_lno ||
-			    vp->m_start.cno != cs.cs_cno)
+			    vp->m_start.cno > cs.cs_cno)
 				goto okret;
 
 			/*
