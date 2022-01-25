@@ -7,7 +7,7 @@
 #DBLIB = -ldb185
 
 # Uncomment to enable debugging build
-#DEBUG_VI = 1
+#DEBUG = 1
 
 # Uncomment to link-time garbage collection for non-debugging builds
 LTGC = -fdata-sections -ffunction-sections 
@@ -37,7 +37,7 @@ PREFIX ?= /usr/local
 CFLAGS += -pipe -std=gnu99 -I./cl -I./include -I. -MD
 
 # CFLAGS and LDFLAGS
-ifdef DEBUG_VI
+ifdef DEBUG
    # Debugging
    CFLAGS  += -DDEBUG -g3 -ggdb -Og
 else
@@ -45,7 +45,7 @@ else
    CFLAGS  += $(OPTLEVEL) -fomit-frame-pointer
 endif
 
-ifndef DEBUG_VI
+ifndef DEBUG
     CFLAGS  += $(LTGC) $(LTOC)
     LDFLAGS += $(LTGL) $(LTOC)
 endif
