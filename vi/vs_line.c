@@ -22,7 +22,7 @@
 #include "vi.h"
 
 #ifdef VISIBLE_TAB_CHARS
-#define	TABCH	'-'
+#define	TABCH	'~'
 #else
 #define	TABCH	' '
 #endif

@@ -1,4 +1,5 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 16:05:24 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 10:02:18 2022
+	+ Build: Set visible tab character to '~'; expose option in GNUmakefile
 	+ Build: Installed binaries now prefixed with 'o' (e.g. 'ovi') by default
 	+ Build: Explicitly invoke a POSIX-compliant version of the awk utility
 	+ Build: Clarify (and simplify) GNUmakefile and build configuration

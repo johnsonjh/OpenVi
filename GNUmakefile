@@ -5,6 +5,7 @@
 # Default C compiler and CFLAGS
 CC          ?= cc
 CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
+#CFLAGS     += -DVISIBLE_TAB_CHARS
 
 # Uncomment to override BDB 1.8.5 emulation detection and/or library name
 #DB185       = 1
