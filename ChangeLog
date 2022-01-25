@@ -1,4 +1,5 @@
-OpenVi 7.0.1 -> Unreleased: Tue Jan 25 10:29:45 AM UTC 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 10:54:22 2022
+	+ Apply .exrc writability patch from hesso at pool.math.tu-berlin.de
 	+ If TERM is unset, set to null, or otherwise unknown, first attempt
 	  to fallback to "vt100"; exit with a fatal error if "vt100" fails.
 	+ Disallow pattern spaces which would cause intermediate

@@ -20,6 +20,8 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
 
 #include "../common/common.h"
 #include "tag.h"
@@ -366,9 +368,33 @@ exrc_isok(SCR *sp, struct stat *sbp, int *fdp, char *path, int rootown,
 	}
 
 	/* Check writeability. */
-	if (sbp->st_mode & (S_IWGRP | S_IWOTH)) {
+	if (sbp->st_mode & S_IWOTH) {
 		etype = WRITER;
 		goto denied;
+	}
+
+	struct group *grp_p;
+	struct passwd *pwd_p;
+
+	if (sbp->st_mode & S_IWGRP) {
+		/* on system error (getgrgid or getpwnam return NULL) set etype to WRITER
+		 * and continue execution */
+		if( (grp_p = getgrgid(sbp->st_gid)) == NULL) {
+			etype = WRITER;
+			goto denied;
+		}
+
+		/* lookup the group members' uids for an uid different from euid */
+		while( ( *(grp_p->gr_mem) ) != NULL) { /* gr_mem is a null-terminated array */
+			if( (pwd_p = getpwnam(*(grp_p->gr_mem)++)) == NULL) {
+				etype = WRITER;
+				goto denied;
+			}
+			if(pwd_p->pw_uid != euid) {
+				etype = WRITER;
+				goto denied;
+			}
+		}
 	}
 	return (RCOK);
 
