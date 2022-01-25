@@ -228,11 +228,10 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
 		 * (vi should have good locality) or smaller than 1K.
 		 */
 		psize = ((sb.st_size / 15) + 1023) / 1024;
-		if (psize > 10)
-			psize = 10;
-		if (psize == 0)
-			psize = 1;
-		psize *= 1024;
+		if (psize >= 8) psize=8<<10;
+		else if (psize >= 4) psize=4<<10;
+		else if (psize >= 2) psize=2<<10;
+		else psize=1<<10;
 
 		if (!S_ISREG(sb.st_mode))
 			msgq_str(sp, M_ERR, oname,
