@@ -1,67 +1,67 @@
 OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 10:06:44 2022
-	+ Clean-up: Remove two unused wrapper headers
-	+ Build: Set visible tab character to '~'; expose option in GNUmakefile
-	+ Build: Installed binaries now prefixed with 'o' (e.g. 'ovi') by default
-	+ Build: Explicitly invoke a POSIX-compliant version of the awk utility
-	+ Build: Clarify (and simplify) GNUmakefile and build configuration
-	+ Documentation: Fix ChangeLog spelling and a minor typo
-	+ Documentation: Update LICENSE text
+	+ Remove two unused wrapper headers
+	+ Set visible tab character to '~' and expose option in GNUmakefile
+	+ Installed binaries are now prefixed with 'o' (e.g. 'ovi') by default
+	+ Explicitly invoke the POSIX-compliant version of the awk utility
+	+ Clarify (and simplify) GNUmakefile and build configuration
+	+ Fix ChangeLog spelling and a minor typo
+	+ Update LICENSE text
 
 OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
-	+ Build: Debugging builds now default to compiling with '-Wall -Wextra'
-	+ Build: Only pass '-pipe' to the compiler for non-debugging builds
-	+ Build: Expand the formatting of the usage help text
-	+ Build: Change DEBUG_VI flag to simply DEBUG
-	+ Build: For debugging builds, document the use of -T (Trace) in usage
-	+ Build: Don't strip binary by default; add "install-strip" target
-	+ Build: Make clean targets more robust; warn if unable to remove 'bin'
-	+ Build: Add standard "clean", "distclean", "realclean", "mostlyclean",
-	  and "maintainer-clean" targets to GNUmakefile.
-	+ Increase default escapetime to 2/10ths of a second
-	+ Add OpenBSD-compatible mkstemp function allowing for longer file names
+	+ Debugging builds now default to compiling with '-Wall -Wextra'
+	+ Only pass '-pipe' to the compiler for non-debugging builds
+	+ Expand the formatting of the usage help text for readability
+	+ Change the DEBUG_VI GNUmakefile flag to simply DEBUG
+	+ For debugging builds, document the existence of -T (Trace) in usage
+	+ Don't strip the binary by default; add "install-strip" target
+	+ Make clean targets more robust; warn if unable to remove 'bin'
+	+ Add standard "clean", "distclean", "realclean", "mostlyclean", and
+	  "maintainer-clean" targets to GNUmakefile
+	+ Increase the default escapetime to 2/10ths of a second
+	+ Add OpenBSD-compatible mkstemp function allowing for longer filenames
 	+ Silence some potential warnings with explicit casting
-	+ Exit with error when screen is too small for visual mode
-	+ Apply Debian patch to fix backwards sentence moving
+	+ Exit with an error when screen is too small for visual mode
+	+ Apply Debian's patch to fix backwards sentence moving
 	+ Fix horizontal scroll count; patch from Debian
-	+ regexec: Change a #define to a typedef in regex library
-	+ Documentation: Fix some typos and minor errors in the tutorials
-	+ Update .gitignore to include patch/diff detritus; no binary change.
+	+ Change a #define to a typedef in regex library
+	+ Fix some typos and minor errors in the documentation and tutorials
+	+ Update .gitignore to include patch/diff detritus; no binary change
 	+ Adjust calculation to avoid "BDB0511 page sizes must be a power-of-2"
-	  warning; BDB 1.85 only cared if oage size was even; closes GH issue #3
+	  warning; BDB 1.85 only cared if page size was even; closes GH issue #3
 	+ Apply .exrc writeability patch from hesso at pool.math.tu-berlin.de
 	+ If TERM is unset, set to null, or otherwise unknown, first attempt
-	  to fallback to "vt100"; exit with a fatal error if "vt100" fails.
+	  to fallback to "vt100"; exit with a fatal error if "vt100" fails
 	+ Disallow pattern spaces which would cause intermediate
 	  calculations to overflow size_t. (CERT: VU#695940)
 	+ Bump version and use -dev to denote development version
 	+ Reformat ChangeLog for consistency; various spelling corrections
 	+ Update ChangeLog with OpenVi history
 	+ Format OpenBSD commits to ChangeLog format
-	+ Documentation: Clean-up legacy documentation, adjust formatting
+	+ Clean-up of legacy documentation; adjust formatting
 	+ Simplify GNUmakefile rules
 	+ Update GNUmakefile; correct a typo in a message
 	+ Update LICENSE text and formatting
 
 OpenBSD 7.0.0 -> OpenVi 7.0.1: Mon Jan 24 10:37:28 2022
 	+ OpenVi created supporting glibc-based Linux systems
-	+ Build: Create GNUmakefile
-	+ Build: Attempt to detect and use mtmalloc or jemalloc if available
-	+ BDB: Support builds with post-1.8.5 BerkeleyDB versions (using BDB
-	  1.8.5 emulation) but at the expense of preservation and recovery.
-	+ Documentation: Create initial README.md
+	+ Create GNUmakefile and adapt build system
+	+ Attempt to detect and use mtmalloc or jemalloc if available
+	+ Support builds with post-1.8.5 BerkeleyDB versions (using BDB
+	  1.8.5 emulation) but at the expense of preservation and recovery
+	+ Create initial README.md stub
 
 Mon Oct 25 14:17:24 2021
 	+ vi(1): fix use after free with unsaved buffer
 
 Sun Oct 24 21:24:15 2021
 	+ For open/openat, if the flags parameter does not contain
-	  O_CREAT, the 3rd (variadic) mode_t parameter is irrelevant.
+	  O_CREAT, the 3rd (variadic) mode_t parameter is irrelevant
 	  Many developers in the past have passed mode_t (0, 044, 0644,
 	  or such), which might lead future people to copy this broken
 	  idiom, and perhaps even believe this parameter has some meaning
 	  or implication or application. Delete them all. This comes out of
 	  a conversation where tb@ noticed that a strange (but intentional)
-	  pledge behaviour is to always knock-out high-bits from mode_t on a
+	  pledge behavior is to always knock-out high-bits from mode_t on a
 	  number of system calls as a safety factor, and his bewilderment
 	  that this appeared to be happening against valid modes (at least
 	  visually), but no sorry, they are all irrelevant junk. They could
@@ -70,30 +70,30 @@ Sun Oct 24 21:24:15 2021
 OpenBSD 6.9 -> OpenBSD 7.0: Thu Sep 2 11:19:02 2021
 	+ Make all signal handler functions async-signal-safe by
 	  deleting the redundant "killersig" struct member and using the
-	  existing sig_atomic_t cl_sigterm variable instead.
+	  existing sig_atomic_t cl_sigterm variable instead
 	+ While here, garbage collect the h_hup() signal handler which is
 	  essentially identical to h_term(). This also gets rid of the
-	  last #define & #undef in cl_main.c.
+	  last #define & #undef in cl_main.c
 
 Wed Sep 1 14:28:15 2021
 	+ As a first step towards safe signal handling, improve the
 	  h_int() and h_winch() signal handlers to make one single store
 	  to a sig_atomic_t variable. Note that the h_hup() and h_term()
 	  signal handlers are still unsafe after this commit because they
-	  also set the "killersig" (how fitting!) field in a global struct.
+	  also set the "killersig" (how fitting!) field in a global struct
 
 OpenBSD 6.8 -> OpenBSD 6.9: Tue Apr 13 15:39:21 2021
 	+ Require that the argument to the window option be non-zero. A
 	  zero-row window would not be usable (no room to edit) and the
 	  code is full of assumptions that "sp->t_rows - 1" >= 0. From
-	  Erik Ruotsalainen, fixes a bug reported by Paul de Weerd.
+	  Erik Ruotsalainen, fixes a bug reported by Paul de Weerd
 	+ Ignore expandtab setting when in command mode. Fixes things like
-	  searching for a literal tab character when expandtab is enabled.
-	  From nvi2 (leres). OK martijn@
+	  searching for a literal tab character when expandtab is enabled;
+	  from nvi2 (leres); OK martijn@
 
 Mon Mar 8 02:47:25 2021
 	+ Add some references, most of these were removed when we stopped
-	  building and installing USD/SMM/PSD docs.
+	  building and installing USD/SMM/PSD docs
 
 OpenBSD 6.7 -> OpenBSD 6.8: Tue Jan 26 18:19:43 2021
 	+ Satisfy -fno-common by repairing one enum decl; ok mortimer@
@@ -101,7 +101,7 @@ OpenBSD 6.7 -> OpenBSD 6.8: Tue Jan 26 18:19:43 2021
 OpenBSD 6.6 -> OpenBSD 6.7: Sun May 24 13:33:55 2020
 	+ Correct one statement about how the 'm' command works, talk
 	  less about ancient terminals, employ the more usual term "caret"
-	  rather than "up-arrow", and fix a few minor nits.
+	  rather than "up-arrow", and fix a few minor nits
 
 OpenBSD 6.5 -> OpenBSD 6.6: Thu Apr 30 10:40:21 2020
 	+ Add an expandtab option, similar to what vim supports. If set,
@@ -125,7 +125,7 @@ Mon Jul 22 12:39:02 2019
 
 OpenBSD 6.4 -> OpenBSD 6.5: Tue May 21 09:24:58 2019
 	+ Also apply stricter pledge when secure mode is set via rc file
-	  or command.
+	  or command
 
 OpenBSD 6.3 -> OpenBSD 6.4: Thu Jan 24 15:09:41 2019
 	+ Fix a crash on long lines when switching to another file by
@@ -133,30 +133,30 @@ OpenBSD 6.3 -> OpenBSD 6.4: Thu Jan 24 15:09:41 2019
 	  be reset when painting the screen. OK martijn@ otto@
 
 Mon Sep 17 15:41:17 2018
-	+ Use the strict pragma for better warnings.
+	+ Use the strict pragma for better warnings
 
 Fri Jul 13 20:06:10 2018
-	+ Remove cscope leftover and a stray comma.
-	+ Unused variable.
+	+ Remove cscope leftover and a stray comma
+	+ Unused variable
 
 Wed Jul 11 06:39:23 2018
 	+ Remove an old (and false) comment. REALLOC now free(3)s
-	  the code if realloc fails.
+	  the code if realloc fails
 
 OpenBSD 6.2 -> OpenBSD 6.3: Mon Feb 12 01:10:46 2018
 	+ Simplify documentation of split-screen mode, avoiding abuse
 	  of [] to sometimes mean "character set", which conflicts with
-	  the normal meaning of "optional element" in manual pages.
+	  the normal meaning of "optional element" in manual pages
 	+ While here, add a few related clarifications and tweak a
 	  few details. Triggered by a minor bug report from <trondd at
 	  kagu-tsuchi dot com>, and by bentley@ subsequently pointing out
 	  the abuse of []. Patch using input from jmc@, who also agreed
-	  with some previous versions.
+	  with some previous versions
 
 Sat Feb 3 15:44:36 2018
 	+ The recover script should have the same sanity checks as
 	  recover.c. Specifically, open files with O_NONBLOCK and enforce
-	  a mode of 0600.
+	  a mode of 0600
 
 Thu Dec 14 10:02:53 2017
 	+ Enable the awk scripts to generate ex_def.h and
@@ -166,7 +166,7 @@ Thu Dec 14 10:02:53 2017
 	  these scripts and figure out how to use them. By enabling them
 	  these headers are now always in sync based on the comments in
 	  the corresponding source files, which are a lot harder to miss
-	  during an update than an extra file.
+	  during an update than an extra file
 
 Sun Nov 26 09:59:41 2017
 	+ Fix segfault which could be triggered by deleting a backwards
@@ -175,25 +175,25 @@ Sun Nov 26 09:59:41 2017
 Fri Nov 10 18:31:36 2017
 	+ When tracing is compiled in make sure it flushes its content
 	  to disk as soon as the TRACE function is called. This helps
-	  while debugging crashes.
+	  while debugging crashes
 	+ Fix a use after free when sending SIGHUP or SIGTERM to vi when
-	  in editing mode.
+	  in editing mode
 	+ Add rcv_openat() function that does the open, makes sure it
-	  is a regular file with the expected permissions and locks it.
+	  is a regular file with the expected permissions and locks it
 	  Inspired by changes in NetBSD by Christos. OK martijn@
 	+ Avoid using system(3) when running "sendmail -t". We already
 	  have the recover file fd open so just run sendmail with stdin
 	  set to the recover file. OK martijn@
 
 OpenBSD 6.1 -> OpenBSD 6.2: Tue Aug 22 20:27:18 2017
-	+ Do not treat comma as part of the command modifier.
+	+ Do not treat comma as part of the command modifier
 
 Mon Jul 31 19:45:49 2017
 	+ Silence some warnings generated by clang. Original diff by
-	  espie@ with some minor tweaks by myself.
+	  espie@ with some minor tweaks by myself
 
 Thu Jul 20 08:37:48 2017
-	+ Replace usage of strtol() with strtonum().
+	+ Replace usage of strtol() with strtonum()
 
 Wed Jul 5 18:56:33 2017
 	+ Avoid double space caused by end-of-sentence detection
@@ -203,18 +203,18 @@ Wed Jul 5 18:56:33 2017
 Mon Jul 3 14:30:11 2017
 	+ Markup fixes
 	+ Remove settings that were unimplemented for 20 years; update
-	  STANDARDS.
+	  STANDARDS
 
 Fri Jun 30 14:42:05 2017
 	+ Add mdoc(7) macros to vi's built-in lists of roff
-	  paragraph/section macros.
+	  paragraph/section macros
 
 Sat Jun 24 16:30:47 2017
 	+ Fix a check in ADD_SPACE_{GOTO,RET} that potentially allowed
-	  for a NULL-dereference.
+	  for a NULL-dereference
 
 Tue Jun 20 07:32:56 2017
-	+ Better document the :s ex command and its variants.
+	+ Better document the :s ex command and its variants
 
 Thu Jun 15 06:44:47 2017
 	+ "10th's of a second" -> "tenths of a second"
@@ -232,20 +232,20 @@ Tue Apr 18 01:45:33 2017
 	+ free(NULL) is ok so use it; from Michael W. Bombardieri
 
 OpenBSD 6.0 -> OpenBSD 6.1: Fri Jan 20 00:55:52 2017
-	+ Nuke some excess whitespace.
+	+ Nuke some excess whitespace
 
 Sun Dec 18 18:28:38 2016
 	+ Use %zu/%d to print size_t/ssize_t. Cast recno_t
 	  (a.k.a. u_int32_t) to (unsigned long) to match %lu formats. Makes
-	  gcc happier and quieter.
-	+ Nuke more unused variables.
+	  gcc happier and quieter
+	+ Nuke more unused variables
 
 Sat Nov 5 16:21:56 2016
 	+ Remove syscall.ph from vi.recover
 
 Fri Sep 2 15:38:42 2016
 	+ Fix the begin of word issue in vi(1). Similar fix went in sed
-	  and ed.
+	  and ed
 
 OpenBSD 5.9 -> OpenBSD 6.0: Sat Aug 27 04:07:42 2016
 	+ Pull in <sys/time.h> for struct timespec and timeval
@@ -255,21 +255,21 @@ Sun Aug 14 21:47:16 2016
 
 Mon Aug 8 15:09:32 2016
 	+ /tmp and /var/tmp are the same, consistently use the former
-	  in both build/recover and documentation.
+	  in both build/recover and documentation
 
 Mon Aug 1 18:27:35 2016
-	+ Remove vi's "directory" option and TMPDIR support.
+	+ Remove vi's "directory" option and TMPDIR support
 
 Thu Jul 7 09:26:25 2016
-	+ biff, mesg, vi: only consider ACCESSPERMS for setting tty mode.
+	+ biff, mesg, vi: only consider ACCESSPERMS for setting tty mode
 
 Wed Jun 29 20:38:39 2016
 	+ If /tmp/vi.recover doesn't exist, don't create it. Warn once
-	  that it doesn't exist, afterwards fail silently.
+	  that it doesn't exist, afterwards fail silently
 
 Sat May 28 18:30:35 2016
 	+ Test if stdin is a terminal before resetting the tty state. Diff
-	  supplied by Kai Antweiler.
+	  supplied by Kai Antweiler
 
 Fri May 27 09:18:11 2016
 	+ Revert CHAR_T removal. Some signedness flaws were
@@ -278,22 +278,22 @@ Fri May 27 09:18:11 2016
 Sat May 7 14:03:01 2016
 	+ Free memory if realloc fails. The application is most likely
 	  to terminate after a failure, but if it does not we better clean
-	  up after ourselves.
+	  up after ourselves
 
 Thu May 5 20:36:41 2016
 	+ Remove __sigblockset. This is a leftover after the removal of
-	  the signal blocking code in common/gs.h rev 1.14.
+	  the signal blocking code in common/gs.h rev 1.14
 
 Mon May 2 20:51:35 2016
-	+ Remove pointless comment. getcwd(3) is safe.
-	+ Remove CHAR_T in favor of native types.
+	+ Remove pointless comment. getcwd(3) is safe
+	+ Remove CHAR_T in favor of native types
 
 Wed Apr 20 19:34:32 2016
-	+ Remove pointless reenter variable.
+	+ Remove pointless reenter variable
 
 Tue Apr 19 17:42:09 2016
-	+ Remove not implemented declaration of sscr_pty.
-	+ Remove some useless code.
+	+ Remove not implemented declaration of sscr_pty
+	+ Remove some useless code
 
 Wed Mar 30 06:38:40 2016
 	+ For some time now mandoc has not required MLINKS to function
@@ -306,21 +306,21 @@ OpenBSD 5.8 -> OpenBSD 5.9: Sat Mar 19 00:21:28 2016
 	  to solve it then replace memcpy(3) call by memmove(3)
 
 Thu Mar 17 03:44:05 2016
-	+ Add error checking for COLUMNS/LINES environment variables.
+	+ Add error checking for COLUMNS/LINES environment variables
 
 Sun Mar 13 18:30:43 2016
 	+ Remove an extra space before ^\ help message. Fixes alignment
 	  in viusage
 
 Thu Feb 11 16:34:12 2016
-	+ Update comment: the #ifdef VDSUSP was removed in r1.22.
+	+ Update comment: the #ifdef VDSUSP was removed in r1.22
 
 Tue Feb 9 07:41:12 2016
 	+ Avoid special characters; from Michael Reed
 
 Wed Feb 3 01:47:25 2016
 	+ Remove needless alias macros for malloc and calloc. No binary
-	  change. I got this upstreamed a few weeks ago.
+	  change. I got this up-streamed a few weeks ago
 
 Sat Jan 30 21:34:57 2016
 	+ /var/tmp is dead, long live /tmp
@@ -335,17 +335,17 @@ Wed Jan 27 22:38:12 2016
 
 Wed Jan 20 08:43:27 2016
 	+ Remove ARG_CHAR_T, a relic from when the code was written
-	  K&R style.
+	  K&R style
 
 Sat Jan 9 16:13:26 2016
 	+ decls before code; from Martijn van Duren
 
 Wed Jan 6 22:46:59 2016
-	+ Remove mention of message catalog dir.
+	+ Remove mention of message catalog dir
 	+ We don't use configure so this file is full of lies and we
-	  are better off without it.
-	+ Remove msgcat from the documentation.
-	+ Remove prototype for now-deleted f_msgcat().
+	  are better off without it
+	+ Remove msgcat from the documentation
+	+ Remove prototype for now-deleted f_msgcat()
 	+ Remove the actual message catalogs. From Martijn van Duren
 	+ Remove the msg_cat() function and adjust its former
 	  callers. From Martijn van Duren
@@ -358,46 +358,46 @@ Wed Jan 6 22:46:59 2016
 
 Mon Dec 28 19:24:01 2015
 	+ Use err() instead of custom perr() function. Also applied by
-	  nvi2 upstream; From Martijn van Duren.
+	  nvi2 upstream; From Martijn van Duren
 
 Mon Dec 7 20:39:19 2015
 	+ Remove needless type casts and corresponding type parameters
-	  from allocation macros. No binary change.
+	  from allocation macros. No binary change
 
 Thu Dec 3 08:13:15 2015
 	+ After inserting a backslash, don't treat ^H ^? or ^U as special
 	  cases. These days, ^V to escape is a universal feature and
-	  needing two keystrokes to delete backslashes is really annoying.
+	  needing two keystrokes to delete backslashes is really annoying
 
 Tue Nov 24 12:56:31 2015
-	+ Update the other documentation to match the new filec default.
-	+ Turn on filename tab completion in vi by default.
+	+ Update the other documentation to match the new filec default
+	+ Turn on filename tab completion in vi by default
 
 Mon Nov 23 09:03:01 2015
-	+ Remove Cscope references in documentation.
+	+ Remove Cscope references in documentation
 
 Fri Nov 20 04:12:19 2015
-	+ vi -S doesn't need proc or exec.
+	+ vi -S doesn't need proc or exec
 
 Thu Nov 19 19:30:44 2015
 	+ "tty proc exec", not "proc exec tty"
-	+ Remove Cscope support in vi.
+	+ Remove Cscope support in vi
 
 OpenBSD 5.7 -> OpenBSD 5.8: Sun Nov 15 01:22:36 2015
 	+ Vi needs flock, for those who haven't set nolock in .exrc
-	  for years...
-	+ Basic pledge for vi.
+	  for years
+	+ Basic pledge for vi
 
 Mon Sep 14 20:06:58 2015
-	+ Avoid .Ns right after .Pf, it's pointless.
-	+ In some cases, do additional cleanup in the immediate vicinity.
+	+ Avoid .Ns right after .Pf, it's pointless
+	+ In some cases, do additional cleanup in the immediate vicinity
 
 Tue Jul 7 18:34:12 2015
 	+ Fix a regression caused by timespec changes when vi is run
-	  without a file to edit. Based on a diff from Patrick Keshishian.
+	  without a file to edit. Based on a diff from Patrick Keshishian
 
 OpenBSD 5.6 -> OpenBSD 5.7: Fri Apr 24 21:48:31 2015
-	+ struct timespec/clock_gettime(3) conversion for vi(1).
+	+ struct timespec/clock_gettime(3) conversion for vi(1)
 
 Tue Apr 21 01:41:42 2015
 	+ init both fds passed to pipe as -1 instead of init'ing one
@@ -407,33 +407,33 @@ Sun Apr 19 01:10:59 2015
 	+ Don't lock the file for "vi -R" or "view". OK deraadt@
 
 Fri Apr 10 18:05:51 2015
-	+ This changes vi to use resizeterm(3) instead of reinitializing
-	  curses on window resizes, which was leaking massive amounts
-	  of memory.
+	+ This changes vi to use resizeterm(3) instead of re-initializing
+	  curses on window re-sizes, which was leaking massive amounts
+	  of memory
 
 Sun Mar 29 01:04:23 2015
 	+ Remove SA_INTERRUPT, HISTORIC_PRACTICE, and HISTORICAL_PRACTICE
 	  using unifdef. It seems clear that no one was using these
 	  (SA_INTERRUPT didn't even build the other way). Tweak comments
-	  as appropriate.
+	  as appropriate
 
 Sat Mar 28 12:54:37 2015
 	+ vi was using two separate isblank functions: one defined in
 	  <ctype.h> and the other #defined in common/key.h. There is no
 	  reason to have both. For consistency use the isblank function
 	  from <ctype.h>, remove the #define in common/key.h, and add
-	  #include <ctype.h> to the files that were missing the header.
+	  #include <ctype.h> to the files that were missing the header
 
 Fri Mar 27 04:11:25 2015
 	+ Some vi cleanup, unifdef's some signal blocking code that has
 	  never been enabled in our tree, also removes some stragglers
 	  from a global struct referencing nonexistent Tcl/TK and "IP
 	  support". And finally.. delete an empty file missed by earlier
-	  cleanup by bentley@.
+	  cleanup by bentley@
 
 Tue Mar 17 10:08:18 2015
 	+ Don't use the wrong escape for < and >. Tweak wording to match
-	  the page.
+	  the page
 
 Fri Mar 13 19:58:40 2015
 	+ Remove the first comma from constructs like ", and," and
@@ -442,10 +442,10 @@ Fri Mar 13 19:58:40 2015
 
 Tue Mar 10 00:10:59 2015
 	+ Display "Search wrapped" even when searching from the end of
-	  the file.
+	  the file
 
 Sat Feb 28 21:51:56 2015
-	+ Reduce usage of predefined strings in manpages.
+	+ Reduce usage of predefined strings in man pages
 
 Fri Feb 6 22:29:31 2015
 	+ Do not rely on unspecified behavior for the size_t overflow
@@ -453,41 +453,39 @@ Fri Feb 6 22:29:31 2015
 
 Fri Jan 16 06:39:28 2015
 	+ Replace <sys/param.h> with <limits.h> and other less dirty
-	  headers where possible.
-	+ Annotate <sys/param.h> lines with their current reasons.
-	+ Switch to PATH_MAX, NGROUPS_MAX, HOST_NAME_MAX+1, LOGIN_NAME_MAX,
-	  etc.
+	  headers where possible
+	+ Annotate <sys/param.h> lines with their current reasons
+	+ Switch to PATH_MAX, NGROUPS_MAX, HOST_NAME_MAX+1, LOGIN_NAME_MAX
 	+ Change MIN() and MAX() to local definitions of MINIMUM() and
 	  MAXIMUM() where sensible to avoid pulling in the pollution. These
 	  are the files confirmed through binary verification. ok guenther@,
 	  millert@, doug@ (helped with the verification protocol)
 
 Thu Nov 20 08:50:53 2014
-	+ Remove the vi perl api.
+	+ Remove the vi Perl API
 
 Wed Nov 19 03:42:40 2014
 	+ Remove ifdef checks for LIBRARY. It is undocumented and triggers
-	  the same conditional inclusions as PURIFY does.
+	  the same conditional inclusions as PURIFY does
 
 Fri Nov 14 20:27:03 2014
-	+ From natano: _PATH_BSHELL, _PATH_SENDMAIL, _PATH_TMP and
-	  _PATH_TTY are defined in <paths.h> and _PATH_SYSV_TTY is
-	  unused. All of them can be removed from pathnames.h. The other
-	  defines can be made unconditionally.
-	+ From natano: The 'tcl' command in vi does nothing,
-	  except to print the message "Vi was not loaded with a Tcl
-	  interpreter". Printing the standard message for unknown commands
-	  would be equally descriptive with the benefit of reducing
-	  code size.
-	+ From natano: The vi editor contains code for two different file
-	  locking methods - one using flock(), the other using fcntl(). The
-	  fcntl method is unused and has severe limitations (as described
-	  in a code comment). Let's remove it for sake of readability.
+	+ _PATH_BSHELL, _PATH_SENDMAIL, _PATH_TMP and _PATH_TTY are defined
+	  in <paths.h> and _PATH_SYSV_TTY is unused. All of them can be
+	  removed from pathnames.h. The other defines can be made
+	  unconditionally
+	+ The 'tcl' command in vi does nothing, except to print the message
+	  "Vi was not loaded with a Tcl interpreter". Printing the standard
+	  message for unknown commands would be equally descriptive with the
+	  benefit of reducing code size
+	+ The vi editor contains code for two different file locking methods;
+	  one using flock(), the other using fcntl(). The fcntl method is
+	  unused and has severe limitations (as described in a code comment);
+	  removed it for sake of readability
 
 Wed Nov 12 16:29:04 2014
 	+ Remove more portability bits for older systems; from Martin
 	  Natano
-	+ Ansify vi.
+	+ ANSIfy vi
 
 Mon Nov 10 21:40:11 2014
 	+ Remove various bits of autoconf cruft. from Martin Natano
@@ -495,54 +493,54 @@ Mon Nov 10 21:40:11 2014
 	+ Remove old, unnecessary compat code. from Martin Natano
 
 OpenBSD 5.5 -> OpenBSD 5.6: Thu Nov 6 11:35:02 2014
-	+ Clean up unused header files and docs referring to them.
-	+ Remove old curses support in vi.
+	+ Clean up unused header files and docs referring to them
+	+ Remove old curses support in vi
 
 OpenBSD 5.4 -> OpenBSD 5.5: Tue Oct 14 22:23:12 2014
 	+ Create a REALLOCARRAY macro, and use it where it gives us
 	  overflow protection for free ok guenther@
 
 Wed Oct 8 00:53:45 2014
-	+ Bump max columns out to 768. Screens are getting bigger...
+	+ Bump max columns out to 768 since screens are getting bigger
 
 Tue Sep 9 14:10:35 2014
 	+ We no longer need to convert "\<" and "\>" to "[[:<:]]" and
-	  "[[:>:]]" respectively now that the former is natively supported.
+	  "[[:>:]]" respectively now that the former is natively supported
 	  OK jsg@
 
 Thu Jul 10 20:33:42 2014
 	+ Add missing include file to bring in protos
 
 Sun Dec 1 20:22:34 2013
-	+ Change the file reference queue from CIRCLEQ to TAILQ.
-	+ Change the tags queue from CIRCLEQ to TAILQ.
-	+ Change the tag queue from CIRCLEQ to TAILQ.
-	+ Convert the ranges CIRCLEQ to TAILQ.
+	+ Change the file reference queue from CIRCLEQ to TAILQ
+	+ Change the tags queue from CIRCLEQ to TAILQ
+	+ Change the tag queue from CIRCLEQ to TAILQ
+	+ Convert the ranges CIRCLEQ to TAILQ
 
 Thu Nov 28 22:12:40 2013
 	+ Convert the display screens and hidden screens CIRCLEQ's
-	  to TAILQ's.
+	  to TAILQ's
 
 Wed Nov 27 08:52:41 2013
 	+ Zap some pointer casts became extra (and thus dangerous)
-	  after recent CIRCLEQ removal.
+	  after recent CIRCLEQ removal
 
 Tue Nov 26 17:48:01 2013
 	+ Fix a possible double-free/NULL deref in msg_print
-	+ Tweak a tortuous manual loop into a TAILQ_FOREACH().
+	+ Tweak a tortuous manual loop into a TAILQ_FOREACH()
 	+ Fix condition after CIRCLEQ -> TAILQ conversion; ok zhuk@
 	+ Fix incorrectly converted CIRCLEQ_END comparison to prevent
 	  NULL deref's
 
 Mon Nov 25 23:27:11 2013
-	+ Replace _texth CIRCLEQ with TAILQ. One down, five to go.
+	+ Replace _texth CIRCLEQ with TAILQ. One down, five to go
 
 OpenBSD 5.3 -> OpenBSD 5.4: Thu Aug 22 04:43:40 2013
 	+ Correct format string mismatches turned up by -Wformat=2
 
 Sat Jun 22 18:52:52 2013
 	+ Tweak optimization flags on landisk until I have time to
-	  investigate further.
+	  investigate further
 
 Tue May 14 11:51:41 2013
 	+ When ^W (WERASE) is hit in insert mode it's possible that the
@@ -554,7 +552,7 @@ Tue May 14 11:51:41 2013
 
 OpenBSD 5.2 -> OpenBSD 5.3: Fri May 3 20:43:25 2013
 	+ Use open(2) / fstat(2) instead of stat(2) / open(2) for checking
-	  proper permissions of "local" .exrc or .nexrc files.
+	  proper permissions of "local" .exrc or .nexrc files
 
 Mon Apr 29 00:28:23 2013
 	+ Use FD_CLOEXEC instead of 1; from David Hill
@@ -573,7 +571,7 @@ OpenBSD 5.0 -> OpenBSD 5.1: Tue Jan 17 08:18:36 2012
 OpenBSD 4.9 -> OpenBSD 5.0: Wed Dec 28 01:52:33 2011
 	+ These utilities were already part of 1BSD, and some authors
 	  are known. All facts from the CSRG archive CD 1, also available
-	  from minnie.tuhs.org. Feedback and OK sobrado@, ok jmc@.
+	  from minnie.tuhs.org. Feedback and OK sobrado@, ok jmc@
 
 Fri Jul 29 13:24:50 2011
 	+ Document vi/ex regular expressions, and where they differ from
@@ -598,7 +596,7 @@ Sun Apr 10 21:21:50 2011
 	+ Fix display glitch leading to crash. If we're reformatting,
 	  check the screens necessary to display the line and modify head
 	  or tail of the smap accordingly; since it might have changed
-	  due to e.g. smaller tabstop value.
+	  due to e.g. smaller tabstop value
 
 Thu Mar 31 20:40:51 2011
 	+ Add a BUFFERS section, to explain how they work; from Alexis
@@ -609,7 +607,7 @@ Thu Mar 17 11:34:53 2011
 	  sense for DESCRIPTION to point to SEE ALSO
 
 OpenBSD 4.7 -> OpenBSD 4.8: Wed Jan 5 14:01:32 2011
-	+ Fix typo, PR#6538.
+	+ Fix typo, PR#6538
 
 Mon Oct 18 14:42:16 2010
 	+ Remove references to now removed USD/PSD/SMM docs
@@ -617,7 +615,7 @@ Mon Oct 18 14:42:16 2010
 Sun Oct 17 22:54:37 2010
 	+ Stop installing me(1) and ms(1) source code. We will soon get
 	  rid of groff in base, so there is no longer any way to use
-	  these files with base. No opposition on tech@.
+	  these files with base. No opposition on tech@
 
 Wed Sep 29 07:44:56 2010
 	+ Various EXIT STATUS fixes; from Daniel Dickman
@@ -634,7 +632,7 @@ Sun Jul 18 21:45:01 2010
 Thu Jul 15 20:51:38 2010
 	+ More delimiters that need quoting inside macros, hunted down
 	  by jmc@, who asked me to commit because he is just running out
-	  of the door.
+	  of the door
 
 OpenBSD 4.6 -> OpenBSD 4.7: Sat May 29 06:40:00 2010
 	+ subsitution -> substitution; from Yoshihiro Ota, FreeBSD PR#130874
@@ -643,7 +641,7 @@ Sun Nov 22 22:51:58 2009
 	+ Fix for flash defaulting to off, pointed out by jmc@
 	+ Change the flash option to be off by default. Now that xterm
 	  has the flash capability in terminfo, vi was using it instead
-	  of beeping, but it is too slow for some machines.
+	  of beeping, but it is too slow for some machines
 
 Sun Nov 15 04:32:31 2009
 	+ Do not leak a lot of memory if a small memory allocation fails,
@@ -654,7 +652,7 @@ Sat Nov 14 17:44:53 2009
 
 Tue Oct 27 23:59:19 2009
 	+ Remove rcsid[] and sccsid[] and copyright[] that are essentially
-	  unmaintained (and unmaintainable). These days, people use source.
+	  unmaintained (and unmaintainable). These days, people use source
 	  These id's do not provide any benefit, and do hurt the small
 	  install media (the 33,000 line diff is essentially mechanical); ok
 	  with the idea millert@, ok dms@
@@ -664,12 +662,12 @@ OpenBSD 4.5 -> OpenBSD 4.6: Tue Oct 20 09:54:47 2009
 	  original printed edition of the User's Reference Manual from
 	  USENIX and O'Reilly. 4.4BSD had exactly this, that is much
 	  more accurate than our current description (while here, Jason
-	  observed that both FreeBSD and NetBSD do the same).
+	  observed that both FreeBSD and NetBSD do the same)
 
 Wed Jun 10 14:03:18 2009
 	+ Use poll() instead of select(). The sscr_check_input()
 	  bit is adapted from nvi 1.81. Tested by several people during
-	  the hackathon.
+	  the hackathon
 
 OpenBSD 4.4 -> OpenBSD 4.5: Tue Jun 2 00:21:32 2009
 	+ If the read from the tty fails with EAGAIN, pop back up to the
@@ -677,7 +675,7 @@ OpenBSD 4.4 -> OpenBSD 4.5: Tue Jun 2 00:21:32 2009
 	  the fd is ready. OK ray@
 
 Mon Apr 27 19:41:10 2009
-	+ It's called `msgcat', not `mesgcat'.
+	+ It's called `msgcat', not `mesgcat'
 
 Sun Apr 19 13:12:28 2009
 	+ Fix tagnext and tagprev; from Patrick Keshishian
@@ -690,23 +688,23 @@ Sun Feb 1 21:57:21 2009
 	+ Move variable declarations around to compile with GCC 2
 
 OpenBSD 4.3 -> OpenBSD 4.4: Wed Jan 28 21:30:43 2009
-	+ Remove undocumented support for "-e" in ex(1).
+	+ Remove undocumented support for "-e" in ex(1)
 	+ ex(1), vi(1), and view(1) have different synopses; each nex/nvi
 	  utility should manage the right set of options and return an
-	  appropriate usage when required.
+	  appropriate usage when required
 
 Thu Sep 25 11:37:03 2008
 	+ do not hard code the editor name in the message displayed by
 	  "-r" when there are no files to recover as this flag is used
-	  by ex(1) and view(1) too.
+	  by ex(1) and view(1) too
 
 Fri Aug 29 13:07:13 2008
 	+ Fix nvi's Cscope support in the case that someone provided a
-	  filename without a directory (e.g. :cscope add cscope.out).
+	  filename without a directory (e.g. :cscope add cscope.out)
 	  Found and fixed by Paul Irofti, with help from me; Thanks!
 
 OpenBSD 4.2 -> OpenBSD 4.3: Thu Jun 12 21:22:48 2008
-	+ Remove superfluous "usage:" from v_estr().
+	+ Remove superfluous "usage:" from v_estr()
 
 Fri Mar 28 17:58:20 2008
 	+ Minor ansification from Gleydson Soares
@@ -750,7 +748,7 @@ Wed May 30 04:41:33 2007
 	+ Note which options are extensions to POSIX
 
 OpenBSD 4.0 -> OpenBSD 4.1: Mon May 14 12:32:29 2007
-	+ Use sys/queue macros instead of accessing fields directly.
+	+ Use sys/queue macros instead of accessing fields directly;
 	  No binary change. ok krw@
 
 Tue Mar 27 18:24:06 2007
@@ -763,14 +761,14 @@ Tue Mar 20 03:56:12 2007
 
 Thu Dec 21 21:38:17 2006
 	+ Fix !command piping by Alexander Bluhm in PR#5325. Tested by
-	  quite a few on tech@.
+	  quite a few on tech@
 
 OpenBSD 3.9 -> OpenBSD 4.0: Mon Dec 11 20:50:54 2006
 	+ RFC 3834 support: Auto-Submitted: auto-generated on lots of
 	  things; from Tamas TEVESZ; ok millert@
 
 Fri Jul 7 12:05:10 2006
-	+ Don't add space for line numbers twice.
+	+ Don't add space for line numbers twice
 
 Sun Jun 18 20:41:24 2006
 	+ Fix memleak; From Coverity Scan, CID#3135. From simonb@ NetBSD
@@ -788,14 +786,14 @@ Fri Apr 28 19:48:15 2006
 
 Sat Apr 22 03:09:15 2006
 	+ Removes unused variables and rename variables shadowing
-	  external variables. No binary change.
+	  external variables; no binary change
 
 Mon Mar 20 01:00:36 2006
 	+ If we're in visual mode reading a command, check the termination
 	  value of v_tcmd() and bail if it's not TERM_OK as opposed to
 	  in a more specific case. This is based on the NetBSD ^C fix
 	  but after discussion with otto@. While it did not affect the
-	  specific crash it is more correct.
+	  specific crash it is more correct
 
 Wed Mar 15 23:43:27 2006
 	+ Handle ^C correctly, morph it to escape key so the input
@@ -808,13 +806,13 @@ Sat Mar 11 07:04:53 2006
 	+ Fixes the `optindx' might be used uninitialized in this function
 	  warning, fixes a spacing nit in a macro, and cleans up a very
 	  bad preprocessor abuse (``if LF_ISSET(OS_DEF)''!)
-	+ Silence 2 warnings.
-	+ Silence another 39 warnings.
-	+ Silence uninitialized variable warning.
+	+ Silence 2 warnings
+	+ Silence another 39 warnings
+	+ Silence uninitialized variable warning
 	+ Make FLUSH macro more function-like, so there are no hidden
-	  surprises. No binary change.
+	  surprises; no binary change
 	+ Initialize p to NULL to prevent gcc warning. Clarify a for
-	  statement.
+	  statement
 
 Sat Mar 4 16:18:04 2006
 	+ Fix "the the"
@@ -825,17 +823,17 @@ Fri Feb 17 19:12:41 2006
 
 OpenBSD 3.7 -> OpenBSD 3.8: Sun Jan 8 21:10:04 2006
 	+ Remove unused NADD_USLONG macro, and remove unused sp argument
-	  from NADD_SLONG; no functional change.
-	+ Fix one more uninitialized variable scenario; from Ray Lai.
+	  from NADD_SLONG; no functional change
+	+ Fix one more uninitialized variable scenario; from Ray Lai
 	+ Make sure we can exit from a loop in v_key_init() regardless
-	  of the locale we're in; from Ray Lai.
+	  of the locale we're in; from Ray Lai
 	+ Appease GCC 3 and the C gods by fixing a couple of undefined
-	  statements; from Ray Lai.
+	  statements; from Ray Lai
 	+ Explicit braces around macro fields and logical operations,
-	  gets rid of 148 warnings, no functional change.
+	  gets rid of 148 warnings, no functional change
 
 OpenBSD 3.6 -> OpenBSD 3.7: Mon Oct 17 19:04:19 2005
-	+ Use queue macros instead of directly accessing fields.
+	+ Use queue macros instead of directly accessing fields
 	  ok pat@ "put it in" deraadt@
 
 Thu Apr 21 15:39:31 2005
@@ -861,13 +859,13 @@ Sat Jan 8 05:22:25 2005
 	  "comment" and "leftright" are used)
 	+ Move a line of code which was "obviously" misplaced. This
 	  fixes a core dump when auto-completing filenames and at least
-	  one of the file names is larger than the screen width.
+	  one of the file names is larger than the screen width
 	+ When an error occurs in v_txt(), leave input mode
 	  too. Otherwise, (among other things) db_get() thinks it can
 	  re-use the TEXT buffers when it's not true, leading to a crash
 	  because that TEXT buffer will be released just before it is
 	  actually used to create a new one. From NetBSD, fixes NetBSD
-	  PR#21797.
+	  PR#21797
 	+ Move the license into the body of the man page; ok millert@
 
 Fri Jan 7 15:04:02 2005
@@ -940,7 +938,7 @@ Mon Jan 12 18:16:50 2004
 	+ Install vi.ref in /usr/share/doc/usd (directories already
 	  exist for it). OK jmc@
 	+ There is no typewriter font in nroff so just use the roman font
-	  instead. Fixes bizarre font problems formatting vi.ref via nroff.
+	  instead. Fixes bizarre font problems formatting vi.ref via nroff
 	  OK jmc@
 	+ Use a 5n margin on the right & left sides so the text version
 	  formats nicely. OK jmc@
@@ -982,7 +980,7 @@ Fri Aug 1 16:47:25 2003
 
 Mon Jul 21 16:21:12 2003
 	+ Updated license from nvi-1.81.5 since we will be pulling in
-	  patches from it.
+	  patches from it
 	+ Merge back some changes from skimo's tree, fixes endless
 	  recursions in vs_paint() for some option combinations. ok millert@
 
@@ -998,7 +996,7 @@ Wed Jul 2 00:21:16 2003
 
 OpenBSD 3.2 -> OpenBSD 3.3: Tue Jun 3 02:56:05 2003
 	+ Remove the advertising clause in the UCB license which Berkeley
-	  rescinded 22 July 1999. Proofed by myself and Theo.
+	  rescinded 22 July 1999. Proofed by myself and Theo
 
 Fri Apr 25 23:44:08 2003
 	+ Oops; Fix comment
@@ -1031,11 +1029,11 @@ OpenBSD 3.1 -> OpenBSD 3.2: Tue Nov 19 17:00:22 2002
 	  FreeBSD, pointed out by glebius@rinet.ru in PR#2552
 
 OpenBSD 3.0 -> OpenBSD 3.1: Wed Jun 12 06:07:15 2002
-	+ A real pid_t cleanup.
+	+ A real pid_t cleanup
 
 Tue Feb 19 19:39:35 2002
 	+ We live in an ANSI C world; Remove lots of gratuitous #ifdef
-	  __STDC__ cruft.
+	  __STDC__ cruft
 	+ Oops, fix a left out ';'
 
 Mon Feb 18 23:56:10 2002
@@ -1047,9 +1045,9 @@ Sun Feb 17 19:42:18 2002
 
 Sat Feb 16 21:27:05 2002
 	+ Part one of userland __P removal. Done with a simple regexp
-	  with some minor hand editing to make comments line up correctly.
+	  with some minor hand editing to make comments line up correctly
 	  Another pass is forthcoming that handles the cases that could
-	  not be done automatically.
+	  not be done automatically
 
 OpenBSD 2.9 -> OpenBSD 3.0: Thu Jan 31 11:10:39 2002
 	+ Bug-fix picked up from NetBSD, and checked by pval: : date:
@@ -1058,7 +1056,7 @@ OpenBSD 2.9 -> OpenBSD 3.0: Thu Jan 31 11:10:39 2002
 	  the (newer) CUT_LINE_TO_EOL define in common/cut.h and using
 	  it : where due. : Bug reported on current-users by Masanori
 	  Kanaoka <kanaoka@ann.hi-ho.ne.jp> : diagnosed by Bang Jun-Young
-	  <bjy@mogua.org>, : quick-fixed by Robert Elz <kre@munnari.OZ.AU>.
+	  <bjy@mogua.org>, : quick-fixed by Robert Elz <kre@munnari.OZ.AU>
 
 Mon Nov 19 19:02:13 2001
 	+ Kill more registers
@@ -1074,7 +1072,7 @@ Wed Sep 19 02:43:19 2001
 	+ Define ENTIRE_LINE to be -1 instead of 0 because we may want
 	  to copy 0 characters, and use ENTIRE_LINE instead of hard coding
 	  0 in a few places. Fixes a bug when dw on an empty line would
-	  delete only the empty line, but copy the next line too.
+	  delete only the empty line, but copy the next line too
 	+ Fix a bug where ^@ wouldn't behave as expected when reading
 	  an ex command from vi. From NetBSD, ok millert@
 
@@ -1083,7 +1081,7 @@ Mon Sep 17 04:42:55 2001
 	  ok millert@
 
 Sat Sep 15 15:41:19 2001
-	+ Obvious omissions.
+	+ Fix obvious omissions
 
 Tue Sep 11 22:31:29 2001
 	+ Locale ru_SU is obsolete, replace with ru_RU mickey@ ok
@@ -1091,7 +1089,7 @@ Tue Sep 11 22:31:29 2001
 Sat Aug 18 20:35:13 2001
 	+ Range check snprintf() return value
 	+ Fix a pasto I made when adding snprintf() return val checks
-	  ages ago.
+	  ages ago
 
 Fri Jul 20 18:48:03 2001
 	+ Make this work, after espie changed other mk behaviours
@@ -1114,9 +1112,9 @@ Mon May 28 22:44:32 2001
 
 Wed Jan 17 00:57:33 2001
 	+ Don't dump core when a ``bad address'' error occurs and there
-	  is neither a file nor a command underlying it.
+	  is neither a file nor a command underlying it
 	+ Fix NetBSD PR#11543; the fix is from
-	  Aymeric Vincent <aymeric@netbsd.org>.
+	  Aymeric Vincent <aymeric@netbsd.org>
 
 OpenBSD 2.7 -> OpenBSD 2.8: Thu Jan 11 04:56:52 2001
 	+ grep() returns a list of aliases to entries in the original
@@ -1127,7 +1125,7 @@ OpenBSD 2.7 -> OpenBSD 2.8: Thu Jan 11 04:56:52 2001
 Fri Nov 17 05:46:48 2000
 	+ OpenBSD already has queue.h and this one gets in the way since
 	  OpenBSD includes expect macros in sys/queue.h that the vi queue.h
-	  didn't have.
+	  didn't have
 	+ Userland programs should not include sys/select.h
 
 Sun Oct 22 00:16:27 2000
@@ -1135,7 +1133,7 @@ Sun Oct 22 00:16:27 2000
 	  millert@
 
 Thu Oct 12 09:38:19 2000
-	+ When checking mmap return, check for MAP_FAILED, not -1.
+	+ When checking mmap return, check for MAP_FAILED, not -1
 
 Fri Sep 15 07:13:43 2000
 	+ Check return value for setenv(3) for failure, and deal
@@ -1150,25 +1148,24 @@ Fri Apr 21 17:06:13 2000
 	  /var/tmp/vi.recover to get an fd and user O_NOFOLLOW to following
 	  a symlink. Once we have a file handle we can use it to safely
 	  chdir to the right place and form then on do operations relative
-	  to ".". Also restrict to root.
+	  to ".". Also restrict to root
 
 Thu Apr 20 15:24:24 2000
 	+ If recovery dir is not owned by root, chown it. If the mode
 	  is not 01777, fix that too. This is safe because the script is
-	  run before user processes start.
+	  run before user processes start
 
 Thu Mar 9 21:24:02 2000
-	+ Pull in fnctl modeul so we are sure to get O_* for sysopen().
+	+ Pull in fnctl modeul so we are sure to get O_* for sysopen()
 
 Sat Jan 22 22:57:35 2000
-	+ Some minor doc updates that should have gotten committed
-	  ages ago.
+	+ Some minor doc updates that should have gotten committed ages ago
 
 OpenBSD 2.5 -> OpenBSD 2.6: Thu Jan 20 18:19:45 2000
 	+ Use sysopen() when opening recover files. This is purely
 	  paranoia since we check that the filename matches '^recover'
 	  and hence the first character cannot play games with Perl's
-	  magic open().
+	  magic open()
 
 Fri Nov 26 22:49:08 1999
 	+ Update README files etc. from nvi-1.79 so they have the
@@ -1180,7 +1177,7 @@ Fri Nov 26 22:49:08 1999
 
 Mon Oct 11 20:07:19 1999
 	+ Rewrite in Perl for safety and paranoia. It might have been
-	  possible to play tricks with file names that include spaces.
+	  possible to play tricks with file names that include spaces
 
 Sat Jul 10 10:09:48 1999
 	+ Fix a SEGV after you HUP vi; dean@netbsd.org
@@ -1210,14 +1207,14 @@ Wed Mar 3 01:22:33 1999
 OpenBSD 2.3 -> OpenBSD 2.4: Mon Feb 8 01:26:56 1999
 	+ Don't call curses routines beep() or flash() if the screen has
 	  not been setup yet (as they will try to us SP which is NULL at
-	  this point).
+	  this point)
 
 Fri Jul 24 00:43:40 1998
-	+ Man pages Xrefs.
+	+ Man pages Xrefs
 	+ -D_USE_OLD_CURSE_ for -locurses and no more -ltermlib/-ltermcap
 
 OpenBSD 2.2 -> OpenBSD 2.3: Tue Jun 23 22:40:25 1998
-	+ Fix snprintf return value usage.
+	+ Fix snprintf return value usage
 
 OpenBSD 2.1 -> OpenBSD 2.2: Sat Apr 25 05:45:30 1998
 	+ Fix relative tags in vi; Frank Mayhar <frank@exit.com>
@@ -1228,1191 +1225,1191 @@ Wed Sep 24 21:31:56 1997
 
 Tue Sep 23 07:12:42 1997
 	+ Make building with ocurses/termcap and curses/termlib
-	  conditional on USE_OCURSES being defined, and define it for now.
-	  This switches nvi back to use BSD curses.
+	  conditional on USE_OCURSES being defined, and define it for now
+	  This switches nvi back to use BSD curses
 
 Nvi 1.79 -> OpenBSD 2.1: Sun Aug 24 19:15:25 1997
 	+ Check for >= UINT_MAX not > UINT_MAX
-	+ 64bit fix wrt strtoul(3). Fix send to Keith.
+	+ 64bit fix wrt strtoul(3); fix sent to Keith
 	
-Nvi 1.78 -> 1.79: 10/23/1996
-	+ Rename delete() to del(), for C++.
-	+ Add Spanish to the list of translations.
-	+ Update to Perl 5.003_06, and other Perl interpreter updates.
-	+ Update the set-edit-option interface for the scripting languages.
+Nvi 1.78 -> Nvi 1.79: 10/23/1996
+	+ Rename delete() to del(), for C++
+	+ Add Spanish to the list of translations
+	+ Update to Perl 5.003_06, and other Perl interpreter updates
+	+ Update the set-edit-option interface for the scripting languages
 	+ Rework ex command parsing to match historic practice for backslash
-	  escaped <newline> characters inside of global commands.
-	+ Enhance the comment edit option to skip C++ comments.
+	  escaped <newline> characters inside of global commands
+	+ Enhance the comment edit option to skip C++ comments
 	+ Change installation to configure the recovery shell script to match
-	  the system pathnames and to install it into the vi data directory.
+	  the system pathnames and to install it into the vi data directory
 	  Move the recover script into the build directory, and delete the
-	  recover directory.
-	+ Enhance LynxOS support.
+	  recover directory
+	+ Enhance LynxOS support
 
-Nvi 1.76 -> 1.78: 10/1/1996
+Nvi 1.76 -> Nvi 1.78: 10/1/1996
 	+ Fix bugs when both the leftright scrolling and number edit options
-	  were on.
+	  were on
 	+ Fix bug where splitting in the middle of the screen could repaint
-	  incorrectly.
-	+ Fix first-nul in input bug, where random garbage was inserted.
+	  incorrectly
+	+ Fix first-nul in input bug, where random garbage was inserted
 	+ Correct search and mark-as-motion-command bug, it's a line mode
-	  action if the search starts at or before the first non<blank>.
-	+ Fix bug autoindent bug, where ^D could shift too far in the line.
-	+ Fix core dump where ! command called from the .exrc file.
+	  action if the search starts at or before the first non<blank>
+	+ Fix bug autoindent bug, where ^D could shift too far in the line
+	+ Fix core dump where ! command called from the .exrc file
 	+ Add the -S command-line option, which initializes vi to have the
-	  secure edit option preset.
+	  secure edit option preset
 
-Nvi 1.75 -> 1.76: 9/15/1996
-	+ Fix bug where ^V didn't keep input mapping from happening.
-	+ Fix a core dump bug in the R command.
-	+ Give up on licensing: no more shareware, adware, whatever.
-	+ Fix cursor positioning bug for C, S and c$ in an empty file.
+Nvi 1.75 -> Nvi 1.76: 9/15/1996
+	+ Fix bug where ^V didn't keep input mapping from happening
+	+ Fix a core dump bug in the R command
+	+ Give up on licensing: no more shareware, adware, whatever
+	+ Fix cursor positioning bug for C, S and c$ in an empty file
 
-Nvi 1.74 -> 1.75: 8/22/1996
-	+ Add French to the error message translations.
-	+ Move the UNLICENSED message to the end of the message line.
+Nvi 1.74 -> Nvi 1.75: 8/22/1996
+	+ Add French to the error message translations
+	+ Move the UNLICENSED message to the end of the message line
 	+ Fix bug where wide characters in a file name weren't calculated
-	  correctly in the status message.
-	+ Fix bug where cl_rename was called directly, by the ex shell code.
+	  correctly in the status message
+	+ Fix bug where cl_rename was called directly, by the ex shell code
 	+ Fix bug where splitting a screen resulting in a new screen at the
-	  top of the display resulted in badly displayed status messages.
+	  top of the display resulted in badly displayed status messages
 
-Nvi 1.73 -> 1.74: 8/18/1996
+Nvi 1.73 -> Nvi 1.74: 8/18/1996
 	+ Fix bug where the status line wasn't redisplayed if the user ran
-	  an ex command that trashed the screen.
+	  an ex command that trashed the screen
 	+ Fix bug where the long version of the status line wasn't displayed
-	  when switching screens.
+	  when switching screens
 	+ Rework fast-path filename completion code to sort the entries, and
-	  strip out . and .. by default.
+	  strip out . and .. by default
 	+ Fix bug where ex went to the first line instead of the last one when
-	  reading in a file.
+	  reading in a file
 
-Nvi 1.72 -> 1.73: 8/12/1996
-	+ Do filename completion and some file expansion internally for speed.
-	+ Fix CSCOPE_DIRS environmental variable support.
-	+ Ex parser fix for global commands in script files.
+Nvi 1.72 -> Nvi 1.73: 8/12/1996
+	+ Do filename completion and some file expansion internally for speed
+	+ Fix CSCOPE_DIRS environmental variable support
+	+ Ex parser fix for global commands in script files
 	+ Add the O_PATH option, so you can specify a directory search path
-	  for files.
+	  for files
 	+ Make it possible to specify the database file to Cscope, allowing
-	  multiple databases in a single directory.
+	  multiple databases in a single directory
 	+ Fix incremental search to overwrite erased characters so the user
-	  can tell where they are on the colon-command line.
+	  can tell where they are on the colon-command line
 	+ Fix incremental search to restart the search if the user enters an
-	  un-escaped shell meta character.
+	  un-escaped shell meta character
 
-Nvi 1.71 -> 1.72: 7/12/1996
-	+ Cscope fix: test for files newer than the database was reversed.
-	+ Display "files to edit" message for rewind, next and initial screen.
+Nvi 1.71 -> Nvi 1.72: 7/12/1996
+	+ Cscope fix: test for files newer than the database was reversed
+	+ Display "files to edit" message for rewind, next and initial screen
 	+ Fix a bug in the R command where it could fail if the user extended
-	  the file.
-	+ Fix a bug where text abbreviations could corrupt the line.
+	  the file
+	+ Fix a bug where text abbreviations could corrupt the line
 	+ Fix a bug where the windowname edit option couldn't be set before a
-	  file was loaded into the edit buffer.
+	  file was loaded into the edit buffer
 	+ Fix a bug where the system .exrc values weren't being overridden by
-	  the user's $HOME .exrc values.
+	  the user's $HOME .exrc values
 	+ Fix a bug in the filename completion code, where garbage characters
-	  could be added to the colon command line.
+	  could be added to the colon command line
 	+ Fix bug where multiple edit sessions on a non-existent file could
-	  all write the file without warning.
+	  all write the file without warning
 	+ Fix bug where screen update was incorrect if a character triggered
-	  both a wrapmargin and showmatch condition.
+	  both a wrapmargin and showmatch condition
 	+ Fix bug in leftright scrolling where <CR> during text input didn't
-	  return the cursor to the left margin.
+	  return the cursor to the left margin
 	+ Rev the Perl interpreter code, new version from Sven Verdoolaege,
-	  based on Perl 5.003.01.
-	+ Fix bug in tags file pattern search introduced in 1.71.
+	  based on Perl 5.003.01
+	+ Fix bug in tags file pattern search introduced in 1.71
 
-Nvi 1.70 -> 1.71: 7/1/1996
-	+ Don't include <term.h> as neither HP-UX or Solaris can cope with it.
+Nvi 1.70 -> Nvi 1.71: 7/1/1996
+	+ Don't include <term.h> as neither HP-UX or Solaris can cope with it
 	+ Fix bug where ^M's in the original pattern were converted into new
-	  lines in the file during substitution commands.
-	+ Make window resize events separate from interrupts -- too many users
-	  complained.
-	+ Fix bug in first-character-is-null text input semantic.
+	  lines in the file during substitution commands
+	+ Make window resize events separate from interrupts - too many users
+	  complained
+	+ Fix bug in first-character-is-null text input semantic
 	+ Rework search routines to take a length instead of a NULL terminated
 	  string for a pattern. This fixes a couple of bugs in searching, but
-	  probably introduces new ones.
+	  probably introduces new ones
 	+ Fix prompting the user after a write filter command, the way I did
-	  it in 1.70 broke the display.
+	  it in 1.70 broke the display
 	+ Don't switch to the alternate xterm screen when entering the ex
-	  text input commands from vi mode.
+	  text input commands from vi mode
 	+ Implement the Fg command, so can foreground a background screen into
-	  a split screen.
+	  a split screen
 	+ Change the fg command to match screen names using the last component
-	  of the filename the full filename fails.
+	  of the filename the full filename fails
 
-Nvi 1.69 -> 1.70: 6/28/1996
-	+ Change the ex read command to support named pipes.
+Nvi 1.69 -> Nvi 1.70: 6/28/1996
+	+ Change the ex read command to support named pipes
 	+ Copy the EXINIT/NEXINIT strings before executing their commands so
-	  we don't step on the process environment.
+	  we don't step on the process environment
 	+ Don't do "line modification" reports for intermediate commands
 	  executed from the vi colon command line, it screws up filter
-	  reads, causing nvi to prompt for the user to continue.
-	+ Add "smd" as an abbreviation for showmode: HP, ICL and SCO have it.
-	+ Change nvi to always prompt the user after a write filter command.
-	  This matches historic practice.
+	  reads, causing nvi to prompt for the user to continue
+	+ Add "smd" as an abbreviation for showmode: HP, ICL and SCO have it
+	+ Change nvi to always prompt the user after a write filter command
+	  to match historic practice
 	+ Fix recovery information mailed to the user to reflect the program's
-	  installed name.
+	  installed name
 	+ Change configuration script to not cache option information, e.g.,
-	  --disable-curses.
+	  --disable-curses
 	+ Fix a bug where the second character of the vi [[, ]] and ZZ
-	  commands could start a command mapped sequence.
+	  commands could start a command mapped sequence
 	+ Fix 3 write bugs: partial writes (3,$write), were clearing the
 	  modified flag, full writes using line numbers (1,$write) were
 	  not, and append historically never cleared the modified flag, and
-	  we didn't get that right.
+	  we didn't get that right
 	+ Shorten the "more files to edit" message so it can gang on a single
-	  line, lots of people have complained.  Add the number of files that
-	  are left to edit, it's historic practice.
+	  line, lots of people have complained. Add the number of files that
+	  are left to edit, it's historic practice
 	+ Fix core dump where message catalogs collided with truncating the
 	  write path.  Add a new write message so the string "appended" is
-	  taken from a message catalog.
+	  taken from a message catalog
 	+ Fix bug where an undo followed by '.' to repeat it wouldn't work
-	  if no other repeatable commands had been entered.
+	  if no other repeatable commands had been entered
 	+ Fix core dump when resolution of input lines' autoindent characters
-	  invalidated cached display information.
+	  invalidated cached display information
 	+ Set the name of the X11 xterm icon/window to "xterm" when exiting,
-	  if modified based on the windowname option.
+	  if modified based on the windowname option
 	+ Include <term.h> if it exists, fixes portability problems on IRIX
-	  systems.
+	  systems
 
-Nvi 1.68 -> 1.69: 6/17/1996
+Nvi 1.68 -> Nvi 1.69: 6/17/1996
 	+ Add the windowname edit option and code to change the icon/window
-	  name for xterm's.
-	+ Enhance the comment edit option to skip shell comments.
-	+ Add conditional prototypes to replacement C library functions.
-	+ Minor enhancements/reworking to Makefile.in, other build files.
+	  name for xterm's
+	+ Enhance the comment edit option to skip shell comments
+	+ Add conditional prototypes to replacement C library functions
+	+ Minor enhancements/reworking to Makefile.in, other build files
 	+ Fix bug in vi text input ^D processing, could result in cursor
-	  warp to the beginning of the line.
+	  warp to the beginning of the line
 	+ Fix leftright screen bug where the screen wasn't repainted when
-	  being repainted from scratch.
-	+ Update the Swedish and Dutch catalogs.
-	+ Truncate paths in write commands if they don't fit on one line.
+	  being repainted from scratch
+	+ Update the Swedish and Dutch catalogs
+	+ Truncate paths in write commands if they don't fit on one line
 	+ Fix alternate screen bug where the screen flashed and output lost
 	  when switching to/from the X11 xterm alternate screen. Fix bug
 	  where nvi switched into the alternate screen during filter-read
-	  commands, which doesn't match historic practice.
+	  commands, which doesn't match historic practice
 	+ Minor relative cursor positioning change, make cursor position
-	  changes from ex real and permanent.
+	  changes from ex real and permanent
 
-Nvi 1.67 -> 1.68: 6/9/1996
-	+ Fix core dump when tagging out of a modified file.
+Nvi 1.67 -> Nvi 1.68: 6/9/1996
+	+ Fix core dump when tagging out of a modified file
 
-Nvi 1.66 -> 1.67: 6/9/1996
-	+ Convert the license to adware.
-	+ Leftright scrolling tweak, don't repaint the screen as often.
+Nvi 1.66 -> Nvi 1.67: 6/9/1996
+	+ Convert the license to adware
+	+ Leftright scrolling tweak, don't repaint the screen as often
 	+ Change so that search warning/error messages don't appear during an
-	  incremental search.
-	+ Cscope fix: test for files newer than the database was reversed.
-	+ Don't display ex `welcome message' if in ex batch mode.
+	  incremental search
+	+ Cscope fix: test for files newer than the database was reversed
+	+ Don't display ex `welcome message' if in ex batch mode
 	+ Test for vsnprintf and snprintf separately, HP 10.10 has snprintf
-	  but not vsnprintf.
-	+ Reverse lookup order between LC_MESSAGES and LANG.
-	+ Fix Tcl/Perl core dumps in common API code to get/set options.
-	+ Fix R command -- it used a DB pinned page after discarding it.
-	+ Minor fixes in multiple edit buffer message handling code.
-	+ Fix yk command moving to shorter line core dump.
+	  but not vsnprintf
+	+ Reverse lookup order between LC_MESSAGES and LANG
+	+ Fix Tcl/Perl core dumps in common API code to get/set options
+	+ Fix R command - it used a DB pinned page after discarding it
+	+ Minor fixes in multiple edit buffer message handling code
+	+ Fix yk command moving to shorter line core dump
 	+ Rework message handling to try and gang more messages onto a single
-	  line.
+	  line
 
-Nvi 1.65 -> 1.66: 5/18/1996
-	+ Convert vi man page to historic -man macro package, and install it.
+Nvi 1.65 -> Nvi 1.66: 5/18/1996
+	+ Convert vi man page to historic -man macro package, and install it
 	+ Fix bug were !! on an empty line with a nonexistent command left the
-	  cursor on the second character, not the first.
+	  cursor on the second character, not the first
 	+ Fix bug where line redisplay was wrong when a <tab> replaced a
-	  previous <tab> in the line.
-	+ Fix bug where D (d$) didn't reset the relative cursor position.
-	+ Fix bug where yG incorrectly reset the relative cursor position.
-	+ Fix bug where the window size couldn't be grown once it was shrunk.
-	+ Fix bug where the extended edit option caused tag searches to fail.
+	  previous <tab> in the line
+	+ Fix bug where D (d$) didn't reset the relative cursor position
+	+ Fix bug where yG incorrectly reset the relative cursor position
+	+ Fix bug where the window size couldn't be grown once it was shrunk
+	+ Fix bug where the extended edit option caused tag searches to fail
 	+ If multiple lines in the tags file with the same leading tag, build
 	  a tags stack like the Cscope stack. This is the obvious extension,
-	  and the way that Larry McVoy's ctags program works.
+	  and the way that Larry McVoy's ctags program works
 	+ Send the appropriate TI/TE sequence in the curses screen whenever
 	  entering ex/vi mode. This means that :shell now shows the correct
-	  screen when using xterm alternate screens.
+	  screen when using xterm alternate screens
 	+ Rework the options display code to get five columns in an 80 column
-	  screen.
-	+ Interactive UNIX V3.0 port -- mostly file name shortening, other
-	  minor changes. Only preliminary, more work will be necessary.
-	+ Add debugging option to not read EXINIT/.exrc information.
+	  screen
+	+ Interactive UNIX V3.0 port - mostly file name shortening, other
+	  minor changes. Only preliminary, more work will be necessary
+	+ Add debugging option to not read EXINIT/.exrc information
 	+ Fix bug where re_compile printed an error message to the screen
-	  when the user entered [ to an incremental search.
-	+ Turn off screen beeps when incremental search is failing.
-	+ Fix bug where the iclower option didn't trigger an RE recompilation.
+	  when the user entered [ to an incremental search
+	+ Turn off screen beeps when incremental search is failing
+	+ Fix bug where the iclower option didn't trigger an RE recompilation
 	+ Fix bug where -t into an already locked file forced the user to wait
-	  as if a startup command had failed.
-	+ LynxOS port -- mostly adding <sys/types.h> even though <sys/param.h>
-	  was already included.
+	  as if a startup command had failed
+	+ LynxOS port - mostly adding <sys/types.h> even though <sys/param.h>
+	  was already included
 	+ Fix ex output bug, where it appeared as if an ex command was skipped
-	  due to flags not being cleared in the vs_msg() routine.
-	+ Fix core dump when global command tried to switch screens.
+	  due to flags not being cleared in the vs_msg() routine
+	+ Fix core dump when global command tried to switch screens
 
-Nvi 1.64 -> 1.65: 5/13/1996
+Nvi 1.64 -> Nvi 1.65: 5/13/1996
 	+ Fix Cscope <blank>-matching pattern to use extended RE's, and bug
-	  that kept Cscope from finding patterns containing <blank>s.
+	  that kept Cscope from finding patterns containing <blank>s
 	+ Fix core dumps in both leftright and folded screens when tabstops
 	  edit option value was large, and tab characters occurred as the last
-	  character in the logical screen.
+	  character in the logical screen
 	+ Fix core dump where the second screen of a folded line wasn't
-	  displayed correctly.
+	  displayed correctly
 	+ Fix incremental search to match the current location for strings
-	  starting with \< patterns.
-	+ Fix bug where margins were ignored during replay of text input.
+	  starting with \< patterns
+	+ Fix bug where margins were ignored during replay of text input
 	+ Fix bug where motion components to shorter lines could lose because
 	  the relative motion flags weren't ever set. This has been broken
-	  forever, but the change almost certainly breaks something else -- I
-	  have no idea what.
+	  forever, but the change almost certainly breaks something else - I
+	  have no idea what
 	+ Tags display: don't print the current entry separately, display
-	  them all and add a trailing asterisk for the current one.
+	  them all and add a trailing asterisk for the current one
 	+ Change the Cscope add command to put the directory name through
-	  standard file name expansion.
-	+ Fix Cscope use of buffers -- search commands weren't NULL-terminated.
+	  standard file name expansion
+	+ Fix Cscope use of buffers - search commands weren't NULL-terminated
 
-Nvi 1.63 -> 1.64: 5/8/1996
-	+ Add installation target to the Makefile.
+Nvi 1.63 -> Nvi 1.64: 5/8/1996
+	+ Add installation target to the Makefile
 	+ Add documentation on the new tags commands to the Vi Reference
-	  Manual.
-	+ Make the sidescroll edit option work again.
-	+ Fix bug where messages output during startup by ex could be lost.
+	  Manual
+	+ Make the sidescroll edit option work again
+	+ Fix bug where messages output during startup by ex could be lost
 	+ Change ex/vi commands errors into beeps, unless the verbose edit
-	  option is set -- there are too many macros that are expected to
-	  eventually fail. This matches historic practice.
-	+ Truncate paths in initial vi screen if they won't fit on one line.
-	+ Make cursor position after filter write match historic practice.
+	  option is set - there are too many macros that are expected to
+	  eventually fail. This matches historic practice
+	+ Truncate paths in initial vi screen if they won't fit on one line
+	+ Make cursor position after filter write match historic practice
 	+ Force the user to wait if there is output and the user is leaving
-	  the screen for any reason -- don't permit further ex commands.
+	  the screen for any reason - don't permit further ex commands
 	+ Don't use a <newline> character to scroll the screen when exiting,
-	  scroll in the vi screen before endwin() is called.
+	  scroll in the vi screen before endwin() is called
 	+ Fix bug where the column number could be incorrect because the old
-	  screen wasn't updated after a screen split.
-	+ Fix ex print routine to correctly specify print flags.
-	+ Make -g/-O a separate make/configuration option.
-	+ Fix bug where ex/vi messages weren't being joined.
-	+ Fix bug where termcap strings were free'd twice.
-	+ Fix bug where TI/TE still weren't working -- I didn't put in the
-	  translation strings for BSD style curses.
-	+ Fix bug where I misspelled the iclower edit option as icloser.
+	  screen wasn't updated after a screen split
+	+ Fix ex print routine to correctly specify print flags
+	+ Make -g/-O a separate make/configuration option
+	+ Fix bug where ex/vi messages weren't being joined
+	+ Fix bug where termcap strings were free'd twice
+	+ Fix bug where TI/TE still weren't working - I didn't put in the
+	  translation strings for BSD style curses
+	+ Fix bug where I misspelled the iclower edit option as icloser
 
-Nvi 1.62 -> 1.63: 4/29/1996
-	+ Robustness and type/lint fixes for the Tcl interface code.
-	+ Fix core dump if TERM wasn't set or terminal type was unknown.
+Nvi 1.62 -> Nvi 1.63: 4/29/1996
+	+ Robustness and type/lint fixes for the Tcl interface code
+	+ Fix core dump if TERM wasn't set or terminal type was unknown
 	+ Fix bug where combining ex commands that did/did not require an
 	  ex screen would overwrite the command with the want-to-continue
-	  message.
+	  message
 	+ Fix bug where the screen was never resolved if the user continued
 	  entering ex commands using the : character, but then backspaced
 	  over the prompt to quit or tried to edit their colon command-line
-	  history.
+	  history
 	+ Fix bug where cursor wasn't placed over the ^ placeholder character
-	  when quoting using the literal-next character.
+	  when quoting using the literal-next character
 	+ Fix bug where nvi under BSD style curses wasn't sending TI/TE termcap
-	  strings when suspending the process.
-	+ Rename mic again, to iclower.
+	  strings when suspending the process
+	+ Rename mic again, to iclower
 	+ Fix bug where 'z' commands trailing / or ? commands weren't being
-	  executed.
+	  executed
 	+ Change incremental search to leave the cursor at its last position
-	  when searching for something that was never found.
+	  when searching for something that was never found
 	+ Fix bug where search-with-confirmation from vi mode didn't position
-	  the cursor correctly after displaying the confirm message.
+	  the cursor correctly after displaying the confirm message
 	+ Fix bug where the "search wrapped" message was dependent on the
 	  verbose edit option, which doesn't match historic practice. Change
-	  search messages to be in inverse video.
+	  search messages to be in inverse video
 	+ Fix bug where matched showmatch character wasn't being displayed
-	  before the matching character was displayed.
-	+ Another cursor update bug required a change to vs_paint().
+	  before the matching character was displayed
+	+ Another cursor update bug required a change to vs_paint()
 	+ Fix bug were initial line offset was wrong for the first split screen
-	  (symptom is very strange column numbers and blank first line).
-	+ Create filename "argument" lists when creating new screens.
+	  (symptom is very strange column numbers and blank first line)
+	+ Create filename "argument" lists when creating new screens
 	+ Fix bug where globals with associated commands that included both
-	  buffer execution and other commands could fail to execute the latter.
+	  buffer execution and other commands could fail to execute the latter
 
-Nvi 1.61 -> 1.62: 4/22/1996
-	+ Rename the "searchci" edit option to be "mic".
-	+ Fix memory corruption in global commands ending in searches.
+Nvi 1.61 -> Nvi 1.62: 4/22/1996
+	+ Rename the "searchci" edit option to be "mic"
+	+ Fix memory corruption in global commands ending in searches
 	+ Fix text resolution bug, corrected the cursor based on the
-	  first line input, not the last.
-	+ Rework the readonly edit option to match historic practice.
+	  first line input, not the last
+	+ Rework the readonly edit option to match historic practice
 	+ Fix several minor incremental search bugs; make incremental
-	  searches work in maps.
+	  searches work in maps
 	+ Fix long-line core dump, where an incorrect screen map could be
-	  used.
+	  used
 
-Nvi 1.60 -> 1.61: 4/12/1996
+Nvi 1.60 -> Nvi 1.61: 4/12/1996
 	+ The cursor now ends up on the FIRST character of the put text for
 	  all versions of the vi put commands, regardless of the source
-	  of the text. This matches System III/V behavior and POSIX 1003.2.
-	+ Fixed bug where showmatch messages were getting discarded.
-	+ Minor Perl integration fixes.
-	+ Integrate Cscope into the tags stack code -- major change.
-	+ Fixed bug where ^T would drop core if returning to a temporary file.
+	  of the text. This matches System III/V behavior and POSIX 1003.2
+	+ Fixed bug where showmatch messages were getting discarded
+	+ Minor Perl integration fixes
+	+ Integrate Cscope into the tags stack code - major change
+	+ Fixed bug where ^T would drop core if returning to a temporary file
 	+ Changed vs_ routine to display ex output to replace tab characters
-	  with spaces.
+	  with spaces
 	+ Fix autoindent code to not back up past beginning of line when ^T
-	  inserted into the middle of a line, i.e. offset != 0.
-	+ Fix "notimeout" option, was being ignored, by a coding error.
-	+ Fix showmatch code to never flash on a match if keys are waiting.
+	  inserted into the middle of a line, i.e. offset != 0
+	+ Fix "notimeout" option, was being ignored, by a coding error
+	+ Fix showmatch code to never flash on a match if keys are waiting
 	+ Change the vi 'D' command to ignore any supplied count, matching
-	  historic practice.
-	+ Fix viusage for D, S, C and Y (the aliased vi commands).
-	+ Fix the Perl5 configuration bug in the configuration script.
-	+ Make file completion commands in empty lines work.
+	  historic practice
+	+ Fix viusage for D, S, C and Y (the aliased vi commands)
+	+ Fix the Perl5 configuration bug in the configuration script
+	+ Make file completion commands in empty lines work
 	+ Fix where the change to let vi use the default ex command structure
-	  broke the ex specification of the script or source file name.
+	  broke the ex specification of the script or source file name
 	+ Fix to free saved RE structures when screens exit. This is a major
 	  RE change, which fixed several bugs in the handling of saved/subst
-	  RE's. It's likely to have added new bugs, however.
-	+ Add case-independent searching (the searchci edit option).
-	+ Add incremental search (the searchincr edit option).
-	+ Home the cursor when executing ex commands from vi.
+	  RE's. It's likely to have added new bugs, however
+	+ Add case-independent searching (the searchci edit option)
+	+ Add incremental search (the searchincr edit option)
+	+ Home the cursor when executing ex commands from vi
 
-Nvi 1.59 -> 1.60: 3/29/1996
-	+ Fix ":w >>" core dump, make that command match historic practice.
+Nvi 1.59 -> Nvi 1.60: 3/29/1996
+	+ Fix ":w >>" core dump, make that command match historic practice
 	+ Fix autoindent bug where the length of the line was incorrectly
-	  calculated.
+	  calculated
 	+ Fix cursor bug where cursor could end up at the wrong place if the
-	  movement keys were entered quickly enough.
+	  movement keys were entered quickly enough
 	+ Change the read/write whirling indicator to appear only every 1/4
-	  second, clean up the appearance.
+	  second, clean up the appearance
 	+ Don't change the options real values until underlying functions
-	  have returned OK -- fix "set tabstop=0" core dump.
-	+ Fix resizing on Sun's: use SA_INTERRUPT to interrupt read calls.
+	  have returned OK - fix "set tabstop=0" core dump
+	+ Fix resizing on Sun's: use SA_INTERRUPT to interrupt read calls
 	+ Fix two forward mark command bugs: one where it wasn't setting the
 	  "favorite cursor" position because of the refresh optimization,
 	  and one where it didn't have VM_RCM_SET set in the command flags
-	  for some reason.
+	  for some reason
 	+ Fix a bug were the 's' command on top of a <tab> didn't correctly
-	  copy the buffer.
+	  copy the buffer
 	+ Make :exusage command work for commands having optional leading
-	  capital letters, e.g. Next.
+	  capital letters, e.g. Next
 	+ Previous changes broke the inital-matching-prefix code in the key
-	  mapping part of v_event_get -- fix it, and fix the infinite macro
-	  interrupt code at the same time.
-	+ Add "cedit" edit option, so colon command-line editing is optional.
+	  mapping part of v_event_get - fix it, and fix the infinite macro
+	  interrupt code at the same time
+	+ Add "cedit" edit option, so colon command-line editing is optional
 	  Change filec/cedit so that you can set them to the same character,
-	  and they do cedit if in column 1, and filec otherwise.
-	+ Fix "source of non-existent file" core dump.
+	  and they do cedit if in column 1, and filec otherwise
+	+ Fix "source of non-existent file" core dump
 	+ Fix bug where functions keys specified in startup information were
-	  never resolved/activated.
+	  never resolved/activated
 	+ Fix v_txt bug where could infinitely loop if <escape> triggered an
-	  abbreviation expansion.
+	  abbreviation expansion
 	+ Move version string into VERSION file, out of ex_version.c
 
-Nvi 1.58 -> 1.59
+Nvi 1.58 -> Nvi 1.59
 	+ Configuration changes, several minor bug fixes, including a few
-	  core dumps. No functional changes.
+	  core dumps. No functional changes
 
-Nvi 1.57 -> 1.58
+Nvi 1.57 -> Nvi 1.58
 	+ Fix the problem where colon command-line temporary files were
-	  getting left in /tmp.
+	  getting left in /tmp
 	+ Fix the configuration scripts to quit immediately if the Perl
-	  or Tk/Tcl libraries are specified but not found.
-	+ Several screen fixes -- the changes in 1.57 weren't as safe as
+	  or Tk/Tcl libraries are specified but not found
+	+ Several screen fixes - the changes in 1.57 weren't as safe as
 	  I thought. More specifically, the refresh-only-if-waiting change
 	  caused a lot of problems. In general, fixing them should provide
-	  even more speedup, but I'm nervous.
+	  even more speedup, but I'm nervous
 	+ Lots of changes in the configuration scripts, hopefully this is
-	  just a first-round ordeal.
-	+ Several other minor bug fixes.
+	  just a first-round ordeal
+	+ Several other minor bug fixes
 
-Nvi 1.56 -> 1.57
-	+ Add <esc> hook to colon commands, so you can edit colon commands.
-	+ Add Perl5 interpreter.
+Nvi 1.56 -> Nvi 1.57
+	+ Add <esc> hook to colon commands, so you can edit colon commands
+	+ Add Perl5 interpreter
 	+ Change shell expansion code to fail if it doesn't read at least
 	  one non-blank character from the shell. If the shell expansion
 	  process fails, or if not at least one non-blank character, it
-	  now displays an error message to the user.
+	  now displays an error message to the user
 	+ Rework the screen display so that it matches the historic vi screen
-	  refreshes.
+	  refreshes
 	+ Rework options processing: print/noprint are no longer cumulative,
 	  provide more information to underlying edit options modules, move
-	  O_MESG information into the screen specific code.
-	+ Make file completion character settable.
-	+ Rework terminal restart -- you can now use ":set term" to switch
-	  terminal types. This cleaned up screen resizing considerably.
-	+ Character display fix, display \177 as ^?, not in hex/octal.
-	+ Tag search bug fix, don't repeat search if successful.
-	+ Replace sys_siglist[] use with private sigmsg() routine.
-	+ Fix core dump if illegal screenId specified to Tcl routine.
-	+ Add get/set mark interface to Tcl Interpreter interface.
+	  O_MESG information into the screen specific code
+	+ Make file completion character settable
+	+ Rework terminal restart - you can now use ":set term" to switch
+	  terminal types. This cleaned up screen resizing considerably
+	+ Character display fix, display \177 as ^?, not in hex/octal
+	+ Tag search bug fix, don't repeat search if successful
+	+ Replace sys_siglist[] use with private sigmsg() routine
+	+ Fix core dump if illegal screenId specified to Tcl routine
+	+ Add get/set mark interface to Tcl Interpreter interface
 	+ Fix core dump if file expansion code stressed (re: filec edit option)
-	+ Fix bug where filter commands in empty files couldn't find line 0.
-	+ Switch to GNU autoconf 2.7 for configuration, delete nvi/PORT.
-	  Many random portability fixes.
+	+ Fix bug where filter commands in empty files couldn't find line 0
+	+ Switch to GNU autoconf 2.7 for configuration, delete nvi/PORT
+	  Many random portability fixes
 
-Nvi 1.55 -> 1.56: 11/26/1995
-	+ Bug fix release -- generally available beta release.
+Nvi 1.55 -> Nvi 1.56: 11/26/1995
+	+ Bug fix release - generally available beta release
 
-Nvi 1.54 -> 1.55: 11/18/1995
-	+ Bug fix release.
-	+ Integrate Tcl interpreter.
+Nvi 1.54 -> Nvi 1.55: 11/18/1995
+	+ Bug fix release
+	+ Integrate Tcl interpreter
 
-Nvi 1.53 -> 1.54: 11/11/1995
+Nvi 1.53 -> Nvi 1.54: 11/11/1995
 	+ Bug fix release. A major change in reworking the ex commands, when
 	  called from the colon command line, to match historic practice, and
-	  permit them to be entered repeatedly after ex has trashed the screen.
+	  permit them to be entered repeatedly after ex has trashed the screen
 	+ Use restart-able endwin() from System V curses to implement screen
-	+ suspend.
+	  suspend
 
-Nvi 1.52 -> 1.53: 10/29/1995
-	+ Switch to using vendor's curses library for all ports.
-	+ Back out the event driven version, leaving screen separation.
-	+ User configuration of <escape> timeout (the escapetime edit option).
-	+ Add Tcl/Tk screen support.
-	+ Add file name completion (the filec edit option).
-	+ Disallow access to outside applications (the secure edit option).
+Nvi 1.52 -> Nvi 1.53: 10/29/1995
+	+ Switch to using vendor's curses library for all ports
+	+ Back out the event driven version, leaving screen separation
+	+ User configuration of <escape> timeout (the escapetime edit option)
+	+ Add Tcl/Tk screen support
+	+ Add file name completion (the filec edit option)
+	+ Disallow access to outside applications (the secure edit option)
 
-Nvi 1.51 -> 1.52: 7/26/1995
+Nvi 1.51 -> Nvi 1.52: 7/26/1995
 	+ Minor cleanups
-	+ Snapshot for SMI.
+	+ Snapshot for SMI
 
-Nvi 1.50 -> 1.51: 7/5/1995
+Nvi 1.50 -> Nvi 1.51: 7/5/1995
 	+ Lots and lots of changes for event driven model, largely in moving
-	  the boundary between the screen code and the editor up and down.
-	  Private release for Rob Zimmermann @ Tartan and Bill Shannon @ SMI.
+	  the boundary between the screen code and the editor up and down
+	  Private release for Rob Zimmermann @ Tartan and Bill Shannon @ SMI
 
-Nvi 1.49 -> 1.50: Fri Jun 9 13:56:17 1995
-	+ Minor bug fixes for stability.
+Nvi 1.49 -> Nvi 1.50: Fri Jun 9 13:56:17 1995
+	+ Minor bug fixes for stability
 	+ Convert to an event driven model, with the usual Nachos Supreme
 	  layering that results. This is a completely new version, nothing
-	  done previously matters any more.
+	  done previously matters any more
 
-Nvi 1.48 -> 1.49: Wed Mar 8 10:42:17 1995
-	+ Changes in 1.46 broke ^A processing.
-	+ Add :previous to split screen commands.
-	+ Lots o' random bug fixes -- passes purify testing again.
+Nvi 1.48 -> Nvi 1.49: Wed Mar 8 10:42:17 1995
+	+ Changes in 1.46 broke ^A processing
+	+ Add :previous to split screen commands
+	+ Lots o' random bug fixes - passes purify testing again
 
-Nvi 1.47 -> 1.48: Thu Feb 9 18:13:29 1995
-	+ Random bug fixes for 1.47.
+Nvi 1.47 -> Nvi 1.48: Thu Feb 9 18:13:29 1995
+	+ Random bug fixes for 1.47
 	+ Move the FREF (file structure) list out of the screen and into
-	  the global area.
-	+ Change semantics to :E to more closely match :e -- ":E" joins
+	  the global area
+	+ Change semantics to :E to more closely match :e - ":E" joins
 	  the current file, so ":E /tmp" is now the command to match the
-	  historic ":split".
+	  historic ":split"
 
-Nvi 1.46 -> 1.47: Wed Feb 8 19:43:41 1995
+Nvi 1.46 -> Nvi 1.47: Wed Feb 8 19:43:41 1995
 	+ All ex commands (including visual and excluding global and v)
-	  are now supported inside ex global commands.
+	  are now supported inside ex global commands
 	+ Rework the append/change/insert commands to match historic
 	  practice for text appended to the ex command line, and inside
-	  of ex global commands.
-	+ Restructure to make single-line screens work.
-	+ Restructure to create curses independent screen routines.
+	  of ex global commands
+	+ Restructure to make single-line screens work
+	+ Restructure to create curses independent screen routines
 	+ Restructure to permit Edit, Next, and Tag routines to create new
-	  screens on the fly.
-	+ Change hexadecimal output to be \x## instead of 0x##.
+	  screens on the fly
+	+ Change hexadecimal output to be \x## instead of 0x##
 	+ Change ex commands run from vi to stay in vi mode for as long as
-	  possible, i.e. until ex modifies the screen outside of the editor.
+	  possible, i.e. until ex modifies the screen outside of the editor
 
-Nvi 1.45 -> 1.46: Tue Jan 24 10:22:27 1995
-	+ Restructure to build as a library.
+Nvi 1.45 -> Nvi 1.46: Tue Jan 24 10:22:27 1995
+	+ Restructure to build as a library
 
-Nvi 1.44 -> 1.45: Thu Jan 12 21:33:06 1995
-	+ Fix relative cursor motion to handle folded lines.
-	+ Recompile the search pattern if applicable edit options change.
-	+ Change +/-c command ordering to match historic practice.
+Nvi 1.44 -> Nvi 1.45: Thu Jan 12 21:33:06 1995
+	+ Fix relative cursor motion to handle folded lines
+	+ Recompile the search pattern if applicable edit options change
+	+ Change +/-c command ordering to match historic practice
 	+ Rework autoindent code to always resolve preceding <blank>
-	  characters when a ^T or ^D are entered.
+	  characters when a ^T or ^D are entered
 	+ Add the print/noprint edit options, so can now specify if
-	  a character is printable.
-	+ Change ex to run in canonical mode.
-	+ Fix ex text input to support the number edit option.
+	  a character is printable
+	+ Change ex to run in canonical mode
+	+ Fix ex text input to support the number edit option
 	+ Vi text input fix for the R command to correctly restore
-	  characters entered and then backspaced over.
-	+ Several vi increment command fixes.
+	  characters entered and then backspaced over
+	+ Several vi increment command fixes
 
-Nvi 1.43 -> 1.44
+Nvi 1.43 -> Nvi 1.44
 	+ Bug fix, vi was printing the last line number on the status line
-	  at startup. Change to execute commands at first line set, i.e.
-	  "vi -t tag -c cmd" executes cmd at the tag line, not EOF.
+	  at startup. Change to execute commands at first line set,
+	  i.e. "vi -t tag -c cmd" executes cmd at the tag line, not EOF
 
-Nvi 1.42 -> 1.43: Sat Dec 3 13:11:32 1994
-	+ Marks, SunOS signed comparison fix for 1.42.
+Nvi 1.42 -> Nvi 1.43: Sat Dec 3 13:11:32 1994
+	+ Marks, SunOS signed comparison fix for 1.42
 
-Nvi 1.41 -> 1.42: Fri Dec 2 20:08:16 1994
-	+ Make autowrite require the file not be read-only.
-	+ Make the ex insert command work in empty files.
+Nvi 1.41 -> Nvi 1.42: Fri Dec 2 20:08:16 1994
+	+ Make autowrite require the file not be read-only
+	+ Make the ex insert command work in empty files
 	+ Tab expansion is no longer limited to values < 20 (which matches
-	  historical practice).
+	  historical practice)
 	+ Simplify (and fix limit detection for) the # command. It's no
 	  longer possible to use the # command itself to repeat or modify
-	  a previous # command, '.' is the only possibility.
+	  a previous # command, '.' is the only possibility
 	+ Lots more reworking of the ex addresses, putting ? and / into
-	  the ex addressing code broke the world.
-	+ Make the Put, Preserve and Print commands work (don't ask).
+	  the ex addressing code broke the world
+	+ Make the Put, Preserve and Print commands work (don't ask)
 	+ Split stdout/stderr from shell expansions; stdout is expansion
-	  text, stderr is entered on the message queue.
+	  text, stderr is entered on the message queue
 
-Nvi 1.40 -> 1.41: Fri Nov 18 16:13:52 1994
+Nvi 1.40 -> Nvi 1.41: Fri Nov 18 16:13:52 1994
 	+ Addition of a port for AUX 3.1
-	+ Addition of a message catalog for Russian.
-	+ Make vi ? and / commands be true ex addresses (historic practice).
-	+ Display the date first in vi -r recovery list.
+	+ Addition of a message catalog for Russian
+	+ Make vi ? and / commands be true ex addresses (historic practice)
+	+ Display the date first in vi -r recovery list
 
-Nvi 1.39 -> 1.40: Mon Nov 14 10:46:56 1994
-	+ Two bug fixes for 1.39; -r option and v_change core dump.
+Nvi 1.39 -> Nvi 1.40: Mon Nov 14 10:46:56 1994
+	+ Two bug fixes for 1.39; -r option and v_change core dump
 
-Nvi 1.38 -> 1.39: Sun Nov 13 18:04:08 1994
+Nvi 1.38 -> Nvi 1.39: Sun Nov 13 18:04:08 1994
 	+ Ex substitution with confirmation now matches historic practice
-	  (except that it still runs in raw mode, not cooked).
+	  (except that it still runs in raw mode, not cooked)
 	+ Nvi now clears the screen before painting, if repainting the
-	  entire screen.
+	  entire screen
 	+ Fix final cursor position for put command entering text in a
-	  single line.
+	  single line
 	+ Change to break error message lines on the last <blank> in the
-	  line.
+	  line
 	+ Always center the current line when returning to a previously
 	  edited file or moving to a tag line that's not visible on the
-	  screen.
+	  screen
 	+ Change write of the current file using an explicit name or % to
-	  match the semantics of :w<CR>, not :w file<CR>.
+	  match the semantics of :w<CR>, not :w file<CR>
 	+ Add command aliases to vi, and remap 6 historic commands to their
-	  historic counterparts: D->d$, Y->y_, S->c_, C->c$, A->$a, I->^i.
+	  historic counterparts: D->d$, Y->y_, S->c_, C->c$, A->$a, I->^i
 	+ Match option display to historic practice; if boolean or numeric
-	  options changed to default values, not displayed by default.
+	  options changed to default values, not displayed by default
 	  Nvi treats string options the same way, vi always displayed any
-	  string option that was changed.
-	+ Added lock edit option, if not set, no file locking is done.
+	  string option that was changed
+	+ Added lock edit option, if not set, no file locking is done
 	+ Rework ex to permit any ex command in the EXINIT variable or
 	  exrc startup files. This fixes the bug were `vi +100 file'
-	  painted the screen and then moved to line 100 and repainted.
+	  painted the screen and then moved to line 100 and repainted
 	  (Yanked to SCCS ID 9.1.)
 	+ Bug fix: could report file modified more recently than it was
-	  written, incorrectly.
+	  written, incorrectly
 	+ Search fix: historically, motions with deltas were not corrected
-	  to the previous/next line based on the starting/stopping column.
+	  to the previous/next line based on the starting/stopping column
 	+ Addressing fixes: make trailing non-existent addresses work, change
 	  % to be text substitution, not a unique address (to follow future
-	  POSIX).
+	  POSIX)
 
-Nvi 1.37 -> 1.38: Mon Oct 24 12:51:58 1994
-	+ Scrolling fix; ^B can move to nonexistent lines.
+Nvi 1.37 -> Nvi 1.38: Mon Oct 24 12:51:58 1994
+	+ Scrolling fix; ^B can move to nonexistent lines
 	+ Fix to vi mapped commands; <escape> characters while already in
 	  command mode did not historically cause the mapped characters to
-	  be flushed.
-	+ Add the backup edit option, automatically version edit files.
+	  be flushed
+	+ Add the backup edit option, automatically version edit files
 	+ Make it possible to edit files that db can't read, i.e. edit a
-	  temporary file, with the correct file name.
+	  temporary file, with the correct file name
 	+ Only anchor the last line of the file to the bottom line of the
 	  screen if there's half or less of a screen between the target
-	  line and the end of the file.
-	+ Fix wrapmargin text allocation bug.
-	+ Fix ex put command to work in any empty file.
-	+ Fix global command to handle move's to line 0 correctly.
+	  line and the end of the file
+	+ Fix wrapmargin text allocation bug
+	+ Fix ex put command to work in any empty file
+	+ Fix global command to handle move's to line 0 correctly
 	+ Regularize the yank cursor motions, several bug fixes for historic
-	  practice.
+	  practice
 	+ Fix N and n, when used as a motion command for the ! command,
 	  repeat the last bang command instead of prompting for a new
-	  one.
+	  one
 	+ Timeout maps beginning with <escape> quickly, instead of based
-	  on the keytime option.
-	+ Bug fix for wraplen option, wasn't triggered for input commands.
+	  on the keytime option
+	+ Bug fix for wraplen option, wasn't triggered for input commands
 
-Nvi 1.36 -> 1.37: Sun Oct 9 19:02:53 1994
-	+ Change PORT directories to install patches before distribution.
-	+ Fix ^A to set search direction and pattern for consistency.
-	+ Fold the showdirty option into the showmode option.
-	+ Ex addressing fix: change search offset and line arguments (e.g.
-	  the copy command) to be ex addressing offsets, matching historic
-	  practice.
-	+ Ex addressing fix: support ^ as an offset/flag equivalent to -.
+Nvi 1.36 -> Nvi 1.37: Sun Oct 9 19:02:53 1994
+	+ Change PORT directories to install patches before distribution
+	+ Fix ^A to set search direction and pattern for consistency
+	+ Fold the showdirty option into the showmode option
+	+ Ex addressing fix: change search offset and line arguments
+	  (e.g. the copy command) to be ex addressing offsets, matching
+	  historic practice
+	+ Ex addressing fix: support ^ as an offset/flag equivalent to -
 	+ Ex addressing fix: historically, any missing address defaulted to
-	  dot, e.g. "4,,," was the same as ".,.".
+	  dot, e.g. "4,,," was the same as ".,."
 	+ Ex addressing fix: historically, <blank> separated numbers were
-	  additive, e.g. "3 5p" displayed line 8.
+	  additive, e.g. "3 5p" displayed line 8
 	+ Ex addressing fix: make ';' as a range delimiter match historic
-	  practice.
-	+ Change nvi to exit immediately if stdout isn't a terminal.
+	  practice
+	+ Change nvi to exit immediately if stdout isn't a terminal
 	+ Change alternate file name behavior to match historic practice,
-	  make the :write command set the current file name.
+	  make the :write command set the current file name
 	+ Text input fix; input keys from a map, with an associated count,
-	  weren't historically affected by the wrapmargin value.
+	  weren't historically affected by the wrapmargin value
 	+ Add wraplen option, same as wrapmargin, but from the left-hand
-	  column, not the right.
+	  column, not the right
 	+ Make ex address .<number> be equivalent to .+<number>, i.e. the
 	  '+' is understood; matches historic practice, and it's widely
-	  documented for ed(1).
-	+ Input mode ^V^J historically mapped into a single ^J.
-	+ Minor catalog changes, fixes; don't use 's' to pluralize words.
+	  documented for ed(1)
+	+ Input mode ^V^J historically mapped into a single ^J
+	+ Minor catalog changes, fixes; don't use 's' to pluralize words
 
-Nvi 1.35 -> 1.36: Thu Sep 8 08:40:25 1994
-	+ Don't overwrite user's maps with standard (termcap) mappings.
-	+ Make \ escape kill and erase characters in vi text input mode.
-	+ Fix ^D autoindent bug by resolving leading <blank>s at ^D.
-	+ Rework abbreviation tests (again!) to match historic practice.
+Nvi 1.35 -> Nvi 1.36: Thu Sep 8 08:40:25 1994
+	+ Don't overwrite user's maps with standard (termcap) mappings
+	+ Make \ escape kill and erase characters in vi text input mode
+	+ Fix ^D autoindent bug by resolving leading <blank>s at ^D
+	+ Rework abbreviation tests (again!) to match historic practice
 	+ Change ^D/^U default scrolling value to be based on window option
 	  value, not screen lines, correct scrolling option value, both to
 	  match historic practice. NOTE: System V does this differently!
 
-Nvi 1.34 -> 1.35: Wed Aug 31 19:20:15 1994
-	+ Add the historic -l option.
-	+ Message catalogs.
-	+ Display global messages at each flush, just in case some are there.
-	+ Fix global substitute code, `\\' wasn't handled correctly.
-	+ Fix abbreviation code to use <blank>s as the preceding character.
-	+ Fix ruler to display logical column, not physical column.
+Nvi 1.34 -> Nvi 1.35: Wed Aug 31 19:20:15 1994
+	+ Add the historic -l option
+	+ Message catalogs
+	+ Display global messages at each flush, just in case some are there
+	+ Fix global substitute code, `\\' wasn't handled correctly
+	+ Fix abbreviation code to use <blank>s as the preceding character
+	+ Fix ruler to display logical column, not physical column
 	+ Block signals when user issues :preserve command, so no race caused
-	  by SIGHUP/SIGTERM.
+	  by SIGHUP/SIGTERM
 
-Nvi 1.33 -> 1.34: Wed Aug 17 14:37:32 1994 (PUBLICLY AVAILABLE VERSION)
-	+ Back out sccsid string fix, it won't work on SunOS 4.1.
+Nvi 1.33 -> Nvi 1.34: Wed Aug 17 14:37:32 1994
+	+ Back out sccsid string fix, it won't work on SunOS 4.1
 
-Nvi 1.32 -> 1.33: Wed Aug 17 09:31:41 1994 (PUBLICLY AVAILABLE VERSION)
-	+ Get back 5K of data space for the sccsid strings.
+Nvi 1.32 -> Nvi 1.33: Wed Aug 17 09:31:41 1994
+	+ Get back 5K of data space for the sccsid strings
 	+ Fix bug where cG fix in version 1.31 broke cw cursor positioning
-	  when the change command extended the line.
-	+ Fix core dump in map/seq code if character larger than 7 bits.
-	+ Block signals when manipulating the SCR chains.
-	+ Fix memory allocation for machines with multiple pointer sizes.
+	  when the change command extended the line
+	+ Fix core dump in map/seq code if character larger than 7 bits
+	+ Block signals when manipulating the SCR chains
+	+ Fix memory allocation for machines with multiple pointer sizes
 
-Nvi 1.31 -> 1.32: Mon Aug 15 14:27:49 1994
-	+ Turn off recno mmap call for Solaris 2.4/SunOS 5.4.
+Nvi 1.31 -> Nvi 1.32: Mon Aug 15 14:27:49 1994
+	+ Turn off recno mmap call for Solaris 2.4/SunOS 5.4
 
-Nvi 1.30 -> 1.31: Sun Aug 14 13:13:35 1994
+Nvi 1.30 -> Nvi 1.31: Sun Aug 14 13:13:35 1994
 	+ Fix bug were cG on the last line of a file wasn't done in line mode,
 	  and where the cursor wasn't positioned correctly after exiting text
-	  insert mode.
+	  insert mode
 	+ Add termcap workaround to make function keys greater than 9 work
-	  correctly (or fail if old-style termcap support).
-	+ Change ex/vi to not flush mapped keys on error -- this is historic
-	  practice, and people depended on it.
+	  correctly (or fail if old-style termcap support)
+	+ Change ex/vi to not flush mapped keys on error - this is historic
+	  practice, and people depended on it
 	+ Rework vi parser so that no command including a mapped key ever
-	  becomes the '.' command, matching historic practice.
-	+ Make <escape> cancellation in the vi parser match POSIX 1003.2.
+	  becomes the '.' command, matching historic practice
+	+ Make <escape> cancellation in the vi parser match POSIX 1003.2
 	+ Fix curses bug where standout string was written for each standout
-	  character, and where standout mode was never exited explicitly.
+	  character, and where standout mode was never exited explicitly
 	  Fix bugs in curses SF/sf and SR/sr scrolling, as seen on Sun and
-	  x86 consoles.
-	+ The v/global commands execute the print command by default.
-	+ The number option historically applies to ex as well as vi.
+	  x86 consoles
+	+ The v/global commands execute the print command by default
+	+ The number option historically applies to ex as well as vi
 
-Nvi 1.29 -> 1.30: Mon Aug 8 10:30:42 1994
-	+ Make first read into a temporary set the file's name.
-	+ Permit any key to continue scrolling or ex commands -- this
-	  allows stacked colon commands, and matches historic practice.
-	+ Don't output normal ! command commentary in ex silent mode.
+Nvi 1.29 -> Nvi 1.30: Mon Aug 8 10:30:42 1994
+	+ Make first read into a temporary set the file's name
+	+ Permit any key to continue scrolling or ex commands - this
+	  allows stacked colon commands, and matches historic practice
+	+ Don't output normal ! command commentary in ex silent mode
 	+ Allow +/- flags after substitute commands, make line (flag)
-	  offsets from vi mode match historic practice.
+	  offsets from vi mode match historic practice
 	+ Return <eof> to ex immediately, even if preceded by spaces. Rework
 	  ex parser to do erase the prompt instead of depending on the print
 	  routines to do it. Minor fixes to the ex parser for display of
-	  default and scrolling commands. MORE EX PARSER CHANGES.
+	  default and scrolling commands. MORE EX PARSER CHANGES
 
-Nvi 1.28 -> 1.29: Fri Aug 5 10:18:07 1994
+Nvi 1.28 -> Nvi 1.29: Fri Aug 5 10:18:07 1994
 	+ Make the abbreviated ex delete command work (:dele---###lll for
-	  example, is historically legal.
+	  example, is historically legal
 	+ When autoprint fires, multiple flags may be set, use ex_print
-	  directly instead of the stub routines.
-	+ Change v/global commands to turn off autoprint while running.
-	+ Minor changes to make the ! command display match historic output.
+	  directly instead of the stub routines
+	+ Change v/global commands to turn off autoprint while running
+	+ Minor changes to make the ! command display match historic output
 	+ Rework the ex parser to permit multiple command separators without
-	  commands -- MAJOR CHANGE, likely to introduce all sorts of new bugs.
+	  commands - MAJOR CHANGE, likely to introduce all sorts of new bugs
 	+ Fix cd command to expand argument in the context of each element
 	  of the cdpath option, make relative paths always relative to the
-	  current directory.
+	  current directory
 	+ Rework write/quit cases for temporary files, so that user's don't
-	  discard them accidentally.
-	+ Check for window size changes when continuing after a suspend.
-	+ Fix memory problem in svi_screen, used free'd memory.
+	  discard them accidentally
+	+ Check for window size changes when continuing after a suspend
+	+ Fix memory problem in svi_screen, used free'd memory
 	+ Change the ex change, insert, append commands to match historic
-	  cursor positions if no data entered by the user.
+	  cursor positions if no data entered by the user
 	+ Change ex format flags (#, l, p) to affect future commands, not
-	  just the current one, to match historic practice.
-	+ Make the user's EOF character an additional scroll character in ex.
+	  just the current one, to match historic practice
+	+ Make the user's EOF character an additional scroll character in ex
 	+ Fix ex ^D scrolling to be the value of the scroll option, not half
-	  the screen.
-	+ Fix buffer execution to match historic practice -- bugs where the
-	  '*' command didn't work, and @<carriage-return> didn't work.
-	+ Fix doubled reporting of deleted lines in filters.
+	  the screen
+	+ Fix buffer execution to match historic practice - bugs where the
+	  '*' command didn't work, and @<carriage-return> didn't work
+	+ Fix doubled reporting of deleted lines in filters
 	+ Rework the % ` / ? ( ) N n { and ^A commands to always cut into
-	  numeric buffers regardless of the location or length of the cut.
-	  This matches historic practice.
+	  numeric buffers regardless of the location or length of the cut
+	  This matches historic practice
 	+ Fix the { command to check the current line if the cursor doesn't
-	  start on the first character of the line.
+	  start on the first character of the line
 	+ Do '!' expansion in the ex read command arguments, it's historic
-	  practice. In addition, it sets the last '!' command.
+	  practice. In addition, it sets the last '!' command
 
-Nvi 1.27 -> 1.28: Wed Jul 27 21:29:18 1994
+Nvi 1.27 -> Nvi 1.28: Wed Jul 27 21:29:18 1994
 	+ Add support for scrolling using the CS and SF/sf/SR/sr termcap
-	  strings to the 4BSD curses.
+	  strings to the 4BSD curses
 	+ Rework of getkey() introduced a bug where command interrupt put
-	  nvi into an infinite loop.
+	  nvi into an infinite loop
 	+ Piping through a filter historically cut the replaced lines into
-	  the default buffer, although not the numeric ones.
+	  the default buffer, although not the numeric ones
 	+ Read of a filter and !! historically moved to the first nonblank
-	  of the resulting cursor line (most of the time).
-	+ Rework cursor motion flags, to support '!' as a motion command.
+	  of the resulting cursor line (most of the time)
+	+ Rework cursor motion flags, to support '!' as a motion command
 
-Nvi 1.26 -> 1.27: Tue Jul 26 10:27:58 1994
-	+ Add the meta option, to specify characters the shell will expand.
+Nvi 1.26 -> Nvi 1.27: Tue Jul 26 10:27:58 1994
+	+ Add the meta option, to specify characters the shell will expand
 	+ Fix the read command to match historic practice, the white space
-	  and bang characters weren't getting parsed correctly.
-	+ Change SIGALRM handler to save and restore errno.
+	  and bang characters weren't getting parsed correctly
+	+ Change SIGALRM handler to save and restore errno
 	+ Change SunOS include/compat.h to include <vfork.h> so that the
-	  ex/filter.c code works again.
+	  ex/filter.c code works again
 	+ Don't put lines deleted by the ex delete command into the numeric
-	  buffers, matching historic practice.
+	  buffers, matching historic practice
 	+ Fix; if appending to a buffer, default buffer historically only
-	  references the appended text, not the resulting text.
+	  references the appended text, not the resulting text
 	+ Support multiple, semi-colon separated search strings, and 'z'
-	  commands after search strings.
+	  commands after search strings
 	+ Make previous context mark setting match historic practice (see
-	  docs/internals/context).
+	  docs/internals/context)
 	+ Fix the set command to permit whitespace between the option and
-	  the question mark, fix question marks in general.
+	  the question mark, fix question marks in general
 	+ Fix bug where ex error messages could be accidentally preceded
-	  by a single space.
+	  by a single space
 	+ Fix bug where curses reorganization could lose screen specific
-	  mappings as soon as any screen exited.
-	+ Fix bug in paragraph code where invalid macros could be matched.
-	  Make paragraph motions stop at formfeed (^L) characters.
+	  mappings as soon as any screen exited
+	+ Fix bug in paragraph code where invalid macros could be matched
+	+ Make paragraph motions stop at formfeed (^L) characters
 	+ Change 'c' to match historic practice, it cut text into numeric
-	  buffers.
+	  buffers
 
-Nvi 1.25 -> 1.26: Tue Jul 19 17:46:24 1994
+Nvi 1.25 -> Nvi 1.26: Tue Jul 19 17:46:24 1994
 	+ Ignore SIGWINCH if the screen size is unchanged; SunOS systems
-	  deliver one when a screen is uncovered.
+	  deliver one when a screen is uncovered
 	+ Fix: don't permit a command with a motion component to wrap due
-	  to wrapscan and return to the original cursor position.
-	+ Fix: ^E wasn't beeping when reaching the bottom of the file.
-	+ Fix bg/fg bug where tmp file exiting caused a NULL dereference.
-	+ Rework file locking code to use fcntl(2) explicitly.
-	+ Fix bug in section code where invalid macros could be matched.
-	+ Fix bug where line number reset by vi's Q command.
-	+ Add explicit character mode designation to character mode buffers.
+	  to wrapscan and return to the original cursor position
+	+ Fix: ^E wasn't beeping when reaching the bottom of the file
+	+ Fix bg/fg bug where tmp file exiting caused a NULL dereference
+	+ Rework file locking code to use fcntl(2) explicitly
+	+ Fix bug in section code where invalid macros could be matched
+	+ Fix bug where line number reset by vi's Q command
+	+ Add explicit character mode designation to character mode buffers
 	+ Add <sys/ioctl.h> include to sex/sex_window.c, needed by NET/2
-	  vintage systems.
+	  vintage systems
 	+ Change to always flush a character during suspend, 4BSD curses
-	  has the optimization where it doesn't flush after a standend().
+	  has the optimization where it doesn't flush after a standend()
 	+ Fix bug on OSF1 where <curses.h> changes the values of VERASE,
-	  VKILL and VWERASE to incorrect ones.
-	+ Fix bug where optarg used incorrectly in main.c.
-	+ Block all signals when acting on a signal delivery.
+	  VKILL and VWERASE to incorrect ones
+	+ Fix bug where optarg used incorrectly in main.c
+	+ Block all signals when acting on a signal delivery
 	+ Fix recovery bug where RCV_EMAIL could fire even if there wasn't
-	  a backing file; format recovery message.
+	  a backing file; format recovery message
 
-Nvi 1.24 -> 1.25: Sun Jul 17 14:33:38 1994
+Nvi 1.24 -> Nvi 1.25: Sun Jul 17 14:33:38 1994
 	+ Stop allowing keyboard suspends (^Z) in insert mode, it's hard
-	  to get autowrite correct, and it's not historic practice.
-	+ Fix z^, z+ to match historic practice.
+	  to get autowrite correct, and it's not historic practice
+	+ Fix z^, z+ to match historic practice
 	+ Bug in message handling, "vi +35 non-existent_file" lost the
 	  status message because the "+35" pushed onto the stack erased
 	  it. For now, change so that messages aren't displayed if there
-	  are keys waiting -- may need to add a "don't-erase" bit to the
-	  character in the stack instead.
+	  are keys waiting - may need to add a "don't-erase" bit to the
+	  character in the stack instead
 	+ Bug in svi_msgflush(), where error messages could come out in
-	  normal video.
+	  normal video
 
-Nvi 1.23 -> 1.24: Sat Jul 16 18:30:18 1994
+Nvi 1.23 -> Nvi 1.24: Sat Jul 16 18:30:18 1994
 	+ Fix core dump in exf.c, where editing a non-existent file and
-	  exiting could cause already free'd memory to be free'd.
-	+ Clean up numerous memory errors, courtesy of Purify.
+	  exiting could cause already free'd memory to be free'd
+	+ Clean up numerous memory errors, courtesy of Purify
 	+ Change process wait code to fail if wait fails, and not attempt
-	  to interpret the wait return information.
+	  to interpret the wait return information
 	+ Open recovery and DB files for writing as well as reading, System
-	  V (fcntl) won't let you acquire LOCK_EX locks otherwise.
-	+ Fix substitute bug where could malloc 0 bytes (AIX breaks).
-	+ Permit the mapping of <carriage-return>, it's historic practice.
+	  V (fcntl) won't let you acquire LOCK_EX locks otherwise
+	+ Fix substitute bug where could malloc 0 bytes (AIX breaks)
+	+ Permit the mapping of <carriage-return>, it's historic practice
 	+ Historic vi didn't eat <blank> characters before the force
-	  flag, match historic practice.
+	  flag, match historic practice
 	+ Bug in ex argument parsing, corrected for literal characters
-	  twice.
-	+ Delete screen specific maps when the screen closes.
+	  twice
+	+ Delete screen specific maps when the screen closes
 	+ Move to the first non-<blank> in the line on startup; historic
-	  practice.
+	  practice
 	+ Change the ex visual command to move directly to a line if no
-	  trailing 'z' command.
-	+ Fix "[[" and "]]" to match historic practice (yet again...).
-	+ Fix "yb" and "y{" commands to update the cursor correctly.
+	  trailing 'z' command
+	+ Fix "[[" and "]]" to match historic practice (yet again...)
+	+ Fix "yb" and "y{" commands to update the cursor correctly
 	+ Change "~<motion>" to match the yank cursor movement semantics
-	  exactly.
-	+ Move all of the curses related code into sex/svi -- major rework,
-	  but should help in future ports.
+	  exactly
+	+ Move all of the curses related code into sex/svi - major rework,
+	  but should help in future ports
 	+ Fix bug in split code caused by new file naming code, where would
-	  drop core when a split screen exited.
+	  drop core when a split screen exited
 	+ Change svi_ex_write to do character display translation, so that
-	  messages with file names in them are displayed correctly.
-	+ Display the file name on split screens instead of a divider line.
-	+ Fix move bug, wasn't copying lines before putting them.
-	+ Fix bug were :n dropped core if no arguments supplied.
+	  messages with file names in them are displayed correctly
+	+ Display the file name on split screens instead of a divider line
+	+ Fix move bug, wasn't copying lines before putting them
+	+ Fix bug were :n dropped core if no arguments supplied
 	+ Don't quote characters in executed buffer: "ifoo<esc>" should leave
-	  insert mode after the buffer is executed.
+	  insert mode after the buffer is executed
 	+ Tagpop and tagpush should set the absolute mark in case only moving
-	  within a file.
+	  within a file
 	+ Skip leading whitespace characters before tags and cursor word
-	  searches.
+	  searches
 	+ Fix bug in ex_global where re_conv() was allocating the temporary
-	  buffer and not freeing it.
+	  buffer and not freeing it
 
-Nvi 1.22 -> 1.23: Wed Jun 29 19:22:33 1994
+Nvi 1.22 -> Nvi 1.23: Wed Jun 29 19:22:33 1994
 	+ New <sys/cdefs.h> required "inline" to change to "__inline"
-	+ Fix System V curses code for new ^Z support.
+	+ Fix System V curses code for new ^Z support
 	+ Fix off-by-one in the move code, avoid ":1,$mo$" with only one
-	  line in the buffer.
+	  line in the buffer
 	+ Line orientation of motion commands was remembered too long,
-	  i.e. '.' command could be incorrectly marked as line oriented.
+	  i.e. '.' command could be incorrectly marked as line oriented
 	+ Move file modification time into EXF, so it's shared across
-	  split screens.
-	+ Put the prev[ious] command back in, people complained.
-	+ Random fixes to next/prev semantics changed in 1.22.
+	  split screens
+	+ Put the prev[ious] command back in, people complained
+	+ Random fixes to next/prev semantics changed in 1.22
 	+ Historically vi doesn't only move to the last address if there's
 	  ANYTHING after the addresses, e.g. ":3" moves to line 3, ":3|"
-	  prints line 3.
+	  prints line 3
 
-Nvi 1.21 -> 1.22: Mon Jun 27 11:01:41 1994
-	+ Make the line between split screens inverse video again.
-	+ Delete the prev[ious] command, it's not useful enough to keep.
-	+ Rework :args/file name handling from scratch -- MAJOR CHANGE,
-	  likely to introduce all sorts of new bugs.
+Nvi 1.21 -> Nvi 1.22: Mon Jun 27 11:01:41 1994
+	+ Make the line between split screens inverse video again
+	+ Delete the prev[ious] command, it's not useful enough to keep
+	+ Rework :args/file name handling from scratch - MAJOR CHANGE,
+	  likely to introduce all sorts of new bugs
 	+ Fix RE bug where no sub-expressions in the pattern but there were
-	  sub-expressions referenced in the replacement, e.g. "s/XXX/\1/g".
+	  sub-expressions referenced in the replacement, e.g. "s/XXX/\1/g"
 	+ Change recovery to not leave unmodified files around after a
-	  crash, by using the owner 'x' bit on unmodified backup files.
+	  crash, by using the owner 'x' bit on unmodified backup files
 	  MAJOR CHANGE, the system recovery script has to change!
 	+ Change -r option to delete recovery.* files that reference non-
-	  existent vi.* files.
-	+ Rework recovery locking so that fcntl(2) locking will work.
-	+ Fix append (upper-case) buffers, broken by cut fixes.
-	+ Fix | to not set the absolute motion mark.
+	  existent vi.* files
+	+ Rework recovery locking so that fcntl(2) locking will work
+	+ Fix append (upper-case) buffers, broken by cut fixes
+	+ Fix | to not set the absolute motion mark
 	+ Read $HOME/.exrc file on startup if the effective user ID is
-	  root. This makes running vi while su(1)'d work correctly.
+	  root. This makes running vi while su(1)'d work correctly
 	+ Use the full pathname of the file as the recovery name, not
-	  just the last component. Matches historic practice.
-	+ Keep marks in empty files from being destroyed.
-	+ Block all caught signals before calling the DB routines.
+	  just the last component. Matches historic practice
+	+ Keep marks in empty files from being destroyed
+	+ Block all caught signals before calling the DB routines
 	+ Make the line change report match historic practice (yanked
-	  lines were different than everything else).
-	+ Add section on multiple screens to the reference manual.
+	  lines were different than everything else)
+	+ Add section on multiple screens to the reference manual
 	+ Display all messages at once, combine onto a single line if
-	  possible. Delete the trailing period from all messages.
+	  possible. Delete the trailing period from all messages
 
-Nvi: 1.20 -> 1.21: Thu May 19 12:21:58 1994
-	+ Delete the -l flag from the recover mail.
+Nvi: 1.20 -> Nvi 1.21: Thu May 19 12:21:58 1994
+	+ Delete the -l flag from the recover mail
 	+ Send the user email if ex command :preserve executed, this matches
 	  historic practice. Lots of changes to the preserve and recovery
-	  code, change preserve to snapshot files (again, historic practice).
+	  code, change preserve to snapshot files (again, historic practice)
 	+ Make buffers match historic practice: "add logically stores text
-	  into buffer a, buffer 1, and the unnamed buffer.
+	  into buffer a, buffer 1, and the unnamed buffer
 	+ Print <tab> characters as ^I on the colon command line if the
-	  list option set.
+	  list option set
 	+ Adjust ^F and ^B scroll values in the presence of split screens
-	  and small windows.
+	  and small windows
 	+ Break msg* routines out from util.c into msg.c, start thinking
-	  about message catalogs.
-	+ Add tildeop set option, based on STEVIE's option of the same name.
+	  about message catalogs
+	+ Add tildeop set option, based on STEVIE's option of the same name
 	  Changes the ~ command into "[count] ~ motion", i.e. ~ takes a
-	  trailing motion.
+	  trailing motion
 	+ Chose NOT to match historic practice on cursor positioning after
 	  consecutive undo commands on a single line; see vi/v_undo.c for
-	  the comment.
+	  the comment
 	+ Add a one line cache so that multiple changes to the same line
-	  are only counted once (e.g. "dl35p" changes one line, not 35).
+	  are only counted once (e.g. "dl35p" changes one line, not 35)
 	+ Rework signals some more. Block file sync signals in vi routines
-	  that interface to DB, so can sync the files at interrupt time.
-	  Write up all of the signal handling arguments, see signal.c.
+	  that interface to DB, so can sync the files at interrupt time
+	  Write up all of the signal handling arguments, see signal.c
 
-Nvi: 1.19 -> 1.20: Thu May 5 19:24:57 1994
+Nvi: 1.19 -> Nvi 1.20: Thu May 5 19:24:57 1994
 	+ Return ^Z to synchronous handling. See the discussion in signal.c
-	  and svi_screen.c:svi_curses_init().
-	+ Fix bug where line change report was wrong in util.c:msg_rpt().
+	  and svi_screen.c:svi_curses_init()
+	+ Fix bug where line change report was wrong in util.c:msg_rpt()
 
-Nvi: 1.18 -> 1.19: Thu May 5 12:59:51 1994
-	+ Block DSUSP so that ^Y isn't delivered at SIGTSTP.
-	+ Fix bug -- put into an empty file leaves the cursor at 1,0,
-	  not the first nonblank.
+Nvi: 1.18 -> Nvi 1.19: Thu May 5 12:59:51 1994
+	+ Block DSUSP so that ^Y isn't delivered at SIGTSTP
+	+ Fix bug - put into an empty file leaves the cursor at 1,0,
+	  not the first nonblank
 	+ Fix bug were number of lines reported for the 'P' command was
-	  off-by-one.
-	+ Fix bug were 0^D wasn't being handled correctly.
-	+ Delete remnants of ^Z as a raw character.
+	  off-by-one
+	+ Fix bug were 0^D wasn't being handled correctly
+	+ Delete remnants of ^Z as a raw character
 	+ Fix bug where if a map was an entire colon command, it may never
-	  have been displayed.
-	+ Final cursor position fixes for the vi T and t commands.
+	  have been displayed
+	+ Final cursor position fixes for the vi T and t commands
 	+ The ex :next command took an optional ex command as it's first
-	  argument similar to the :edit commands. Match historic practice.
+	  argument similar to the :edit commands to match historic practice
 
-Nvi 1.17 -> 1.18: Wed May 4 13:57:10 1994
-	+ Rework curses information in the PORT/Makefile's.
-	+ Minor fixes to ^Z asynchronous code.
+Nvi 1.17 -> Nvi 1.18: Wed May 4 13:57:10 1994
+	+ Rework curses information in the PORT/Makefile's
+	+ Minor fixes to ^Z asynchronous code
 
-Nvi 1.16 -> 1.17: Wed May 4 11:15:56 1994
-	+ Make ex comment handling match historic practice.
+Nvi 1.16 -> Nvi 1.17: Wed May 4 11:15:56 1994
+	+ Make ex comment handling match historic practice
 	+ Make ^Z work asynchronously, we can no longer use the SIGTSTP
-	  handler in the curses library.
+	  handler in the curses library
 
-Nvi 1.15 -> 1.16: Mon May 2 19:42:07 1994
-	+ Make the 'p' and 'P' commands support counts, i.e. "Y10p" works.
+Nvi 1.15 -> Nvi 1.16: Mon May 2 19:42:07 1994
+	+ Make the 'p' and 'P' commands support counts, i.e. "Y10p" works
 	+ Make characters that map to themselves as the first part of the
-	  mapping work, it's historic practice.
+	  mapping work, it's historic practice
 	+ Fix bug where "s/./\& /" discarded the space in the replacement
-	  string.
+	  string
 	+ Add support for up/down cursor arrows in text input mode, rework
-	  left/right support to match industry practice.
-	+ Fix bug were enough character remapping could corrupt memory.
+	  left/right support to match industry practice
+	+ Fix bug were enough character remapping could corrupt memory
 	+ Delete O_REMAPMAX in favor of setting interrupts after N mapped
-	  characters without a read, delete the map counter per character.
+	  characters without a read, delete the map counter per character
 	  MAJOR CHANGE. All of the interrupt signal handling has been
 	  reworked so that interrupts are always turned on instead of
 	  being turned on periodically, when an interruptible operation is
-	  pending.
-	+ Fix bug where vi wait() was interrupted by the recovery alarm.
+	  pending
+	+ Fix bug where vi wait() was interrupted by the recovery alarm
 	+ Make +cmd's and initial commands execute with the current line
-	  set to the last line of the file. This is historic practice.
-	+ Change "lock failed" error message to a file status message.
+	  set to the last line of the file. This is historic practice
+	+ Change "lock failed" error message to a file status message
 	  It always fails over NFS, and making all NFS files read-only
-	  isn't going to fly.
-	+ Use the historic line number format, but check for overflow.
+	  isn't going to fly
+	+ Use the historic line number format, but check for overflow
 	+ Fix bug where vi command parser ignored buffers specified as
-	  part of the motion command.
+	  part of the motion command
 	+ Make [@*]buffer commands on character mode buffers match historic
-	  practice.
+	  practice
 	+ Fix bug where the cmap/chf entries of the tty structure weren't
-	  being cleared when new characters were read.
+	  being cleared when new characters were read
 	+ Fix bug where the default command motion flags were being set
-	  when the command was a motion component.
+	  when the command was a motion component
 	+ Fix wrapmargin bug; if appending characters, and wrapmargin breaks
-	  the line, an additional space is eaten.
+	  the line, an additional space is eaten
 
-Nvi 1.14 -> 1.15: Fri Apr 29 07:44:57 1994
-	+ Make the ex delete command work in any empty file.
+Nvi 1.14 -> Nvi 1.15: Fri Apr 29 07:44:57 1994
+	+ Make the ex delete command work in any empty file
 	+ Fix bug where 't' command placed the cursor on the character
-	  instead of to its left.
-	+ ^D and ^U didn't set the scroll option value historically.
+	  instead of to its left
+	+ ^D and ^U didn't set the scroll option value historically
 	  Note, this change means that any user set value (e.g. 15^D)
 	  will be lost when splitting the screen, since the split code
-	  now resets the scroll value regardless.
-	+ Fix the ( command to set the absolute movement mark.
+	  now resets the scroll value regardless
+	+ Fix the ( command to set the absolute movement mark
 	+ Only use TIOCGWINSZ for window information if SIGWINCH signal
-	  caught.
-	+ Delete the -l flag, and make -r work for multiple arguments.
-	  Add the ex "recover[!] file" command.
+	  caught
+	+ Delete the -l flag, and make -r work for multiple arguments
+	+ Add the ex "recover[!] file" command
 	+ Switch into ex terminal mode and use the sex routines when
-	  append/change/insert called from vi mode.
+	  append/change/insert called from vi mode
 	+ Make ^F and ^B match historic practice. This required a fairly
-	  extensive rework of the svi scrolling code.
+	  extensive rework of the svi scrolling code
 	+ Cursor positioning in H, M, L, G (first non-blank for 1G) wasn't
 	  being done correctly. Delete the SETLFNB flag. H, M, and L stay
-	  logical movements (SETNNB) and G always moves to the first non-blank.
+	  logical movements (SETNNB) and G always moves to the first non-blank
 	+ System V uses "lines" and "cols", not "li" and "co", change as
-	  necessary. Check termcap function returns for errors.
+	  necessary. Check termcap function returns for errors
 	+ Fix `<character> command to do start/end of line correction,
-	  and to set line mode if starting and stopping at column 0.
+	  and to set line mode if starting and stopping at column 0
 	+ Fix bug in delete code where dropped core if deleted in character
 	  mode to an empty line. (Rework the delete code for efficiency.)
-	+ Give up on SunOS 4.1.X, and use "cc" instead of /usr/5bin/cc.
+	+ Give up on SunOS 4.1.X, and use "cc" instead of /usr/5bin/cc
 	+ Protect ex_getline routine from interrupted system calls (if
-	  possible, set SA_RESTART on SIGALRM, too).
-	+ Fix leftright scrolling bug, when moving to a shorter line.
+	  possible, set SA_RESTART on SIGALRM, too)
+	+ Fix leftright scrolling bug, when moving to a shorter line
 	+ Do validity checking on the copy, move, t command target line
-	  numbers.
+	  numbers
 	+ Change for System V % pattern broke trailing flags for empty
-	  replacement strings.
-	+ Fix bug when RCM flags retained in the saved dot structure.
-	+ Make the ex '=' command work for empty files.
+	  replacement strings
+	+ Fix bug when RCM flags retained in the saved dot structure
+	+ Make the ex '=' command work for empty files
 	+ Fix bug where special_key array was being free'd (it's no longer
-	  allocated).
+	  allocated)
 	+ Matches cut in line mode only if the starting cursor is at or
 	  before the first non-blank in its line, and the ending cursor is
-	  at or after the last non-blank in its line.
+	  at or after the last non-blank in its line
 	+ Add the :wn command, so you can write a file and switch to a new
-	  file in one command.
-	+ Allow only a single key as an argument to :viusage.
+	  file in one command
+	+ Allow only a single key as an argument to :viusage
 	+ New movement code broke filter/paragraph operations in empty
-	  files ("!}date" in an empty file was dropping core).
+	  files ("!}date" in an empty file was dropping core)
 
-Nvi 1.12 -> 1.14: Mon Apr 18 11:05:10 1994 (PUBLICLY AVAILABLE VERSION)
-	+ Fix FILE structure leakage in the ex filter code.
+Nvi 1.12 -> Nvi 1.14: Mon Apr 18 11:05:10 1994
+	+ Fix FILE structure leakage in the ex filter code
 	+ Rework suspend code for System V curses. Nvi has to do the
-	  the work, there's no way to get curses to do it right.
+	  the work, there's no way to get curses to do it right
 	+ Revert SunOS 4.1.X ports to the distributed curses. There's
-	  a bug in Sun's implementation that we can't live with.
-	+ Quit immediately if row/column values are unreasonable.
-	+ Fix the function keys to match vi historic behavior.
-	+ Replace the echo/awk magic in the Makefile's with awk scripts.
+	  a bug in Sun's implementation that we can't live with
+	+ Quit immediately if row/column values are unreasonable
+	+ Fix the function keys to match vi historic behavior
+	+ Replace the echo/awk magic in the Makefile's with awk scripts
 	+ Version for 4.4BSD
 
-Nvi 1.11 -> 1.12: Thu Apr 14 11:10:19 1994
-	+ Fix bug where only the first vi key was checked for validity.
-	+ Make 'R' continue to overwrite after a <carriage-return>.
-	+ Only display the "no recovery" message once.
+Nvi 1.11 -> Nvi 1.12: Thu Apr 14 11:10:19 1994
+	+ Fix bug where only the first vi key was checked for validity
+	+ Make 'R' continue to overwrite after a <carriage-return>
+	+ Only display the "no recovery" message once
 	+ Rework line backup code to restore the line to its previous
-	  condition.
-	+ Don't permit :q in a .exrc file or EXINIT variable.
+	  condition
+	+ Don't permit :q in a .exrc file or EXINIT variable
 	+ Fix wrapscan option bug where forward searches become backward
-	  searches and do cursor correction accordingly.
-	+ Change "dd" to move the cursor to the first non-blank on the line.
+	  searches and do cursor correction accordingly
+	+ Change "dd" to move the cursor to the first non-blank on the line
 	+ Delete cursor attraction to the first non-blank, change non-blank
-	  motions to set the most attractive cursor position instead.
+	  motions to set the most attractive cursor position instead
 	+ Fix 'r' substitute option to set the RE to the last RE, not the
-	  last substitute RE.
+	  last substitute RE
 	+ Fix 'c' and 'g' substitute options to always toggle, and fix
-	  edcompatible option to not reset them.
-	+ Display ex error messages in inverse video.
-	+ Fix errorbells option to match historic practice.
+	  edcompatible option to not reset them
+	+ Display ex error messages in inverse video
+	+ Fix errorbells option to match historic practice
 	+ Delete fixed character display table in favor of table built based
-	  on the current locale.
+	  on the current locale
 	+ Add ":set octal" option, that displays unknown characters as octal
-	  values instead of the default hexadecimal.
-	+ Make all command and text input modes interruptible.
+	  values instead of the default hexadecimal
+	+ Make all command and text input modes interruptible
 	+ Fix ex input mode to display error messages immediately, instead
-	  of waiting for the lines to be resolved.
-	+ Fix bug where vi calling append could overwrite the command.
-	+ Fix off-by-one in the ex print routine tab code.
-	+ Fix incorrect ^D test in vi text input routines.
-	+ Add autoindent support for ex text insert routines.
+	  of waiting for the lines to be resolved
+	+ Fix bug where vi calling append could overwrite the command
+	+ Fix off-by-one in the ex print routine tab code
+	+ Fix incorrect ^D test in vi text input routines
+	+ Add autoindent support for ex text insert routines
 	+ Add System V substitute command replacement pattern semantics,
-	  where '%' means the last replacement pattern.
-	+ Fix bug that \ didn't escape newlines in ex commands.
-	+ Regularize the names of special characters to CH_*.
+	  where '%' means the last replacement pattern
+	+ Fix bug that \ didn't escape newlines in ex commands
+	+ Regularize the names of special characters to CH_*
 	+ Change hex insert character from ^Vx<hex_char> to ^X<hex_char>
 	+ Integrate System V style curses, so SunOS and Solaris ports can
-	  use the native curses implementation.
+	  use the native curses implementation
 
-Nvi 1.10 -> 1.11: Thu Mar 24 16:07:45 EST 1994 (PUBLICLY AVAILABLE VERSION)
-	+ Change H, M, and L to set the absolute mark, historical practice.
-	+ Fix bug in stepping through multiple tags files.
+Nvi 1.10 -> Nvi 1.11: Thu Mar 24 16:07:45 EST 1994
+	+ Change H, M, and L to set the absolute mark, historical practice
+	+ Fix bug in stepping through multiple tags files
 	+ Add "remapmax" option that turns off map counts so you can remap
 	  infinitely. If it's off, term_key() can be interrupted from the
 	  keyboard, which will cause the buffers to flush. I also dropped
 	  the default max number of remaps to 50. (Only Dave Hitz's TM
 	  macros and maze appear to go over that limit.)
-	+ Change :mkexrc to not dump w{300,1200,9600}, lisp options.
-	+ Fix backward search within a line bug.
+	+ Change :mkexrc to not dump w{300,1200,9600}, lisp options
+	+ Fix backward search within a line bug
 	+ Change all the includes of "pathnames.h" to use <>'s so that the
-	  PORT versions can use -I. to replace it with their own versions.
+	  PORT versions can use -I. to replace it with their own versions
 	+ Make reads and writes interruptible. Rework code that enters and
 	  leaves ex for '!' and filter commands, rework all interrupt and
-	  timer code.
-	+ Fix core dump when user displayed option in .exrc file.
+	  timer code
+	+ Fix core dump when user displayed option in .exrc file
 	+ Fix bug where writing empty files didn't update the saved
-	  modification time.
-	+ Fix bug where /pattern/ addressing was always a backward search.
+	  modification time
+	+ Fix bug where /pattern/ addressing was always a backward search
 	+ Fix bug triggered by autoindent of more than 32 characters, where
-	  nvi wasn't checking the right TEXT length.
-	+ Fix bug where joining only empty lines caused a core dump.
+	  nvi wasn't checking the right TEXT length
+	+ Fix bug where joining only empty lines caused a core dump
 
-Nvi 1.09 -> 1.10: Sat Mar 19 15:40:29 EST 1994
-	+ Fix "set all" core dump.
+Nvi 1.09 -> Nvi 1.10: Sat Mar 19 15:40:29 EST 1994
+	+ Fix "set all" core dump
 
-Nvi 1.08 -> 1.09: Sat Mar 19 10:11:14 EST 1994
+Nvi 1.08 -> Nvi 1.09: Sat Mar 19 10:11:14 EST 1994
 	+ If the tag's file path is relative, and it doesn't exist, check
-	  relative to the tag file location.
-	+ Fix ~ command to free temporary buffer on error return.
-	+ Create vi.ref, a first cut at a reference document for vi.
+	  relative to the tag file location
+	+ Fix ~ command to free temporary buffer on error return
+	+ Create vi.ref, a first cut at a reference document for vi
 	  The manual page and the reference document only document the
-	  set options, so far.
-	+ Fix 1G bug not always going to the first non-blank.
-	+ Upgrade PORT/regex to release alpha3.4, from Henry Spencer.
-	+ Add MKS vi's "cdpath" option, supporting a cd search path.
-	+ Handle if search as a motion was discarded, i.e. "d/<erase>".
+	  set options, so far
+	+ Fix 1G bug not always going to the first non-blank
+	+ Upgrade PORT/regex to release alpha3.4, from Henry Spencer
+	+ Add MKS vi's "cdpath" option, supporting a cd search path
+	+ Handle if search as a motion was discarded, i.e. "d/<erase>"
 	+ Change nvi to not create multiple recovery files if modifying
-	  a recovered file.
+	  a recovered file
 	+ Decide to ignore that the cursor is before the '$' when inserting
-	  in list mode. It's too hard to fix.
+	  in list mode. It's too hard to fix
 
-Nvi 1.07 -> 1.08: Wed Mar 16 07:37:36 EST 1994
+Nvi 1.07 -> Nvi 1.08: Wed Mar 16 07:37:36 EST 1994
 	+ Leftright and big line scrolling fixes. This meant more changes
-	  to the screen display code, so there may be new problems.
-	+ Don't permit search-style addresses until a file has been read.
-	+ "c[Ww]" command incorrectly handled the "in whitespace" case.
-	+ Fix key space allocation bug triggered by cut/paste under SunOS.
-	+ Ex move command got the final cursor position wrong.
-	+ Delete "optimize option not implemented" message.
+	  to the screen display code, so there may be new problems
+	+ Don't permit search-style addresses until a file has been read
+	+ "c[Ww]" command incorrectly handled the "in whitespace" case
+	+ Fix key space allocation bug triggered by cut/paste under SunOS
+	+ Ex move command got the final cursor position wrong
+	+ Delete "optimize option not implemented" message
 	+ Make the literal-next character turn off mapping for the next
-	  character in text input mode.
+	  character in text input mode
 
-Nvi 1.06 -> 1.07: Mon Mar 14 11:10:33 EST 1994
+Nvi 1.06 -> Nvi 1.07: Mon Mar 14 11:10:33 EST 1994
 	+ The "wire down" change in 1.05 broke ex command parsing, there
-	  wasn't a corresponding change to handle multiple K_VLNEXT chars.
-	+ Fix final position for vi's 't' command.
+	  wasn't a corresponding change to handle multiple K_VLNEXT chars
+	+ Fix final position for vi's 't' command
 
-Nvi 1.05 -> 1.06: Sun Mar 13 16:12:52 EST 1994
+Nvi 1.05 -> Nvi 1.06: Sun Mar 13 16:12:52 EST 1994
 	+ Wire down ^D, ^H, ^W, and ^V, regardless of the user's termios
-	  values.
-	+ Add ^D as the ex scroll command.
-	+ Support ^Q as a literal-next character.
-	+ Rework abbreviations to be delimited by any !inword() character.
-	+ Add options description to the manual page.
-	+ Minor screen cache fix for svi_get.c.
-	+ Rework beautify option support to match historical practice.
-	+ Exit immediately if not reading from a tty and a command fails.
-	+ Default the SunOS 4.* ports to the distributed curses, not SMI's.
+	  values
+	+ Add ^D as the ex scroll command
+	+ Support ^Q as a literal-next character
+	+ Rework abbreviations to be delimited by any !inword() character
+	+ Add options description to the manual page
+	+ Minor screen cache fix for svi_get.c
+	+ Rework beautify option support to match historical practice
+	+ Exit immediately if not reading from a tty and a command fails
+	+ Default the SunOS 4.* ports to the distributed curses, not SMI's
 
-Nvi 1.04 -> 1.05: Thu Mar 24 16:07:45 EST 1994
-	+ Make cursor keys work in input mode.
-	+ Rework screen column code in vi curses screen. MAJOR CHANGE --
+Nvi 1.04 -> Nvi 1.05: Thu Mar 24 16:07:45 EST 1994
+	+ Make cursor keys work in input mode
+	+ Rework screen column code in vi curses screen. MAJOR CHANGE -
 	  after this, we'll be debugging curses screen presentation from
-	  scratch.
-	+ Explode include files in vi.h into the source files.
+	  scratch
+	+ Explode include files in vi.h into the source files
 
-Nvi 1.03 -> 1.04: Sun Mar 6 14:14:16 EST 1994
-	+ Make the ex move command keep the marks on the moved lines.
+Nvi 1.03 -> Nvi 1.04: Sun Mar 6 14:14:16 EST 1994
+	+ Make the ex move command keep the marks on the moved lines
 	+ Change resize semantics so you can set the screen size to a
-	  specific value. A couple of screen fixes for the resize code.
-	+ Fixes for foreground/background due to SIGWINCH.
+	  specific value. A couple of screen fixes for the resize code
+	+ Fixes for foreground/background due to SIGWINCH
 	+ Complete rework of all of vi's cursor movements. The underlying
 	  assumption in the old code was that the starting cursor position
 	  was part of the range of lines cut or deleted. The command
 	  "d[[" is an example where this isn't true. Change it so that all
 	  motion component commands set the final cursor position separately
 	  from the range, as it can't be done correctly later. This is a
-	  MAJOR CHANGE -- after this change, we'll be debugging the cursor
-	  positioning from scratch.
+	  MAJOR CHANGE - after this change, we'll be debugging the cursor
+	  positioning from scratch
 	+ Rewrite the B, b, E, e commands to use vi's getc() interface
-	  instead of rolling their own.
+	  instead of rolling their own
 	+ Add a second MARK structure, LMARK, which is the larger mark
 	  needed by the logging and mark queue code. Everything else uses
-	  the reworked MARK structure, which is simply a line/column pair.
+	  the reworked MARK structure, which is simply a line/column pair
 	+ Rework cut/delete to not expect 1-past-the-end in the range, but
-	  to act on text to the end of the range, inclusive.
-	+ Sync on write's, to force NFS to flush.
+	  to act on text to the end of the range, inclusive
+	+ Sync on write's, to force NFS to flush
 
-Nvi 1.01 -> 1.03: Sun Jan 23 17:50:35 EST 1994 (PUBLICLY AVAILABLE VERSION)
+Nvi 1.01 -> Nvi 1.03: Sun Jan 23 17:50:35 EST 1994
 	+ Tag stack fixes, was returning to the tag, not the position from
-	  which the user tagged.
+	  which the user tagged
 	+ Only use from the cursor to the end of the word in cursor word
 	  searches and tags. (Matches historical vi behavior.)
-	+ Fix delete-last-line bug when line number option set.
-	+ Fix usage line for :split command.
+	+ Fix delete-last-line bug when line number option set
+	+ Fix usage line for :split command
 	+ If O_NUMBER set, long input lines would eventually fail, the column
-	  count for the second screen of long lines wasn't set correctly.
-	+ Fix for [[ reaching SOF with a column longer than the first line.
-	+ Fix for multiple error messages if no screen displayed.
-	+ Fix :read to set alternate file name as in historical practice.
-	+ Fix cut to rotate the numeric buffers if line mode flag set.
+	  count for the second screen of long lines wasn't set correctly
+	+ Fix for [[ reaching SOF with a column longer than the first line
+	+ Fix for multiple error messages if no screen displayed
+	+ Fix :read to set alternate file name as in historical practice
+	+ Fix cut to rotate the numeric buffers if line mode flag set
 
-Nvi 1.00 -> 1.01: Wed Jan 12 13:37:18 EST 1994
+Nvi 1.00 -> Nvi 1.01: Wed Jan 12 13:37:18 EST 1994
 	+ Don't put cut items into numeric buffers if cutting less than
-	  parts of two lines.
+	  parts of two lines
 
-Nvi 0.94 -> 1.00: Mon Jan 10 02:27:27 EST 1994
+Nvi 0.94 -> Nvi 1.00: Mon Jan 10 02:27:27 EST 1994
 	+ Read-ahead not there; BSD tty driver problem, SunOS curses
-	  problem.
+	  problem
 	+ Global command could error if it deleted the last line of
-	  the file.
+	  the file
 	+ Change '.' to only apply to the 'u' if entered immediately
 	  after the 'u' command. "1pu.u.u. is still broken, but I
-	  expect that it's going to be sacrificed for multiple undo.
+	  expect that it's going to be sacrificed for multiple undo
 	+ If backward motion on a command, now move to the point; get
-	  yank cursor positioning correct.
-	+ Rework cut buffers to match historic practice -- yank/delete
-	  numeric buffers redone sensibly, ignoring historic practice.
+	  yank cursor positioning correct
+	+ Rework cut buffers to match historic practice - yank/delete
+	  numeric buffers redone sensibly, ignoring historic practice
 
-Nvi 0.92 -> 0.93: Mon Dec 20 19:52:14 EST 1993
+Nvi 0.92 -> Nvi 0.93: Mon Dec 20 19:52:14 EST 1993
 	+ Christos Zoulas reimplemented the script windows using pty's,
 	  which means that they now work reasonably. The down side of
 	  this is that almost all ports other than 4.4BSD need to include
-	  two new files, login_tty.c and pty.c from the PORT/clib directory.
-	  I've added them to the Makefiles.
+	  two new files, login_tty.c and pty.c from the PORT/clib directory
+	  I've added them to the Makefiles
 	+ All calloc/malloc/realloc functions now cast their pointers, for
-	  SunOS -- there should be far fewer warning messages, during the
+	  SunOS - there should be far fewer warning messages, during the
 	  build. The remaining messages are where CHAR_T's meet char *'s,
-	  i.e. where 8-bit clean meets strcmp.
+	  i.e. where 8-bit clean meets strcmp
 	+ The user's argument list handling has been reworked so that there
 	  is always a single consistent position for use by :next, :prev and
-	  :rewind.
+	  :rewind
 	+ All of the historical options are now at least accepted, although
 	  not all of them are implemented. (Edcompatible, hardtabs, lisp,
 	  optimize, redraw, and slowopen aren't implemented.)
 	+ The RE's have been reworked so that matches of length 0 are handled
-	  in the same way as vi used to handle them.
-	+ Several more mapping fixes and ex parser addressing fixes.
+	  in the same way as vi used to handle them
+	+ Several more mapping fixes and ex parser addressing fixes
