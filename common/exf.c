@@ -40,6 +40,7 @@
 #endif
 
 #include "common.h"
+#include "mkstemp.h"
 
 static int	file_backup(SCR *, char *, char *);
 static void	file_cinit(SCR *);
@@ -128,7 +129,7 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
 	struct stat sb;
 	size_t psize;
 	int fd, exists, open_err, readonly;
-	char *oname, tname[] = "/tmp/vi.XXXXXXXXXX";
+	char *oname, tname[] = "/tmp/vi.XXXXXXXXXXXXXXXXXXXXXXXX";
 
 	open_err = readonly = 0;
 
@@ -194,7 +195,7 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
 		 */
 		if (frp->tname != NULL)
 			goto err;
-		fd = mkstemp(tname);
+		fd = obsd_mkstemp(tname);
 		if (fd == -1 || fstat(fd, &sb) == -1 ||
 		    fchmod(fd, S_IRUSR | S_IWUSR) == -1) {
 			msgq(sp, M_SYSERR,

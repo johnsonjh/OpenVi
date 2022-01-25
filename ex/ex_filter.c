@@ -23,6 +23,7 @@
 #include <unistd.h>
 
 #include "../common/common.h"
+#include "../common/mkstemp.h"
 
 static int filter_ldisplay(SCR *, FILE *);
 
@@ -43,7 +44,7 @@ ex_filter(SCR *sp, EXCMD *cmdp, MARK *fm, MARK *tm, MARK *rp, char *cmd,
 	pid_t parent_writer_pid, utility_pid;
 	recno_t nread;
 	int input[2], output[2], fd, rval;
-	char *name, tname[] = "/tmp/vi.XXXXXXXXXX";
+	char *name, tname[] = "/tmp/vi.XXXXXXXXXXXXXXXXXXXXXXXX";
 
 	rval = 0;
 
@@ -77,7 +78,7 @@ ex_filter(SCR *sp, EXCMD *cmdp, MARK *fm, MARK *tm, MARK *rp, char *cmd,
 	input[0] = input[1] = output[0] = output[1] = -1;
 
 	if (ftype == FILTER_BANG) {
-		fd = mkstemp(tname);
+		fd = obsd_mkstemp(tname);
 		if (fd == -1) {
 			msgq(sp, M_SYSERR,
 			    "Unable to create temporary file");

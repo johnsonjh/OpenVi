@@ -101,7 +101,7 @@ SRCS = cl/cl_funcs.c cl/cl_main.c cl/cl_read.c cl/cl_screen.c cl/cl_term.c    \
        vi/vi.c vi/vs_line.c vi/vs_msg.c vi/vs_refresh.c vi/vs_relative.c      \
        vi/vs_smap.c vi/vs_split.c cl/basename.c cl/getprogname.c cl/strlcpy.c \
        cl/pledge.c cl/strtonum.c cl/regcomp.c cl/regerror.c cl/regexec.c      \
-       cl/regfree.c cl/getopt_long.c
+       cl/regfree.c cl/getopt_long.c common/mkstemp.c
 
 OBJS := ${SRCS:.c=.o}
 

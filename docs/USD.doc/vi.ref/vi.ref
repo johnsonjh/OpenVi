@@ -438,16 +438,16 @@ Edit sessions are backed by files in the directory named by the
 option (the directory
 .LI /tmp/vi.recover
 by default), and are named
-.QC vi.XXXXXXXXXX ,
+.QC vi.XXXXXXXXXXXXXXXXXXXXXXXX ,
 where
-.QC XXXXXXXXXX
+.QC XXXXXXXXXXXXXXXXXXXXXXXX
 is a number related to the process ID.
 When a file is first modified,
 a second recovery file containing an email message for the user is created,
 and is named
-.QC recover.XXXXXXXXXX ,
+.QC recover.XXXXXXXXXXXXXXXXXXXXXXXX ,
 where, again,
-.QC XXXXXXXXXX
+.QC XXXXXXXXXXXXXXXXXXXXXXXX
 is associated with the process ID.
 Both files are removed at the end of a normal edit session,
 but will remain if the edit session is abnormally terminated
@@ -492,7 +492,7 @@ In addition, it has all of the necessary email headers for
 .\" When the system is rebooted, all of the files in
 .\" .LI /tmp/vi.recover
 .\" named
-.\" .QC recover.XXXXXXXXXX
+.\" .QC recover.XXXXXXXXXXXXXXXXXXXXXXXX
 .\" should be sent to their owners, by email, using the
 .\" .b \-t
 .\" option of

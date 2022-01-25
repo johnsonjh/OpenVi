@@ -35,6 +35,7 @@
 #include <unistd.h>
 
 #include "common.h"
+#include "mkstemp.h"
 
 /*
  * Recovery code.
@@ -154,7 +155,7 @@ rcv_tmp(SCR *sp, EXF *ep, char *name)
 			goto err;
 		}
 
-	(void)snprintf(path, sizeof(path), "%s/vi.XXXXXXXXXX", dp);
+	(void)snprintf(path, sizeof(path), "%s/vi.XXXXXXXXXXXXXXXXXXXXXXXX", dp);
 	if ((fd = rcv_mktemp(sp, path, dp, S_IRWXU)) == -1)
 		goto err;
 	(void)close(fd);
@@ -295,7 +296,7 @@ rcv_sync(SCR *sp, u_int flags)
 		if (opts_empty(sp, O_RECDIR, 0))
 			goto err;
 		dp = O_STR(sp, O_RECDIR);
-		(void)snprintf(buf, sizeof(buf), "%s/vi.XXXXXXXXXX", dp);
+		(void)snprintf(buf, sizeof(buf), "%s/vi.XXXXXXXXXXXXXXXXXXXXXXXX", dp);
 		if ((fd = rcv_mktemp(sp, buf, dp, S_IRUSR | S_IWUSR)) == -1)
 			goto err;
 		sp->gp->scr_busy(sp,
@@ -348,7 +349,7 @@ rcv_mailfile(SCR *sp, int issync, char *cp_path)
 	if (opts_empty(sp, O_RECDIR, 0))
 		return (1);
 	dp = O_STR(sp, O_RECDIR);
-	(void)snprintf(mpath, sizeof(mpath), "%s/recover.XXXXXXXXXX", dp);
+	(void)snprintf(mpath, sizeof(mpath), "%s/recover.XXXXXXXXXXXXXXXXXXXXXXXX", dp);
 	if ((fd = rcv_mktemp(sp, mpath, dp, S_IRUSR | S_IWUSR)) == -1)
 		return (1);
 
@@ -825,7 +826,7 @@ rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
 	 * XXX
 	 * The variable perms should really be a mode_t.
 	 */
-	if ((fd = mkstemp(path)) == -1 || fchmod(fd, perms) == -1) {
+	if ((fd = obsd_mkstemp(path)) == -1 || fchmod(fd, perms) == -1) {
 		msgq_str(sp, M_SYSERR, dname, "%s");
 		if (fd != -1) {
 			close(fd);
