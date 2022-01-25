@@ -216,7 +216,7 @@ endif
 ###############################################################################
 
 ifdef DEBUG
-	$(info **** DEBUG is enabled; a debugging build will be produced)
+    $(info **** DEBUG is enabled; a debugging build will be produced)
     $(info **** Using CFLAGS: $(CFLAGS))
     $(info **** Using LDFLAGS: $(LDFLAGS))
 endif
