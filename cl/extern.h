@@ -98,15 +98,8 @@ u_int32_t    __log2(u_int32_t);
 int  __put_page(HTAB *, char *, u_int32_t, int, int);
 int  __split_page(HTAB *, u_int32_t, u_int32_t);
 
-#ifdef HASH_STATISTICS
-extern int hash_accesses, hash_collisions, hash_expansions, hash_overflows;
-#endif
-
 #ifdef DEBUG
 void	 __bt_dnpage(DB *, pgno_t);
 void	 __bt_dpage(PAGE *);
 void	 __bt_dump(DB *);
-#endif
-#ifdef STATISTICS
-void	 __bt_stat(DB *);
 #endif

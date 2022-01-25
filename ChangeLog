@@ -1,4 +1,5 @@
 OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 12:51:09 2022
+	+ Build: Don't strip binary by default; add "install-strip" target
 	+ Build: Make clean targets more robust; warn if unable to remove 'bin'
 	+ Build: Add standard "clean", "distclean", "realclean", "mostlyclean",
 	  and "maintainer-clean" targets to GNUmakefile.

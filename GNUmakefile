@@ -39,11 +39,10 @@ CFLAGS += -pipe -std=gnu99 -I./cl -I./include -I. -MD
 # CFLAGS and LDFLAGS
 ifdef DEBUG_VI
    # Debugging
-   CFLAGS  += -DDEBUG=1 -g3 -ggdb -Og
+   CFLAGS  += -DDEBUG -g3 -ggdb -Og
 else
    # Optimizing
    CFLAGS  += $(OPTLEVEL) -fomit-frame-pointer
-   LDFLAGS += -s
 endif
 
 ifndef DEBUG_VI
@@ -64,17 +63,18 @@ endif
 
 # Required POSIX tools
 AWK    ?= awk
-RMF    ?= rm -f
+CHMOD  ?= chmod
+CHOWN  ?= chown
+CP     ?= cp -f
 LNS    ?= ln -fs
 MKDIR  ?= mkdir -p
-CHMOD  ?= chmod
+PRINTF ?= printf
 RMDIR  ?= rmdir
+RMF    ?= rm -f
+SLEEP  ?= sleep
+STRIP  ?= strip
 TEST   ?= test
 TRUE   ?= true
-CP     ?= cp -f
-CHOWN  ?= chown
-PRINTF ?= printf
-SLEEP  ?= sleep
 
 ###############################################################################
 
@@ -113,7 +113,7 @@ DEPZ := ${OBJS:.o=.d}
 
 ifndef DB185
     ifneq (,$(wildcard /usr/include/db_185.h))
-        DB185EMU=1
+        DB185EMU = 1
         ifdef MKVERBOSE
             $(info **** Berkeley DB 1.8.5 emulation enabled [/usr])
         endif
@@ -191,7 +191,7 @@ endif
 DBLIB ?= -ldb
 
 ifdef DB185EMU
-    CFLAGS  += -DDB185EMU=1
+    CFLAGS  += -DDB185EMU
 endif
 
 LDFLAGS += $(DBLIB)
@@ -312,6 +312,11 @@ install: vi ex view virecover
         $(LNS) $(PREFIX)/bin/vi $(PREFIX)/bin/view
 	$(CP) ./build/virecover $(PREFIX)/libexec/vi.recover && \
         $(CHMOD) 755 $(PREFIX)/libexec/vi.recover
+
+###############################################################################
+
+install-strip: install
+	$(STRIP) $(PREFIX)/bin/vi
 
 ###############################################################################
 
