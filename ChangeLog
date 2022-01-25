@@ -1,4 +1,5 @@
 OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 15:22:35 2022
+	+ Build: Installed binaries now prefixed with 'o' (e.g. 'ovi') by default
 	+ Build: Explicitly invoke a POSIX-compliant version of the awk utility
 	+ Build: Clarify (and simplify) GNUmakefile and build configuration
 	+ Documentation: Fix ChangeLog spelling and a minor typo
