@@ -1,10 +1,10 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 10:06:44 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 11:57:47 2022
 	+ Remove two unused wrapper headers
 	+ Set visible tab character to '~' and expose option in GNUmakefile
 	+ Installed binaries are now prefixed with 'o' (e.g. 'ovi') by default
 	+ Explicitly invoke the POSIX-compliant version of the awk utility
 	+ Clarify (and simplify) GNUmakefile and build configuration
-	+ Fix ChangeLog spelling and a minor typo
+	+ Update ChangeLog for consistency, fix spelling and typos
 	+ Update LICENSE text
 
 OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
