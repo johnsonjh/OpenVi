@@ -26,8 +26,8 @@ commands.
     1         introduction: {^F} {ZZ}
     2         introduction (con't) and positioning: {^F} {^B}
     3         introduction (con't) and positioning: {^F} {^B}
-    4         positioning: {^F} {^B} ^M (return key)
-    5         quitting: {:q!} ^M key
+    4         positioning: {^F} {^B} {^M} (return key)
+    5         quitting: {:q!} {^M} (return key)
     6         marking, cursor and screen positioning: {m} {G} {'} {z}
     7         marking, cursor and screen positioning: {m} {G} {'} {z}
     8         marking, cursor and screen positioning: {z} {m} {'}
@@ -44,7 +44,7 @@ commands.
    19         screen positioning: {H} {M} {L}
    20         character positioning: {w} {b} {0} {W} {B} {e} {E} {'} {`}
    21         cursor positioning: {l} {k} {j} {h}
-   22         adding text: {i} {a} {I} {A} {o} {O} ^[ (escape key)
+   22         adding text: {i} {a} {I} {A} {o} {O} {^[} (escape key)
    23         character manipulation: {f} {x} {X} {w} {l} {r} {R} {s} {S} {J}
    24         undo: {u} {U}
    25         review

@@ -1,4 +1,5 @@
-OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 11:05:35 2022
+OpenVi 7.0.1 -> OpenVi 7.0.2 (Unreleased): Tue Jan 25 11:09:41 2022
+	+ Documentation: Fix some typos and minor errors in the tutorials
 	+ Update .gitignore to include patch/diff detritus; no binary change.
 	+ Adjust calculation to avoid "BDB0511 page sizes must be a power-of-2"
 	  warning; BDB 1.85 only cared if oage size was even; closes GH issue #3
