@@ -1366,7 +1366,7 @@ Nvi 1.69 -> Nvi 1.70: 6/28/1996
 	  line, lots of people have complained. Add the number of files that
 	  are left to edit, it's historic practice
 	+ Fix core dump where message catalogs collided with truncating the
-	  write path.  Add a new write message so the string "appended" is
+	  write path. Add a new write message so the string "appended" is
 	  taken from a message catalog
 	+ Fix bug where an undo followed by '.' to repeat it wouldn't work
 	  if no other repeatable commands had been entered
