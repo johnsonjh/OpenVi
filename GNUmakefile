@@ -361,6 +361,11 @@ install-strip: install
 
 ###############################################################################
 
+strip: vi
+	$(STRIP) ./bin/vi
+
+###############################################################################
+
 uninstall:
 	$(RMF) $(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)
 	$(RMF) $(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)
