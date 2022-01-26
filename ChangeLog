@@ -1,4 +1,6 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Tue Jan 25 11:57:47 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Wed Jan 26 12:44:40 2022
+	+ Relicense new contributions under the same 3-clause BSD license
+	  used by the overall project and update LICENSE file text
 	+ Remove two unused wrapper headers
 	+ Set visible tab character to '~' and expose option in GNUmakefile
 	+ Installed binaries are now prefixed with 'o' (e.g. 'ovi') by default
