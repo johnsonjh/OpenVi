@@ -1,3 +1,6 @@
+OpenVi 7.0.4 -> OpenVi 7.0.5-dev (Unreleased): Wed Jan 26 13:13:13 2022
+	+ Begin 7.0.5-dev ...
+
 OpenVi 7.0.3 -> OpenVi 7.0.4: Wed Jan 26 13:09:45 2022
 	+ New feature: "set visibletab" (abbrev "set vt") which toggles
 	  displaying tabs visibly while editing, useful for Makefiles, etc.
