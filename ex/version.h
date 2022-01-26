@@ -40,6 +40,6 @@
 #else
 #define VI_VERSION \
 	"Version 7.0.3-dev (OpenVi) 10/25/2021"
-#endif
+#endif /* if defined(DB185EMU) || defined(_DB_185_H_) */
 
-#endif
+#endif /* ifndef _VERSION_H */

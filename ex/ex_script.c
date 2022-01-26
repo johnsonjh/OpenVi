@@ -32,7 +32,12 @@
 #include <termio.h>
 #include <unistd.h>
 #include <util.h>
-#include <pty.h>
+
+#ifdef _AIX
+# include <sys/pty.h>
+#else
+# include <pty.h>
+#endif /* ifdef _AIX */
 
 #include "../common/common.h"
 #include "../vi/vi.h"

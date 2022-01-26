@@ -14,7 +14,7 @@
 
 #include <bitstring.h>
 #include <curses.h>
-#include <err.h>
+#include <bsd_err.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <paths.h>
@@ -129,7 +129,7 @@ main(int argc, char *argv[])
 #if defined(DEBUG) || defined(PURIFY)
 	free(clp);
 	free(gp);
-#endif
+#endif /* if defined(DEBUG) || defined(PURIFY) */
 
 	exit (rval);
 }

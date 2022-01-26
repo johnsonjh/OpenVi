@@ -5,6 +5,6 @@
 
 #ifndef INFTIM
 # define INFTIM	(-1)
-#endif
+#endif /* ifndef INFTIM */
 
-#endif
+#endif /* ifndef _COMPAT_POLL_H */

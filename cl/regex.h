@@ -103,11 +103,9 @@ typedef struct {
 #define	regexec		openbsd_regexec
 #define	regfree		openbsd_regfree
 
-__BEGIN_DECLS
 int	regcomp(regex_t *, const char *, int);
 size_t	regerror(int, const regex_t *, char *, size_t);
 int	regexec(const regex_t *, const char *, size_t, regmatch_t [], int);
 void	regfree(regex_t *);
-__END_DECLS
 
 #endif /* !_REGEX_H_ */

@@ -448,7 +448,7 @@ msgq_status(SCR *sp, recno_t lno, u_int flags)
 #ifdef DEBUG
 	(void)snprintf(p, ep - p, " (pid %ld)", (long)getpid());
 	p += strlen(p);
-#endif
+#endif /* ifdef DEBUG */
 	*p++ = '\n';
 	len = p - bp;
 

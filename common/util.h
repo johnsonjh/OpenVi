@@ -58,4 +58,4 @@ enum nresult { NUM_ERR, NUM_OK, NUM_OVER, NUM_UNDER };
 	    NPFITS(LONG_MAX, (v1), (v2)) ? NUM_OK : NUM_OVER :		\
 	 NUM_OK)
 
-#endif
+#endif /* ifndef _UTIL_H */

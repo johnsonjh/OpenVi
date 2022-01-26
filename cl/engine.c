@@ -53,7 +53,7 @@
 #define	at	sat
 #define	match	smat
 #define	nope	snope
-#endif
+#endif /* ifdef SNAMES */
 #ifdef LNAMES
 #define	matcher	lmatcher
 #define	fast	lfast
@@ -65,7 +65,7 @@
 #define	at	lat
 #define	match	lmat
 #define	nope	lnope
-#endif
+#endif /* ifdef LNAMES */
 
 /* another structure passed up and down to avoid zillions of parameters */
 struct match {
@@ -103,15 +103,8 @@ static states step(struct re_guts *, sopno, sopno, states, int, states);
 #define	NNONCHAR	(CODEMAX-CHAR_MAX)
 #ifdef REDEBUG
 static void print(struct match *, char *, states, int, FILE *);
-#endif
-#ifdef REDEBUG
 static void at(struct match *, char *, char *, char *, sopno, sopno);
-#endif
-#ifdef REDEBUG
 static const char *pchar(int);
-#endif
-
-#ifdef REDEBUG
 #define	SP(t, s, c)	print(m, t, s, c, stdout)
 #define	AT(t, p1, p2, s1, s2)	at(m, t, p1, p2, s1, s2)
 #define	NOTE(str)	{ if (m->eflags&REG_TRACE) (void)printf("=%s\n", (str)); }
@@ -120,7 +113,7 @@ static int nope = 0;
 #define	SP(t, s, c)	/* nothing */
 #define	AT(t, p1, p2, s1, s2)	/* nothing */
 #define	NOTE(s)	/* nothing */
-#endif
+#endif /* ifdef REDEBUG */
 
 /*
  - matcher - the actual matching engine
@@ -246,7 +239,7 @@ matcher(struct re_guts *g, char *string, size_t nmatch, regmatch_t pmatch[],
 				assert(m->pmatch[i].rm_so == -1);
 				assert(m->pmatch[i].rm_eo == -1);
 			}
-#endif
+#endif /* ifndef NDEBUG */
 			NOTE("backoff dissect");
 			dp = backref(m, m->coldp, endp, gf, gl, (sopno)0, 0);
 		}
@@ -1021,8 +1014,8 @@ pchar(int ch)
 		(void)snprintf(pbuf, sizeof pbuf, "\\%o", ch);
 	return(pbuf);
 }
-#endif
-#endif
+#endif /* ifndef PCHARDONE */
+#endif /* ifdef REDEBUG */
 
 #undef	matcher
 #undef	fast

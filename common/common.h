@@ -12,11 +12,13 @@
  */
 
 #include <sys/time.h>
+
 #ifdef DB185EMU
-#include <db_185.h>
+# include <db_185.h>
 #else
-#include <db.h>
-#endif
+# include <db.h>
+#endif /* ifdef DB185EMU */
+
 #include <regex.h>
 
 /*
@@ -73,18 +75,28 @@ typedef enum { SEQ_ABBREV, SEQ_COMMAND, SEQ_INPUT } seq_t;
 extern enum pmode { MODE_EX, MODE_VI, MODE_VIEW } pmode;
 
 /*
+ * Extensions to POSIX.
+ */
+#ifndef ACCESSPERMS
+# define ACCESSPERMS (S_IRWXU|S_IRWXG|S_IRWXO)
+#endif /* ifndef ACCESSPERMS */
+
+#ifndef ALLPERMS
+# define ALLPERMS (S_ISUID|S_ISGID|S_ISVTX|S_IRWXU|S_IRWXG|S_IRWXO)
+#endif /* ifndef ALLPERMS */
+
+/*
  * Local includes.
  */
 #include "key.h"		/* Required by args.h. */
 #include "args.h"		/* Required by options.h. */
-#include "options.h"	/* Required by screen.h. */
-
+#include "options.h"		/* Required by screen.h. */
 #include "msg.h"		/* Required by gs.h. */
 #include "cut.h"		/* Required by gs.h. */
 #include "seq.h"		/* Required by screen.h. */
 #include "util.h"		/* Required by ex.h. */
 #include "mark.h"		/* Required by gs.h. */
-#include "../ex/ex.h"	/* Required by gs.h. */
+#include "../ex/ex.h"		/* Required by gs.h. */
 #include "gs.h"			/* Required by screen.h. */
 #include "screen.h"		/* Required by exf.h. */
 #include "exf.h"

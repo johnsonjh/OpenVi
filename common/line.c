@@ -104,7 +104,7 @@ db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
 		if (l1 <= lno && l2 >= lno) {
 #if defined(DEBUG) && 0
 	TRACE(sp, "retrieve TEXT buffer line %lu\n", (u_long)lno);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 			TAILQ_FOREACH(tp, &sp->tiq, q) {
 				if (tp->lno == lno)
 					break;
@@ -127,7 +127,7 @@ db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
 	if (lno == ep->c_lno) {
 #if defined(DEBUG) && 0
 	TRACE(sp, "retrieve cached line %lu\n", (u_long)lno);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 		if (lenp != NULL)
 			*lenp = ep->c_len;
 		if (pp != NULL)
@@ -160,7 +160,7 @@ err3:		if (lenp != NULL)
 
 #if defined(DEBUG) && 0
 	TRACE(sp, "retrieve DB line %lu\n", (u_long)lno);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	if (lenp != NULL)
 		*lenp = data.size;
 	if (pp != NULL)
@@ -182,7 +182,7 @@ db_delete(SCR *sp, recno_t lno)
 
 #if defined(DEBUG) && 0
 	TRACE(sp, "delete line %lu\n", (u_long)lno);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	/* Check for no underlying file. */
 	if ((ep = sp->ep) == NULL) {
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
@@ -237,7 +237,7 @@ db_append(SCR *sp, int update, recno_t lno, char *p, size_t len)
 
 #if defined(DEBUG) && 0
 	TRACE(sp, "append to %lu: len %u {%.*s}\n", lno, len, MIN(len, 20), p);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	/* Check for no underlying file. */
 	if ((ep = sp->ep) == NULL) {
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
@@ -305,7 +305,7 @@ db_insert(SCR *sp, recno_t lno, char *p, size_t len)
 #if defined(DEBUG) && 0
 	TRACE(sp, "insert before %lu: len %lu {%.*s}\n",
 	    (u_long)lno, (u_long)len, MIN(len, 20), p);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	/* Check for no underlying file. */
 	if ((ep = sp->ep) == NULL) {
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
@@ -363,7 +363,7 @@ db_set(SCR *sp, recno_t lno, char *p, size_t len)
 #if defined(DEBUG) && 0
 	TRACE(sp, "replace line %lu: len %lu {%.*s}\n",
 	    (u_long)lno, (u_long)len, MIN(len, 20), p);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 
 	/* Check for no underlying file. */
 	if ((ep = sp->ep) == NULL) {

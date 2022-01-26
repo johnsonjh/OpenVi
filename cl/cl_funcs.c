@@ -378,7 +378,7 @@ cl_keyval(SCR *sp, scr_keyval_t val, CHAR_T *chp, int *dnep)
 
 	/*
 	 * VEOF, VERASE and VKILL are required by POSIX 1003.1-1990,
-	 * VWERASE is a 4BSD extension.
+	 * VWERASE is a 4BSD extension - only use it if available.
 	 */
 	clp = CLP(sp);
 	switch (val) {
@@ -391,9 +391,11 @@ cl_keyval(SCR *sp, scr_keyval_t val, CHAR_T *chp, int *dnep)
 	case KEY_VKILL:
 		*dnep = (*chp = clp->orig.c_cc[VKILL]) == _POSIX_VDISABLE;
 		break;
+#ifdef VWERASE
 	case KEY_VWERASE:
 		*dnep = (*chp = clp->orig.c_cc[VWERASE]) == _POSIX_VDISABLE;
 		break;
+#endif /* ifdef VWERASE */
 	default:
 		*dnep = 1;
 		break;
@@ -622,14 +624,14 @@ cl_usage()
 		    "ex [ -FRrSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
 		    "ex [ -FRrSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
-#endif
+#endif /* ifdef DEBUG */
 #else
 #ifdef DEBUG
 		    "ex [ -FRSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
 		    "ex [ -FRSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
-#endif
-#endif
+#endif /* ifdef DEBUG */
+#endif /* ifndef DB185EMU */
 		break;
 	case MODE_VI:
 		(void)fprintf(stderr, "Usage: "
@@ -638,14 +640,14 @@ cl_usage()
 		    "vi [ -eFRrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
 		    "vi [ -eFRrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
-#endif
+#endif /* ifdef DEBUG */
 #else
 #ifdef DEBUG
 		    "vi [ -eFRS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
 		    "vi [ -eFRS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
-#endif
-#endif
+#endif /* ifdef DEBUG */
+#endif /* ifndef DB185EMU */
 		break;
 	case MODE_VIEW:
 		(void)fprintf(stderr, "Usage: "
@@ -654,14 +656,14 @@ cl_usage()
 		    "view [ -eFrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
 		    "view [ -eFrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
-#endif
+#endif /* ifdef DEBUG */
 #else
 #ifdef DEBUG
 		    "view [ -eFS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
 		    "view [ -eFS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
-#endif
-#endif
+#endif /* ifdef DEBUG */
+#endif /* ifndef DB185EMU */
 		break;
 	}
 }
@@ -677,4 +679,4 @@ gdbrefresh()
 	refresh();
 	return (0);		/* XXX Convince gdb to run it. */
 }
-#endif
+#endif /* ifdef DEBUG */

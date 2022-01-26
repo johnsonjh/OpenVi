@@ -79,11 +79,13 @@
  * For details on the use of these macros, see the queue(3) manual page.
  */
 
-#if defined(QUEUE_MACRO_DEBUG) || (defined(_KERNEL) && defined(DIAGNOSTIC))
-#define _Q_INVALIDATE(a) (a) = ((void *)-1)
+#if defined(QUEUE_MACRO_DEBUG) || \
+    (defined(_KERNEL) && defined(DIAGNOSTIC))
+# define _Q_INVALIDATE(a) (a) = ((void *)-1)
 #else
-#define _Q_INVALIDATE(a)
-#endif
+# define _Q_INVALIDATE(a)
+#endif /* if defined(QUEUE_MACRO_DEBUG) ||
+	  (defined(_KERNEL) && defined(DIAGNOSTIC)) */
 
 /*
  * Singly-linked List definitions.
@@ -115,7 +117,7 @@ struct {								\
 	    (var) = SLIST_NEXT(var, field))
 
 #define	SLIST_FOREACH_SAFE(var, head, field, tvar)			\
-	for ((var) = SLIST_FIRST(head);				\
+	for ((var) = SLIST_FIRST(head);					\
 	    (var) && ((tvar) = SLIST_NEXT(var, field), 1);		\
 	    (var) = (tvar))
 
@@ -189,7 +191,7 @@ struct {								\
 	    (var) = LIST_NEXT(var, field))
 
 #define	LIST_FOREACH_SAFE(var, head, field, tvar)			\
-	for ((var) = LIST_FIRST(head);				\
+	for ((var) = LIST_FIRST(head);					\
 	    (var) && ((tvar) = LIST_NEXT(var, field), 1);		\
 	    (var) = (tvar))
 
@@ -302,7 +304,7 @@ struct {								\
 	(listelm)->field.sqe_next = (elm);				\
 } while (0)
 
-#define SIMPLEQ_REMOVE_HEAD(head, field) do {			\
+#define SIMPLEQ_REMOVE_HEAD(head, field) do {				\
 	if (((head)->sqh_first = (head)->sqh_first->field.sqe_next) == NULL) \
 		(head)->sqh_last = &(head)->sqh_first;			\
 } while (0)

@@ -342,8 +342,12 @@ cl_vi_init(SCR *sp)
 	 * characters when curses switches into raw mode.  It should be OK
 	 * to do it explicitly for everyone.
 	 */
+#ifdef VDISCARD
 	clp->vi_enter.c_cc[VDISCARD] = _POSIX_VDISABLE;
+#endif /* ifdef VDISCARD */
+#ifdef VLNEXT
 	clp->vi_enter.c_cc[VLNEXT] = _POSIX_VDISABLE;
+#endif /* ifdef VLNEXT */
 #ifdef VSTATUS
 	clp->vi_enter.c_cc[VSTATUS] = _POSIX_VDISABLE;
 #endif /* ifdef VSTATUS */

@@ -173,4 +173,4 @@ TRACE(SCR *sp, const char *fmt, ...)
 
 	(void)fflush(tfp);
 }
-#endif
+#endif /* ifdef DEBUG */

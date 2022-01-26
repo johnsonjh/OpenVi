@@ -29,7 +29,7 @@
 
 #if defined(DEBUG) && defined(COMLOG)
 static void	ex_comlog(SCR *, EXCMD *);
-#endif
+#endif /* if defined(DEBUG) && defined(COMLOG) */
 static EXCMDLIST const *
 		ex_comm_search(char *, size_t);
 static int	ex_discard(SCR *);
@@ -1321,7 +1321,7 @@ addr_verify:
 
 #if defined(DEBUG) && defined(COMLOG)
 	ex_comlog(sp, ecp);
-#endif
+#endif /* if defined(DEBUG) && defined(COMLOG) */
 	/* Increment the command count if not called from vi. */
 	if (F_ISSET(sp, SC_EX))
 		++sp->ccnt;
@@ -1375,7 +1375,7 @@ addr_verify:
 		msgq(sp, M_ERR, "%s: temporary buffer not released",
 		    ecp->cmd->name);
 	}
-#endif
+#endif /* ifdef DEBUG */
 	/*
 	 * Ex displayed the number of lines modified immediately after each
 	 * command, so the command "1,10d|1,10d" would display:
@@ -2327,4 +2327,4 @@ ex_comlog(SCR *sp, EXCMD *ecp)
 			TRACE(sp, " arg %d: {%s}", cnt, ecp->argv[cnt]->bp);
 	TRACE(sp, "\n");
 }
-#endif
+#endif /* if defined(DEBUG) && defined(COMLOG) */

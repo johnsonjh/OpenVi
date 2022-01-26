@@ -139,7 +139,7 @@ static char nuls[10];		/* place to point scanner in event of error */
 static int never = 0;		/* for use in asserts; shuts lint up */
 #else
 #define	never	0		/* some <assert.h>s have bugs too */
-#endif
+#endif /* ifndef NDEBUG */
 
 /*
  - regcomp - interface for parser and compilation
@@ -157,7 +157,7 @@ regcomp(regex_t *preg, const char *pattern, int cflags)
 #	define	GOODFLAGS(f)	(f)
 #else
 #	define	GOODFLAGS(f)	((f)&~REG_DUMP)
-#endif
+#endif /* ifdef REDEBUG */
 
 	cflags = GOODFLAGS(cflags);
 	if ((cflags&REG_EXTENDED) && (cflags&REG_NOSPEC))
@@ -249,7 +249,7 @@ regcomp(regex_t *preg, const char *pattern, int cflags)
 	/* not debugging, so can't rely on the assert() in regexec() */
 	if (g->iflags&BAD)
 		SETERROR(REG_ASSERT);
-#endif
+#endif /* ifndef REDEBUG */
 
 	/* win or lose, we're done */
 	if (p->error != 0)	/* lose */

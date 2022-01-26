@@ -15,7 +15,7 @@
 #include <sys/time.h>
 
 #include <bitstring.h>
-#include <err.h>
+#include <bsd_err.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
@@ -30,7 +30,7 @@
 
 #ifdef DEBUG
 static void	 attach(GS *);
-#endif
+#endif /* ifdef DEBUG */
 static int	 v_obsolete(char *[]);
 
 enum pmode pmode;
@@ -64,7 +64,7 @@ editor(GS *gp, int argc, char *argv[])
 		"c:FlRrSst:vw:",
 		"c:eFlRrSt:w:",
 		"c:eFlrSt:w:"
-#endif
+#endif /* ifdef DEBUG */
 	};
 
 	if (pledge("stdio rpath wpath cpath fattr flock getpw tty proc exec",
@@ -174,7 +174,7 @@ editor(GS *gp, int argc, char *argv[])
 				return (1);
 			}
 			break;
-#endif
+#endif /* ifdef DEBUG */
 		case 'e':		/* Ex mode. */
 			LF_CLR(SC_VI);
 			LF_SET(SC_EX);
@@ -194,7 +194,7 @@ editor(GS *gp, int argc, char *argv[])
 			}
 			flagchk = 'r';
 			break;
-#endif
+#endif /* ifndef DB185EMU */
 		case 'S':
 			secure = 1;
 			break;
@@ -211,7 +211,7 @@ editor(GS *gp, int argc, char *argv[])
 			    "\n===\ntrace: open %s\n", optarg);
 			fflush(gp->tracefp);
 			break;
-#endif
+#endif /* ifdef DEBUG */
 		case 't':		/* Tag. */
 			if (flagchk == 'r') {
 				warnx(
@@ -332,7 +332,7 @@ editor(GS *gp, int argc, char *argv[])
 			goto err;
 		goto done;
 	}
-#endif
+#endif /* ifndef DB185EMU */
 
 	/*
 	 * !!!
@@ -504,7 +504,7 @@ v_end(GS *gp)
 
 	/* Free default buffer storage. */
 	(void)text_lfree(&gp->dcb_store.textq);
-#endif
+#endif /* if defined(DEBUG) || defined(PURIFY) */
 
 	/* Ring the bell if scheduled. */
 	if (F_ISSET(gp, G_BELLSCHED))
@@ -523,7 +523,7 @@ v_end(GS *gp)
 #if defined(DEBUG) || defined(PURIFY)
 		free(mp->buf);
 		free(mp);
-#endif
+#endif /* if defined(DEBUG) || defined(PURIFY) */
 	}
 
 #if defined(DEBUG) || defined(PURIFY)
@@ -534,8 +534,8 @@ v_end(GS *gp)
 	/* Close debugging file descriptor. */
 	if (gp->tracefp != NULL)
 		(void)fclose(gp->tracefp);
-#endif
-#endif
+#endif /* if defined(DEBUG) */
+#endif /* if defined(DEBUG) || defined(PURIFY) */
 }
 
 /*
@@ -616,4 +616,4 @@ attach(GS *gp)
 	} while (ch != '\n' && ch != '\r');
 	(void)close(fd);
 }
-#endif
+#endif /* ifdef DEBUG */

@@ -475,7 +475,7 @@ adjust:	if (!O_ISSET(sp, O_LEFTRIGHT) &&
 		     basename(__FILE__), __LINE__, CNO, len);
 		return (1);
 	}
-#endif
+#endif /* ifdef DEBUG */
 	/*
 	 * The basic scheme here is to look at the characters in between
 	 * the old and new positions and decide how big they are on the
@@ -698,7 +698,7 @@ done_cursor:
 		F_SET(sp, SC_SCR_REFORMAT);
 		return (vs_paint(sp, flags));
 	}
-#endif
+#endif /* ifdef DEBUG */
 
 	/*
 	 * 9: Set the remembered cursor values.

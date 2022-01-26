@@ -22,10 +22,10 @@
 #include "vi.h"
 
 #ifdef VISIBLE_TAB_CHARS
-#define	TABCH	'~'
+# define	TABCH	'~'
 #else
-#define	TABCH	' '
-#endif
+# define	TABCH	' '
+#endif /* ifdef VISIBLE_TAB_CHARS */
 
 /*
  * vs_line --
@@ -49,7 +49,7 @@ vs_line(SCR *sp, SMAP *smp, size_t *yp, size_t *xp)
 #if defined(DEBUG) && 0
 	TRACE(sp, "vs_line: row %u: line: %u off: %u\n",
 	    smp - HMAP, smp->lno, smp->off);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	/*
 	 * If ex modifies the screen after ex output is already on the screen,
 	 * don't touch it -- we'll get scrolling wrong, at best.

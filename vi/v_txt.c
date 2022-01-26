@@ -49,9 +49,9 @@ static void	 txt_unmap(SCR *, TEXT *, u_int32_t *);
 
 /* Cursor character (space is hard to track on the screen). */
 #if defined(DEBUG) && 0
-#undef	CH_CURSOR
-#define	CH_CURSOR	'+'
-#endif
+# undef	CH_CURSOR
+# define	CH_CURSOR	'+'
+#endif /* if defined(DEBUG) && 0 */
 
 /*
  * v_tcmd --
@@ -1350,7 +1350,7 @@ ebuf_chk:	if (tp->cno >= tp->len) {
 			goto done;
 		tp->len = tp->cno + tp->insert + tp->owrite;
 	}
-#endif
+#endif /* ifdef DEBUG */
 
 resolve:/*
 	 * 1: If we don't need to know where the cursor really is and we're

@@ -141,13 +141,13 @@ regexec(const regex_t *preg, const char *string, size_t nmatch,
     regmatch_t pmatch[], int eflags)
 {
 	struct re_guts *g = preg->re_g;
-	char *s = (char *)string; /* XXX fucking gcc XXX */
+	char *s = (char *)string;
 
 #ifdef REDEBUG
 #	define	GOODFLAGS(f)	(f)
 #else
 #	define	GOODFLAGS(f)	((f)&(REG_NOTBOL|REG_NOTEOL|REG_STARTEND))
-#endif
+#endif /* ifdef REDEBUG */
 
 	if (preg->re_magic != MAGIC1 || g->magic != MAGIC2)
 		return(REG_BADPAT);

@@ -93,7 +93,7 @@ struct _gs {
 
 #ifdef DEBUG
 	FILE	*tracefp;		/* Trace file pointer. */
-#endif
+#endif /* ifdef DEBUG */
 
 	EVENT	*i_event;		/* Array of input events. */
 	size_t	 i_nelem;		/* Number of array elements. */

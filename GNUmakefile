@@ -15,7 +15,7 @@ CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
 #DEBUG       = 1
 
 # Uncomment to enable link-time garbage collection (for non-debugging builds)
-LTGC         = -fdata-sections -ffunction-sections 
+LTGC         = -fdata-sections -ffunction-sections
 LTGL         = -Wl,--gc-sections
 
 # Uncomment to enable link-time optimization (for non-debugging builds)
@@ -47,12 +47,12 @@ ifdef DEBUG
    CFLAGS   += $(DBGFLAGS) -Wall -Wextra -DDEBUG -g3 -Og
 else
    CFLAGS   += $(OPTLEVEL) -pipe -fomit-frame-pointer
-endif
+endif # DEBUG
 
 ifndef DEBUG
     CFLAGS  += $(LTGC) $(LTOC)
     LDFLAGS += $(LTGL) $(LTOC)
-endif
+endif # DEBUG
 
 LDFLAGS     += $(LINKLIBS)
 
@@ -112,14 +112,14 @@ ifndef DB185
         DB185EMU = 1
         ifdef DEBUG
             $(info **** Berkeley DB 1.8.5 emulation enabled [/usr])
-        endif
-    endif
+        endif # DEBUG
+    endif # /usr/include/db_185.h
 else
     unexport DB185EMU
     ifdef DEBUG
         $(info **** Berkeley DB 1.8.5 emulation forcefully disabled)
-    endif
-endif
+    endif # DEBUG
+endif # DB185
 
 ifndef DB185
     ifndef DB185EMU
@@ -129,66 +129,79 @@ ifndef DB185
             LDFLAGS += -L/usr/local/lib
             ifdef DEBUG
                 $(info **** Berkelely DB 1.8.5 emulation enabled [/usr/local])
-            endif
-        endif
-    endif
-endif
+            endif # DEBUG
+        endif # /usr/local/include/db_185.h
+    endif # DB185EMU
+endif # DB185
+
+ifndef DB185
+    ifndef DB185EMU
+        ifneq (,$(wildcard /opt/freeware/include/db_185.h))
+            DB185EMU = 1
+            CFLAGS  += -I/opt/freeware/include
+            LDFLAGS += -L/opt/freeware/lib
+            ifdef DEBUG
+                $(info **** Berkelely DB 1.8.5 emulation enabled [/opt/freeware])
+            endif # DEBUG
+        endif # /opt/freeware/include/db_185.h
+    endif # DB185EMU
+endif # DB185
 
 ifndef DB185
     ifneq (,$(wildcard /usr/lib/libdb-5.so))
         DBLIB ?= -ldb-5
-    endif
+    endif # /usr/lib/libdb-5.so
 
     ifneq (,$(wildcard /usr/lib32/libdb-5.so))
         DBLIB ?= -ldb-5
-    endif
+    endif # /usr/lib32/libdb-5.so
 
     ifneq (,$(wildcard /usr/lib64/libdb-5.so))
         DBLIB ?= -ldb-5
-    endif
+    endif # /usr/lib64/libdb-5.so
 
     ifneq (,$(wildcard /usr/local/lib/libdb-5.so))
         DBLIB ?= -ldb-5
-    endif
+    endif # /usr/local/lib/libdb-5.so
 
     ifneq (,$(wildcard /usr/lib/libdb-4.so))
         DBLIB ?= -ldb-4
-    endif
+    endif # /usr/lib/libdb-4.so
 
     ifneq (,$(wildcard /usr/lib32/libdb-4.so))
         DBLIB ?= -ldb-4
-    endif
+    endif # /usr/lib32/libdb-4.so
 
     ifneq (,$(wildcard /usr/lib64/libdb-4.so))
         DBLIB ?= -ldb-4
-    endif
+    endif # /usr/lib64/libdb-4.so
 
     ifneq (,$(wildcard /usr/local/lib/libdb-4.so))
         DBLIB ?= -ldb-4
-    endif
+    endif # /usr/local/lib/libdb-4.so
 
     ifneq (,$(wildcard /usr/lib/libdb-3.so))
         DBLIB ?= -ldb-3
-    endif
+    endif # /usr/lib/libdb-3.so
 
     ifneq (,$(wildcard /usr/lib32/libdb-3.so))
         DBLIB ?= -ldb-3
-    endif
+    endif # /usr/lib32/libdb-3.so
 
     ifneq (,$(wildcard /usr/lib64/libdb-3.so))
         DBLIB ?= -ldb-3
-    endif
+    endif # /usr/lib64/libdb-3.so
 
     ifneq (,$(wildcard /usr/local/lib/libdb-3.so))
         DBLIB ?= -ldb-3
-    endif
-endif
+    endif # /usr/local/lib/libdb-3.so
+endif # DB185
 
 DBLIB ?= -ldb
 
 ifdef DB185EMU
     CFLAGS += -DDB185EMU
-endif
+endif # DB185EMU
 
 LDFLAGS += $(DBLIB)
 
@@ -196,23 +209,23 @@ LDFLAGS += $(DBLIB)
 
 ifneq (,$(wildcard /usr/lib/libmtmalloc.so))
     MALLOC ?= -lmtmalloc
-endif
+endif # /usr/lib/libmtmalloc.so
 
 ifneq (,$(wildcard /usr/lib/libjemalloc.so))
     MALLOC ?= -ljemalloc
-endif
+endif # /usr/lib/libjemalloc.so
 
 ifneq (,$(wildcard /usr/lib32/libjemalloc.so))
     MALLOC ?= -ljemalloc
-endif
+endif # /usr/lib32/libjemalloc.so
 
 ifneq (,$(wildcard /usr/lib64/libjemalloc.so))
     MALLOC ?= -ljemalloc
-endif
+endif # /usr/lib64/libjemalloc.so
 
 ifdef MALLOC
     LDFLAGS += $(MALLOC)
-endif
+endif # MALLOC
 
 ###############################################################################
 
@@ -220,7 +233,7 @@ ifdef DEBUG
     $(info **** DEBUG is enabled; a debugging build will be produced)
     $(info **** Using CFLAGS: $(CFLAGS))
     $(info **** Using LDFLAGS: $(LDFLAGS))
-endif
+endif # DEBUG
 
 ###############################################################################
 

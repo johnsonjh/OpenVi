@@ -41,7 +41,7 @@ static int	v_motion(SCR *, VICMD *, VICMD *, int *);
 
 #if defined(DEBUG) && defined(COMLOG)
 static void	v_comlog(SCR *, VICMD *);
-#endif
+#endif /* if defined(DEBUG) && defined(COMLOG) */
 
 /*
  * Side-effect:
@@ -225,7 +225,7 @@ vi(SCR **spp)
 
 #if defined(DEBUG) && defined(COMLOG)
 		v_comlog(sp, vp);
-#endif
+#endif /* if defined(DEBUG) && defined(COMLOG) */
 		/* Call the function. */
 ex_continue:	if (vp->kp->func(sp, vp))
 			goto err;
@@ -237,7 +237,7 @@ gc_event:
 			msgq(sp, M_ERR,
 			    "vi: temporary buffer not released");
 		}
-#endif
+#endif /* ifdef DEBUG */
 		/*
 		 * If we're exiting this screen, move to the next one, or, if
 		 * there aren't any more, return to the main editor loop.  The
@@ -1233,4 +1233,4 @@ v_comlog(SCR *sp, VICMD *vp)
 		TRACE(sp, " c2: %lu", vp->count2);
 	TRACE(sp, " flags: 0x%x\n", vp->flags);
 }
-#endif
+#endif /* defined(DEBUG) && defined(COMLOG) */

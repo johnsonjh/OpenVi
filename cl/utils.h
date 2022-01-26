@@ -43,13 +43,13 @@ typedef unsigned char uch;
 
 /* switch off assertions (if not already off) if no REDEBUG */
 #ifndef REDEBUG
-#ifndef NDEBUG
-#define	NDEBUG	/* no assertions please */
-#endif
-#endif
+# ifndef NDEBUG
+#  define	NDEBUG	/* no assertions please */
+# endif /* ifndef NDEBUG */
+#endif /* ifndef REDEBUG */
 #include <assert.h>
 
 /* for old systems with bcopy() but no memmove() */
 #ifdef USEBCOPY
-#define	memmove(d, s, c)	bcopy(s, d, c)
-#endif
+# define	memmove(d, s, c)	bcopy(s, d, c)
+#endif /* ifdef USEBCOPY */

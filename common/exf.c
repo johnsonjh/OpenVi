@@ -34,10 +34,10 @@
 
 #include <sys/types.h>
 #ifdef DB185EMU
-#include <db_185.h>
+# include <db_185.h>
 #else
-#include <db.h>
-#endif
+# include <db.h>
+#endif /* ifdef DB185EMU */
 
 #include "common.h"
 #include "mkstemp.h"

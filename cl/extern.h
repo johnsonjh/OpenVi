@@ -102,4 +102,4 @@ int  __split_page(HTAB *, u_int32_t, u_int32_t);
 void	 __bt_dnpage(DB *, pgno_t);
 void	 __bt_dpage(PAGE *);
 void	 __bt_dump(DB *);
-#endif
+#endif /* ifdef DEBUG */

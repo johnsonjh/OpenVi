@@ -134,7 +134,7 @@ argv_exp2(SCR *sp, EXCMD *excp, char *cmd, size_t cmdlen)
 
 #if defined(DEBUG) && 0
 	TRACE(sp, "file_argv: {%.*s}\n", (int)cmdlen, cmd);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 
 	if (argv_fexp(sp, excp, cmd, cmdlen, p, &len, &bp, &blen, 0)) {
 		rval = 1;
@@ -143,7 +143,7 @@ argv_exp2(SCR *sp, EXCMD *excp, char *cmd, size_t cmdlen)
 
 #if defined(DEBUG) && 0
 	TRACE(sp, "before shell: %d: {%s}\n", len, bp);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 
 	/*
 	 * Do shell word expansion -- it's very, very hard to figure out what
@@ -282,7 +282,7 @@ argv_exp3(SCR *sp, EXCMD *excp, char *cmd, size_t cmdlen)
 #if defined(DEBUG) && 0
 	for (cnt = 0; cnt < exp->argsoff; ++cnt)
 		TRACE(sp, "arg %d: {%s}\n", cnt, exp->argv[cnt]);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	return (0);
 }
 

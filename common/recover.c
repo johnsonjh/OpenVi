@@ -110,7 +110,7 @@
 int rcv_copy(SCR *, int, char *);
 void rcv_email(SCR *, int);
 int rcv_mailfile(SCR *, int, char *);
-#endif
+#endif /* ifndef DB185EMU */
 char *rcv_gets(char *, size_t, int);
 
 int	 rcv_mktemp(SCR *, char *, char *, int);
@@ -173,7 +173,7 @@ err:		msgq(sp, M_ERR,
 	return (0);
 #else
 	return (1);
-#endif
+#endif /* ifndef DB185EMU */
 }
 
 /*
@@ -228,7 +228,7 @@ rcv_init(SCR *sp)
 
 	/* We believe the file is recoverable. */
 	F_SET(ep, F_RCV_ON);
-#endif
+#endif /* ifndef DB185EMU */
 	return (0);
 
 err:	msgq(sp, M_ERR,
@@ -277,7 +277,7 @@ rcv_sync(SCR *sp, u_int flags)
 		/* REQUEST: send email. */
 		if (LF_ISSET(RCV_EMAIL))
 			rcv_email(sp, ep->rcv_fd);
-#endif
+#endif /* ifndef DB185EMU */
 	}
 
 	/*
@@ -316,7 +316,7 @@ err:		rval = 1;
 	/* REQUEST: end the file session. */
 	if (LF_ISSET(RCV_ENDSESSION))
 		F_SET(sp, SC_EXIT_FORCE);
-#endif
+#endif /* ifndef DB185EMU */
 	return (rval);
 }
 

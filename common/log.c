@@ -21,11 +21,12 @@
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
+
 #ifdef DB185EMU
-#include <db_185.h>
+# include <db_185.h>
 #else
-#include <db.h>
-#endif
+# include <db.h>
+#endif /* ifdef DB185EMU */
 
 #include "common.h"
 
@@ -68,7 +69,7 @@ static int	log_cursor1(SCR *, int);
 static void	log_err(SCR *, char *, int);
 #if defined(DEBUG) && 0
 static void	log_trace(SCR *, char *, recno_t, u_char *);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 
 /* Try and restart the log on failure, i.e. if we run out of memory. */
 #define	LOG_ERR {							\
@@ -191,7 +192,7 @@ log_cursor1(SCR *sp, int type)
 	TRACE(sp, "%lu: %s: %u/%u\n", ep->l_cur,
 	    type == LOG_CURSOR_INIT ? "log_cursor_init" : "log_cursor_end",
 	    sp->lno, sp->cno);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	/* Reset high water mark. */
 	ep->l_high = ++ep->l_cur;
 
@@ -285,7 +286,7 @@ log_line(SCR *sp, recno_t lno, u_int action)
 		    ep->l_cur, lno, len);
 		break;
 	}
-#endif
+#endif /* if defined(DEBUG) && 0 */
 	/* Reset high water mark. */
 	ep->l_high = ++ep->l_cur;
 
@@ -333,7 +334,7 @@ log_mark(SCR *sp, LMARK *lmp)
 #if defined(DEBUG) && 0
 	TRACE(sp, "%lu: mark %c: %lu/%u\n",
 	    ep->l_cur, lmp->name, lmp->lno, lmp->cno);
-#endif
+#endif /* defined(DEBUG) && 0 */
 	/* Reset high water mark. */
 	ep->l_high = ++ep->l_cur;
 	return (0);
@@ -378,7 +379,7 @@ log_backward(SCR *sp, MARK *rp)
 			LOG_ERR;
 #if defined(DEBUG) && 0
 		log_trace(sp, "log_backward", ep->l_cur, data.data);
-#endif
+#endif /* defined(DEBUG) && 0 */
 		switch (*(p = (u_char *)data.data)) {
 		case LOG_CURSOR_INIT:
 			if (didop) {
@@ -480,7 +481,7 @@ log_setline(SCR *sp)
 			LOG_ERR;
 #if defined(DEBUG) && 0
 		log_trace(sp, "log_setline", ep->l_cur, data.data);
-#endif
+#endif /* defined(DEBUG) && 0 */
 		switch (*(p = (u_char *)data.data)) {
 		case LOG_CURSOR_INIT:
 			memmove(&m, p + sizeof(u_char), sizeof(MARK));
@@ -568,7 +569,7 @@ log_forward(SCR *sp, MARK *rp)
 			LOG_ERR;
 #if defined(DEBUG) && 0
 		log_trace(sp, "log_forward", ep->l_cur, data.data);
-#endif
+#endif /* if defined(DEBUG) && 0 */
 		switch (*(p = (u_char *)data.data)) {
 		case LOG_CURSOR_END:
 			if (didop) {
@@ -690,4 +691,4 @@ log_trace(SCR *sp, char *msg, recno_t rno, u_char *p)
 		abort();
 	}
 }
-#endif
+#endif /* if defined(DEBUG) && 0 */
