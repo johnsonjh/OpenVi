@@ -1,5 +1,10 @@
-OpenVi 7.0.3 -> OpenVi 7.0.4 (Unreleased): Wed Jan 26 08:37:21 2022
-	+ Nothing yet ...
+OpenVi 7.0.3 -> OpenVi 7.0.4: Wed Jan 26 13:09:45 2022
+	+ New feature: "set visibletab" (abbrev "set vt") which toggles
+	  displaying tabs visibly while editing, useful for Makefiles, etc.
+	+ Decrease the width of the line-number column by one row
+	+ Increase the length of the divider decoration string (by 2x)
+	+ Improve the GNUmakefile to avoid remaking any non-stale targets
+	+ Portably seed the standard random number generator
 
 OpenVi 7.0.2 -> OpenVi 7.0.3: Wed Jan 26 08:31:28 2022
 	+ GNUmakefile "install" targets now install documentation (man pages)

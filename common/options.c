@@ -171,6 +171,8 @@ OPTLIST const optlist[] = {
 	{"ttywerase",	f_ttywerase,	OPT_0BOOL,	0},
 /* O_VERBOSE	  4.4BSD */
 	{"verbose",	NULL,		OPT_0BOOL,	0},
+/* O_VISIBLETAB	  OpenVi */
+	{"visibletab",	f_reformat,	OPT_0BOOL,	0},
 /* O_W1200	    4BSD */
 	{"w1200",	f_w1200,	OPT_NUM,	OPT_NDISP|OPT_NOSAVE},
 /* O_W300	    4BSD */
@@ -227,6 +229,7 @@ static OABBREV const abbrev[] = {
 	{"ts",		O_TABSTOP},		/*     4BSD */
 	{"tty",		O_TERM},		/*     4BSD (undocumented) */
 	{"ttytype",	O_TERM},		/*     4BSD (undocumented) */
+	{"vt",		O_VISIBLETAB},		/*   OpenVi */
 	{"w",		O_WINDOW},		/* O'Reilly */
 	{"wa",		O_WRITEANY},		/*     4BSD */
 	{"wi",		O_WINDOW},		/*     4BSD (undocumented) */

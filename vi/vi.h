@@ -316,8 +316,8 @@ typedef struct _vi_private {
 /* Vi private area. */
 #define	VIP(sp)	((VI_PRIVATE *)((sp)->vi_private))
 
-#define	O_NUMBER_FMT	"%7lu "			/* O_NUMBER format, length. */
-#define	O_NUMBER_LENGTH	8
+#define	O_NUMBER_FMT	"%6lu "			/* O_NUMBER format, length. */
+#define	O_NUMBER_LENGTH	7
 #define	SCREEN_COLS(sp)				/* Screen columns. */	\
 	((O_ISSET((sp), O_NUMBER) ? (sp)->cols - O_NUMBER_LENGTH : (sp)->cols))
 

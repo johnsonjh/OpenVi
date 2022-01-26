@@ -21,12 +21,6 @@
 #include "../common/common.h"
 #include "vi.h"
 
-#ifdef VISIBLE_TAB_CHARS
-# define	TABCH	'~'
-#else
-# define	TABCH	' '
-#endif /* ifdef VISIBLE_TAB_CHARS */
-
 /*
  * vs_line --
  *	Update one line on the screen.
@@ -411,7 +405,10 @@ display:
 			while (chlen--) {
 				if (cbp >= ecbp)
 					FLUSH(gp, sp, cbp, cbuf);
-				*cbp++ = TABCH;
+				if (O_ISSET(sp, O_VISIBLETAB))
+				    *cbp++ = '~';
+				else
+				    *cbp++ = ' ';
 			}
 		else {
 			if (cbp + chlen >= ecbp)

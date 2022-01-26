@@ -5,7 +5,6 @@
 # Default C compiler and CFLAGS
 CC          ?= cc
 CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
-#CFLAGS     += -DVISIBLE_TAB_CHARS
 
 ###############################################################################
 
@@ -255,7 +254,7 @@ endif # DEBUG
 
 ###############################################################################
 
-all: vi ex view docs/USD.doc/vi.man/vi.1
+all: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1
 
 ###############################################################################
 
@@ -313,16 +312,16 @@ vi: bin/vi
 
 ###############################################################################
 
-bin/ex: vi
+bin/ex: bin/vi
 	$(LNS) "vi" "./bin/ex"
 
 .PHONY: ex
 ex: bin/ex
 	@$(TRUE)
 
-###############################################################################
+##############################################################################
 
-bin/view: vi
+bin/view: bin/vi
 	$(LNS) "vi" "./bin/view"
 
 .PHONY: view
@@ -331,7 +330,7 @@ view: bin/view
 
 ###############################################################################
 
-install: vi ex view virecover docs/USD.doc/vi.man/vi.1
+install: bin/vi bin/ex bin/view build/virecover docs/USD.doc/vi.man/vi.1
 	$(TEST) -d "/tmp/vi.recover" ||                                           \
         $(MKDIR) "/tmp/vi.recover"
 	$(TEST) -d "/tmp/vi.recover" &&                                           \
@@ -370,7 +369,7 @@ install-strip: install
 
 ###############################################################################
 
-strip: vi
+strip: /bin/vi
 	$(STRIP) "./bin/vi"
 
 ###############################################################################

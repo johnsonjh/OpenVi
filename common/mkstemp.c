@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <time.h>
+#include <bsd_unistd.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <sys/stat.h>
@@ -12,6 +14,8 @@ int
 obsd_mkstemp (char *template_name)
 {
   int i, j, fd, len, index;
+
+  srand(time(NULL) ^ getpid());
 
   static const char letters[]
       = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
