@@ -135,7 +135,7 @@ A: The Sun console can't handle the 'al' capability of the termcap
 
 
 Q: When I update a file I already have open, and use :e to reread it, I
-   get nul's for the rest of the file!
+   get NULL's for the rest of the file!
 
 A: Your system's implementation of mmap(2) has a bug; you will have to
    exit vi and re-execute it.

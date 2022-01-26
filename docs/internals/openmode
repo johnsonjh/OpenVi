@@ -29,7 +29,7 @@ z, ^F, ^B:
 
 ^E, ^Y:	Do nothing.
 
-^L:	Clear the screen and redisplay the current line.
+^L:	Clear the screen and re-display the current line.
 
 H, L, M:
 	Move to the first nonblank of the current line and do nothing

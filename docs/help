@@ -120,7 +120,7 @@ VI COMMANDS:
 	 w move to next word
 	 x delete character
 	 y copy text to motion into a cut buffer
-	 z reposition the screen
+	 z re-position the screen
 	 { move back paragraph
 	 | move to column
 	 } move forward paragraph

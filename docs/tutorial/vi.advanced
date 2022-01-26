@@ -36,7 +36,7 @@ commands.
    11         scrolling with {^M}
    12         scrolling with {-} and screen adjustment {z}
    13         notes on use of tutorial
-   14         other scrolling and postioning commands: {^E} {^Y} {^D} {^U}
+   14         other scrolling and positioning commands: {^E} {^Y} {^D} {^U}
    15         searching: {/ .. /^M}
    16         searching: {? .. ?^M} {n} (in search strings ^ $)
    17         searching: \ and magic-characters in search strings
@@ -72,7 +72,7 @@ commands.
    40         more on operators: {d} {c} {<} {>} {!} {=} {y}
    41         abbreviations: {:ab}
    42         vi's relationship with the ex editor: {:}
-   43         vi on hardcopy terminals and dumb terminals: open mode
+   43         vi on hard-copy terminals and dumb terminals: open mode
    44         options: {:set} {setenv EXINIT}
    44.1          autoindent
    44.2          autoprint
@@ -869,7 +869,7 @@ There are several things of note here.  First, lines 36, 37, and 38 above are
 tagged by the {:g}.  Type {:g/^Line.*ABC/p^M} to verify this.  Second, there
 are two substitutes on the same line separated by '|'.  In general, any colon
 commands can be strung together with '|'.  Third, both substitutes operate on
-all three lines, even though the first stubstitute works on only two of the
+all three lines, even though the first substitution works on only two of the
 lines (36 and 38).  Fourth, the second substitute works on only two lines (36
 and 37) and those are the two lines printed by the trailing 'p'.
 
@@ -951,8 +951,8 @@ during input mode.  These are summarized in the following table.
     ^?      the delete key; interrupts an insertion, terminating it
             abnormally.
     ^M      the return key; starts a new line.
-    ^D      backtabs over the indentation set by the autoindent option
-    0^D     backtabs over all indentation back to the beginning of the line
+    ^D      back-tabs over the indentation set by the autoindent option
+    0^D     back-tabs over all indentation back to the beginning of the line
     ^^D     (up-arrow followed by control-d)same as 0^D, except the indentation 
 	    will be restored at the beginning of the next line.
     ^V      quotes the next non-printing character into the file
@@ -975,7 +975,7 @@ letter as a request for the corresponding control character.  This is the only
 way to type ^S or ^Q, since the system normally uses them to suspend and resume 
 output and never gives them to the editor to process.
 
-If you are using the autoindent option you can backtab over the indent which it
+If you are using the autoindent option you can back-tab over the indent which it
 supplies by typing a ^D.  This backs up to the boundary specified by the
 shiftwidth option.  This only works immediately after the supplied autoindent.
 
@@ -1066,12 +1066,12 @@ then save your work and quit if you wish by giving the command {x} after
 the colon prompt of ex.  Or you can reenter vi (if you are brave) by
 giving ex the command {vi}.
 
-Section 43: vi on hardcopy terminals and dumb terminals: open mode
+Section 43: vi on hard-copy terminals and dumb terminals: open mode
 
 (The author has not checked the following documentation for accuracy.  It is
 abstracted from the Introduction to Vi Editing document.)
 
-If you are on a hardcopy terminal or a terminal which does not have a cursor
+If you are on a hard-copy terminal or a terminal which does not have a cursor
 which can move off the bottom line, you can still use the command set of vi,
 but in a different mode.  When you give the vi command to UNIX, the editor will
 tell you that it is using open mode.  This name comes from the open command in
@@ -1086,7 +1086,7 @@ the current line.  Two commands of vi work differently in open: {z} and {^R}.
 The {z} command does not take parameters, but rather draws a window of context
 around the current line and then returns you to the current line.
 
-If you are on a hardcopy terminal, the {^R} command will retype the current
+If you are on a hard-copy terminal, the {^R} command will retype the current
 line.  On such terminals, the editor normally uses two lines to represent the
 current line.  The first line is a copy of the line as you started to edit it,
 and you work on the line below this line.  When you delete characters, the
@@ -1115,7 +1115,7 @@ commands, you can have many things done for you each time you invoke vi.  For
 example, if you decide that you don't like tabstops placed every eight columns
 but prefer every four columns, and that you wish the editor to insert linefeeds
 for you when your typing gets you close to column 72, and you want
-autoindentation, then include the following line in your .login file:
+auto-indentation, then include the following line in your .login file:
 
 setenv EXINIT='set tabstop=4 wrapmargin=8 autoindent'
 
@@ -1216,7 +1216,7 @@ Section 44.10: {lisp} default: nolisp
 
 Autoindent indents appropriately for lisp code, and the {(}, {)}, [{], [}],
 {[[}, and {]]} commands in open and visual modes are modified in a
-striaghtforward, intuitive fashion to have meaning for lisp.
+straightforward, intuitive fashion to have meaning for lisp.
 
 [Author's note: but don't ask me to define them precisely.]
 
@@ -1227,10 +1227,10 @@ and end-of-lines with `$'.  This is the same as in the ex command {list}.
 
 Section 44.12: {magic} default: magic for {ex} and {vi}, nomagic for edit.
 
-If nomagic is set, the number of regular expression metacharacters is greatly
+If nomagic is set, the number of regular expression meta-characters is greatly
 reduced, with only up-arrow `^' and `$' having special effects.  In addition
-the metacharacters `~' and `&' of the replacement pattern are treated as normal
-characters.  All the normal metacharacters may be made magic when nomagic is
+the meta-characters `~' and `&' of the replacement pattern are treated as normal
+characters.  All the normal meta-characters may be made magic when nomagic is
 set by preceding them with a `\'.
 
 [Author's note: In other words, if magic is set a back-slant turns the magic

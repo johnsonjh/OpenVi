@@ -164,7 +164,7 @@ Interpreter functions in nvi:
 13: Nvi commands which will send text to the interpreter.
 
     Nvi will have a new ex command "inter", which will pipe the rest of
-    the line up to the first unescaped <newline> to the interpreter, of
+    the line up to the first un-escaped <newline> to the interpreter, of
     the following form:
    
 	:[address[,address]] inter [count] command

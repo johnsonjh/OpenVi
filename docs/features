@@ -39,7 +39,7 @@ List of suggested features:
 + An option to turn on a ``quarter plane'' model so that you can
   go as far to the right or down as you wish.  The File or the
   current line is only extended if you actually put down a char at
-  the new location.  Very handy for ascii graphics and tables.
+  the new location.  Very handy for ASCII graphics and tables.
 
 + Some way of replacing the command bindings.  For this to work
   cleanly the notion of a command must be separate from that of a
