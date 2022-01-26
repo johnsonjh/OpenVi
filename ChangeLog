@@ -1,5 +1,5 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Wed Jan 26 04:08:01 2022
-	+ General portability and code readability improvements
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Wed Jan 26 04:30:13 2022
+	+ General GNUmakefile, portability, and code readability improvements
 	+ Relicense new contributions under the same 3-clause BSD license
 	  used by the overall project and update LICENSE file text
 	+ Remove two unused wrapper headers

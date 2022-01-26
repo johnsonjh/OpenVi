@@ -7,6 +7,8 @@ CC          ?= cc
 CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
 #CFLAGS     += -DVISIBLE_TAB_CHARS
 
+###############################################################################
+
 # Uncomment to override BDB 1.8.5 emulation detection and/or library name
 #DB185       = 1
 #DBLIB       = -ldb185
@@ -14,12 +16,18 @@ CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
 # Uncomment to enable debugging build
 #DEBUG       = 1
 
+###############################################################################
+
 # Uncomment to enable link-time garbage collection (for non-debugging builds)
+LGC          = 1
 LTGC         = -fdata-sections -ffunction-sections
 LTGL         = -Wl,--gc-sections
 
 # Uncomment to enable link-time optimization (for non-debugging builds)
+LTO          = 1
 LTOC         = -flto
+
+###############################################################################
 
 # Optimization flags (for non-debugging builds)
 OPTLEVEL    ?= -O2
@@ -29,6 +37,8 @@ DBGFLAGS    ?= -ggdb
 
 # Default libraries to link
 LINKLIBS    ?= -lncurses -lutil $(EXTRA_LIBS)
+
+###############################################################################
 
 # Installation directory prefix for install/uninstall
 PREFIX      ?= /usr/local
@@ -49,9 +59,17 @@ else
    CFLAGS   += $(OPTLEVEL) -pipe -fomit-frame-pointer
 endif # DEBUG
 
+###############################################################################
+
 ifndef DEBUG
-    CFLAGS  += $(LTGC) $(LTOC)
-    LDFLAGS += $(LTGL) $(LTOC)
+    ifdef LTO
+        CFLAGS  += $(LTOC)
+        LDFLAGS += $(LTOC)
+    endif # LTO
+    ifdef LGC
+        CFLAGS  += $(LTGC)
+        LDFLAGS += $(LTGL)
+    endif # LGC
 endif # DEBUG
 
 LDFLAGS     += $(LINKLIBS)
@@ -239,10 +257,14 @@ endif # DEBUG
 
 all: vi ex view
 
+###############################################################################
+
 ex/ex_def.h: ex/ex.awk ex/ex_cmd.c
 	$(RMF) ./ex/ex_def.h; \
         $(AWK) -f ./ex/ex.awk ./ex/ex_cmd.c \
             > ./ex/ex_def.h && $(TEST) -f ./ex/ex_def.h
+
+###############################################################################
 
 common/options_def.h: common/options.awk common/options.c ex/ex_def.h
 	$(RMF) ./common/options_def.h; \
@@ -263,6 +285,8 @@ clean distclean realclean mostlyclean:
 	$(TEST) -d ./bin      && $(RMDIR)   ./bin      || $(TRUE)
 	-@$(TEST) -d ./bin    && $(PRINTF) '%s\n' \
         "WARNING: Build directory './bin' could not be removed." || $(TRUE)
+
+###############################################################################
 
 maintainer-clean:
 	@$(PRINTF) '%s\n' \
@@ -287,12 +311,16 @@ bin/vi: $(OBJS)
 vi: bin/vi
 	@$(TRUE)
 
+###############################################################################
+
 bin/ex: vi
 	$(LNS) vi ./bin/ex
 
 .PHONY: ex
 ex: bin/ex
 	@$(TRUE)
+
+###############################################################################
 
 bin/view: vi
 	$(LNS) vi ./bin/view
