@@ -1,4 +1,5 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Wed Jan 26 04:51:48 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3: Wed Jan 26 08:31:28 2022
+	+ GNUmakefile "install" targets now install documentation (man pages)
 	+ Remove 'docs/internals/cscope.NOTES' and documentation references
 	+ General GNUmakefile, portability, and code readability improvements
 	+ Relicense new contributions under the same 3-clause BSD license
