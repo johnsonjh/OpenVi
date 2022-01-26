@@ -1,4 +1,5 @@
-OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Wed Jan 26 04:37:31 2022
+OpenVi 7.0.2 -> OpenVi 7.0.3 (Unreleased): Wed Jan 26 04:51:48 2022
+	+ Remove 'docs/internals/cscope.NOTES' and documentation references
 	+ General GNUmakefile, portability, and code readability improvements
 	+ Relicense new contributions under the same 3-clause BSD license
 	  used by the overall project and update LICENSE file text
@@ -140,7 +141,7 @@ Mon Sep 17 15:41:17 2018
 	+ Use the strict pragma for better warnings
 
 Fri Jul 13 20:06:10 2018
-	+ Remove cscope leftover and a stray comma
+	+ Remove Cscope leftover and a stray comma
 	+ Unused variable
 
 Wed Jul 11 06:39:23 2018

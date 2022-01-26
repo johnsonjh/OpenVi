@@ -104,8 +104,6 @@ was done by Elan Amir.
 George Neville-Neil added the Tcl interpreter,
 and Sven Verdoolaege added the Perl interpreter.
 .pp
-Rob Mayoff added Cscope support.
-.pp
 The Institute of Electrical and Electronics Engineers has
 given us permission to reprint portions of their documentation.
 Portions of this document are reprinted and reproduced from
