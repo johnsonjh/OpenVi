@@ -56,7 +56,12 @@ OpenBSD 7.0.0 -> OpenVi 7.0.1: Mon Jan 24 10:37:28 2022
 	+ Create initial README.md stub
 
 Mon Oct 25 14:17:24 2021
-	+ vi(1): fix use after free with unsaved buffer
+	+ vi(1): fix use after free with unsaved buffer. Issuing a zero-arg
+	  ex_edit command (:e) while using a named buffer with no backing file
+	  caused vi(1)/ex(1) to free the strings representing the buffer name
+	  and the name of the temporary file. This change detects the situation
+	  and only frees the newly allocated EXF structure (ep). Reported on
+	  bugs@ by kn@. OK millert@
 
 Sun Oct 24 21:24:15 2021
 	+ For open/openat, if the flags parameter does not contain
