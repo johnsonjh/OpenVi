@@ -211,7 +211,7 @@ alloc_err:
 	return (1);
 }
 
-/* 
+/*
  * ex_tag_next --
  *	Switch context to the next TAG.
  *
@@ -242,7 +242,7 @@ ex_tag_next(SCR *sp, EXCMD *cmdp)
 	return (0);
 }
 
-/* 
+/*
  * ex_tag_prev --
  *	Switch context to the next TAG.
  *

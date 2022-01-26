@@ -2,7 +2,7 @@ Section 26: Index to the rest of the tutorial
 
 The remainder of the tutorial can be perused at your leisure.  Simply find the
 topic of interest in the following list, and {/Section xx:/^M} to get to the
-appropriate section.  (Remember that ^M means the return key) 
+appropriate section.  (Remember that ^M means the return key)
 
 The material in the following sections is not necessarily in a bottom up
 order.  It should be fairly obvious that if a section mentions something with
@@ -24,8 +24,8 @@ commands.
  -------      -------------------
 (Sections 1 through 25 are located in the file vi.beginner.)
     1         introduction: {^F} {ZZ}
-    2         introduction (con't) and positioning: {^F} {^B}
-    3         introduction (con't) and positioning: {^F} {^B}
+    2         introduction (cont'd) and positioning: {^F} {^B}
+    3         introduction (cont'd) and positioning: {^F} {^B}
     4         positioning: {^F} {^B} {^M} (return key)
     5         quitting: {:q!} {^M} (return key)
     6         marking, cursor and screen positioning: {m} {G} {'} {z}
@@ -64,8 +64,8 @@ commands.
    34.4          escaping to a shell: {:sh} {:!}
    34.5          writing parts of a file: {:w}
    34.6          filtering portions of text: {!}
-   35         advanced searching: magic patterns 
-   36         advanced substitution: {:s} 
+   35         advanced searching: magic patterns
+   36         advanced substitution: {:s}
    37         advanced line addressing: {:p} {:g} {:v}
    38         higher level text objects and nroff: ( ) { } [[ ]]
    39         more about inserting text
@@ -86,7 +86,7 @@ commands.
    44.10         lisp
    44.11         list
    44.12         magic
-   44.13         mesg                    
+   44.13         mesg
    44.14         number
    44.15         open
    44.16         optimize
@@ -137,8 +137,8 @@ says put line three as close to the middle of the screen as possible.
 
 {50|} moves the cursor to column fifty in the current line.
 
-{3^F} says move forward 3 screenfulls.  This is a repetition count.  The
-documents advertise that {3^B} should move BACK three screenfulls, but I
+{3^F} says move forward 3 screen-fulls.  This is a repetition count.  The
+documents advertise that {3^B} should move BACK three screen-fulls, but I
 can't get it to work.
 
 Position the cursor on some text and try {3r.}.  This replaces three characters
@@ -224,7 +224,7 @@ suffixes (suffices? suffici?) and the ranges they specify:
       ^             to the beginning of the line
       / .. /        up to, but not including, the string
       ? .. ?        back to and including the string
-      fc            up to and including the occurrence of c 
+      fc            up to and including the occurrence of c
       Fc            back to and including the occurrence of c
       tc            up to but not including the occurrence of c
       Tc            back to but not including the occurrence of c
@@ -232,8 +232,8 @@ suffixes (suffices? suffici?) and the ranges they specify:
       (number)^M    that many lines plus one
       (number)G     up to and including line (number)
       (             the previous sentence if you are at the beginning of
-                    the current sentence, or the current sentence up to where 
-                    you are if you are not at the beginning of the current 
+                    the current sentence, or the current sentence up to where
+                    you are if you are not at the beginning of the current
                     sentence.  Here, 'sentence' refers to the intuitive
                     notion of an English sentence, ending with '!', '?',
                     or '.' and followed by an end of line or two spaces.
@@ -270,10 +270,10 @@ looks like, and what it would look like after a command has been executed.  Vi
 then compares the two, and updates only those portions of the screen that have
 changed.
 
-Furthermore, some of you may have noticed (it depends on your terminal) that 
-deleting lines or changing large portions of text may leave some lines on the 
-screen looking like: 
-@ 
+Furthermore, some of you may have noticed (it depends on your terminal) that
+deleting lines or changing large portions of text may leave some lines on the
+screen looking like:
+@
 meaning that this line of the screen does not correspond to any line in your
 file. It would cost more to update the line than to leave it blank for the
 moment.  If you would like to see your screen fully up-to-date with the
@@ -283,8 +283,8 @@ To see it in action, delete several lines with {5dd}, type {^R}, and then type
 {u} to get the lines back.
 
 Here is as good a place as any to mention that if the editor is displaying the
-end of your file, there may be lines on the screen that look like: 
-~ 
+end of your file, there may be lines on the screen that look like:
+~
 indicating that that screen line would not be affected by {^R}.  These lines
 simply indicate the end of the file.
 
@@ -336,7 +336,7 @@ puts the line BEFORE the cursor.
 To get Line 15 where it belongs again type {dd}{p}.
 
 Also in Line 15 note that the words 'tree' and 'poem' are reversed.  Using the
-unnamed buffer again: {ft}{dw}{ma}{fp}{P}{w}{dw}{`aP} will set things aright 
+unnamed buffer again: {ft}{dw}{ma}{fp}{P}{w}{dw}{`aP} will set things aright
 (note the use of the reverse quote).
 
 The put commands {p} and {P} do not affect the contents of the buffer.
@@ -421,7 +421,7 @@ after each put {p} and {.}:
 will show you all the buffers and leave them and your file intact.
 
 If you had cheated above and deleted the nine lines with {9dd}, all nine lines
-would have been stored in both the unnamed buffer and in buffer number 1. 
+would have been stored in both the unnamed buffer and in buffer number 1.
 (Obviously, buffer number 1 IS the unnamed buffer and is just the default
 buffer for the modify commands.)
 
@@ -478,7 +478,7 @@ Section 34.4: escaping to a shell: {:sh} {:!} {^Z}
 
 Occasionally, it is useful to interrupt the current editing session to perform
 a UNIX task.  However, there is no need to write the current file out, exit
-the editor, perform the task, and then reinvoke the editor on the same file.
+the editor, perform the task, and then re-invoke the editor on the same file.
 One thing to do is to spin off another process.  If there are several UNIX
 commands you will need to execute, simply create another shell with {:sh^M}.
 At this point, the editor is put to sleep and will be reawakened when you log
@@ -593,9 +593,9 @@ Observe that this paragraph is
 rather ratty in appearance.  With our newly created files we can
 clean it up dramatically.  Position the cursor at the beginning
 of this paragraph and type the following sequence of
-characters 
+characters
 (note that we must abandon temporarily our convention
-of curly braces since the command itself contains a curly brace - we 
+of curly braces since the command itself contains a curly brace - we
 will use square brackets for the nonce): [!}f^M].
 
 Here is a brief explanation of what has happened.  By typing [!}f^M] we
@@ -682,7 +682,7 @@ match ONE of the three characters 'a', '-', or 'z'.
 
 If you wish to find all Capitalized words, try {/\<[A-Z][a-z]*\>/^M}.  The
 following will find all character sequences that do NOT begin with an
-uncapitalized letter by applying a special meaning to the '^' character in
+un-capitalized letter by applying a special meaning to the '^' character in
 square brackets: {/\<[^a-z][a-z]*\>/^M}.  When '^' is the first character of a
 square-bracket expression, it specifies "all but these characters".  (No
 one claimed vi was consistent.)
@@ -702,7 +702,7 @@ In summary, here are the primitives for building regular expressions:
      [x-y]  matches any character in the ASCII range between x and y
      *      matches any number (including zero) of the preceding pattern
 
-Section 36: advanced substitution: {:s} 
+Section 36: advanced substitution: {:s}
 
 The straightforward colon-substitute command looks like the substitute
 command of most line-oriented editors.  Indeed, vi is nothing more than a
@@ -721,8 +721,8 @@ Line 28: This is an esample.
 The {u} and {U} commands work for {:s}.  The first pattern (the search pattern)
 may be a regular expression just as for the search command (after all, it IS a
 search, albeit limited to the current line).  Do an {u} on the above line, and
-try the following substitute, which will do almost the same thing: 
-{:s/s[^ ]/x/^M}.  
+try the following substitute, which will do almost the same thing:
+{:s/s[^ ]/x/^M}.
 Better undo it with {u}.  The first pattern {s[^ ]} matches an 's'
 NOT followed by a blank: the search therefore ignores the 's'es in 'This' and
 'is'.  However, the character matched by {[^ ]} must appear in the replacement
@@ -744,7 +744,7 @@ powerful, if not necessary, is in colon-substitutes that cover a range of
 lines.  (See the next section for a particularly comprehensive example.)
 
 If the entire character sequence matched by the search pattern is needed in
-the replacement pattern, then the unescaped character '&' can be used.  On
+the replacement pattern, then the un-escaped character '&' can be used.  On
 Line 29 above, try {:s/an e.ample/not &/^M}.  If another line is to have the
 word 'not' prepended to a pattern, then '~' can save you from re-typing the
 replacement pattern.  E.g. {:s/some pattern/~/^M} after the previous example
@@ -785,7 +785,7 @@ to make every time he attempts to type the word 'test'.  To change all of these
 'text's into 'test's, try the following:
 {:/^Line 30/,/^Line 32/s/text/test/^M}.  This finds the beginning and end of
 the portion of text to be changed, and limits the substitution to each of the
-lines in that range.  The {u} command applies to ALL of the substitutions as 
+lines in that range.  The {u} command applies to ALL of the substitutions as
 a group.
 
 This provides a mechanism for powerful text manipulations.
@@ -820,7 +820,7 @@ patterns named for easier reference:
       |--------search pattern------------------|-replacement|
                                                |--pattern---|
 
-In overview, the substitute looks for a particular pattern made up of 
+In overview, the substitute looks for a particular pattern made up of
 sub-patterns, which are named \1, \2, \3, and \4.  These patterns are specified
 by stating what they are NOT.  Pattern \1 is the sequence of characters that
 are NOT colons: in the search string, {[^:]} will match exactly one character
@@ -859,7 +859,7 @@ lines have the commands following the pattern executed over them.
 
 Line 36: ABC rhino george farmer Dick jester lest
 Line 37: george farmer rhino lest jester ABC
-Line 38: rhino lest george Dick farmer ABC jester 
+Line 38: rhino lest george Dick farmer ABC jester
 
 Type:
 
@@ -878,10 +878,10 @@ the test for 'tagging' the lines is reversed: all lines NOT matching the search
 pattern are tagged and operated on by the commands.
 
 Using {^V} to quote carriage return (see section 39) can be used in global
-substitutions to split two lines.  For example, the command 
-{:g/\.  /s//.^V^M/g^M} will change your file so that each sentence is on a 
+substitutions to split two lines.  For example, the command
+{:g/\.  /s//.^V^M/g^M} will change your file so that each sentence is on a
 separate line.  (Note that we have to 'escape' the '.', because '.' by itself
-matches any character.  Our command says to find any line which contains a 
+matches any character.  Our command says to find any line which contains a
 period followed by 2 spaces, and inserts a carriage return after the period.)
 
 Caveat:  In some of the documentation for ex and vi you may find the
@@ -905,7 +905,7 @@ the beginning of the previous and next sentences, respectively.  Thus
 the command {d)} will delete the rest of the current sentence; likewise
 {d(} will delete the previous sentence if you are at the beginning of
 the current sentence, or, if you are not at the beginning of a sentence,
-it will delete the current sentence from the beginning 
+it will delete the current sentence from the beginning
 up to where you are.
 
 A sentence is defined to end at a '.', '!', or '?' which is followed
@@ -938,7 +938,7 @@ during input mode.  These are summarized in the following table.
 
     ^H      deletes the last input character
     ^W      deletes the last input word
-    (erase) same as ^H; each terminal can define its own erase character; 
+    (erase) same as ^H; each terminal can define its own erase character;
             for some it is ^H, for others it is the DELETE key, and for
             others it is '@'.
     (kill)  deletes the input on this line; each terminal can define its
@@ -953,7 +953,7 @@ during input mode.  These are summarized in the following table.
     ^M      the return key; starts a new line.
     ^D      back-tabs over the indentation set by the autoindent option
     0^D     back-tabs over all indentation back to the beginning of the line
-    ^^D     (up-arrow followed by control-d)same as 0^D, except the indentation 
+    ^^D     (up-arrow followed by control-d)same as 0^D, except the indentation
 	    will be restored at the beginning of the next line.
     ^V      quotes the next non-printing character into the file
 
@@ -966,13 +966,13 @@ and it will be inserted into the file at that point.  There are a few
 exceptions to note.  The implementation of the editor does not allow the null
 character ^@ to appear in files.  Also the linefeed character ^J is used by the
 editor to separate lines in the file, so it cannot appear in the middle of a
-line.  (Trying to insert a ^M into a file, or putting it in the replacement 
-part of a substitution string will result in the matched line being split in 
-two.  This, in effect, is how to split lines by using a substitution.)  You can 
-insert any other character, however, if you wait for the editor to echo the ^ 
-before you type the character.  In fact, the editor will treat a following 
-letter as a request for the corresponding control character.  This is the only 
-way to type ^S or ^Q, since the system normally uses them to suspend and resume 
+line.  (Trying to insert a ^M into a file, or putting it in the replacement
+part of a substitution string will result in the matched line being split in
+two.  This, in effect, is how to split lines by using a substitution.)  You can
+insert any other character, however, if you wait for the editor to echo the ^
+before you type the character.  In fact, the editor will treat a following
+letter as a request for the corresponding control character.  This is the only
+way to type ^S or ^Q, since the system normally uses them to suspend and resume
 output and never gives them to the editor to process.
 
 If you are using the autoindent option you can back-tab over the indent which it
@@ -1008,7 +1008,7 @@ operator to work on just the current line, double it.  E.g. {<<}.
       ^             to the beginning of the line
       / .. /        up to, but not including, the string
       ? .. ?        back to and including the string
-      fc            up to and including the occurrence of c 
+      fc            up to and including the occurrence of c
       Fc            back to and including the occurrence of c
       tc            up to but not including the occurrence of c
       Tc            back to but not including the occurrence of c
@@ -1016,8 +1016,8 @@ operator to work on just the current line, double it.  E.g. {<<}.
       (number)^M    that many lines plus one
       (number)G     up to and including line (number)
       (             the previous sentence if you are at the beginning of
-                    the current sentence, or the current sentence up to where 
-                    you are if you are not at the beginning of the current 
+                    the current sentence, or the current sentence up to where
+                    you are if you are not at the beginning of the current
                     sentence.  Here, 'sentence' refers to the intuitive
                     notion of an English sentence, ending with '!', '?',
                     or '.' and followed by an end of line or two spaces.
@@ -1058,7 +1058,7 @@ Vi is actually one mode of editing within the editor ex.  When you are
 running vi you can escape to the line oriented editor of ex by giving
 the command {Q}.  All of the colon-commands which were introduced above
 are available in ex.  Likewise, most ex commands can be invoked from vi
-using {:}.   
+using {:}.
 
 In rare instances, an internal error may occur in vi.  In this case you
 will get a diagnostic and will be left in the command mode of ex.  You can
@@ -1179,7 +1179,7 @@ Causes all control characters except tab ^I, newline ^M and form-feed ^L to be
 discarded from the input.  A complaint is registered the first time a backspace
 character is discarded.  Beautify does not apply to command input.
 
-Section 44.5: {directory}, {dir} default: dir=/tmp 
+Section 44.5: {directory}, {dir} default: dir=/tmp
 
 Specifies the directory in which ex places its buffer file.  If this directory
 in not writable, then the editor will exit abruptly when it fails to be able to
@@ -1285,7 +1285,7 @@ Command mode input is prompted for with a `:'.
 
 [Author's note: Doesn't seem to have any effect on vi.]
 
-Section 44.19: {readonly}, {ro} default: noro, unless invoked with -R 
+Section 44.19: {readonly}, {ro} default: noro, unless invoked with -R
                                          or insufficient privileges on file
 
 This option allows you to guarantee that you won't clobber your file by
@@ -1326,13 +1326,13 @@ command mode z command (double the value of scroll).
 
 [Author's note: Doesn't seem to affect {^D} and {z} in visual (vi) mode.]
 
-Section 44.24: sections {sections} default: sections=SHNHH HU 
+Section 44.24: sections {sections} default: sections=SHNHH HU
 
 Specifies the section macros from nroff for the {[[} and {]]} operations in
 open and visual.  The pairs of characters in the options's value are the names
 of the macros which start paragraphs.
 
-Section 44.25: {shell}, {sh} default: sh=/bin/sh 
+Section 44.25: {shell}, {sh} default: sh=/bin/sh
 
 Gives the path name of the shell forked for the shell escape command `!', and
 by the shell command.  The default is taken from SHELL in the environment, if
@@ -1343,13 +1343,13 @@ your .login file:
 setenv SHELL '/bin/csh'
 ]
 
-Section 44.26: {shiftwidth}, {sw} default: sw=8 
+Section 44.26: {shiftwidth}, {sw} default: sw=8
 
 Used in reverse tabbing with {^D} when using autoindent to append text, and
 used by the shift commands.  Should probably be the same value as the tabstop
 option.
 
-Section 44.27: {showmatch}, {sm} default: nosm 
+Section 44.27: {showmatch}, {sm} default: nosm
 
 In open and visual mode, when a `)' or `}' is typed, if the matching `(' or `{'
 is on the screen, move the cursor to it for one second.  Extremely useful with
@@ -1445,7 +1445,7 @@ Here are some editor limits that the user is likely to encounter:
        1024   characters per line
        256    characters per global command list
        128    characters per file name
-       128    characters in the previous inserted and deleted text in open or 
+       128    characters in the previous inserted and deleted text in open or
               visual
        100    characters in a shell escape command
        63     characters in a string valued option
@@ -1455,4 +1455,4 @@ Here are some editor limits that the user is likely to encounter:
 The visual implementation limits the number of macros defined with map to 32,
 and the total number of characters in macros to be less than 512.
 
-[Editor's note: these limits may not apply to versions after 4.1BSD.]
+[Editor's note: These limits no longer apply to versions after 4.1BSD.]

@@ -95,7 +95,7 @@ editor(GS *gp, int argc, char *argv[])
 
 	/* Set initial screen type and mode based on the program name. */
 	readonly = 0;
-	if (!strcmp(bsd_getprogname(), "ex") || 
+	if (!strcmp(bsd_getprogname(), "ex") ||
 	    !strcmp(bsd_getprogname(), "nex") ||
 		!strcmp(bsd_getprogname(), "oex") ||
 		!strcmp(bsd_getprogname(), "obex") ||
@@ -422,7 +422,7 @@ editor(GS *gp, int argc, char *argv[])
 	 * we're not in raw mode.  We can't switch to raw mode because the
 	 * vi initialization will switch to xterm's alternate screen, causing
 	 * us to lose the messages we're pausing to make sure the user read.
-	 * So, wait for a complete line.  
+	 * So, wait for a complete line.
 	 */
 	if (F_ISSET(sp, SC_SCR_EX)) {
 		p = msg_cmsg(sp, CMSG_CONT_R, &len);

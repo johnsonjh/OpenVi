@@ -568,10 +568,10 @@ append:			if (v_event_append(sp, argp))
 	 */
 	if (LF_ISSET(EC_INTERRUPT | EC_TIMEOUT))
 		return (0);
-	 
+
 newmap:	evp = &gp->i_event[gp->i_next];
 
-	/* 
+	/*
 	 * If the next event in the queue isn't a character event, return
 	 * it, we're done.
 	 */

@@ -30,13 +30,13 @@ VI COMMANDS:
 	^D scroll down by half screens (setting count)
 	^E scroll down by lines
 	^F scroll down by screens
-	^G file status 
+	^G file status
 	^H move left by characters
 	^J move down by lines
 	^L redraw screen
 	^M move down by lines (to first non-blank)
-	^N move down by lines 
-	^P move up by lines   
+	^N move down by lines
+	^P move up by lines
 	^R redraw screen
 	^T tag pop
 	^U half page up (set count)
@@ -136,8 +136,8 @@ EX COMMANDS:
 	   *: execute a buffer
 	   <: shift lines left
 	   =: display line number
-	   >: shift lines right  
-	   @: execute a buffer   
+	   >: shift lines right
+	   @: execute a buffer
       append: append input to a line
   abbreviate: specify an input abbreviation
 	args: display file argument list

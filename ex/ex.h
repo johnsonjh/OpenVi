@@ -217,7 +217,7 @@ typedef enum {
 /* Ex address error types. */
 enum badaddr { A_COMBO, A_EMPTY, A_EOF, A_NOTSET, A_ZERO };
 
-/* Ex common tag error messages. */                                         
+/* Ex common tag error messages. */
 typedef enum {
 	TAG_BADLNO,		/* Tag line doesn't exist. */
 	TAG_EMPTY,		/* Tags stack is empty. */

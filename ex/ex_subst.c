@@ -286,7 +286,7 @@ ex_subtilde(SCR *sp, EXCMD *cmdp)
  * Do the substitution.  This stuff is *really* tricky.  There are lots of
  * special cases, and general nastiness.  Don't mess with it unless you're
  * pretty confident.
- * 
+ *
  * The nasty part of the substitution is what happens when the replacement
  * string contains newlines.  It's a bit tricky -- consider the information
  * that has to be retained for "s/f\(o\)o/^M\1^M\1/".  The solution here is
@@ -922,7 +922,7 @@ re_compile(SCR *sp, char *ptrn, size_t plen, char **ptrnp, size_t *lenp,
 		 *
 		 * XXX
 		 * Regcomp isn't 8-bit clean, so the pattern is nul-terminated
-		 * for now.  There's just no other solution.  
+		 * for now.  There's just no other solution.
 		 */
 		MALLOC(sp, *ptrnp, plen + 1);
 		if (*ptrnp != NULL) {
@@ -947,7 +947,7 @@ re_compile(SCR *sp, char *ptrn, size_t plen, char **ptrnp, size_t *lenp,
 	 */
 	if ((rval = regcomp(rep, ptrn, /* plen, */ reflags)) != 0) {
 		if (!LF_ISSET(RE_C_SILENT))
-			re_error(sp, rval, rep); 
+			re_error(sp, rval, rep);
 		return (1);
 	}
 

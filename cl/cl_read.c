@@ -268,7 +268,7 @@ err:		if (errno == EINTR)
 	return (rval);
 }
 
-/* 
+/*
  * cl_resize --
  *	Reset the options for a resize event.
  */

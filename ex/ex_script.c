@@ -359,7 +359,7 @@ sscr_check_input(SCR *sp)
 	gp = sp->gp;
 	rval = 0;
 
-	/* Allocate space for pfd. */   
+	/* Allocate space for pfd. */
 	nfds = 1;
 	TAILQ_FOREACH(tsp, &gp->dq, q)
 		if (F_ISSET(sp, SC_SCRIPT))

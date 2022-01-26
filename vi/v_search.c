@@ -248,7 +248,7 @@ v_exaddr(SCR *sp, VICMD *vp, dir_t dir)
 			tlen = sizeof(buf) - 1;
 		if (v_event_push(sp, NULL, buf, tlen, CH_NOMAP | CH_QUOTED))
 			return (1);
-		 
+
 		/* Don't refresh until after 'z' happens. */
 		F_SET(VIP(sp), VIP_S_REFRESH);
 	}

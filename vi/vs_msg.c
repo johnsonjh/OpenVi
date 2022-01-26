@@ -138,7 +138,7 @@ vs_busy(SCR *sp, const char *msg, busy_t btype)
 	(void)gp->scr_refresh(sp, 0);
 }
 
-/* 
+/*
  * vs_home --
  *	Home the cursor to the bottom row, left-most column.
  *

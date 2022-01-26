@@ -278,7 +278,7 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
 		 * be read.  This isn't useful for single files from a command
 		 * line, but it's quite useful for "vi *.c", since you can skip
 		 * past files that you can't read.
-		 */ 
+		 */
 		open_err = 1;
 		goto oerr;
 	}

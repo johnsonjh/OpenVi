@@ -169,7 +169,7 @@ ex_emsg(SCR *sp, char *p, exm_t which)
 		msgq(sp, M_ERR, "Buffer %s is empty", p);
 		break;
 	case EXM_FILECOUNT:
-		 msgq_str(sp, M_ERR, p, 
+		 msgq_str(sp, M_ERR, p,
 		     "%s: expanded into too many file names");
 		break;
 	case EXM_NOCANON:

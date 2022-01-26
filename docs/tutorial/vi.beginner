@@ -5,7 +5,7 @@ To get out of this tutorial, type: ZZ (two capital Z's).
 Learning a new computer system implies learning a new text editor.  These
 tutorial lessons were created by Dain Samples to help you come to grips with
 UC Berkeley's screen oriented editor called vi (for VIsual). This tutorial
-uses the vi editor itself as the means of presentation. 
+uses the vi editor itself as the means of presentation.
 
 For best use of this tutorial, read all of a screen before performing any of
 the indicated actions.  This tutorial (or, at least, the first half of it) has
@@ -67,7 +67,7 @@ them unambiguously.  For example, if you are to type the command sequence
 "control B control F" (as we asked you to do above) it would appear as {^B^F}.
 This allows clear delineation of the command strings from the text. Remember
 that the curly braces are NOT part of the command string you are to type. Do
-NOT type the curly braces.  
+NOT type the curly braces.
 
 Sometimes, the command string in the curly braces will be rather long, and may
 be such that the first couple of characters of the command will erase from
@@ -163,7 +163,7 @@ file.
 Now type {ma}.  Your location in the file has been given the name 'a'. If you
 type {'p'a} you will see the previous location we marked in section 7, and
 then will be returned to the current location.  (You will want to do a {z^M}
-to repaint the screen afterwards.)  Try it.  
+to repaint the screen afterwards.)  Try it.
 {^F}
 
 Section 9: {m} {''}
@@ -185,11 +185,11 @@ been issued.  (Unless you've been experimenting.)
 
 The command {''} attempts to return you to the location at which you last
 modified some part of your file.  However, my experience has been that it is
-difficult to predict exactly where you will end up.  
+difficult to predict exactly where you will end up.
 
 Section 10: {^M} {-}
 Now do {ma}, marking your position at the top of the screen.  Now hit {^M} (or
-return) until the cursor is right ... 
+return) until the cursor is right ...
 * <- here, over/under the asterisk.  Now
 type {mb'a'b} and watch the cursor move from the asterisk to the top of the
 screen and back again.
@@ -347,7 +347,7 @@ beginning of the file.  However, if you do want the search to find the
 PREVIOUS rather than the NEXT occurrence of the string, surround the string
 with question marks instead of slash marks.
 
-Below are several occurrences of the same string.  
+Below are several occurrences of the same string.
 Here 2            Here 2 Here 2
  Here 2             Here 2.
 Observe the effect of the following search commands (try them in the
@@ -395,7 +395,7 @@ Following is a list of the characters that have special meanings in search
 strings.  If you wish to find a string containing one of these characters, you
 will have to precede the character with a backslash.  These characters are
 called magic characters because of the fun and games you can have with them
-and they can have with you, if you aren't aware of what they do.  
+and they can have with you, if you aren't aware of what they do.
 
   ^ - (caret)          beginning of a line
   $ - (dollar-sign)    end of a line
@@ -527,9 +527,9 @@ on the word 'of'.)
 
 Now carefully type the following string and observe the effects:
   {iexample ^[}  (remember: ^[ is the escape key)
-The {i} begins the insert mode, and 'example ' is inserted into the line: 
-be sure to notice the blank in 'example '.  The {^[} ends insertion mode, 
-and the line is updated to include the new string.  Line 1 should look exactly 
+The {i} begins the insert mode, and 'example ' is inserted into the line:
+be sure to notice the blank in 'example '.  The {^[} ends insertion mode,
+and the line is updated to include the new string.  Line 1 should look exactly
 like Line 2.
 
 Move the cursor to the beginning of Line 3 below and type {z^M}:
@@ -542,8 +542,8 @@ We need to append an 's' to the word 'line'.  Position the cursor on the 'e'
 of 'line'.  You can do this in several ways, one way is the following:
 First, type {/line /^M}.  This puts us on the word 'line' in Line 4
 (the blank in the search string is important!).  Next, type {e}.  The 'e' puts
-us at the end of the word.  Now, type {as^[} (^[ is the escape character).  
-The 'a' puts us in insert mode, AFTER the current character.  We appended the 
+us at the end of the word.  Now, type {as^[} (^[ is the escape character).
+The 'a' puts us in insert mode, AFTER the current character.  We appended the
 's', and the escape '^[' ended the insert mode.
 
 The difference between {i} (insert) and {a} (append) is that {i} begins
@@ -620,8 +620,8 @@ and type {Rmany^[}.
 
 You may have noticed that, when inserting text, a new line is formed by typing
 {^M}.  When changing, replacing, or substituting text you can make a new line
-by typing {^M}.  However, neither {x} nor {X} will remove ^M to make two lines 
-into one line.  To do this, position the cursor on the first of the two lines 
+by typing {^M}.  However, neither {x} nor {X} will remove ^M to make two lines
+into one line.  To do this, position the cursor on the first of the two lines
 you wish to make into a single line and type {J} (uppercase J for 'Join').
 
 Section 24: {u} {U}
@@ -632,10 +632,10 @@ your cursor on line 11 below and {z^M}.
 Line 11: The quick brown fox jumped over the lazy hound dog.
 Line 12: the qwick black dog dumped over the laxy poune fox.
 
-Type the following set of commands, and observe carefully the effect of each 
+Type the following set of commands, and observe carefully the effect of each
 of the commands:
 
-{/^Line 12:/^M} {ft} {rT} {fw} {ru} {w} {Rbrown fox^[} {w} {rj} 
+{/^Line 12:/^M} {ft} {rT} {fw} {ru} {w} {Rbrown fox^[} {w} {rj}
 {fx} {rz} {w} {Rhound dog^[}
 
 Line 12 now matches line 11.  Now type {U} - capital 'U'.  And line 12 now
@@ -675,7 +675,7 @@ to exit the editor
       when no changes have been made        {:q^M}
 save a file without exiting the editor      {:w^M}
 write the file into another file            {:w filename^M}
-insert text 
+insert text
       before the cursor                     {i ...text... ^[}
       at the beginning of the line          {I ...text... ^[}
       after the cursor (append)             {a ...text... ^[}

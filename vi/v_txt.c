@@ -219,7 +219,7 @@ txt_map_end(SCR *sp)
 #define	UNMAP_TST							\
 	FL_ISSET(ec_flags, EC_MAPINPUT) && LF_ISSET(TXT_INFOLINE)
 
-/* 
+/*
  * Internally, we maintain tp->lno and tp->cno, externally, everyone uses
  * sp->lno and sp->cno.  Make them consistent as necessary.
  */
@@ -2561,7 +2561,7 @@ txt_isrch(SCR *sp, VICMD *vp, TEXT *tp, u_int8_t *is_flagsp)
 	/*
 	 * Specify a starting point and search.  If we find a match, move to
 	 * it and refresh the screen.  If we didn't find the match, then we
-	 * beep the screen.  When searching from the original cursor position, 
+	 * beep the screen.  When searching from the original cursor position,
 	 * we have to move the cursor, otherwise, we don't want to move the
 	 * cursor in case the text at the current position continues to match.
 	 */
@@ -2594,7 +2594,7 @@ txt_isrch(SCR *sp, VICMD *vp, TEXT *tp, u_int8_t *is_flagsp)
 	F_SET(sp, SC_TINPUT | SC_TINPUT_INFO);
 
 	/* Reset the line number of the input line. */
-	tp->lno = TMAP[0].lno; 
+	tp->lno = TMAP[0].lno;
 
 	/*
 	 * If the colon command-line moved, i.e. the screen scrolled,

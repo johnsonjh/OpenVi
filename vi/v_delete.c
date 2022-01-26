@@ -78,7 +78,7 @@ v_delete(SCR *sp, VICMD *vp)
 	 *
 	 * This currently matches the check made in v_yank(), I'm hoping that
 	 * they should be consistent...
-	 */  
+	 */
 	if (!F_ISSET(vp, VM_LMODE)) {
 		F_CLR(vp, VM_RCM_MASK);
 		F_SET(vp, VM_RCM_SET);

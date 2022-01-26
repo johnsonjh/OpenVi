@@ -960,7 +960,7 @@ opts_save(SCR *sp, FILE *fp)
 	return (0);
 }
 
-/* 
+/*
  * opts_search --
  *	Search for an option.
  *
@@ -1005,7 +1005,7 @@ opts_search(char *name)
 	return (found);
 }
 
-/* 
+/*
  * opts_nomatch --
  *	Standard nomatch error message for options.
  *
