@@ -1,4 +1,4 @@
-OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 10:53:24 2022
+OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 11:00:46 2022
 	+ No verbose build by default; set variables V (or DEBUG) to enable
 	+ No LTO and LGC by default; set variables LTO and/or LGC to enable
 	+ Don't attempt linking with libjemalloc or libmtmalloc by default
