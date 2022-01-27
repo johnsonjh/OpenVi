@@ -36,12 +36,12 @@
 
 #include <sys/types.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <bsd_stdlib.h>
 #include <regex.h>
 #include <limits.h>
 
 #include "utils.h"
-#include "regex2.h"
+#include "bsd_regex2.h"
 
 /*
  - regfree - free everything

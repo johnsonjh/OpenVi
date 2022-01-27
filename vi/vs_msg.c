@@ -16,7 +16,7 @@
 #include <bitstring.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <time.h>
 #include <bsd_unistd.h>

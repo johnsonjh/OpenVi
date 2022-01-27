@@ -43,14 +43,14 @@
  */
 #include <sys/types.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <bsd_stdlib.h>
+#include <bsd_string.h>
 #include <limits.h>
 #include <ctype.h>
 #include <regex.h>
 
 #include "utils.h"
-#include "regex2.h"
+#include "bsd_regex2.h"
 
 /* macros for manipulating states, small version */
 #define	states	long

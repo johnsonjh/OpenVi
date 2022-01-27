@@ -4,7 +4,7 @@
 
 # Default C compiler and CFLAGS
 CC          ?= cc
-CFLAGS      += -std=gnu99 -I./cl -I./include -I. -MD
+CFLAGS      += -std=gnu99 -I./include -MD
 OPTLEVEL    ?= -O2
 
 ###############################################################################

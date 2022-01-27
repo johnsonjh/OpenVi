@@ -18,7 +18,7 @@
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 

@@ -44,7 +44,7 @@
 #include <bsd_unistd.h>
 
 #include "utils.h"
-#include "regex2.h"
+#include "bsd_regex2.h"
 
 #include "cclass.h"
 #include "cname.h"

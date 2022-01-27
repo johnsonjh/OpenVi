@@ -1,6 +1,7 @@
-OpenVi 7.0.4 -> OpenVi 7.0.5-dev (Unreleased): Thu Jan 27 05:20:11 2022
+OpenVi 7.0.4 -> OpenVi 7.0.5-dev (Unreleased): Thu Jan 27 07:00:22 2022
 	+ No LTO and LGC by default; set variables LTO and/or LGC to enable
 	+ No longer try linking with libjemalloc or libmtmalloc by default
+	+ Clean-up headers to speed compilation time and decrease binary size
 	+ Import and adapt OpenBSD Berkeley DB from OpenBSD 7-current libc
 	+ Build against the newly bundled OpenBSD Berkeley DB by default;
 	  the imperfect Berkeley DB 3/4/5 support will remain available
