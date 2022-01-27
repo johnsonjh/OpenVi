@@ -4,32 +4,32 @@
 
 # Default C compiler and CFLAGS
 CC          ?= cc
-CFLAGS      += -std=gnu99 -I./include -MD
 OPTLEVEL    ?= -O2
+CFLAGS      += -std=gnu99 -I./include
 
 ###############################################################################
 
-# Uncomment to enable debugging build
+# Set DEBUG to enable debugging build
 #DEBUG       = 1
 DBGFLAGS    ?= -ggdb
 
 ###############################################################################
 
-# Uncomment to enable link-time garbage collection (for non-debugging builds)
-#LGC          = 1
+# Set LGC to enable link-time garbage collection (for non-debugging builds)
+#LGC         = 1
 LTGC         = -fdata-sections -ffunction-sections
 LTGL         = -Wl,--gc-sections
 
 ###############################################################################
 
-# Uncomment to enable link-time optimization (for non-debugging builds)
-#LTO          = 1
+# Set LTO to enable link-time optimization (for non-debugging builds)
+#LTO         = 1
 LTOC         = -flto
 
 ###############################################################################
 
 # Default libraries to link
-LINKLIBS    ?= -lncurses $(EXTRA_LIBS)
+LINKLIBS    ?= -lutil -lncurses $(EXTRA_LIBS)
 
 ###############################################################################
 
@@ -128,7 +128,6 @@ SRCS = cl/cl_funcs.c cl/cl_main.c cl/cl_read.c cl/cl_screen.c cl/cl_term.c    \
 
 VPATH = build:cl:common:db:ex:include:vi:bin
 OBJS := ${SRCS:.c=.o}
-DEPZ := ${OBJS:.o=.d}
 
 ###############################################################################
 
@@ -145,15 +144,15 @@ all: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1
 ###############################################################################
 
 ex/ex_def.h: ex/ex.awk ex/ex_cmd.c
-	$(RMF) "./ex/ex_def.h";                                                   \
-        $(AWK) -f "./ex/ex.awk" "./ex/ex_cmd.c"                               \
+	$(RMF) "./ex/ex_def.h"; \
+        $(AWK) -f "./ex/ex.awk" "./ex/ex_cmd.c" \
             > "./ex/ex_def.h" && $(TEST) -f "./ex/ex_def.h"
 
 ###############################################################################
 
 common/options_def.h: common/options.awk common/options.c ex/ex_def.h
-	$(RMF) "./common/options_def.h";                                          \
-        $(AWK) -f "./common/options.awk" "./common/options.c"                 \
+	$(RMF) "./common/options_def.h"; \
+        $(AWK) -f "./common/options.awk" "./common/options.c" \
             > "./common/options_def.h" && $(TEST) -f "./common/options_def.h"
 
 ###############################################################################
@@ -161,40 +160,39 @@ common/options_def.h: common/options.awk common/options.c ex/ex_def.h
 clean distclean realclean mostlyclean:
 	$(RMF) "./common/options_def.h" "./ex/ex_def.h"
 	$(RMF) $(OBJS)
-	$(RMF) $(DEPZ)
 	$(TEST) -f "./bin/vi"   && $(RMF)   "./bin/vi"   || $(TRUE)
 	$(TEST) -e "./bin/ex"   && $(RMF)   "./bin/ex"   || $(TRUE)
 	$(TEST) -h "./bin/ex"   && $(RMF)   "./bin/ex"   || $(TRUE)
 	$(TEST) -e "./bin/view" && $(RMF)   "./bin/view" || $(TRUE)
 	$(TEST) -h "./bin/view" && $(RMF)   "./bin/view" || $(TRUE)
 	$(TEST) -d "./bin"      && $(RMDIR)   "./bin"      || $(TRUE)
-	-@$(TEST) -d "./bin"    && $(PRINTF) '%s\n'                               \
+	-@$(TEST) -d "./bin"    && $(PRINTF) '%s\n' \
         "WARNING: Build directory './bin' could not be removed." || $(TRUE)
 
 ###############################################################################
 
 maintainer-clean:
-	@$(PRINTF) '%s\n'                                                         \
+	@$(PRINTF) '%s\n' \
         'WARNING: This command is intended for maintainer use only!'
-	@$(PRINTF) '%s\n'                                                         \
+	@$(PRINTF) '%s\n' \
         'It may delete files that require special tools to rebuild.'
-	@$(SLEEP) 5
-	$(MAKE) -C "." "distclean"
+	-@$(SLEEP) 5
+	@$(MAKE) "distclean"
 
 ###############################################################################
 
 %.o: %.c common/options_def.h ex/ex_def.h
-	$(CC) -c -o "$@" "$<" $(CFLAGS)
+	$(CC) $(CFLAGS) -c -o "$@" "$<"
 
 ###############################################################################
 
 bin/vi: $(OBJS)
-	$(TEST) -d "./bin" || $(MKDIR) "./bin"
-	$(CC) -o "$@" $^ $(LDFLAGS)
+	@$(TEST) -d "./bin" || $(MKDIR) "./bin"
+	$(CC) $(LDFLAGS) -o "$@" $^
 
 .PHONY: vi
 vi: bin/vi
-	@$(TRUE)
+	-@$(TRUE)
 
 ###############################################################################
 
@@ -203,7 +201,7 @@ bin/ex: bin/vi
 
 .PHONY: ex
 ex: bin/ex
-	@$(TRUE)
+	-@$(TRUE)
 
 ##############################################################################
 
@@ -212,40 +210,36 @@ bin/view: bin/vi
 
 .PHONY: view
 view: bin/view
-	@$(TRUE)
+	-@$(TRUE)
 
 ###############################################################################
 
 install: bin/vi bin/ex bin/view scripts/virecover docs/USD.doc/vi.man/vi.1
-	$(TEST) -d "/tmp/vi.recover" ||                                           \
-        $(MKDIR) "/tmp/vi.recover"
-	$(TEST) -d "/tmp/vi.recover" &&                                           \
-        $(CHOWN) "$(IUSGR)" "/tmp/vi.recover" &&                              \
-            $(CHMOD) "1777" "/tmp/vi.recover"
-	$(TEST) -d "$(PREFIX)/bin" ||                                             \
-        $(MKDIR) "$(PREFIX)/bin"
-	$(TEST) -d "$(PREFIX)/libexec" ||                                         \
-        $(MKDIR) "$(PREFIX)/libexec"
-	$(TEST) -d "$(PREFIX)/man/man1" &&                                        \
-        $(MKDIR) "$(PREFIX)/man/man1"
-	$(CP) "./bin/vi" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&            \
-        $(CHOWN) "$(IUSGR)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&     \
+	$(TEST) -d "/tmp/vi.recover" || { \
+        $(MKDIR) "/tmp/vi.recover" && $(TEST) -d "/tmp/vi.recover" && \
+            $(CHOWN) "$(IUSGR)" "/tmp/vi.recover" && \
+                $(CHMOD) "1777" "/tmp/vi.recover"; }
+	$(TEST) -d "$(PREFIX)/bin" || $(MKDIR) "$(PREFIX)/bin"
+	$(TEST) -d "$(PREFIX)/libexec" || $(MKDIR) "$(PREFIX)/libexec"
+	$(TEST) -d "$(PREFIX)/man/man1" && $(MKDIR) "$(PREFIX)/man/man1"
+	$(CP) "./bin/vi" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
+        $(CHOWN) "$(IUSGR)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
             $(CHMOD) "$(IPERM)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
-	$(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&                  \
-        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"                     \
+	$(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
+        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
             "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
-	$(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&                  \
-        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"                     \
+	$(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
+        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
             "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
-	$(CP) "./scripts/virecover"                                                 \
-        "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)" &&             \
-            $(CHMOD) "$(IPERM)"                                               \
+	$(CP) "./scripts/virecover" \
+        "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)" && \
+            $(CHMOD) "$(IPERM)" \
                 "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
-	$(CP) "docs/USD.doc/vi.man/vi.1"                                          \
-        "$(PREFIX)/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" &&                  \
-            $(LNS) "$(PREFIX)/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1"          \
-                "$(PREFIX)/man/man1/$(BINPREFIX)view$(BINSUFFIX).1" &&        \
-                    $(LNS) "$(PREFIX)/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1"  \
+	$(CP) "docs/USD.doc/vi.man/vi.1" \
+        "$(PREFIX)/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" && \
+            $(LNS) "$(PREFIX)/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
+                "$(PREFIX)/man/man1/$(BINPREFIX)view$(BINSUFFIX).1" && \
+                    $(LNS) "$(PREFIX)/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
                         "$(PREFIX)/man/man1/$(BINPREFIX)ex$(BINSUFFIX).1"
 
 ###############################################################################
@@ -261,9 +255,9 @@ strip: /bin/vi
 ###############################################################################
 
 uninstall:
-	$(RMF) "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
-	$(RMF) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
-	$(RMF) "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
-	$(RMF) "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
+	-$(RMF) "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
+	-$(RMF) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
+	-$(RMF) "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
+	-$(RMF) "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 
 ###############################################################################
