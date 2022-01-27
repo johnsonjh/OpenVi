@@ -825,7 +825,6 @@ slow(struct match *m, char *start, char *stop, sopno startst, sopno stopst)
 	return(matchp);
 }
 
-
 /*
  - step - map set of states reachable before char to set reachable after
  */

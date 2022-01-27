@@ -46,6 +46,8 @@
 #define	__MPOOLINTERFACE_PRIVATE
 #include <mpool.h>
 
+#undef open
+
 static BKT *mpool_bkt(MPOOL *);
 static BKT *mpool_look(MPOOL *, pgno_t);
 static int  mpool_write(MPOOL *, BKT *);

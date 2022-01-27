@@ -1,5 +1,3 @@
-#define __NEED_OPENBSD_open
-
 #include "../include/compat.h"
 
 #include <sys/file.h>
@@ -7,7 +5,6 @@
 #include <bsd_fcntl.h>
 #include <bsd_unistd.h>
 #include <stdarg.h>
-
 #include <stdio.h>
 
 #undef open

@@ -43,6 +43,8 @@
 #include "bsd_ndbm.h"
 #include "hash.h"
 
+#undef open
+
 /*
  *
  * This package provides dbm and ndbm compatible interfaces to DB.

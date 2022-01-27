@@ -9,9 +9,13 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/queue.h>
 #include <sys/stat.h>
 #include <sys/time.h>
+
+#undef open
 
 /*
  * We include <sys/file.h>, because the flock(2) and open(2) #defines
@@ -33,14 +37,9 @@
 #include <bsd_unistd.h>
 
 #include <sys/types.h>
-#ifdef DB185EMU
-# include <db_185.h>
-#else
 # include <bsd_db.h>
-#endif /* ifdef DB185EMU */
 
 #include "common.h"
-#include "mkstemp.h"
 
 static int	file_backup(SCR *, char *, char *);
 static void	file_cinit(SCR *);
@@ -129,7 +128,7 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
 	struct stat sb;
 	size_t psize;
 	int fd, exists, open_err, readonly;
-	char *oname, tname[] = "/tmp/vi.XXXXXXXXXXXXXXXXXXXXXXXX";
+	char *oname, tname[] = "/tmp/vi.XXXXXX";
 
 	open_err = readonly = 0;
 
@@ -195,7 +194,7 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
 		 */
 		if (frp->tname != NULL)
 			goto err;
-		fd = obsd_mkstemp(tname);
+		fd = mkstemp(tname);
 		if (fd == -1 || fstat(fd, &sb) == -1 ||
 		    fchmod(fd, S_IRUSR | S_IWUSR) == -1) {
 			msgq(sp, M_SYSERR,

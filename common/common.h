@@ -11,14 +11,10 @@
  *	@(#)common.h	10.13 (Berkeley) 9/25/96
  */
 
+#include "../include/compat.h"
+
 #include <sys/time.h>
-
-#ifdef DB185EMU
-# include <db_185.h>
-#else
-# include <bsd_db.h>
-#endif /* ifdef DB185EMU */
-
+#include <bsd_db.h>
 #include <regex.h>
 
 /*

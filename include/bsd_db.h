@@ -35,9 +35,13 @@
 #ifndef _DB_H_
 #define	_DB_H_
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 
 #include <limits.h>
+
+#undef open
 
 #define	RET_ERROR	-1		/* Return values. */
 #define	RET_SUCCESS	 0

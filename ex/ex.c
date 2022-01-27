@@ -2031,7 +2031,6 @@ search:		mp->lno = sp->lno;
 	return (0);
 }
 
-
 /*
  * ex_load --
  *	Load up the next command, which may be an @ buffer or global command.

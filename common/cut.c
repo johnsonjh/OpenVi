@@ -127,7 +127,6 @@ copyloop:
 		cbp->flags = 0;
 	}
 
-
 	/* In line mode, it's pretty easy, just cut the lines. */
 	if (LF_ISSET(CUT_LINEMODE)) {
 		cbp->flags |= CB_LMODE;

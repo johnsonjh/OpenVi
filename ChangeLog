@@ -1,6 +1,9 @@
-OpenVi 7.0.5 -> OpenVi 7.0.6-dev (Unreleased): Thu Jan 27 14:25:39 2022
-	+ Add attribution for DragonflyBSD Project to `LICENSE` text
-	+ Correct `GNUmakefile` terse messages for `install` target
+OpenVi 7.0.5 -> OpenVi 7.0.6: Thu Jan 27 16:45:12 2022
+	+ Important fix for back-end database file locking; also, switch
+	  back to using the system libc-provided mkstemp functions to elide
+	  some issues that would otherwise occur on networked filesystems.
+	+ Add proper attribution for DragonflyBSD Project to `LICENSE` text
+	+ Correct `GNUmakefile` non-verbose messages for the `install` target
 	+ Clean-up excess and trailing whitespace from source files
 
 OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 11:00:46 2022

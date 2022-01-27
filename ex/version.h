@@ -34,12 +34,7 @@
 #ifndef _VERSION_H
 #define _VERSION_H
 
-#if defined(DB185EMU) || defined(_DB_185_H_)
-#define	VI_VERSION \
-	"Version 7.0.6-dev (OpenVi) 10/25/2021 - using Berkeley DB 1.85 emulation"
-#else
 #define VI_VERSION \
-	"Version 7.0.6-dev (OpenVi) 10/25/2021"
-#endif /* if defined(DB185EMU) || defined(_DB_185_H_) */
+	"Version 7.0.6 (OpenVi) 10/25/2021"
 
 #endif /* ifndef _VERSION_H */

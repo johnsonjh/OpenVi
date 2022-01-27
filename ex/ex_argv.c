@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 
@@ -23,6 +25,8 @@
 #include <bsd_unistd.h>
 
 #include "../common/common.h"
+
+#undef open
 
 static int argv_alloc(SCR *, size_t);
 static int argv_comp(const void *, const void *);
@@ -132,18 +136,10 @@ argv_exp2(SCR *sp, EXCMD *excp, char *cmd, size_t cmdlen)
 	p = bp + SHELLOFFSET;
 	len = SHELLOFFSET;
 
-#if defined(DEBUG) && 0
-	TRACE(sp, "file_argv: {%.*s}\n", (int)cmdlen, cmd);
-#endif /* if defined(DEBUG) && 0 */
-
 	if (argv_fexp(sp, excp, cmd, cmdlen, p, &len, &bp, &blen, 0)) {
 		rval = 1;
 		goto err;
 	}
-
-#if defined(DEBUG) && 0
-	TRACE(sp, "before shell: %d: {%s}\n", len, bp);
-#endif /* if defined(DEBUG) && 0 */
 
 	/*
 	 * Do shell word expansion -- it's very, very hard to figure out what
@@ -279,10 +275,6 @@ argv_exp3(SCR *sp, EXCMD *excp, char *cmd, size_t cmdlen)
 	excp->argv = exp->args;
 	excp->argc = exp->argsoff;
 
-#if defined(DEBUG) && 0
-	for (cnt = 0; cnt < exp->argsoff; ++cnt)
-		TRACE(sp, "arg %d: {%s}\n", cnt, exp->argv[cnt]);
-#endif /* if defined(DEBUG) && 0 */
 	return (0);
 }
 

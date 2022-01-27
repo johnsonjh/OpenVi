@@ -35,7 +35,6 @@
 #ifndef _COMPAT_UNISTD_H_
 #define	_COMPAT_UNISTD_H_
 
-
 #include <sys/types.h>
 
 #define	STDIN_FILENO	0	/* standard input file descriptor */

@@ -86,7 +86,6 @@ ex_write(SCR *sp, EXCMD *cmdp)
 	return (exwr(sp, cmdp, WRITE));
 }
 
-
 /*
  * ex_xit -- :x[it]! [file]
  *	Write out any modifications and quit.

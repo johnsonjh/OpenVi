@@ -6,13 +6,13 @@
 CC          ?= cc
 OPTLEVEL    ?= -O2
 DEPFLAGS    ?= -MMD -MP
-CFLAGS      += -std=gnu99 -I"./include"
+CFLAGS      += -std=gnu99 -Iinclude -Idb -Icl -Iex -Ivi -Icommon
 
 ###############################################################################
 
 # Set DEBUG to enable debugging build
 #DEBUG       = 1
-DBGFLAGS    ?= -ggdb
+DBGFLAGS    ?= -ggdb -g3 -Og
 
 ###############################################################################
 
@@ -52,7 +52,7 @@ IUSGR        = root:bin
 ###############################################################################
 
 ifdef DEBUG
-   CFLAGS   += $(DBGFLAGS) -Wall -Wextra -DDEBUG -g3 -Og
+   CFLAGS   += $(DBGFLAGS) -Wall -Wextra -DDEBUG -DSTATISTICS -DHASH_STATISTICS
 else
    CFLAGS   += $(OPTLEVEL) -pipe -fomit-frame-pointer
 endif # DEBUG
@@ -130,7 +130,6 @@ SRCS = cl/basename.c \
 	   common/log.c \
 	   common/main.c \
 	   common/mark.c \
-	   common/mkstemp.c \
        common/msg.c \
 	   common/options.c \
 	   common/options_f.c \

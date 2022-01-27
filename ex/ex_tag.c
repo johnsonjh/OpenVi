@@ -12,6 +12,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/mman.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -31,6 +33,8 @@
 #include "../common/common.h"
 #include "../vi/vi.h"
 #include "tag.h"
+
+#undef open
 
 static char	*binary_search(char *, char *, char *);
 static int	 compare(char *, char *, char *);

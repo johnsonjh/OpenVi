@@ -11,6 +11,8 @@
  *	@(#)ex.h	10.24 (Berkeley) 8/12/96
  */
 
+#include "../include/compat.h"
+
 #define	PROMPTCHAR	':'		/* Prompt using a colon. */
 
 typedef struct _excmdlist {		/* Ex command table structure. */

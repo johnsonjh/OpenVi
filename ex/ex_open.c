@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 
@@ -17,6 +19,8 @@
 #include <stdio.h>
 
 #include "../common/common.h"
+
+#undef open
 
 /*
  * ex_open -- :[line] o[pen] [/pattern/] [flags]

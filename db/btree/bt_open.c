@@ -61,6 +61,8 @@
 #include <compat_bsd_db.h>
 #include "btree.h"
 
+#undef open
+
 #ifdef DEBUG
 #undef	MINPSIZE
 #define	MINPSIZE	128

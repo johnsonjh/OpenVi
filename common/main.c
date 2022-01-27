@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -27,6 +29,8 @@
 
 #include "common.h"
 #include "../vi/vi.h"
+
+#undef open
 
 #ifdef DEBUG
 static void	 attach(GS *);
@@ -185,7 +189,6 @@ editor(GS *gp, int argc, char *argv[])
 		case 'R':		/* Readonly. */
 			readonly = 1;
 			break;
-#ifndef DB185EMU
 		case 'r':		/* Recover. */
 			if (flagchk == 't') {
 				warnx(
@@ -194,7 +197,6 @@ editor(GS *gp, int argc, char *argv[])
 			}
 			flagchk = 'r';
 			break;
-#endif /* ifndef DB185EMU */
 		case 'S':
 			secure = 1;
 			break;
@@ -324,7 +326,6 @@ editor(GS *gp, int argc, char *argv[])
 	 * Note, options must be initialized and startup information
 	 * read before doing this.
 	 */
-#ifndef DB185EMU
 	if (flagchk == 'r' && argv[0] == NULL) {
 		if (rcv_list(sp))
 			goto err;
@@ -332,7 +333,6 @@ editor(GS *gp, int argc, char *argv[])
 			goto err;
 		goto done;
 	}
-#endif /* ifndef DB185EMU */
 
 	/*
 	 * !!!

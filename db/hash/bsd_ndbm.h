@@ -38,8 +38,12 @@
 #ifndef _NDBM_H_
 #define	_NDBM_H_
 
+#include "../../include/compat.h"
+
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
+
+#undef open
 
 /* Map dbm interface onto db(3). */
 #define DBM_RDONLY	O_RDONLY

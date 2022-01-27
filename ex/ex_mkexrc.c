@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -24,6 +26,8 @@
 
 #include "../common/common.h"
 #include "pathnames.h"
+
+#undef open
 
 /*
  * ex_mkexrc -- :mkexrc[!] [file]

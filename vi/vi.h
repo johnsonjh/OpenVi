@@ -11,6 +11,8 @@
  *	@(#)vi.h	10.19 (Berkeley) 6/30/96
  */
 
+#include "../include/compat.h"
+
 /* Definition of a vi "word". */
 #define	inword(ch)	(isalnum(ch) || (ch) == '_')
 

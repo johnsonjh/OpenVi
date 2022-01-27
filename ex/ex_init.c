@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/queue.h>
 #include <sys/stat.h>
 
@@ -26,6 +28,8 @@
 #include "../common/common.h"
 #include "tag.h"
 #include "pathnames.h"
+
+#undef open
 
 enum rc { NOEXIST, NOPERM, RCOK };
 static enum rc	exrc_isok(SCR *, struct stat *, int *, char *, int, int);

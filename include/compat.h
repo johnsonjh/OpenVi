@@ -5,16 +5,7 @@
 
 # define __warn_references(x, y)
 
-# ifndef ALIGN
-/* XXX: x86_64 only, see sys/arch/$arch/include/_types.h */
-#  define ALIGNBYTES ( sizeof ( long ) - 1 )
-#  define ALIGN(p) (((size_t)( p ) + ALIGNBYTES ) & ~ALIGNBYTES )
-# endif /* ifndef ALIGN */
-
 # define __UNUSED __attribute__ (( unused ))
-/* XXX: __unused clashes with musls stat.h
- #define __unused       __attribute__ ((unused))
- */
 
 # define __dead __attribute__ (( __noreturn__ ))
 
@@ -102,12 +93,11 @@
 /* pwd.h */
 # define _PW_NAME_LEN 63
 
-/* stdlib.h */
-
 /* unistd.h */
 # ifndef HAVE_EXECVPE
 int execvpe(const char *, char *const *, char *const *);
 # endif /* !HAVE_EXECVPE */
+
 # ifndef HAVE_SETRESUID
 /* int setresuid(uid_t, uid_t, uid_t); */
 # endif /* !HAVE_SETRESUID */
@@ -121,20 +111,10 @@ const char *getprogname(void);
 void setprogname(const char *progname);
 # endif /* !HAVE_SETPROGNAME */
 
-/* pwcache.c */
-/* char *user_from_uid(uid_t, int); */
-/* char *group_from_gid(gid_t gid, int); */
-
 /* getbsize.c */
 char *getbsize(int *, long *);
 
 # define strtoq strtoll
-
-/* inttypes.h */
-/*
- * intmax_t     strtoimax(const char *, char **, int);
- * uintmax_t    strtoumax(const char *, char **, int);
- */
 
 /* #define d_namlen d_reclen */
 # if !defined( _DIRENT_HAVE_NAMLEN )
@@ -158,12 +138,18 @@ char *getbsize(int *, long *);
 # define GID_MAX 60000
 
 /* sys/sys/stat.h */
+# ifndef ACCESSPERMS
 # define ACCESSPERMS                                                          \
   ( S_IRWXU | S_IRWXG | S_IRWXO ) /* 00777 */
+# endif
+# ifndef ALLPERMS
 # define ALLPERMS                                                             \
   ( S_ISUID | S_ISGID | S_ISTXT | S_IRWXU | S_IRWXG | S_IRWXO ) /* 00666 */
+# endif
+# ifndef DEFFILEMODE
 # define DEFFILEMODE                                                          \
   ( S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH )
+# endif
 
 # define S_ISTXT S_ISVTX
 

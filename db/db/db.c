@@ -31,8 +31,6 @@
 
 #include "../../include/compat.h"
 
-#define __NEED_OPENBSD_open
-
 #include <sys/file.h>
 #include <sys/types.h>
 

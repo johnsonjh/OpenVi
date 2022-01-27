@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -22,13 +24,11 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 
-#ifdef DB185EMU
-# include <db_185.h>
-#else
 # include <bsd_db.h>
-#endif /* ifdef DB185EMU */
 
 #include "common.h"
+
+#undef open
 
 /*
  * The log consists of records, each containing a type byte and a variable
@@ -67,9 +67,6 @@
 
 static int	log_cursor1(SCR *, int);
 static void	log_err(SCR *, char *, int);
-#if defined(DEBUG) && 0
-static void	log_trace(SCR *, char *, recno_t, u_char *);
-#endif /* if defined(DEBUG) && 0 */
 
 /* Try and restart the log on failure, i.e. if we run out of memory. */
 #define	LOG_ERR {							\
@@ -188,11 +185,6 @@ log_cursor1(SCR *sp, int type)
 	if (ep->log->put(ep->log, &key, &data, 0) == -1)
 		LOG_ERR;
 
-#if defined(DEBUG) && 0
-	TRACE(sp, "%lu: %s: %u/%u\n", ep->l_cur,
-	    type == LOG_CURSOR_INIT ? "log_cursor_init" : "log_cursor_end",
-	    sp->lno, sp->cno);
-#endif /* if defined(DEBUG) && 0 */
 	/* Reset high water mark. */
 	ep->l_high = ++ep->l_cur;
 
@@ -263,30 +255,6 @@ log_line(SCR *sp, recno_t lno, u_int action)
 	if (ep->log->put(ep->log, &key, &data, 0) == -1)
 		LOG_ERR;
 
-#if defined(DEBUG) && 0
-	switch (action) {
-	case LOG_LINE_APPEND:
-		TRACE(sp, "%u: log_line: append: %lu {%u}\n",
-		    ep->l_cur, lno, len);
-		break;
-	case LOG_LINE_DELETE:
-		TRACE(sp, "%lu: log_line: delete: %lu {%u}\n",
-		    ep->l_cur, lno, len);
-		break;
-	case LOG_LINE_INSERT:
-		TRACE(sp, "%lu: log_line: insert: %lu {%u}\n",
-		    ep->l_cur, lno, len);
-		break;
-	case LOG_LINE_RESET_F:
-		TRACE(sp, "%lu: log_line: reset_f: %lu {%u}\n",
-		    ep->l_cur, lno, len);
-		break;
-	case LOG_LINE_RESET_B:
-		TRACE(sp, "%lu: log_line: reset_b: %lu {%u}\n",
-		    ep->l_cur, lno, len);
-		break;
-	}
-#endif /* if defined(DEBUG) && 0 */
 	/* Reset high water mark. */
 	ep->l_high = ++ep->l_cur;
 
@@ -331,10 +299,6 @@ log_mark(SCR *sp, LMARK *lmp)
 	if (ep->log->put(ep->log, &key, &data, 0) == -1)
 		LOG_ERR;
 
-#if defined(DEBUG) && 0
-	TRACE(sp, "%lu: mark %c: %lu/%u\n",
-	    ep->l_cur, lmp->name, lmp->lno, lmp->cno);
-#endif /* defined(DEBUG) && 0 */
 	/* Reset high water mark. */
 	ep->l_high = ++ep->l_cur;
 	return (0);
@@ -377,9 +341,6 @@ log_backward(SCR *sp, MARK *rp)
 		--ep->l_cur;
 		if (ep->log->get(ep->log, &key, &data, 0))
 			LOG_ERR;
-#if defined(DEBUG) && 0
-		log_trace(sp, "log_backward", ep->l_cur, data.data);
-#endif /* defined(DEBUG) && 0 */
 		switch (*(p = (u_char *)data.data)) {
 		case LOG_CURSOR_INIT:
 			if (didop) {
@@ -479,9 +440,6 @@ log_setline(SCR *sp)
 		--ep->l_cur;
 		if (ep->log->get(ep->log, &key, &data, 0))
 			LOG_ERR;
-#if defined(DEBUG) && 0
-		log_trace(sp, "log_setline", ep->l_cur, data.data);
-#endif /* defined(DEBUG) && 0 */
 		switch (*(p = (u_char *)data.data)) {
 		case LOG_CURSOR_INIT:
 			memmove(&m, p + sizeof(u_char), sizeof(MARK));
@@ -567,9 +525,6 @@ log_forward(SCR *sp, MARK *rp)
 		++ep->l_cur;
 		if (ep->log->get(ep->log, &key, &data, 0))
 			LOG_ERR;
-#if defined(DEBUG) && 0
-		log_trace(sp, "log_forward", ep->l_cur, data.data);
-#endif /* if defined(DEBUG) && 0 */
 		switch (*(p = (u_char *)data.data)) {
 		case LOG_CURSOR_END:
 			if (didop) {
@@ -645,50 +600,3 @@ log_err(SCR *sp, char *file, int line)
 		msgq(sp, M_ERR, "Log restarted");
 }
 
-#if defined(DEBUG) && 0
-static void
-log_trace(SCR *sp, char *msg, recno_t rno, u_char *p)
-{
-	LMARK lm;
-	MARK m;
-	recno_t lno;
-
-	switch (*p) {
-	case LOG_CURSOR_INIT:
-		memmove(&m, p + sizeof(u_char), sizeof(MARK));
-		TRACE(sp, "%lu: %s:  C_INIT: %u/%u\n", rno, msg, m.lno, m.cno);
-		break;
-	case LOG_CURSOR_END:
-		memmove(&m, p + sizeof(u_char), sizeof(MARK));
-		TRACE(sp, "%lu: %s:   C_END: %u/%u\n", rno, msg, m.lno, m.cno);
-		break;
-	case LOG_LINE_APPEND:
-		memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-		TRACE(sp, "%lu: %s:  APPEND: %lu\n", rno, msg, lno);
-		break;
-	case LOG_LINE_INSERT:
-		memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-		TRACE(sp, "%lu: %s:  INSERT: %lu\n", rno, msg, lno);
-		break;
-	case LOG_LINE_DELETE:
-		memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-		TRACE(sp, "%lu: %s:  DELETE: %lu\n", rno, msg, lno);
-		break;
-	case LOG_LINE_RESET_F:
-		memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-		TRACE(sp, "%lu: %s: RESET_F: %lu\n", rno, msg, lno);
-		break;
-	case LOG_LINE_RESET_B:
-		memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-		TRACE(sp, "%lu: %s: RESET_B: %lu\n", rno, msg, lno);
-		break;
-	case LOG_MARK:
-		memmove(&lm, p + sizeof(u_char), sizeof(LMARK));
-		TRACE(sp,
-		    "%lu: %s:    MARK: %u/%u\n", rno, msg, lm.lno, lm.cno);
-		break;
-	default:
-		abort();
-	}
-}
-#endif /* if defined(DEBUG) && 0 */

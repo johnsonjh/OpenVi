@@ -56,6 +56,8 @@
 #include "page.h"
 #include "extern.h"
 
+#undef open
+
 #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
 
 static int   alloc_segs(HTAB *, int);

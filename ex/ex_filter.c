@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/queue.h>
@@ -23,7 +25,8 @@
 #include <bsd_unistd.h>
 
 #include "../common/common.h"
-#include "../common/mkstemp.h"
+
+#undef open
 
 static int filter_ldisplay(SCR *, FILE *);
 
@@ -44,7 +47,7 @@ ex_filter(SCR *sp, EXCMD *cmdp, MARK *fm, MARK *tm, MARK *rp, char *cmd,
 	pid_t parent_writer_pid, utility_pid;
 	recno_t nread;
 	int input[2], output[2], fd, rval;
-	char *name, tname[] = "/tmp/vi.XXXXXXXXXXXXXXXXXXXXXXXX";
+	char *name, tname[] = "/tmp/vi.XXXXXX";
 
 	rval = 0;
 
@@ -78,7 +81,7 @@ ex_filter(SCR *sp, EXCMD *cmdp, MARK *fm, MARK *tm, MARK *rp, char *cmd,
 	input[0] = input[1] = output[0] = output[1] = -1;
 
 	if (ftype == FILTER_BANG) {
-		fd = obsd_mkstemp(tname);
+		fd = mkstemp(tname);
 		if (fd == -1) {
 			msgq(sp, M_SYSERR,
 			    "Unable to create temporary file");

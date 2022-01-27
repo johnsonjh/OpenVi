@@ -181,7 +181,6 @@ ex_move(SCR *sp, EXCMD *cmdp)
 			    lmp->lno >= mfl && lmp->lno <= mtl)
 				(void)log_mark(sp, lmp);
 
-
 	sp->rptlines[L_MOVED] += diff;
 	return (0);
 }

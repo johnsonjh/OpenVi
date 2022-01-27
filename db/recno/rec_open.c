@@ -49,6 +49,8 @@
 #include <compat_bsd_db.h>
 #include "recno.h"
 
+#undef open
+
 DB *
 __rec_open(const char *fname, int flags, int mode, const RECNOINFO *openinfo,
     int dflags)

@@ -32,10 +32,6 @@
  * SUCH DAMAGE.
  */
 
-#ifndef __NEED_OPENBSD_open
-# define __NEED_OPENBSD_open
-#endif /* ifndef __NEED_OPENBSD_open */
-
 #include "../../include/compat.h"
 
 #include <sys/types.h>
@@ -48,8 +44,6 @@
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
 #include "btree.h"
-
-#undef open
 
 static int	 bt_broot(BTREE *, PAGE *, PAGE *, PAGE *);
 static PAGE	*bt_page(BTREE *, PAGE *, PAGE **, PAGE **, indx_t *, size_t);

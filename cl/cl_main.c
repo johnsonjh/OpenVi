@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 
@@ -29,6 +31,8 @@
 
 #include "../common/common.h"
 #include "cl.h"
+
+#undef open
 
 GS *__global_list;				/* GLOBAL: List of screens. */
 

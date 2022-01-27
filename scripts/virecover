@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
-#
+
 # $OpenBSD: recover,v 1.13 2018/09/17 15:41:17 millert Exp $
-#
+
 # Script to (safely) recover OpenBSD vi edit sessions.
-#
 
 use warnings;
 use strict;

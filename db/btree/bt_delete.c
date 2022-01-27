@@ -262,7 +262,6 @@ __bt_stkacq(BTREE *t, PAGE **hp, CURSOR *c)
 			return (1);
 	}
 
-
 ret:	mpool_put(t->bt_mp, h, 0);
 	return ((*hp = mpool_get(t->bt_mp, c->pg.pgno, 0)) == NULL);
 }

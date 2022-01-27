@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/queue.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -35,7 +37,8 @@
 #include <bsd_unistd.h>
 
 #include "common.h"
-#include "mkstemp.h"
+
+#undef open
 
 /*
  * Recovery code.
@@ -106,11 +109,9 @@
 #define	VI_FHEADER	"X-vi-recover-file: "
 #define	VI_PHEADER	"X-vi-recover-path: "
 
-#ifndef DB185EMU
 int rcv_copy(SCR *, int, char *);
 void rcv_email(SCR *, int);
 int rcv_mailfile(SCR *, int, char *);
-#endif /* ifndef DB185EMU */
 char *rcv_gets(char *, size_t, int);
 
 int	 rcv_mktemp(SCR *, char *, char *, int);
@@ -125,7 +126,6 @@ int	 rcv_openat(SCR *, int, const char *, int *);
 int
 rcv_tmp(SCR *sp, EXF *ep, char *name)
 {
-#ifndef DB185EMU
 	struct stat sb;
 	static int warned = 0;
 	int fd;
@@ -155,7 +155,7 @@ rcv_tmp(SCR *sp, EXF *ep, char *name)
 			goto err;
 		}
 
-	(void)snprintf(path, sizeof(path), "%s/vi.XXXXXXXXXXXXXXXXXXXXXXXX", dp);
+	(void)snprintf(path, sizeof(path), "%s/vi.XXXXXX", dp);
 	if ((fd = rcv_mktemp(sp, path, dp, S_IRWXU)) == -1)
 		goto err;
 	(void)close(fd);
@@ -171,9 +171,6 @@ err:		msgq(sp, M_ERR,
 	/* We believe the file is recoverable. */
 	F_SET(ep, F_RCV_ON);
 	return (0);
-#else
-	return (1);
-#endif /* ifndef DB185EMU */
 }
 
 /*
@@ -200,7 +197,6 @@ rcv_init(SCR *sp)
 	/* Turn off recoverability until we figure out if this will work. */
 	F_CLR(ep, F_RCV_ON);
 
-#ifndef DB185EMU
 	/* Test if we're recovering a file, not editing one. */
 	if (ep->rcv_mpath == NULL) {
 		/* Build a file to mail to the user. */
@@ -228,7 +224,6 @@ rcv_init(SCR *sp)
 
 	/* We believe the file is recoverable. */
 	F_SET(ep, F_RCV_ON);
-#endif /* ifndef DB185EMU */
 	return (0);
 
 err:	msgq(sp, M_ERR,
@@ -255,9 +250,7 @@ rcv_sync(SCR *sp, u_int flags)
 
 	/* Make sure that there's something to recover/sync. */
 	ep = sp->ep;
-#ifndef DB185EMU
 	if (ep == NULL || !F_ISSET(ep, F_RCV_ON))
-#endif /* ifndef DB185EMU */
 		return (0);
 
 	/* Sync the file if it's been modified. */
@@ -273,11 +266,9 @@ rcv_sync(SCR *sp, u_int flags)
 		if (LF_ISSET(RCV_PRESERVE))
 			F_SET(ep, F_RCV_NORM);
 
-#ifndef DB185EMU
 		/* REQUEST: send email. */
 		if (LF_ISSET(RCV_EMAIL))
 			rcv_email(sp, ep->rcv_fd);
-#endif /* ifndef DB185EMU */
 	}
 
 	/*
@@ -291,12 +282,11 @@ rcv_sync(SCR *sp, u_int flags)
 	 * REQUEST: snapshot the file.
 	 */
 	rval = 0;
-#ifndef DB185EMU
 	if (LF_ISSET(RCV_SNAPSHOT)) {
 		if (opts_empty(sp, O_RECDIR, 0))
 			goto err;
 		dp = O_STR(sp, O_RECDIR);
-		(void)snprintf(buf, sizeof(buf), "%s/vi.XXXXXXXXXXXXXXXXXXXXXXXX", dp);
+		(void)snprintf(buf, sizeof(buf), "%s/vi.XXXXXX", dp);
 		if ((fd = rcv_mktemp(sp, buf, dp, S_IRUSR | S_IWUSR)) == -1)
 			goto err;
 		sp->gp->scr_busy(sp,
@@ -316,7 +306,6 @@ err:		rval = 1;
 	/* REQUEST: end the file session. */
 	if (LF_ISSET(RCV_ENDSESSION))
 		F_SET(sp, SC_EXIT_FORCE);
-#endif /* ifndef DB185EMU */
 	return (rval);
 }
 
@@ -327,7 +316,6 @@ err:		rval = 1;
 int
 rcv_mailfile(SCR *sp, int issync, char *cp_path)
 {
-#ifndef DB185EMU
 	EXF *ep;
 	GS *gp;
 	struct passwd *pw;
@@ -349,7 +337,7 @@ rcv_mailfile(SCR *sp, int issync, char *cp_path)
 	if (opts_empty(sp, O_RECDIR, 0))
 		return (1);
 	dp = O_STR(sp, O_RECDIR);
-	(void)snprintf(mpath, sizeof(mpath), "%s/recover.XXXXXXXXXXXXXXXXXXXXXXXX", dp);
+	(void)snprintf(mpath, sizeof(mpath), "%s/recover.XXXXXX", dp);
 	if ((fd = rcv_mktemp(sp, mpath, dp, S_IRUSR | S_IWUSR)) == -1)
 		return (1);
 
@@ -463,9 +451,6 @@ err:	if (!issync)
 	if (fd != -1)
 		(void)close(fd);
 	return (1);
-#else
-	return (0);
-#endif /* ifndef DB185EMU */
 }
 
 /*
@@ -764,7 +749,6 @@ next:			(void)close(fd);
 int
 rcv_copy(SCR *sp, int wfd, char *fname)
 {
-#ifndef DB185EMU
 	int nr, nw, off, rfd;
 	char buf[8 * 1024];
 
@@ -775,13 +759,10 @@ rcv_copy(SCR *sp, int wfd, char *fname)
 			if ((nw = write(wfd, buf + off, nr)) < 0)
 				goto err;
 	if (nr == 0)
-#endif /* ifndef DB185EMU */
 		return (0);
 
-#ifndef DB185EMU
 err:	msgq_str(sp, M_SYSERR, fname, "%s");
 	return (1);
-#endif /* ifndef DB185EMU */
 }
 
 /*
@@ -791,7 +772,6 @@ err:	msgq_str(sp, M_SYSERR, fname, "%s");
 char *
 rcv_gets(char *buf, size_t len, int fd)
 {
-#ifndef DB185EMU
 	int nr;
 	char *p;
 
@@ -802,9 +782,6 @@ rcv_gets(char *buf, size_t len, int fd)
 		return (NULL);
 	(void)lseek(fd, (off_t)((p - buf) + 1), SEEK_SET);
 	return (buf);
-#else
-	return (NULL);
-#endif /* ifndef DB185EMU */
 }
 
 /*
@@ -814,7 +791,6 @@ rcv_gets(char *buf, size_t len, int fd)
 int
 rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
 {
-#ifndef DB185EMU
 	int fd;
 
 	/*
@@ -826,7 +802,7 @@ rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
 	 * XXX
 	 * The variable perms should really be a mode_t.
 	 */
-	if ((fd = obsd_mkstemp(path)) == -1 || fchmod(fd, perms) == -1) {
+	if ((fd = mkstemp(path)) == -1 || fchmod(fd, perms) == -1) {
 		msgq_str(sp, M_SYSERR, dname, "%s");
 		if (fd != -1) {
 			close(fd);
@@ -835,9 +811,6 @@ rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
 		}
 	}
 	return (fd);
-#else
-	return -1;
-#endif /* ifndef DB185EMU */
 }
 
 /*
@@ -847,7 +820,6 @@ rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
 void
 rcv_email(SCR *sp, int fd)
 {
-#ifndef DB185EMU
 	struct stat sb;
 	pid_t pid;
 
@@ -897,5 +869,4 @@ rcv_email(SCR *sp, int fd)
 		}
 
 	}
-#endif /* ifndef DB185EMU */
 }

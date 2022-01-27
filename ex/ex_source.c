@@ -9,6 +9,8 @@
  * See the LICENSE file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -23,6 +25,8 @@
 #include <bsd_unistd.h>
 
 #include "../common/common.h"
+
+#undef open
 
 /*
  * ex_sourcefd -- :source already opened file

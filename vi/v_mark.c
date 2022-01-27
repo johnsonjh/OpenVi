@@ -36,7 +36,6 @@ v_mark(SCR *sp, VICMD *vp)
 enum which {BQMARK, FQMARK};
 static int mark(SCR *, VICMD *, enum which);
 
-
 /*
  * v_bmark -- `['`a-z]
  *	Move to a mark.
