@@ -29,7 +29,7 @@ LTOC         = -flto
 ###############################################################################
 
 # Default libraries to link
-LINKLIBS    ?= -lncurses -lutil $(EXTRA_LIBS)
+LINKLIBS    ?= -lncurses $(EXTRA_LIBS)
 
 ###############################################################################
 
@@ -112,46 +112,23 @@ SRCS = cl/cl_funcs.c cl/cl_main.c cl/cl_read.c cl/cl_screen.c cl/cl_term.c    \
        vi/vi.c vi/vs_line.c vi/vs_msg.c vi/vs_refresh.c vi/vs_relative.c      \
        vi/vs_smap.c vi/vs_split.c cl/basename.c cl/getprogname.c cl/strlcpy.c \
        cl/pledge.c cl/strtonum.c cl/regcomp.c cl/regerror.c cl/regexec.c      \
-       cl/regfree.c cl/getopt_long.c common/mkstemp.c \
-	   \
-	   db/btree/bt_close.c db/btree/bt_conv.c db/btree/bt_debug.c \
-	   db/btree/bt_delete.c db/btree/bt_get.c db/btree/bt_open.c \
-	   db/btree/bt_overflow.c db/btree/bt_page.c db/btree/bt_put.c \
-	   db/btree/bt_search.c db/btree/bt_seq.c db/btree/bt_split.c \
-	   db/btree/bt_utils.c db/db/db.c db/hash/hash_bigkey.c \
-	   db/hash/hash.c db/hash/hash_buf.c db/hash/hash_func.c db/hash/hash_log2.c \
-	   db/hash/hash_page.c db/hash/ndbm.c db/mpool/mpool.c db/recno/rec_close.c \
-	   db/recno/rec_delete.c db/recno/rec_get.c db/recno/rec_open.c \
-	   db/recno/rec_put.c db/recno/rec_search.c db/recno/rec_seq.c \
-	   db/recno/rec_utils.c db/open.c db/issetugid.c
+       cl/regfree.c cl/getopt_long.c common/mkstemp.c db/btree/bt_close.c     \
+       db/btree/bt_conv.c db/btree/bt_debug.c db/btree/bt_delete.c            \
+       db/btree/bt_get.c db/btree/bt_open.c db/btree/bt_overflow.c            \
+       db/btree/bt_page.c db/btree/bt_put.c db/btree/bt_search.c              \
+       db/btree/bt_seq.c db/btree/bt_split.c db/btree/bt_utils.c db/db/db.c   \
+       db/hash/hash_bigkey.c db/hash/hash.c db/hash/hash_buf.c                \
+       db/hash/hash_func.c db/hash/hash_log2.c db/hash/hash_page.c            \
+       db/hash/ndbm.c db/mpool/mpool.c db/recno/rec_close.c                   \
+       db/recno/rec_delete.c db/recno/rec_get.c db/recno/rec_open.c           \
+       db/recno/rec_put.c db/recno/rec_search.c db/recno/rec_seq.c            \
+       db/recno/rec_utils.c db/sys/open.c db/sys/issetugid.c
 
 ###############################################################################
 
 VPATH = build:cl:common:db:ex:include:vi:bin
 OBJS := ${SRCS:.c=.o}
 DEPZ := ${OBJS:.o=.d}
-
-###############################################################################
-
-ifneq (,$(wildcard /usr/lib/libmtmalloc.so))
-    MALLOC ?= -lmtmalloc
-endif # /usr/lib/libmtmalloc.so
-
-ifneq (,$(wildcard /usr/lib/libjemalloc.so))
-    MALLOC ?= -ljemalloc
-endif # /usr/lib/libjemalloc.so
-
-ifneq (,$(wildcard /usr/lib32/libjemalloc.so))
-    MALLOC ?= -ljemalloc
-endif # /usr/lib32/libjemalloc.so
-
-ifneq (,$(wildcard /usr/lib64/libjemalloc.so))
-    MALLOC ?= -ljemalloc
-endif # /usr/lib64/libjemalloc.so
-
-ifdef MALLOC
-    LDFLAGS += $(MALLOC)
-endif # MALLOC
 
 ###############################################################################
 
@@ -239,7 +216,7 @@ view: bin/view
 
 ###############################################################################
 
-install: bin/vi bin/ex bin/view build/virecover docs/USD.doc/vi.man/vi.1
+install: bin/vi bin/ex bin/view scripts/virecover docs/USD.doc/vi.man/vi.1
 	$(TEST) -d "/tmp/vi.recover" ||                                           \
         $(MKDIR) "/tmp/vi.recover"
 	$(TEST) -d "/tmp/vi.recover" &&                                           \
@@ -260,7 +237,7 @@ install: bin/vi bin/ex bin/view build/virecover docs/USD.doc/vi.man/vi.1
 	$(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&                  \
         $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"                     \
             "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
-	$(CP) "./build/virecover"                                                 \
+	$(CP) "./scripts/virecover"                                                 \
         "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)" &&             \
             $(CHMOD) "$(IPERM)"                                               \
                 "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
