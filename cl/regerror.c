@@ -90,7 +90,7 @@ regerror(int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
 		for (r = rerrs; r->code != 0; r++)
 			if (r->code == target)
 				break;
-	
+
 		if (errcode&REG_ITOA) {
 			if (r->code != 0) {
 				assert(strlen(r->name) < sizeof(convbuf));

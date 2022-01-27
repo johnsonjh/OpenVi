@@ -580,7 +580,7 @@ newmap:	evp = &gp->i_event[gp->i_next];
 		QREM(1);
 		return (0);
 	}
-	
+
 	/*
 	 * If the key isn't mappable because:
 	 *

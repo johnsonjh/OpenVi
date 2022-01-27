@@ -32,7 +32,7 @@
  *	@(#)mpool.h	8.4 (Berkeley) 11/2/95
  */
 
-#ifndef _MPOOL_H_ 
+#ifndef _MPOOL_H_
 #define _MPOOL_H_
 
 #include <sys/queue.h>

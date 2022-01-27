@@ -173,7 +173,7 @@ tty_retry:
 			break;
 		}
 	}
-	
+
 	/*
 	 * The user can enter a key in the editor to quote a character.  If we
 	 * get here and the next key is supposed to be quoted, do what we can.

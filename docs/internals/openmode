@@ -13,7 +13,7 @@ z, ^F, ^B:
 	until:
 
 		(((count + 1) / 2) * 2) - 1
-	
+
 	lines, or the last line in the edit buffer has been written.  A
 	line consisting of the smaller of the number of columns in the
 	display divided by two or 40 ``-'' characters shall be written

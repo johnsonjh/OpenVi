@@ -40,7 +40,7 @@ v_screen(SCR *sp, VICMD *vp)
 		    "Enter <CR> to execute a command, :q to exit");
 		return (1);
 	}
-		
+
 	/*
 	 * Try for the next lower screen, or, go back to the first
 	 * screen on the stack.

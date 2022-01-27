@@ -1,3 +1,6 @@
+OpenVi 7.0.5 -> OpenVi 7.0.6-dev (Unreleased): Thu Jan 27 13:53:25 2022
+	+ Apply filter to sources to clean-up excess trailing whitespace
+
 OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 11:00:46 2022
 	+ No verbose build by default; set variables V (or DEBUG) to enable
 	+ No LTO and LGC by default; set variables LTO and/or LGC to enable
@@ -1260,7 +1263,7 @@ Tue Sep 23 07:12:42 1997
 Nvi 1.79 -> OpenBSD 2.1: Sun Aug 24 19:15:25 1997
 	+ Check for >= UINT_MAX not > UINT_MAX
 	+ 64bit fix wrt strtoul(3); fix sent to Keith
-	
+
 Nvi 1.78 -> Nvi 1.79: 10/23/1996
 	+ Rename delete() to del(), for C++
 	+ Add Spanish to the list of translations

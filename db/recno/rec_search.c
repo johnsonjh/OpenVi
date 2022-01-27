@@ -86,7 +86,7 @@ __rec_search(BTREE *t, recno_t recno, enum SRCHOP op)
 		}
 
 		BT_PUSH(t, pg, idx - 1);
-		
+
 		pg = r->pgno;
 		switch (op) {
 		case SDELETE:

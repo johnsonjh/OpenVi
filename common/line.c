@@ -188,7 +188,7 @@ db_delete(SCR *sp, recno_t lno)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Update marks, @ and global commands. */
 	if (mark_insdel(sp, LINE_DELETE, lno))
 		return (1);

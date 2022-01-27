@@ -109,7 +109,7 @@ editor(GS *gp, int argc, char *argv[])
 			!strcmp(bsd_getprogname(), "obview") ||
 			!strcmp(bsd_getprogname(), "openview"))
 			readonly = 1;
-		
+
 		/* Vi is the default. */
 		LF_INIT(SC_VI);
 	}

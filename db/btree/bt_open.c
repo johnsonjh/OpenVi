@@ -196,7 +196,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
 		default:
 			goto einval;
 		}
-		
+
 		if ((t->bt_fd = open(fname, flags | O_CLOEXEC, mode)) < 0)
 			goto err;
 

@@ -251,7 +251,7 @@ EXCMDLIST const cmds[] = {
 	    "prev[ious][!]",
 	    "edit the previous file in the file argument list"},
 /* C_PUT */
-	{"put",		ex_put,	
+	{"put",		ex_put,
 	    E_ADDR1|E_AUTOPRINT|E_ADDR_ZERO|E_ADDR_ZERODEF,
 	    "b",
 	    "[line] pu[t] [buffer]",

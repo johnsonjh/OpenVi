@@ -1082,7 +1082,7 @@ file_backup(SCR *sp, char *name, char *bname)
 		bp = NULL;
 		wfname = cmd.argv[0]->bp;
 	}
-	
+
 	/* Open the backup file, avoiding lurkers. */
 	if (stat(wfname, &sb) == 0) {
 		if (!S_ISREG(sb.st_mode)) {
@@ -1384,7 +1384,7 @@ file_lock(SCR *sp, char *name, int *fdp, int fd, int iswrite)
 {
 	if (!O_ISSET(sp, O_LOCKFILES))
 		return (LOCK_SUCCESS);
-	
+
 	/* Set close-on-exec flag so locks are not inherited by shell cmd. */
 	if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
 		msgq_str(sp, M_SYSERR, name, "%s");

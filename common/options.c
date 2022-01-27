@@ -988,7 +988,7 @@ opts_search(char *name)
 	if ((op = bsearch(&otmp, optlist, sizeof(optlist) / sizeof(OPTLIST) - 1,
 	    sizeof(OPTLIST), opts_cmp)) != NULL)
 		return (op);
-		
+
 	/*
 	 * Check to see if the name is the prefix of one (and only one)
 	 * option.  If so, return the option.

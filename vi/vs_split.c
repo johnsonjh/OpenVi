@@ -232,7 +232,7 @@ vs_discard(SCR *sp, SCR **spp)
 		*spp = sp;
 	if (sp == NULL)
 		return (0);
-		
+
 	/*
 	 * Make no effort to clean up the discarded screen's information.  If
 	 * it's not exiting, we'll do the work when the user redisplays it.

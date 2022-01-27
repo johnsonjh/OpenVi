@@ -580,7 +580,7 @@ v_ecl_exec(SCR *sp)
 		msgq(sp, M_BERR, "No ex command to execute");
 		return (1);
 	}
-	
+
 	/* Push the command on the command stack. */
 	if (ex_run_str(sp, NULL, p, len, 0, 0))
 		return (1);

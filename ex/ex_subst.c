@@ -152,7 +152,7 @@ subagain:	return (ex_subagain(sp, cmdp));
 		if (re_compile(sp, ptrn, t - ptrn,
 		    &sp->subre, &sp->subre_len, &sp->subre_c, RE_C_SUBST))
 			return (1);
-		
+
 		flags = SUB_FIRST;
 		sp->searchdir = FORWARD;
 	}

@@ -267,7 +267,7 @@ ex_g_insdel(SCR *sp, lnop_t op, recno_t lno)
 			/* If range less than the line, ignore it. */
 			if (rp->stop < lno)
 				continue;
-			
+
 			/*
 			 * If range greater than the line, decrement or
 			 * increment the range.

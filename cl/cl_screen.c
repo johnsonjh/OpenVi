@@ -57,7 +57,7 @@ cl_screen(SCR *sp, u_int32_t flags)
 			return (1);
 		F_CLR(gp, G_SRESTART);
 	}
-	
+
 	/* See if we're already in the right mode. */
 	if ((LF_ISSET(SC_EX) && F_ISSET(sp, SC_SCR_EX)) ||
 	    (LF_ISSET(SC_VI) && F_ISSET(sp, SC_SCR_VI)))

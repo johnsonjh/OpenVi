@@ -2547,7 +2547,7 @@ txt_isrch(SCR *sp, VICMD *vp, TEXT *tp, u_int8_t *is_flagsp)
 		FL_CLR(*is_flagsp, IS_RUNNING);
 		return (0);
 	}
-		
+
 	/*
 	 * Remember the input line and discard the special input map,
 	 * but don't overwrite the input line on the screen.

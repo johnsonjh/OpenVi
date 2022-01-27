@@ -231,7 +231,7 @@ ex_read(SCR *sp, EXCMD *cmdp)
 		default:
 			ex_emsg(sp, cmdp->argv[0]->bp, EXM_FILECOUNT);
 			return (1);
-		
+
 		}
 		break;
 	default:

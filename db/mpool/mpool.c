@@ -99,7 +99,7 @@ mpool_filter(MPOOL *mp, void (*pgin) (void *, pgno_t, void *),
 	mp->pgout = pgout;
 	mp->pgcookie = pgcookie;
 }
-	
+
 /*
  * mpool_new --
  *	Get a new page of memory.
@@ -162,8 +162,8 @@ mpool_delete(MPOOL *mp, void *page)
 	free(bp);
 	mp->curcache--;
 	return (RET_SUCCESS);
-}	
-	
+}
+
 /*
  * mpool_get
  *	Get a page.
@@ -460,7 +460,7 @@ mpool_stat(MPOOL *mp)
 	    mp->pagealloc, mp->pageflush);
 	if (mp->cachehit + mp->cachemiss)
 		(void)fprintf(stderr,
-		    "%.0f%% cache hit rate (%lu hits, %lu misses)\n", 
+		    "%.0f%% cache hit rate (%lu hits, %lu misses)\n",
 		    ((double)mp->cachehit / (mp->cachehit + mp->cachemiss))
 		    * 100, mp->cachehit, mp->cachemiss);
 	(void)fprintf(stderr, "%lu page reads, %lu page writes\n",
@@ -479,7 +479,7 @@ mpool_stat(MPOOL *mp)
 			cnt = 0;
 		} else
 			sep = ", ";
-			
+
 	}
 	(void)fprintf(stderr, "\n");
 }
