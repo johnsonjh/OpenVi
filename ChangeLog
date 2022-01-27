@@ -1,5 +1,6 @@
-OpenVi 7.0.5 -> OpenVi 7.0.6-dev (Unreleased): Thu Jan 27 13:53:25 2022
-	+ Apply filter to sources to clean-up excess trailing whitespace
+OpenVi 7.0.5 -> OpenVi 7.0.6-dev (Unreleased): Thu Jan 27 14:00:09 2022
+	+ Correct `GNUmakefile` terse messages for `install` target
+	+ Clean-up excess and trailing whitespace from source files
 
 OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 11:00:46 2022
 	+ No verbose build by default; set variables V (or DEBUG) to enable

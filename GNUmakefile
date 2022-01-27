@@ -419,7 +419,7 @@ endif
         $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
             "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 ifndef DEBUG
-	-@$(PRINTF) "\t%s\t%s\n" "ln:" "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
+	-@$(PRINTF) "\t%s\t%s\n" "cp:" "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
 endif
 	@$(VERBOSE); $(CP) "./scripts/virecover" \
         "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)" && \
