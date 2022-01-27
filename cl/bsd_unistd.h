@@ -43,9 +43,6 @@
 #define	STDERR_FILENO	2	/* standard error file descriptor */
 
 int	 execvpe(const char *, char *const *, char *const *);
-#ifndef __USE_MISC
-int	 closefrom(int);
-#endif /* ifndef __USE_MISC */
 int	 crypt_newhash(const char *, const char *, char *, size_t);
 int	 getdtablecount(void);
 int	 getentropy(void *, size_t);

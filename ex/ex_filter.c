@@ -15,12 +15,12 @@
 
 #include <bitstring.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <limits.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "../common/common.h"
 #include "../common/mkstemp.h"

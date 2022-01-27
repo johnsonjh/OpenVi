@@ -15,7 +15,7 @@
 
 /*
  * We include <sys/file.h>, because the flock(2) and open(2) #defines
- * were found there on historical systems.  We also include <fcntl.h>
+ * were found there on historical systems.  We also include <bsd_fcntl.h>
  * because the open(2) #defines are found there on newer systems.
  */
 #include <sys/file.h>
@@ -23,20 +23,20 @@
 #include <bitstring.h>
 #include <dirent.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <limits.h>
 #include <signal.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <time.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include <sys/types.h>
 #ifdef DB185EMU
 # include <db_185.h>
 #else
-# include <db.h>
+# include <bsd_db.h>
 #endif /* ifdef DB185EMU */
 
 #include "common.h"

@@ -16,7 +16,7 @@
 #ifdef DB185EMU
 # include <db_185.h>
 #else
-# include <db.h>
+# include <bsd_db.h>
 #endif /* ifdef DB185EMU */
 
 #include <regex.h>

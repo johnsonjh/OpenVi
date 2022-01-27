@@ -16,7 +16,7 @@
 
 /*
  * We include <sys/file.h>, because the open #defines were found there
- * on historical systems.  We also include <fcntl.h> because the open(2)
+ * on historical systems.  We also include <bsd_fcntl.h> because the open(2)
  * #defines are found there on newer systems.
  */
 #include <sys/file.h>
@@ -24,7 +24,7 @@
 #include <bitstring.h>
 #include <dirent.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <limits.h>
 #include <paths.h>
 #include <pwd.h>
@@ -32,7 +32,7 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <time.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "common.h"
 #include "mkstemp.h"

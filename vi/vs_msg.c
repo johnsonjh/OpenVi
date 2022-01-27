@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <bsd_string.h>
 #include <time.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "../common/common.h"
 #include "vi.h"

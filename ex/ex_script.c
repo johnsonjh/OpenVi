@@ -21,7 +21,7 @@
 
 #include <bitstring.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <stdio.h>		/* XXX: OSF/1 bug: include before <grp.h> */
 #include <grp.h>
 #include <limits.h>
@@ -30,7 +30,7 @@
 #include <bsd_string.h>
 #include <bsd_termios.h>
 #include <termio.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 #include <util.h>
 
 #ifdef _AIX

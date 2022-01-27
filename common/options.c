@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "common.h"
 #include "../vi/vi.h"

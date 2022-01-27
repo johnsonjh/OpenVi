@@ -1,7 +1,7 @@
 /* OpenBSD mkstemp function */
 
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <stdio.h>
 #include <time.h>
 #include <bsd_unistd.h>

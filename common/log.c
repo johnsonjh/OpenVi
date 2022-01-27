@@ -15,7 +15,7 @@
 
 #include <bitstring.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <libgen.h>
 #include <limits.h>
 #include <stdio.h>
@@ -25,7 +25,7 @@
 #ifdef DB185EMU
 # include <db_185.h>
 #else
-# include <db.h>
+# include <bsd_db.h>
 #endif /* ifdef DB185EMU */
 
 #include "common.h"

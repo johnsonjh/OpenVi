@@ -1,9 +1,11 @@
-OpenVi 7.0.4 -> OpenVi 7.0.5-dev (Unreleased): Wed Jan 26 13:13:13 2022
-	+ Begin 7.0.5-dev ...
+OpenVi 7.0.4 -> OpenVi 7.0.5-dev (Unreleased): Thu Jan 27 05:20:11 2022
+	+ Import and adapt OpenBSD Berkeley DB from OpenBSD 7-current libc
+	+ Build against the newly bundled OpenBSD Berkeley DB by default;
+	  the imperfect Berkeley DB 3/4/5 support will remain available
 
 OpenVi 7.0.3 -> OpenVi 7.0.4: Wed Jan 26 13:09:45 2022
 	+ New feature: "set visibletab" (abbrev "set vt") which toggles
-	  displaying tabs visibly while editing, useful for Makefiles, etc.
+	  displaying tabs visibly while editing, useful for Makefiles, etc
 	+ Decrease the width of the line-number column by one row
 	+ Increase the length of the divider decoration string (by 2x)
 	+ Improve the GNUmakefile to avoid remaking any non-stale targets

@@ -16,7 +16,7 @@
 #include <bitstring.h>
 #include <curses.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <poll.h>
 #include <signal.h>
 #include <stdio.h>
@@ -24,7 +24,7 @@
 #include <bsd_string.h>
 #include <bsd_termios.h>
 #include <termio.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "../common/common.h"
 #include "../ex/script.h"

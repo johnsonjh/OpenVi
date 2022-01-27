@@ -16,7 +16,7 @@
 #include <curses.h>
 #include <bsd_err.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <paths.h>
 #include <signal.h>
 #include <stdio.h>
@@ -25,7 +25,7 @@
 #include <term.h>
 #include <bsd_termios.h>
 #include <termio.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "../common/common.h"
 #include "cl.h"

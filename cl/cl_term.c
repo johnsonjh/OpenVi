@@ -23,7 +23,7 @@
 #include <bsd_string.h>
 #include <bsd_termios.h>
 #include <termio.h>
-#include <unistd.h>
+#include <bsd_unistd.h>
 
 #include "../common/common.h"
 #include "cl.h"

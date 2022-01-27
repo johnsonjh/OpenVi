@@ -17,7 +17,7 @@
 #include <bitstring.h>
 #include <bsd_err.h>
 #include <errno.h>
-#include <fcntl.h>
+#include <bsd_fcntl.h>
 #include <limits.h>
 #include <paths.h>
 #include <stdio.h>
