@@ -1,4 +1,4 @@
-#!/bin/csh -f
+#!/usr/bin/env csh
 #	$OpenBSD: vi.tut.csh,v 1.2 2001/01/29 01:58:40 niklas Exp $
 
 #
