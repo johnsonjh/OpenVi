@@ -1,4 +1,5 @@
-OpenVi 7.0.5 -> OpenVi 7.0.6-dev (Unreleased): Thu Jan 27 14:00:09 2022
+OpenVi 7.0.5 -> OpenVi 7.0.6-dev (Unreleased): Thu Jan 27 14:25:39 2022
+	+ Add attribution for DragonflyBSD Project to `LICENSE` text
 	+ Correct `GNUmakefile` terse messages for `install` target
 	+ Clean-up excess and trailing whitespace from source files
 
