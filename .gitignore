@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Timing
+*.t
+
 # Object files
 *.o
 *.ko
