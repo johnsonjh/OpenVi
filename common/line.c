@@ -228,7 +228,7 @@ db_append(SCR *sp, int update, recno_t lno, char *p, size_t len)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Update file. */
 	key.data = &lno;
 	key.size = sizeof(lno);
@@ -292,7 +292,7 @@ db_insert(SCR *sp, recno_t lno, char *p, size_t len)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Update file. */
 	key.data = &lno;
 	key.size = sizeof(lno);
@@ -346,7 +346,7 @@ db_set(SCR *sp, recno_t lno, char *p, size_t len)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Log before change. */
 	log_line(sp, lno, LOG_LINE_RESET_B);
 
@@ -396,7 +396,7 @@ db_exist(SCR *sp, recno_t lno)
 
 	if (lno == OOBLNO)
 		return (0);
-		
+
 	/*
 	 * Check the last-line number cache.  Adjust the cached line
 	 * number for the lines used by the text input buffers.
@@ -428,7 +428,7 @@ db_last(SCR *sp, recno_t *lnop)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/*
 	 * Check the last-line number cache.  Adjust the cached line
 	 * number for the lines used by the text input buffers.
