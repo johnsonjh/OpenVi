@@ -148,9 +148,9 @@ typedef struct htab	 {		/* Memory resident data structure */
 #define BITS_PER_MAP	32
 
 /* Given the address of the beginning of a big map, clear/set the nth bit */
-#define CLRBIT(A, N)	((A)[(N)/BITS_PER_MAP] &= ~(1<<((N)%BITS_PER_MAP)))
-#define SETBIT(A, N)	((A)[(N)/BITS_PER_MAP] |= (1<<((N)%BITS_PER_MAP)))
-#define ISSET(A, N)	((A)[(N)/BITS_PER_MAP] & (1<<((N)%BITS_PER_MAP)))
+#define CLRBIT(A, N)	((A)[(N)/BITS_PER_MAP] &= ~(1U<<((N)%BITS_PER_MAP)))
+#define SETBIT(A, N)	((A)[(N)/BITS_PER_MAP] |= (1U<<((N)%BITS_PER_MAP)))
+#define ISSET(A, N)	((A)[(N)/BITS_PER_MAP] & (1U<<((N)%BITS_PER_MAP)))
 
 /* Overflow management */
 /*
