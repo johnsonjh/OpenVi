@@ -91,11 +91,7 @@ OPTLIST const optlist[] = {
 	{"lines",	f_lines,	OPT_NUM,	OPT_NOSAVE},
 /* O_LIST	    4BSD */
 	{"list",	f_reformat,	OPT_0BOOL,	0},
-/* O_LOCKFILES	  4.4BSD
- *	XXX
- *	Locking isn't reliable enough over NFS to require it, in addition,
- *	it's a serious startup performance problem over some remote links.
- */
+/* O_LOCKFILES	  4.4BSD */
 	{"lock",	NULL,		OPT_1BOOL,	0},
 /* O_MAGIC	    4BSD */
 	{"magic",	NULL,		OPT_1BOOL,	0},

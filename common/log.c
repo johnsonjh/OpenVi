@@ -599,4 +599,3 @@ log_err(SCR *sp, char *file, int line)
 	if (!log_init(sp, ep))
 		msgq(sp, M_ERR, "Log restarted");
 }
-
