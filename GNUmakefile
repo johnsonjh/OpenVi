@@ -486,4 +486,23 @@ ifndef DEBUG
 endif # DEBUG
 	-@$(VERBOSE); $(RMF) "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 
+ifndef DEBUG
+	-@$(PRINTF) "\t$(RM):\t%s\n" \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1"
+endif # DEBUG
+	-@$(VERBOSE); $(RMF) \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1"
+ifndef DEBUG
+	-@$(PRINTF) "\t$(RM):\t%s\n" \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)ex$(BINSUFFIX).1"
+endif # DEBUG
+	-@$(VERBOSE); $(RMF) \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)ex$(BINSUFFIX).1"
+ifndef DEBUG
+	-@$(PRINTF) "\t$(RM):\t%s\n" \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)view$(BINSUFFIX).1"
+endif # DEBUG
+	-@$(VERBOSE); $(RMF) \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)view$(BINSUFFIX).1"
+
 ###############################################################################

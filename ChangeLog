@@ -1,5 +1,6 @@
-OpenVi 7.0.6 -> OpenVi 7.0.7-dev (Unreleased): Fri Jan 28 14:19:13 2022
+OpenVi 7.0.6 -> OpenVi 7.0.7: Fri Jan 28 16:33:22 2022
 	+ Important fix to `GNUmakefile` for linking with Clang's `lld` linker
+	+ Remove installed man pages as part of the `uninstall` target
 	+ Workaround to accommodate the case of `make clean all -j N' when `N` > 1
 	+ Clean-up whitespace and line lengths of sources and `GNUmakefile`
 

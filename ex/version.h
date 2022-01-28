@@ -35,6 +35,6 @@
 #define _VERSION_H
 
 #define VI_VERSION \
-	"Version 7.0.7-dev (OpenVi) 10/25/2021"
+	"Version 7.0.7 (OpenVi) 10/25/2021"
 
 #endif /* ifndef _VERSION_H */
