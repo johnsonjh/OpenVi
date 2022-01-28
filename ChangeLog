@@ -1,10 +1,13 @@
+OpenVi 7.0.6 -> OpenVi 7.0.7-dev (Unreleased): Fri Jan 28 14:19:13 2022
+	+ Clean-up various whitespace and line lengths
+
 OpenVi 7.0.5 -> OpenVi 7.0.6: Thu Jan 27 16:45:12 2022
 	+ Important fix for back-end database file locking; also, switch
 	  back to using the system libc-provided mkstemp functions to elide
 	  some issues that would otherwise occur on networked filesystems.
 	+ Add proper attribution for DragonflyBSD Project to `LICENSE` text
 	+ Correct `GNUmakefile` non-verbose messages for the `install` target
-	+ Clean-up excess and trailing whitespace from source files
+	+ Clean-up excess and trailing whitespace in source files
 
 OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 11:00:46 2022
 	+ No verbose build by default; set variables V (or DEBUG) to enable
@@ -31,12 +34,12 @@ OpenVi 7.0.2 -> OpenVi 7.0.3: Wed Jan 26 08:31:28 2022
 	+ Relicense new contributions under the same 3-clause BSD license
 	  used by the overall project and update LICENSE file text
 	+ Remove unused headers and legacy documentation from the source tree
-	+ Add standalone "strip" target to GNUmakefile; strips uninstalled binary
+	+ Add standalone "strip" target to GNUmakefile; strip uninstalled binary
 	+ Set visible tab character to '~' and expose option in GNUmakefile
 	+ Installed binaries are now prefixed with 'o' (e.g. 'ovi') by default
 	+ Explicitly invoke the POSIX-compliant version of the awk utility
 	+ Clarify (and simplify) GNUmakefile and build configuration
-	+ Update ChangeLog and docs for consistency, fix spelling and other typos
+	+ Update ChangeLog and docs for consistency, fix spelling & other typos
 	+ Update LICENSE text
 
 OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
