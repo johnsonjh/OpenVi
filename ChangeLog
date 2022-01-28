@@ -1,7 +1,7 @@
-OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Fri Jan 28 17:03:29 2022
-	+ Add a missing break
-	+ Avoid undefined behavior in *BIT macros; from NetBSD
-	+ Update `.gitignore`
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Fri Jan 28 17:13:59 2022
+	+ Add a missing break in `common/log.c`
+	+ Avoid undefined behavior in `*BIT` macros; patch from NetBSD
+	+ Update `.gitignore` and `.gitattributes`
 
 OpenVi 7.0.6 -> OpenVi 7.0.7: Fri Jan 28 16:33:22 2022
 	+ Important fix to `GNUmakefile` for linking with Clang's `lld` linker

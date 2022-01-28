@@ -1,0 +1,16 @@
+*.txt       linguist-documentation
+*.ms        linguist-documentation
+*.1         linguist-documentation
+*.md        linguist-documentation
+*.rm        linguist-documentation
+*.advanced  linguist-documentation
+*.beginner  linguist-documentation
+*.summary   linguist-documentation
+*.vindex    linguist-documentation
+*.chars     linguist-documentation
+*.refs      linguist-documentation
+*.roff      linguist-documentation
+./docs/*    linguist_documentation
+*.in        linguist-vendored
+*.csh       linguist-vendored
+*.script    linguist-vendored
