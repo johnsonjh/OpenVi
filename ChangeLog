@@ -1,3 +1,6 @@
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Fri Jan 28 16:44:58 2022
+	+ Update `.gitignore`
+
 OpenVi 7.0.6 -> OpenVi 7.0.7: Fri Jan 28 16:33:22 2022
 	+ Important fix to `GNUmakefile` for linking with Clang's `lld` linker
 	+ Remove installed man pages as part of the `uninstall` target
