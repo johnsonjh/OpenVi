@@ -66,6 +66,7 @@ vi(SCR **spp)
 	VICMD cmd, *vp;
 	VI_PRIVATE *vip;
 	int comcount, mapped, rval;
+	int ret;
 
 	/* Get the first screen. */
 	sp = *spp;
@@ -227,8 +228,13 @@ vi(SCR **spp)
 		v_comlog(sp, vp);
 #endif /* if defined(DEBUG) && defined(COMLOG) */
 		/* Call the function. */
-ex_continue:	if (vp->kp->func(sp, vp))
-			goto err;
+ex_continue:	if (strchr(O_STR(sp, O_IMKEY), vp->key))
+		    sp->gp->scr_imctrl(sp, IMCTRL_ON);
+		ret = vp->kp->func(sp, vp);
+		if (strchr(O_STR(sp, O_IMKEY), vp->key))
+		    sp->gp->scr_imctrl(sp, IMCTRL_OFF);
+		if (ret)
+		    goto err;
 gc_event:
 #ifdef DEBUG
 		/* Make sure no function left the temporary space locked. */
@@ -683,7 +689,13 @@ usage:			if (ismotion == NULL)
 
 	/* Required character. */
 	if (LF_ISSET(V_CHAR))
+	{
+		if (strchr(O_STR(sp, O_IMKEY), vp->key))
+			sp->gp->scr_imctrl(sp, IMCTRL_ON);
 		KEY(vp->character, 0);
+		if (strchr(O_STR(sp, O_IMKEY), vp->key))
+			sp->gp->scr_imctrl(sp, IMCTRL_OFF);
+	}
 
 	/* Get any associated cursor word. */
 	if (F_ISSET(kp, V_KEYW) && v_keyword(sp))
@@ -717,6 +729,9 @@ v_motion(SCR *sp, VICMD *dm, VICMD *vp, int *mappedp)
 	u_long cnt;
 	u_int flags;
 	int tilde_reset, notused;
+#ifdef IMKEY
+	int rval;
+#endif
 
 	/*
 	 * If '.' command, use the dot motion, else get the motion command.
@@ -837,8 +852,18 @@ v_motion(SCR *sp, VICMD *dm, VICMD *vp, int *mappedp)
 		    motion.m_stop.cno = motion.m_start.cno = sp->cno;
 
 		/* Run the function. */
+#ifndef IMKEY
 		if ((motion.kp->func)(sp, &motion))
 			return (1);
+#else
+		if (strchr(O_STR(sp, O_IMKEY), motion.key))
+			imreset(sp);
+		rval = (motion.kp->func)(sp, &motion);
+		if (strchr(O_STR(sp, O_IMKEY), motion.key))
+			imoff(sp);
+		if (rval)
+			return (1);
+#endif
 
 		/*
 		 * If the current line is missing, i.e. the file is empty,

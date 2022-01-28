@@ -350,6 +350,39 @@ cl_ex_adjust(SCR *sp, exadj_t action)
 }
 
 /*
+ * cl_imctrl --
+ *	Control the state of input method by using escape sequences compatible
+ *	to Tera Term and RLogin.
+ *
+ * PUBLIC: void cl_imctrl __P((SCR *, imctrl_t));
+ */
+void
+cl_imctrl(SCR *sp, imctrl_t action)
+{
+#define	TT_IM_OFF	"\033[<t"	/* TTIMEST */
+#define	TT_IM_RESTORE	"\033[<r"	/* TTIMERS */
+#define	TT_IM_SAVE	"\033[<s"	/* TTIMESV */
+
+	if (!O_ISSET(sp, O_IMCTRL) && action != IMCTRL_INIT)
+		return;
+
+	switch (action) {
+	case IMCTRL_INIT:
+		(void)printf(TT_IM_OFF TT_IM_SAVE);
+		break;
+	case IMCTRL_OFF:
+		(void)printf(TT_IM_SAVE TT_IM_OFF);
+		break;
+	case IMCTRL_ON:
+		(void)printf(TT_IM_RESTORE);
+		break;
+	default:
+		abort();
+	}
+	(void)fflush(stdout);
+}
+
+/*
  * cl_insertln --
  *	Push down the current line, discarding the bottom line.
  *

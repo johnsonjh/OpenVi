@@ -290,3 +290,15 @@ f_window(SCR *sp, OPTION *op, char *str, u_long *valp)
 		*valp = 1;
 	return (0);
 }
+
+/*
+ * PUBLIC: int f_imctrl __P((SCR *, OPTION *, char *, u_long *));
+ */
+int
+f_imctrl(SCR *sp, OPTION *op, char *str, u_long *valp)
+{
+
+	if (*valp)
+		sp->gp->scr_imctrl(sp, IMCTRL_INIT);
+	return (0);
+}

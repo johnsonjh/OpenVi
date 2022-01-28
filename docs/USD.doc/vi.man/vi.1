@@ -2380,6 +2380,17 @@ Makes all regular expressions case-insensitive,
 as long as an upper-case letter does not appear in the search string.
 .It Cm ignorecase , ic Bq off
 Ignore case differences in regular expressions.
+.It Cm imctrl Bq off
+Control input method using escape sequences compatible with
+Tera Term and RLogin.
+The state of the input method commands specified by imkey option is
+saved and restored automatically.
+This input method is deactivated upon returning to command mode.
+If the terminal in use does not accept these escape sequences, the
+screen display may be corrupted.
+.It Cm imkey [/?aioAIO]
+Set commands which the state of input method is restored and saved on
+entering and leaving, respectively.
 .It Cm keytime Bq 6
 The tenths of a second
 .Nm ex Ns / Ns Nm vi

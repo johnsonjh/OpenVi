@@ -32,6 +32,8 @@ static int	 	 opts_abbcmp(const void *, const void *);
 static int	 	 opts_cmp(const void *, const void *);
 static int	 	 opts_print(SCR *, OPTLIST const *);
 
+int f_imctrl __P((SCR *, OPTION *, char *, u_long *));
+
 /*
  * O'Reilly noted options and abbreviations are from "Learning the VI Editor",
  * Fifth Edition, May 1992.  There's no way of knowing what systems they are
@@ -83,6 +85,10 @@ OPTLIST const optlist[] = {
 	{"iclower",	f_recompile,	OPT_0BOOL,	0},
 /* O_IGNORECASE	    4BSD */
 	{"ignorecase",	f_recompile,	OPT_0BOOL,	0},
+/* O_IMCTRL  nvi-m17n-nb */
+	{"imctrl",	f_imctrl,	OPT_0BOOL,	0},
+/* O_IMKEY   nvi-m17n-nb */
+	{"imkey",	NULL,		OPT_STR,	0},
 /* O_KEYTIME	  4.4BSD */
 	{"keytime",	NULL,		OPT_NUM,	0},
 /* O_LEFTRIGHT	  4.4BSD */
@@ -318,6 +324,7 @@ opts_init(SCR *sp, int *oargs)
 	OI(O_TABSTOP, "tabstop=8");
 	(void)snprintf(b1, sizeof(b1), "tags=%s", _PATH_TAGS);
 	OI_b1(O_TAGS);
+	OI(O_IMKEY, "imkey=/?aioAIO");
 
 	/*
 	 * XXX

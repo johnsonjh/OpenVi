@@ -499,6 +499,7 @@ next:	if (v_event_get(sp, evp, 0, ec_flags))
 		goto next;
 	case E_WRESIZE:
 		/* <resize> interrupts the input mode. */
+		sp->gp->scr_imctrl(sp, IMCTRL_OFF);
 		v_emsg(sp, NULL, VIM_WRESIZE);
 	/* FALLTHROUGH */
 	default:

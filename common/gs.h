@@ -46,6 +46,9 @@ typedef enum { EX_TERM_CE, EX_TERM_SCROLL } exadj_t;
 /* Screen attribute arguments to scr_attr(). */
 typedef enum { SA_ALTERNATE, SA_INVERSE } scr_attr_t;
 
+/* Input method control arguments to scr_imctrl(). */
+typedef enum { IMCTRL_INIT, IMCTRL_OFF, IMCTRL_ON } imctrl_t;
+
 /* Key type arguments to scr_keyval(). */
 typedef enum { KEY_VEOF, KEY_VERASE, KEY_VKILL, KEY_VWERASE } scr_keyval_t;
 
@@ -168,6 +171,8 @@ struct _gs {
 (SCR *, seq_t, CHAR_T *, size_t, CHAR_T *, size_t);
 					/* Get terminal key value. */
 	int	(*scr_keyval)(SCR *, scr_keyval_t, CHAR_T *, int *);
+					/* Control the state of input method. */
+	void    (*scr_imctrl) __P((SCR *, imctrl_t));
 					/* Insert a line. */
 	int	(*scr_insertln)(SCR *);
 					/* Handle an option change. */

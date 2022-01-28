@@ -34,6 +34,8 @@
 
 #undef open
 
+void cl_imctrl __P((SCR *, imctrl_t));
+
 GS *__global_list;				/* GLOBAL: List of screens. */
 
 volatile sig_atomic_t cl_sigint;
@@ -337,6 +339,7 @@ cl_func_std(GS *gp)
 	gp->scr_event = cl_event;
 	gp->scr_ex_adjust = cl_ex_adjust;
 	gp->scr_fmap = cl_fmap;
+	gp->scr_imctrl = cl_imctrl;
 	gp->scr_insertln = cl_insertln;
 	gp->scr_keyval = cl_keyval;
 	gp->scr_move = cl_move;

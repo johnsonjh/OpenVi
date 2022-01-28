@@ -125,6 +125,7 @@ next:		if (v_event_get(sp, &ev, 0, 0))
 			return (0);
 		case E_WRESIZE:
 			/* <resize> interrupts the input mode. */
+			sp->gp->scr_imctrl(sp, IMCTRL_OFF);
 			v_emsg(sp, NULL, VIM_WRESIZE);
 			return (0);
 		case E_REPAINT:
