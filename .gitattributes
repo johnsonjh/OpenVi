@@ -1,6 +1,7 @@
 *.txt       linguist-documentation
 *.ms        linguist-documentation
 *.1         linguist-documentation
+*.8         linguist-documentation
 *.md        linguist-documentation
 *.rm        linguist-documentation
 *.advanced  linguist-documentation
