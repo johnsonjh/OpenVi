@@ -31,10 +31,10 @@
 .Dt VIRECOVER 8
 .Os
 .Sh NAME
-.Nm virecover
+.Nm vi.recover
 .Nd report recovered nvi edit sessions
 .Sh SYNOPSIS
-.Pa /usr/libexec/virecover
+.Pa /usr/libexec/vi.recover
 .Sh DESCRIPTION
 The
 .Nm
@@ -64,8 +64,7 @@ also removes recovery files that are corrupted, zero length,
 or do not have a corresponding backup file.
 .Pp
 .Nm
-is normally run automatically at boot time using
-.Pa /etc/rc.d/virecover .
+is normally run automatically at boot time.
 .Sh FILES
 .Bl -tag -width "/tmp/vi.recover/recover.*" -compact
 .It Pa /tmp/vi.recover/recover.*
@@ -77,12 +76,6 @@ editor backup files
 .El
 .Sh SEE ALSO
 .Xr nvi 1
-.Sh HISTORY
-The virecover program, previously known as
-.Nm recover.script ,
-is from nvi and was added to
-.Nx
-in 1996.
 .Sh AUTHORS
 This man page was originally written by
 .An Jeremy C. Reed Aq Mt reed@reedmedia.net .

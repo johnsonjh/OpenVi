@@ -1,8 +1,9 @@
-OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Fri Jan 28 18:04:09 2022
-	+ Check length of buffer, fix from NetBSD PR bin/52716
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Fri Jan 28 19:03:34 2022
+	+ Improve `make` output and use more logical compilation order
 	+ Add `virecover.8` man page adapted from NetBSD
 	+ Add a missing break in `common/log.c`
-	+ Avoid undefined behavior in `*BIT` macros; patch from NetBSD
+	+ Avoid undefined behavior in `*BIT` macros; patch from NetBSD; also
+	  apply patch from NetBSD for PR bin/52716
 	+ Update `.gitignore` and `.gitattributes`
 
 OpenVi 7.0.6 -> OpenVi 7.0.7: Fri Jan 28 16:33:22 2022
