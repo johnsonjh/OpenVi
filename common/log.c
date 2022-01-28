@@ -21,6 +21,7 @@
 #include <libgen.h>
 #include <limits.h>
 #include <stdio.h>
+#include <stddef.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 
@@ -472,6 +473,7 @@ log_setline(SCR *sp)
 				sp->rptlchange = lno;
 				++sp->rptlines[L_CHANGED];
 			}
+			break;
 		case LOG_MARK:
 			memmove(&lm, p + sizeof(u_char), sizeof(LMARK));
 			m.lno = lm.lno;

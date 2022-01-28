@@ -9,6 +9,8 @@
 *.ko
 *.obj
 *.elf
+*.dll
+*.exe
 
 # Linker output
 *.ilk
@@ -62,6 +64,49 @@ bin/*
 # Patch
 *.rej
 *.orig
+*.diff
 
 # Junk
 typescript
+.DS_Store
+.cproject
+.project
+.settings/
+.vscode/
+.nvimlog
+.vimlog
+*.*.swp
+
+# Tags
+tags
+.tags
+ctags
+.ctags
+etags
+.etags
+.TAGS
+TAGS
+GRTAGS
+GTAGS
+GPATH
+
+# Cores
+core
+*.core
+
+# Local
+.autoenv
+.envrc
+
+# Bad Targets
+all
+clean
+install
+distclean
+
+# Profiling
+*.gcda
+*.gcov
+*.gcno
+*.profdata
+*.profout

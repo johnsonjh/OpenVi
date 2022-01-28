@@ -1,4 +1,5 @@
 OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Fri Jan 28 17:03:29 2022
+	+ Add a missing break
 	+ Avoid undefined behavior in *BIT macros; from NetBSD
 	+ Update `.gitignore`
 
