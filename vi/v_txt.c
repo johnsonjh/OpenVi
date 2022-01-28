@@ -2738,6 +2738,12 @@ txt_margin(SCR *sp, TEXT *tp, TEXT *wmtp, int *didbreak, u_int32_t flags)
 	size_t len, off;
 	char *p;
 
+	(void)sp;
+	(void)tp;
+	(void)wmtp;
+	(void)didbreak;
+	(void)flags;
+
 	/* Find the nearest previous blank. */
 	for (off = tp->cno - 1, p = tp->lb + off, len = 0;; --off, --p, ++len) {
 		if (isblank(*p))

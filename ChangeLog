@@ -1,5 +1,7 @@
 OpenVi 7.0.6 -> OpenVi 7.0.7-dev (Unreleased): Fri Jan 28 14:19:13 2022
-	+ Clean-up various whitespace and line lengths
+	+ Important fix to `GNUmakefile` for linking with Clang's `lld` linker
+	+ Workaround to accommodate the case of `make clean all -j N' when `N` > 1
+	+ Clean-up whitespace and line lengths of sources and `GNUmakefile`
 
 OpenVi 7.0.5 -> OpenVi 7.0.6: Thu Jan 27 16:45:12 2022
 	+ Important fix for back-end database file locking; also, switch

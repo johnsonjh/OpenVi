@@ -30,6 +30,9 @@
 int
 v_zexit(SCR *sp, VICMD *vp)
 {
+	(void)sp;
+	(void)vp;
+
 	/* Write back any modifications. */
 	if (F_ISSET(sp->ep, F_MODIFIED) &&
 	    file_write(sp, NULL, NULL, NULL, FS_ALL))
