@@ -37,7 +37,7 @@
 #include <bsd_unistd.h>
 
 #include <sys/types.h>
-# include <bsd_db.h>
+#include <bsd_db.h>
 
 #include "common.h"
 
