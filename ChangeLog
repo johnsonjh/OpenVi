@@ -1,4 +1,5 @@
-OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sat Jan 29 04:20:49 2022
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sat Jan 29 07:54:33 2022
+	+ Drop memmove wrapper macro (for old systems with bcopy but no memmove)
 	+ Add support for building with musl libc
 	+ Add `imctrl` and `imkey` options, inspired by `cannactrl` and `fepkey`
 	  options in `nvi-m17n` by itojun. If `imctrl` option is set, the input
