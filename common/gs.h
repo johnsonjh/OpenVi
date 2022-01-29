@@ -172,7 +172,7 @@ struct _gs {
 					/* Get terminal key value. */
 	int	(*scr_keyval)(SCR *, scr_keyval_t, CHAR_T *, int *);
 					/* Control the state of input method. */
-	void    (*scr_imctrl) __P((SCR *, imctrl_t));
+	void    (*scr_imctrl)(SCR *, imctrl_t);
 					/* Insert a line. */
 	int	(*scr_insertln)(SCR *);
 					/* Handle an option change. */

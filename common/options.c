@@ -32,7 +32,7 @@ static int	 	 opts_abbcmp(const void *, const void *);
 static int	 	 opts_cmp(const void *, const void *);
 static int	 	 opts_print(SCR *, OPTLIST const *);
 
-int f_imctrl __P((SCR *, OPTION *, char *, u_long *));
+int f_imctrl (SCR *, OPTION *, char *, u_long *);
 
 /*
  * O'Reilly noted options and abbreviations are from "Learning the VI Editor",

@@ -22,7 +22,9 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_termios.h>
-#include <termio.h>
+#if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
+# include <termio.h>
+#endif /* #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #include <bsd_unistd.h>
 
 #include "../common/common.h"

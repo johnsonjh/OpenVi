@@ -352,7 +352,7 @@ bin/vi: $(OBJS)
 ifndef DEBUG
 	-@$(PRINTF) '\t$(LD):\t%42s\n' "$@"
 endif # DEBUG
-	@$(VERBOSE); $(CC) $(LDFLAGS) -o "$@" $^
+	@$(VERBOSE); $(CC) -o "$@" $^ $(LDFLAGS)
 
 .PHONY: vi
 vi: bin/vi
@@ -385,6 +385,9 @@ view: bin/view
 ###############################################################################
 
 .PHONY: install
+ifneq (,$(findstring install,$(MAKECMDGOALS)))
+.NOTPARALLEL: install
+endif # (,$(findstring install,$(MAKECMDGOALS)))
 install: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1 \
          scripts/virecover scripts/virecover.8
 ifndef DEBUG
@@ -405,12 +408,12 @@ endif # DEBUG
 ifndef DEBUG
 	-@$(PRINTF) "\t%s\t%42s\n" "mkdir:" "$(PREFIX)/share/man/man1"
 endif # DEBUG
-	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man1" && \
+	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man1" || \
         $(MKDIR) "$(PREFIX)/share/man/man1"
 ifndef DEBUG
 	-@$(PRINTF) "\t%s\t%42s\n" "mkdir:" "$(PREFIX)/share/man/man1"
 endif # DEBUG
-	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man8" && \
+	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man8" || \
         $(MKDIR) "$(PREFIX)/share/man/man8"
 ifndef DEBUG
 	-@$(PRINTF) "\t%s\t%42s\n" "cp:" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
@@ -458,6 +461,9 @@ endif # DEBUG
 ###############################################################################
 
 .PHONY: install-strip
+ifneq (,$(findstring install-strip,$(MAKECMDGOALS)))
+.NOTPARALLEL: install-strip install
+endif # (,$(findstring install-strip,$(MAKECMDGOALS)))
 install-strip: install
 ifndef DEBUG
 	-@$(PRINTF) "\t$(STRIP):\t%42s\n" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
@@ -467,6 +473,9 @@ endif # DEBUG
 ###############################################################################
 
 .PHONY: strip
+ifneq (,$(findstring strip,$(MAKECMDGOALS)))
+.NOTPARALLEL: strip
+endif # (,$(findstring strip,$(MAKECMDGOALS)))
 strip: bin/vi
 ifndef DEBUG
 	-@$(PRINTF) "\t$(STRIP):\t%42s\n" "bin/vi"
@@ -476,6 +485,9 @@ endif # DEBUG
 ###############################################################################
 
 .PHONY: uninstall
+ifneq (,$(findstring uninstall,$(MAKECMDGOALS)))
+.NOTPARALLEL: uninstall
+endif # (,$(findstring uninstall,$(MAKECMDGOALS)))
 uninstall:
 ifndef DEBUG
 	-@$(PRINTF) "\trm:\t%42s\n" \

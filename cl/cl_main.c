@@ -26,7 +26,9 @@
 #include <bsd_string.h>
 #include <term.h>
 #include <bsd_termios.h>
-#include <termio.h>
+#if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
+# include <termio.h>
+#endif /* #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #include <bsd_unistd.h>
 
 #include "../common/common.h"
@@ -34,7 +36,7 @@
 
 #undef open
 
-void cl_imctrl __P((SCR *, imctrl_t));
+void cl_imctrl (SCR *, imctrl_t);
 
 GS *__global_list;				/* GLOBAL: List of screens. */
 
