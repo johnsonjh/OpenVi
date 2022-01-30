@@ -1,4 +1,5 @@
 /* $OpenBSD: getprogname.c,v 1.4 2016/03/13 18:34:20 guenther Exp $ */
+
 /*
  * Copyright (c) 2013 Antoine Jacoutot <ajacoutot@openbsd.org>
  *

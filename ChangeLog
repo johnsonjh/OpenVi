@@ -1,6 +1,7 @@
-OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sun Jan 30 03:53:49 AM UTC 2022
-	+ Normalize macro definitions and conditional if/ifdef/ifndef with `cppi`
-	+ Add support for building on FreeBSD; tested on FreeBSD/aarch64 13.0-R-p6
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sun Jan 30 08:49:24 2022
+	+ Normalize licensing text, acknowledgements, and copyright statements
+	+ Normalize macro defines and conditional if/ifdef/ifndef's with `cppi`
+	+ Add support for building on FreeBSD; tested on 13.0-RELEASE-p6/ARM64
 	+ Minor code clean-up
 	+ Drop memmove wrapper macro (for old systems with bcopy but no memmove)
 	+ Add support for building with musl libc

@@ -1,4 +1,5 @@
 /*	$OpenBSD: regcomp.c,v 1.32 2017/10/30 06:48:20 otto Exp $ */
+
 /*-
  * Copyright (c) 1992, 1993, 1994 Henry Spencer.
  * Copyright (c) 1992, 1993, 1994

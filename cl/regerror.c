@@ -1,4 +1,5 @@
 /*	$OpenBSD: regerror.c,v 1.14 2015/11/01 03:45:29 guenther Exp $ */
+
 /*-
  * Copyright (c) 1992, 1993, 1994 Henry Spencer.
  * Copyright (c) 1992, 1993, 1994

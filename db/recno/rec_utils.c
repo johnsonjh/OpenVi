@@ -1,4 +1,5 @@
 /*	$OpenBSD: rec_utils.c,v 1.9 2015/01/16 16:48:51 deraadt Exp $ */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *	The Regents of the University of California.  All rights reserved.

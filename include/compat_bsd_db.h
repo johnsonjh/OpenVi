@@ -1,4 +1,5 @@
 /*	$OpenBSD: db.h,v 1.4 2016/05/29 20:47:49 guenther Exp $	*/
+
 /*
  * Copyright (c) 2015 Philip Guenther <guenther@openbsd.org>
  *
