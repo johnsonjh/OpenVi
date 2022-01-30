@@ -32,15 +32,20 @@
  */
 
 #include <errno.h>
-#if defined(__GLIBC__) && defined(__GLIBC_MINOR__)
+#if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) ) \
+	|| defined(__linux__)
 # include <sys/auxv.h>
 #else
 # include <unistd.h>
-#endif /* if defined(__GLIBC__) && defined(__GLIBC_MINOR__) */
+#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )
+	|| defined(__linux__) */
 #if defined(__FreeBSD__) || defined(__OpenBSD__) \
 	|| ( defined(__APPLE__ ) && defined(__MACH__) )
 # include <unistd.h>
 #else
+#ifdef __linux__
+# include <elf.h>
+#endif
 int
 issetugid(void)
 {
