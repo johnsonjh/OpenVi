@@ -55,7 +55,7 @@ IUSGR        = root:bin
 ifdef DEBUG
    CFLAGS   += $(DBGFLAGS) -Wall -Wextra -DDEBUG -DSTATISTICS -DHASH_STATISTICS
 else
-   CFLAGS   += $(OPTLEVEL) -pipe -fomit-frame-pointer
+   CFLAGS   += $(OPTLEVEL)
 endif # DEBUG
 
 ###############################################################################
