@@ -15,7 +15,7 @@
 
 #include <sys/time.h>
 #include <bsd_db.h>
-#include <regex.h>
+#include <bsd_regex.h>
 
 /*
  * Forward structure declarations.  Not pretty, but the include files

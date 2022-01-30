@@ -1,4 +1,5 @@
-OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sun Jan 30 10:30:08 2022
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sun Jan 30 15:46:22 022
+	+ Add support for building on macOS; tested on 12.1 (21C5021h)
 	+ Add support for building on OpenBSD; tested on 7.0-current/ARM64
 	+ Normalize licensing text, acknowledgements, and copyright statements
 	+ Normalize macro defines and conditional if/ifdef/ifndef's with `cppi`

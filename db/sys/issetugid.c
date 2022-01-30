@@ -37,7 +37,8 @@
 #else
 # include <unistd.h>
 #endif /* if defined(__GLIBC__) && defined(__GLIBC_MINOR__) */
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__FreeBSD__) || defined(__OpenBSD__) \
+	|| ( defined(__APPLE__ ) && defined(__MACH__) )
 # include <unistd.h>
 #else
 int
@@ -55,4 +56,5 @@ issetugid(void)
 
   return rv;
 }
-#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__) */
+#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
+		|| ( defined(__APPLE__) && defined(__MACH__) ) */

@@ -47,7 +47,9 @@
 #  include <sys/pty.h>
 # else
 #  ifndef __OpenBSD__
-#   include <pty.h>
+#   if ( !defined(__APPLE__) && !defined(__MACH__) )
+#    include <pty.h>
+#   endif /* if ( !defined(__APPLE__) && !defined(__MACH__) ) */
 #  endif /* ifndef __OpenBSD__ */
 # endif /* ifdef _AIX */
 #else
@@ -59,9 +61,9 @@
 #include "script.h"
 #include "pathnames.h"
 
-#ifdef __OpenBSD__
+#if defined(__OpenBSD__) || ( defined(__APPLE__) && defined(__MACH__) )
 int openpty(int *, int *, char *, struct termios *, struct winsize *);
-#endif /* ifdef __OpenBSD__ */
+#endif /* defined(__OpenBSD__) || ( defined(__APPLE__) && defined(__MACH__) ) */
 
 static void	sscr_check(SCR *);
 static int	sscr_getprompt(SCR *);

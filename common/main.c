@@ -379,7 +379,7 @@ editor(GS *gp, int argc, char *argv[])
 				warn(NULL);
 				goto err;
 			}
-			(void)strlcpy(*argv, sp->frp->name, l);
+			(void)openbsd_strlcpy(*argv, sp->frp->name, l);
 		}
 		sp->argv = sp->cargv = argv;
 		F_SET(sp, SC_ARGNOFREE);
@@ -574,7 +574,7 @@ v_obsolete(char *argv[])
 					goto nomem;
 				argv[0][0] = '-';
 				argv[0][1] = 'c';
-				(void)strlcpy(argv[0] + 2, p + 1, len);
+				(void)openbsd_strlcpy(argv[0] + 2, p + 1, len);
 			}
 		} else if (argv[0][0] == '-') {
 			if (argv[0][1] == '\0') {

@@ -40,8 +40,7 @@
 #  include <sys/types.h>
 
 void	 explicit_bzero(void *, size_t);
-size_t	 strlcat(char *, const char *, size_t);
-size_t	 strlcpy(char *, const char *, size_t);
+size_t	 openbsd_strlcpy(char *, const char *, size_t);
 void	 strmode(int, char *);
 
 int	timingsafe_bcmp(const void *, const void *, size_t);

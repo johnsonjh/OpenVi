@@ -30,7 +30,8 @@ LTOC         = -flto
 ###############################################################################
 
 # Default libraries to link
-LINKLIBS    ?= -lutil -lncurses $(EXTRA_LIBS)
+LINKLIBS    ?= -lutil -lncurses
+LINKLIBS    += $(EXTRA_LIBS)
 
 ###############################################################################
 
@@ -250,6 +251,7 @@ SRCS = 	common/cut.c            \
 		cl/getopt_long.c        \
 		cl/getprogname.c        \
 		cl/pledge.c             \
+		cl/reallocarray.c       \
 		cl/strlcpy.c            \
 		cl/strtonum.c           \
 		cl/regcomp.c            \

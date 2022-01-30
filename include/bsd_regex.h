@@ -42,7 +42,7 @@
 # include <sys/types.h>
 
 # define regoff_t	openbsd_regoff_t
-# define regex_t		openbsd_regex_t
+# define regex_t	openbsd_regex_t
 # define regmatch_t	openbsd_regmatch_t
 
 /* types */
@@ -98,10 +98,10 @@ typedef struct {
 # define REG_LARGE	01000	/* force large representation */
 # define REG_BACKR	02000	/* force use of backref code */
 
-# define regcomp		openbsd_regcomp
+# define regcomp	openbsd_regcomp
 # define regerror	openbsd_regerror
-# define regexec		openbsd_regexec
-# define regfree		openbsd_regfree
+# define regexec	openbsd_regexec
+# define regfree	openbsd_regfree
 
 int	regcomp(regex_t *, const char *, int);
 size_t	regerror(int, const regex_t *, char *, size_t);

@@ -271,7 +271,7 @@ opts_init(SCR *sp, int *oargs)
 	}								\
 }
 #define OI(indx, str) {							\
-	(void)strlcpy(b1, (str), sizeof(b1));				\
+	(void)openbsd_strlcpy(b1, (str), sizeof(b1));			\
 	OI_b1(indx);							\
 }
 

@@ -129,9 +129,17 @@ ex_filter(SCR *sp, EXCMD *cmdp, MARK *fm, MARK *tm, MARK *rp, char *cmd,
 	}
 
 	/* Fork off the utility process. */
+#if defined(__APPLE__) && defined(__MACH__)
+	switch (utility_pid = fork()) {
+#else
 	switch (utility_pid = vfork()) {
+#endif /* if defined(__APPLE__) && defined(__MACH__) */
 	case -1:			/* Error. */
+#if defined(__APPLE__) && defined(__MACH__)
+		msgq(sp, M_SYSERR, "fork");
+#else
 		msgq(sp, M_SYSERR, "vfork");
+#endif /* if defined(__APPLE__) && defined(__MACH__) */
 err:		if (input[0] != -1)
 			(void)close(input[0]);
 		if (input[1] != -1)

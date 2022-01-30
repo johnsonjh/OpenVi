@@ -41,7 +41,7 @@
 #include <ctype.h>
 #include <limits.h>
 #include <bsd_stdlib.h>
-#include <regex.h>
+#include <bsd_regex.h>
 #include <bsd_unistd.h>
 
 #include "utils.h"
@@ -95,7 +95,7 @@ regerror(int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
 		if (errcode&REG_ITOA) {
 			if (r->code != 0) {
 				assert(strlen(r->name) < sizeof(convbuf));
-				(void) strlcpy(convbuf, r->name, sizeof convbuf);
+				(void)openbsd_strlcpy(convbuf, r->name, sizeof convbuf);
 			} else
 				(void)snprintf(convbuf, sizeof convbuf,
 				    "REG_0x%x", target);
@@ -106,7 +106,7 @@ regerror(int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
 
 	len = strlen(s) + 1;
 	if (errbuf_size > 0) {
-		strlcpy(errbuf, s, errbuf_size);
+		openbsd_strlcpy(errbuf, s, errbuf_size);
 	}
 
 	return(len);

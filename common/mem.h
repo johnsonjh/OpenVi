@@ -153,7 +153,8 @@
 
 #define REALLOCARRAY(sp, p, nelem, size) {				\
 	void *tmpp;							\
-	if (((tmpp) = (reallocarray((p), (nelem), (size)))) == NULL) {	\
+	if (((tmpp) = 							\
+	    (openbsd_reallocarray((p), (nelem), (size)))) == NULL) {	\
 		msgq((sp), M_SYSERR, NULL);				\
 		free(p);						\
 	}								\

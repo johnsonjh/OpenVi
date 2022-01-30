@@ -47,7 +47,7 @@
 #include <bsd_string.h>
 #include <limits.h>
 #include <ctype.h>
-#include <regex.h>
+#include <bsd_regex.h>
 
 #include "utils.h"
 #include "bsd_regex2.h"
@@ -109,7 +109,7 @@ typedef states	states1;		/* for later use in regexec() decision */
 #define ASSIGN(d, s)	memcpy(d, s, m->g->nstates)
 #define EQ(a, b)	(memcmp(a, b, m->g->nstates) == 0)
 #define STATEVARS	long vn; char *space
-#define STATESETUP(m, nv)	{ (m)->space = reallocarray(NULL, 	    \
+#define STATESETUP(m, nv)	{ (m)->space = openbsd_reallocarray(NULL,   \
     				(m)->g->nstates, (nv));			    \
 				if ((m)->space == NULL) return(REG_ESPACE); \
 				(m)->vn = 0; }

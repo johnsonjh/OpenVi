@@ -197,7 +197,7 @@ matcher(struct re_guts *g, char *string, size_t nmatch, regmatch_t pmatch[],
 
 		/* oh my, he wants the subexpressions... */
 		if (m->pmatch == NULL)
-			m->pmatch = reallocarray(NULL, m->g->nsub + 1,
+			m->pmatch = openbsd_reallocarray(NULL, m->g->nsub + 1,
 			    sizeof(regmatch_t));
 		if (m->pmatch == NULL) {
 			STATETEARDOWN(m);
@@ -210,7 +210,7 @@ matcher(struct re_guts *g, char *string, size_t nmatch, regmatch_t pmatch[],
 			dp = dissect(m, m->coldp, endp, gf, gl);
 		} else {
 			if (g->nplus > 0 && m->lastpos == NULL)
-				m->lastpos = reallocarray(NULL,
+				m->lastpos = openbsd_reallocarray(NULL,
 				    g->nplus+1, sizeof(char *));
 			if (g->nplus > 0 && m->lastpos == NULL) {
 				free(m->pmatch);

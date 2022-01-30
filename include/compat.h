@@ -48,7 +48,9 @@
 
 # ifndef __OpenBSD__
 
-#  define FAIL_INSTEAD_OF_TRYING_FALLBACK
+#  ifdef FAIL_INSTEAD_OF_TRYING_FALLBACK
+#   define FAIL_INSTEAD_OF_TRYING_FALLBACK
+#  endif /* ifndef FAIL_INSTEAD_OF_TRYING_FALLBACK */
 
 #  if !defined( HAVE_ATTRIBUTE__BOUNDED__ )
 #   define __bounded__(x, y, z)
@@ -58,9 +60,13 @@
 #   define __warn_references(x, y)
 #  endif /* ifndef __warn_references */
 
-#  define __UNUSED __attribute__ (( unused ))
+#  ifndef __UNUSED
+#   define __UNUSED __attribute__ (( unused ))
+#  endif /* ifndef __UNUSED */
 
-#  define __dead __attribute__ (( __noreturn__ ))
+#  ifndef __dead
+#   define __dead __attribute__ (( __noreturn__ ))
+#  endif /* ifndef __dead */
 
 #  ifndef __BEGIN_DECLS
 #   define __BEGIN_DECLS

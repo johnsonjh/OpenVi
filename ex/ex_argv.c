@@ -612,9 +612,17 @@ argv_sexp(SCR *sp, char **bpp, size_t *blenp, size_t *lenp)
 	 * Do the minimal amount of work possible, the shell is going to run
 	 * briefly and then exit.  We sincerely hope.
 	 */
+#if defined(__APPLE__) && defined(__MACH__)
+	switch (pid = fork()) {
+#else
 	switch (pid = vfork()) {
+#endif /* if defined(__APPLE__) && defined(__MACH__) */
 	case -1:			/* Error. */
+#if defined(__APPLE__) && defined(__MACH__)
+		msgq(sp, M_SYSERR, "fork");
+#else
 		msgq(sp, M_SYSERR, "vfork");
+#endif /* if defined(__APPLE__) && defined(__MACH__) */
 err:		if (ifp != NULL)
 			(void)fclose(ifp);
 		else if (std_output[0] != -1)

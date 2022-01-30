@@ -35,13 +35,15 @@
  *	@(#)regcomp.c	8.5 (Berkeley) 3/20/94
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <stdio.h>
 #include <bsd_string.h>
 #include <ctype.h>
 #include <limits.h>
 #include <bsd_stdlib.h>
-#include <regex.h>
+#include <bsd_regex.h>
 #include <bsd_unistd.h>
 
 #include "utils.h"
@@ -49,6 +51,8 @@
 
 #include "cclass.h"
 #include "cname.h"
+
+#undef open
 
 /*
  * parse structure, passed up and down to avoid global variables and
@@ -192,7 +196,7 @@ regcomp(regex_t *preg, const char *pattern, int cflags)
 	p->ssize = len/(size_t)2*(size_t)3 + (size_t)1;	/* ugh */
 	assert(p->ssize >= len);
 
-	p->strip = reallocarray(NULL, p->ssize, sizeof(sop));
+	p->strip = openbsd_reallocarray(NULL, p->ssize, sizeof(sop));
 	p->slen = 0;
 	if (p->strip == NULL) {
 		free(g);
@@ -1064,12 +1068,12 @@ allocset(struct parse *p)
 		nc = p->ncsalloc;
 		assert(nc % CHAR_BIT == 0);
 
-		ptr = reallocarray(p->g->sets, nc, sizeof(cset));
+		ptr = openbsd_reallocarray(p->g->sets, nc, sizeof(cset));
 		if (ptr == NULL)
 			goto nomem;
 		p->g->sets = ptr;
 
-		ptr = reallocarray(p->g->setbits, nc / CHAR_BIT, css);
+		ptr = openbsd_reallocarray(p->g->setbits, nc / CHAR_BIT, css);
 		if (ptr == NULL)
 			goto nomem;
 		nbytes = (nc / CHAR_BIT) * css;
@@ -1207,7 +1211,7 @@ mcadd( struct parse *p, cset *cs, char *cp)
 	}
 	cs->multis = np;
 
-	strlcpy(cs->multis + oldend - 1, cp, cs->smultis - oldend + 1);
+	openbsd_strlcpy(cs->multis + oldend - 1, cp, cs->smultis - oldend + 1);
 }
 
 /*
@@ -1401,7 +1405,7 @@ enlarge(struct parse *p, sopno size)
 	if (p->ssize >= size)
 		return 1;
 
-	sp = reallocarray(p->strip, size, sizeof(sop));
+	sp = openbsd_reallocarray(p->strip, size, sizeof(sop));
 	if (sp == NULL) {
 		SETERROR(REG_ESPACE);
 		return 0;
@@ -1418,7 +1422,7 @@ static void
 stripsnug(struct parse *p, struct re_guts *g)
 {
 	g->nstates = p->slen;
-	g->strip = reallocarray(p->strip, p->slen, sizeof(sop));
+	g->strip = openbsd_reallocarray(p->strip, p->slen, sizeof(sop));
 	if (g->strip == NULL) {
 		SETERROR(REG_ESPACE);
 		g->strip = p->strip;
