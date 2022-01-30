@@ -26,8 +26,8 @@
 
 #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
 
-#define	SUB_FIRST	0x01		/* The 'r' flag isn't reasonable. */
-#define	SUB_MUSTSETR	0x02		/* The 'r' flag is required. */
+#define SUB_FIRST	0x01		/* The 'r' flag isn't reasonable. */
+#define SUB_MUSTSETR	0x02		/* The 'r' flag is required. */
 
 static int re_conv(SCR *, char **, size_t *, int *);
 static int re_sub(SCR *, char *, char **, size_t *, size_t *, regmatch_t [10]);
@@ -294,7 +294,7 @@ ex_subtilde(SCR *sp, EXCMD *cmdp)
  * when the replacement is done.  Don't change it unless you're *damned*
  * confident.
  */
-#define	NEEDNEWLINE(sp) {						\
+#define NEEDNEWLINE(sp) {						\
 	if ((sp)->newl_len == (sp)->newl_cnt) {				\
 		(sp)->newl_len += 25;					\
 		REALLOCARRAY((sp), (sp)->newl,				\
@@ -306,7 +306,7 @@ ex_subtilde(SCR *sp, EXCMD *cmdp)
 	}								\
 }
 
-#define	BUILD(sp, l, len) {						\
+#define BUILD(sp, l, len) {						\
 	if (lbclen + (len) > lblen) {					\
 		lblen += MAXIMUM(lbclen + (len), 256);			\
 		REALLOC((sp), lb, lblen);				\
@@ -319,7 +319,7 @@ ex_subtilde(SCR *sp, EXCMD *cmdp)
 	lbclen += (len);						\
 }
 
-#define	NEEDSP(sp, len, pnt) {						\
+#define NEEDSP(sp, len, pnt) {						\
 	if (lbclen + (len) > lblen) {					\
 		lblen += MAXIMUM(lbclen + (len), 256);			\
 		REALLOC((sp), lb, lblen);				\
@@ -1230,7 +1230,7 @@ re_sub(SCR *sp, char *ip, char **lbp, size_t *lbclenp, size_t *lblenp,
 	 * Otherwise, since this is the lowest level of replacement, discard
 	 * all escaping characters.  This (hopefully) matches historic practice.
 	 */
-#define	OUTCH(ch, nltrans) {						\
+#define OUTCH(ch, nltrans) {						\
 	CHAR_T __ch = (ch);						\
 	u_int __value = KEY_VAL(sp, __ch);				\
 	if ((nltrans) && (__value == K_CR || __value == K_NL)) {	\

@@ -58,7 +58,7 @@
 #include <bsd_string.h>
 
 #ifdef DEBUG
-#include <assert.h>
+# include <assert.h>
 #endif /* ifdef DEBUG */
 
 #include <bsd_db.h>

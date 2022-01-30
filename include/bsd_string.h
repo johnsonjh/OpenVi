@@ -33,9 +33,9 @@
  */
 
 #ifndef _COMPAT_STRING_H_
-#define	_COMPAT_STRING_H_
+# define _COMPAT_STRING_H_
 
-#include <sys/types.h>
+# include <sys/types.h>
 
 void	 explicit_bzero(void *, size_t);
 size_t	 strlcat(char *, const char *, size_t);

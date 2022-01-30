@@ -47,7 +47,7 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 #ifdef DEBUG
-#include <assert.h>
+# include <assert.h>
 #endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
@@ -85,9 +85,9 @@ static void  swap_header_copy(HASHHDR *, HASHHDR *);
 #define RETURN_ERROR(ERR, LOC)	{ save_errno = ERR; goto LOC; }
 
 /* Return values */
-#define	SUCCESS	 (0)
-#define	ERROR	(-1)
-#define	ABNORMAL (1)
+#define SUCCESS	 (0)
+#define ERROR	(-1)
+#define ABNORMAL (1)
 
 #ifdef HASH_STATISTICS
 int hash_accesses, hash_collisions, hash_expansions, hash_overflows;
@@ -152,7 +152,7 @@ __hash_open(const char *file, int flags, int mode,
 		/* Verify file type, versions and hash function */
 		if (hashp->MAGIC != HASHMAGIC)
 			RETURN_ERROR(EFTYPE, error1);
-#define	OLDHASHVERSION	1
+#define OLDHASHVERSION	1
 		if (hashp->VERSION != HASHVERSION &&
 		    hashp->VERSION != OLDHASHVERSION)
 			RETURN_ERROR(EFTYPE, error1);

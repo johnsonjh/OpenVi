@@ -141,17 +141,17 @@ char *getbsize(int *, long *);
 
 /* sys/sys/stat.h */
 # ifndef ACCESSPERMS
-# define ACCESSPERMS                                                          \
+#  define ACCESSPERMS                                                          \
   ( S_IRWXU | S_IRWXG | S_IRWXO ) /* 00777 */
 # endif /* ifndef ACCESSPERMS */
 
 # ifndef ALLPERMS
-# define ALLPERMS                                                             \
+#  define ALLPERMS                                                             \
   ( S_ISUID | S_ISGID | S_ISTXT | S_IRWXU | S_IRWXG | S_IRWXO ) /* 00666 */
 # endif /* ifndef ALLPERMS */
 
 # ifndef DEFFILEMODE
-# define DEFFILEMODE                                                          \
+#  define DEFFILEMODE                                                          \
   ( S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH )
 # endif /* ifndef DEFFILEMODE */
 

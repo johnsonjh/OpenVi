@@ -49,10 +49,10 @@ struct _bufhead {
 	u_int32_t	 addr;		/* Address of this page */
 	char		*page;		/* Actual page data */
 	char	 	flags;
-#define	BUF_MOD		0x0001
+#define BUF_MOD		0x0001
 #define BUF_DISK	0x0002
-#define	BUF_BUCKET	0x0004
-#define	BUF_PIN		0x0008
+#define BUF_BUCKET	0x0004
+#define BUF_PIN		0x0008
 };
 
 #define IS_BUCKET(X)	((X) & BUF_BUCKET)
@@ -119,7 +119,7 @@ typedef struct htab	 {		/* Memory resident data structure */
 /*
  * Constants
  */
-#define	MAX_BSIZE		65536		/* 2^16 */
+#define MAX_BSIZE		65536		/* 2^16 */
 #define MIN_BUFFERS		6
 #define MINHDRSIZE		512
 #define DEF_BUFSIZE		65536		/* 64 K */
@@ -165,7 +165,7 @@ typedef struct htab	 {		/* Memory resident data structure */
 #define SPLITMASK	0x7FF
 #define SPLITNUM(N)	(((u_int32_t)(N)) >> SPLITSHIFT)
 #define OPAGENUM(N)	((N) & SPLITMASK)
-#define	OADDR_OF(S,O)	((u_int32_t)((u_int32_t)(S) << SPLITSHIFT) + (O))
+#define OADDR_OF(S,O)	((u_int32_t)((u_int32_t)(S) << SPLITSHIFT) + (O))
 
 #define BUCKET_TO_PAGE(B) \
 	(B) + hashp->HDRPAGES + ((B) ? hashp->SPARES[__log2((B)+1)-1] : 0)
@@ -266,7 +266,7 @@ typedef struct htab	 {		/* Memory resident data structure */
 #define PARTIAL_KEY	1
 #define FULL_KEY	2
 #define FULL_KEY_DATA	3
-#define	REAL_KEY	4
+#define REAL_KEY	4
 
 /* Short hands for accessing structure */
 #define BSIZE		hdr.bsize
@@ -276,7 +276,7 @@ typedef struct htab	 {		/* Memory resident data structure */
 #define SSHIFT		hdr.sshift
 #define LORDER		hdr.lorder
 #define OVFL_POINT	hdr.ovfl_point
-#define	LAST_FREED	hdr.last_freed
+#define LAST_FREED	hdr.last_freed
 #define MAX_BUCKET	hdr.max_bucket
 #define FFACTOR		hdr.ffactor
 #define HIGH_MASK	hdr.high_mask

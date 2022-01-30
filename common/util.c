@@ -150,7 +150,7 @@ nget_slong(long *valp, const char *p, char **endp, int base)
 }
 
 #ifdef DEBUG
-#include <stdarg.h>
+# include <stdarg.h>
 
 /*
  * TRACE --

@@ -226,7 +226,7 @@ tty_retry:
 	 * lose if the buffer is too small for the line and exactly N characters
 	 * are entered followed by an <EOF> character.
 	 */
-#define	ONE_FOR_EOF	1
+#define ONE_FOR_EOF	1
 	switch (nr = read(STDIN_FILENO, bp, blen - ONE_FOR_EOF)) {
 	case  0:				/* EOF. */
 		/*

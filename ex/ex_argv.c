@@ -130,8 +130,8 @@ argv_exp2(SCR *sp, EXCMD *excp, char *cmd, size_t cmdlen)
 
 	GET_SPACE_RET(sp, bp, blen, 512);
 
-#define	SHELLECHO	"echo "
-#define	SHELLOFFSET	(sizeof(SHELLECHO) - 1)
+#define SHELLECHO	"echo "
+#define SHELLOFFSET	(sizeof(SHELLECHO) - 1)
 	memcpy(bp, SHELLECHO, SHELLOFFSET);
 	p = bp + SHELLOFFSET;
 	len = SHELLOFFSET;
@@ -389,7 +389,7 @@ argv_alloc(SCR *sp, size_t len)
 	 * Allocate room for another argument, always leaving
 	 * enough room for an ARGS structure with a length of 0.
 	 */
-#define	INCREMENT	20
+#define INCREMENT	20
 	exp = EXP(sp);
 	off = exp->argsoff;
 	if (exp->argscnt == 0 || off + 2 >= exp->argscnt - 1) {

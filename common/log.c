@@ -25,7 +25,7 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 
-# include <bsd_db.h>
+#include <bsd_db.h>
 
 #include "common.h"
 
@@ -70,7 +70,7 @@ static int	log_cursor1(SCR *, int);
 static void	log_err(SCR *, char *, int);
 
 /* Try and restart the log on failure, i.e. if we run out of memory. */
-#define	LOG_ERR {							\
+#define LOG_ERR {							\
 	log_err(sp, __FILE__, __LINE__);				\
 	return (1);							\
 }

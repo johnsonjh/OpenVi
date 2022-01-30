@@ -134,7 +134,7 @@ done:		if (diffp != NULL)		/* XXX */
 	p = lp;
 
 	/* Macro to return the display length of any signal character. */
-#define	CHLEN(val) (ch = *(u_char *)p++) == '\t' &&			\
+#define CHLEN(val) (ch = *(u_char *)p++) == '\t' &&			\
 	    !listset ? TAB_OFF(val) : KEY_LEN(sp, ch);
 
 	/*
@@ -144,7 +144,7 @@ done:		if (diffp != NULL)		/* XXX */
 	 * last column of the screen.  Otherwise, display the rest of the
 	 * character in the next screen.
 	 */
-#define	TAB_RESET {							\
+#define TAB_RESET {							\
 	curoff += chlen;						\
 	if (!leftright && curoff >= sp->cols) {				\
 		if (ch == '\t') {					\

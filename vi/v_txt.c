@@ -50,7 +50,7 @@ static void	 txt_unmap(SCR *, TEXT *, u_int32_t *);
 /* Cursor character (space is hard to track on the screen). */
 #if defined(DEBUG) && 0
 # undef	CH_CURSOR
-# define	CH_CURSOR	'+'
+# define CH_CURSOR	'+'
 #endif /* if defined(DEBUG) && 0 */
 
 /*
@@ -216,14 +216,14 @@ txt_map_end(SCR *sp)
  * If doing input mapping on the colon command line, may need to unmap
  * based on the command.
  */
-#define	UNMAP_TST							\
+#define UNMAP_TST							\
 	FL_ISSET(ec_flags, EC_MAPINPUT) && LF_ISSET(TXT_INFOLINE)
 
 /*
  * Internally, we maintain tp->lno and tp->cno, externally, everyone uses
  * sp->lno and sp->cno.  Make them consistent as necessary.
  */
-#define	UPDATE_POSITION(sp, tp) {					\
+#define UPDATE_POSITION(sp, tp) {					\
 	(sp)->lno = (tp)->lno;						\
 	(sp)->cno = (tp)->cno;						\
 }
@@ -255,8 +255,8 @@ v_txt(SCR *sp, VICMD *vp, MARK *tm, const char *lp, size_t len,
 	size_t rcol;		/* 0-N: insert offset in the replay buffer. */
 	size_t tcol;		/* Temporary column. */
 	u_int32_t ec_flags;	/* Input mapping flags. */
-#define	IS_RESTART	0x01	/* Reset the incremental search. */
-#define	IS_RUNNING	0x02	/* Incremental search turned on. */
+#define IS_RESTART	0x01	/* Reset the incremental search. */
+#define IS_RUNNING	0x02	/* Incremental search turned on. */
 	u_int8_t is_flags;
 	int abcnt, ab_turnoff;	/* Abbreviation character count, switch. */
 	int filec_redraw;	/* Redraw after the file completion routine. */
@@ -580,7 +580,7 @@ next:	if (v_event_get(sp, evp, 0, ec_flags))
 	}
 
 	/* Abbreviation overflow check.  See comment in txt_abbrev(). */
-#define	MAX_ABBREVIATION_EXPANSION	256
+#define MAX_ABBREVIATION_EXPANSION	256
 	if (F_ISSET(&evp->e_ch, CH_ABBREVIATED)) {
 		if (++abcnt > MAX_ABBREVIATION_EXPANSION) {
 			if (v_event_flush(sp, CH_ABBREVIATED))
@@ -683,7 +683,7 @@ k_cr:		if (LF_ISSET(TXT_CR)) {
 			goto k_escape;
 		}
 
-#define	LINE_RESOLVE {							\
+#define LINE_RESOLVE {							\
 		/*							\
 		 * Handle abbreviations.  If there was one, discard the	\
 		 * replay characters.					\
@@ -800,7 +800,7 @@ k_cr:		if (LF_ISSET(TXT_CR)) {
 		if (wm_set) {
 			if (wmt.offset != 0 ||
 			    wmt.owrite != 0 || wmt.insert != 0) {
-#define	WMTSPACE	wmt.offset + wmt.owrite + wmt.insert
+#define WMTSPACE	wmt.offset + wmt.owrite + wmt.insert
 				BINC_GOTO(sp, ntp->lb,
 				    ntp->lb_len, ntp->len + WMTSPACE + 32);
 				memmove(ntp->lb + ntp->cno, wmt.lb, WMTSPACE);
@@ -2164,7 +2164,7 @@ txt_fc_col(SCR *sp, int argc, ARGS **argv)
 	} else
 		reset = 0;
 
-#define	CHK_INTR							\
+#define CHK_INTR							\
 	if (F_ISSET(gp, G_INTERRUPTED))					\
 		goto intr;
 

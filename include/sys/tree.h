@@ -24,8 +24,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef	_SYS_TREE_H_
-#define	_SYS_TREE_H_
+#ifndef _SYS_TREE_H_
+# define _SYS_TREE_H_
 
 /*
  * This file defines data structures for different types of trees:
@@ -54,55 +54,55 @@
  * The maximum height of a red-black tree is 2lg (n+1).
  */
 
-#define SPLAY_HEAD(name, type)						\
+# define SPLAY_HEAD(name, type)						\
 struct name {								\
 	struct type *sph_root; /* root of the tree */			\
 }
 
-#define SPLAY_INITIALIZER(root)						\
+# define SPLAY_INITIALIZER(root)						\
 	{ NULL }
 
-#define SPLAY_INIT(root) do {						\
+# define SPLAY_INIT(root) do {						\
 	(root)->sph_root = NULL;					\
 } while (0)
 
-#define SPLAY_ENTRY(type)						\
+# define SPLAY_ENTRY(type)						\
 struct {								\
 	struct type *spe_left; /* left element */			\
 	struct type *spe_right; /* right element */			\
 }
 
-#define SPLAY_LEFT(elm, field)		(elm)->field.spe_left
-#define SPLAY_RIGHT(elm, field)		(elm)->field.spe_right
-#define SPLAY_ROOT(head)		(head)->sph_root
-#define SPLAY_EMPTY(head)		(SPLAY_ROOT(head) == NULL)
+# define SPLAY_LEFT(elm, field)		(elm)->field.spe_left
+# define SPLAY_RIGHT(elm, field)		(elm)->field.spe_right
+# define SPLAY_ROOT(head)		(head)->sph_root
+# define SPLAY_EMPTY(head)		(SPLAY_ROOT(head) == NULL)
 
 /* SPLAY_ROTATE_{LEFT,RIGHT} expect that tmp hold SPLAY_{RIGHT,LEFT} */
-#define SPLAY_ROTATE_RIGHT(head, tmp, field) do {			\
+# define SPLAY_ROTATE_RIGHT(head, tmp, field) do {			\
 	SPLAY_LEFT((head)->sph_root, field) = SPLAY_RIGHT(tmp, field);	\
 	SPLAY_RIGHT(tmp, field) = (head)->sph_root;			\
 	(head)->sph_root = tmp;						\
 } while (0)
 
-#define SPLAY_ROTATE_LEFT(head, tmp, field) do {			\
+# define SPLAY_ROTATE_LEFT(head, tmp, field) do {			\
 	SPLAY_RIGHT((head)->sph_root, field) = SPLAY_LEFT(tmp, field);	\
 	SPLAY_LEFT(tmp, field) = (head)->sph_root;			\
 	(head)->sph_root = tmp;						\
 } while (0)
 
-#define SPLAY_LINKLEFT(head, tmp, field) do {				\
+# define SPLAY_LINKLEFT(head, tmp, field) do {				\
 	SPLAY_LEFT(tmp, field) = (head)->sph_root;			\
 	tmp = (head)->sph_root;						\
 	(head)->sph_root = SPLAY_LEFT((head)->sph_root, field);		\
 } while (0)
 
-#define SPLAY_LINKRIGHT(head, tmp, field) do {				\
+# define SPLAY_LINKRIGHT(head, tmp, field) do {				\
 	SPLAY_RIGHT(tmp, field) = (head)->sph_root;			\
 	tmp = (head)->sph_root;						\
 	(head)->sph_root = SPLAY_RIGHT((head)->sph_root, field);	\
 } while (0)
 
-#define SPLAY_ASSEMBLE(head, node, left, right, field) do {		\
+# define SPLAY_ASSEMBLE(head, node, left, right, field) do {		\
 	SPLAY_RIGHT(left, field) = SPLAY_LEFT((head)->sph_root, field);	\
 	SPLAY_LEFT(right, field) = SPLAY_RIGHT((head)->sph_root, field);\
 	SPLAY_LEFT((head)->sph_root, field) = SPLAY_RIGHT(node, field);	\
@@ -111,7 +111,7 @@ struct {								\
 
 /* Generates prototypes and inline functions */
 
-#define SPLAY_PROTOTYPE(name, type, field, cmp)				\
+# define SPLAY_PROTOTYPE(name, type, field, cmp)				\
 void name##_SPLAY(struct name *, struct type *);			\
 void name##_SPLAY_MINMAX(struct name *, int);				\
 struct type *name##_SPLAY_INSERT(struct name *, struct type *);		\
@@ -153,7 +153,7 @@ name##_SPLAY_MIN_MAX(struct name *head, int val)			\
 /* Main splay operation.
  * Moves node close to the key of elm to top
  */
-#define SPLAY_GENERATE(name, type, field, cmp)				\
+# define SPLAY_GENERATE(name, type, field, cmp)				\
 struct type *								\
 name##_SPLAY_INSERT(struct name *head, struct type *elm)		\
 {									\
@@ -270,39 +270,39 @@ void name##_SPLAY_MINMAX(struct name *head, int __comp) \
 	SPLAY_ASSEMBLE(head, &__node, __left, __right, field);		\
 }
 
-#define SPLAY_NEGINF	-1
-#define SPLAY_INF	1
+# define SPLAY_NEGINF	-1
+# define SPLAY_INF	1
 
-#define SPLAY_INSERT(name, x, y)	name##_SPLAY_INSERT(x, y)
-#define SPLAY_REMOVE(name, x, y)	name##_SPLAY_REMOVE(x, y)
-#define SPLAY_FIND(name, x, y)		name##_SPLAY_FIND(x, y)
-#define SPLAY_NEXT(name, x, y)		name##_SPLAY_NEXT(x, y)
-#define SPLAY_MIN(name, x)		(SPLAY_EMPTY(x) ? NULL	\
+# define SPLAY_INSERT(name, x, y)	name##_SPLAY_INSERT(x, y)
+# define SPLAY_REMOVE(name, x, y)	name##_SPLAY_REMOVE(x, y)
+# define SPLAY_FIND(name, x, y)		name##_SPLAY_FIND(x, y)
+# define SPLAY_NEXT(name, x, y)		name##_SPLAY_NEXT(x, y)
+# define SPLAY_MIN(name, x)		(SPLAY_EMPTY(x) ? NULL	\
 					: name##_SPLAY_MIN_MAX(x, SPLAY_NEGINF))
-#define SPLAY_MAX(name, x)		(SPLAY_EMPTY(x) ? NULL	\
+# define SPLAY_MAX(name, x)		(SPLAY_EMPTY(x) ? NULL	\
 					: name##_SPLAY_MIN_MAX(x, SPLAY_INF))
 
-#define SPLAY_FOREACH(x, name, head)					\
+# define SPLAY_FOREACH(x, name, head)					\
 	for ((x) = SPLAY_MIN(name, head);				\
 	     (x) != NULL;						\
 	     (x) = SPLAY_NEXT(name, head, x))
 
 /* Macros that define a red-black tree */
-#define RB_HEAD(name, type)						\
+# define RB_HEAD(name, type)						\
 struct name {								\
 	struct type *rbh_root; /* root of the tree */			\
 }
 
-#define RB_INITIALIZER(root)						\
+# define RB_INITIALIZER(root)						\
 	{ NULL }
 
-#define RB_INIT(root) do {						\
+# define RB_INIT(root) do {						\
 	(root)->rbh_root = NULL;					\
 } while (0)
 
-#define RB_BLACK	0
-#define RB_RED		1
-#define RB_ENTRY(type)							\
+# define RB_BLACK	0
+# define RB_RED		1
+# define RB_ENTRY(type)							\
 struct {								\
 	struct type *rbe_left;		/* left element */		\
 	struct type *rbe_right;		/* right element */		\
@@ -310,29 +310,29 @@ struct {								\
 	int rbe_color;			/* node color */		\
 }
 
-#define RB_LEFT(elm, field)		(elm)->field.rbe_left
-#define RB_RIGHT(elm, field)		(elm)->field.rbe_right
-#define RB_PARENT(elm, field)		(elm)->field.rbe_parent
-#define RB_COLOR(elm, field)		(elm)->field.rbe_color
-#define RB_ROOT(head)			(head)->rbh_root
-#define RB_EMPTY(head)			(RB_ROOT(head) == NULL)
+# define RB_LEFT(elm, field)		(elm)->field.rbe_left
+# define RB_RIGHT(elm, field)		(elm)->field.rbe_right
+# define RB_PARENT(elm, field)		(elm)->field.rbe_parent
+# define RB_COLOR(elm, field)		(elm)->field.rbe_color
+# define RB_ROOT(head)			(head)->rbh_root
+# define RB_EMPTY(head)			(RB_ROOT(head) == NULL)
 
-#define RB_SET(elm, parent, field) do {					\
+# define RB_SET(elm, parent, field) do {					\
 	RB_PARENT(elm, field) = parent;					\
 	RB_LEFT(elm, field) = RB_RIGHT(elm, field) = NULL;		\
 	RB_COLOR(elm, field) = RB_RED;					\
 } while (0)
 
-#define RB_SET_BLACKRED(black, red, field) do {				\
+# define RB_SET_BLACKRED(black, red, field) do {				\
 	RB_COLOR(black, field) = RB_BLACK;				\
 	RB_COLOR(red, field) = RB_RED;					\
 } while (0)
 
-#ifndef RB_AUGMENT
-#define RB_AUGMENT(x)	do {} while (0)
-#endif /* ifndef RB_AUGMENT */
+# ifndef RB_AUGMENT
+#  define RB_AUGMENT(x)	do {} while (0)
+# endif /* ifndef RB_AUGMENT */
 
-#define RB_ROTATE_LEFT(head, elm, tmp, field) do {			\
+# define RB_ROTATE_LEFT(head, elm, tmp, field) do {			\
 	(tmp) = RB_RIGHT(elm, field);					\
 	if ((RB_RIGHT(elm, field) = RB_LEFT(tmp, field))) {		\
 		RB_PARENT(RB_LEFT(tmp, field), field) = (elm);		\
@@ -352,7 +352,7 @@ struct {								\
 		RB_AUGMENT(RB_PARENT(tmp, field));			\
 } while (0)
 
-#define RB_ROTATE_RIGHT(head, elm, tmp, field) do {			\
+# define RB_ROTATE_RIGHT(head, elm, tmp, field) do {			\
 	(tmp) = RB_LEFT(elm, field);					\
 	if ((RB_LEFT(elm, field) = RB_RIGHT(tmp, field))) {		\
 		RB_PARENT(RB_RIGHT(tmp, field), field) = (elm);		\
@@ -373,11 +373,11 @@ struct {								\
 } while (0)
 
 /* Generates prototypes and inline functions */
-#define	RB_PROTOTYPE(name, type, field, cmp)				\
+# define RB_PROTOTYPE(name, type, field, cmp)				\
 	RB_PROTOTYPE_INTERNAL(name, type, field, cmp,)
-#define	RB_PROTOTYPE_STATIC(name, type, field, cmp)			\
+# define RB_PROTOTYPE_STATIC(name, type, field, cmp)			\
 	RB_PROTOTYPE_INTERNAL(name, type, field, cmp, __attribute__((__unused__)) static)
-#define RB_PROTOTYPE_INTERNAL(name, type, field, cmp, attr)		\
+# define RB_PROTOTYPE_INTERNAL(name, type, field, cmp, attr)		\
 attr void name##_RB_INSERT_COLOR(struct name *, struct type *);		\
 attr void name##_RB_REMOVE_COLOR(struct name *, struct type *, struct type *);\
 attr struct type *name##_RB_REMOVE(struct name *, struct type *);	\
@@ -392,11 +392,11 @@ attr struct type *name##_RB_MINMAX(struct name *, int);			\
 /* Main rb operation.
  * Moves node close to the key of elm to top
  */
-#define	RB_GENERATE(name, type, field, cmp)				\
+# define RB_GENERATE(name, type, field, cmp)				\
 	RB_GENERATE_INTERNAL(name, type, field, cmp,)
-#define	RB_GENERATE_STATIC(name, type, field, cmp)			\
+# define RB_GENERATE_STATIC(name, type, field, cmp)			\
 	RB_GENERATE_INTERNAL(name, type, field, cmp, __attribute__((__unused__)) static)
-#define RB_GENERATE_INTERNAL(name, type, field, cmp, attr)		\
+# define RB_GENERATE_INTERNAL(name, type, field, cmp, attr)		\
 attr void								\
 name##_RB_INSERT_COLOR(struct name *head, struct type *elm)		\
 {									\
@@ -713,34 +713,34 @@ name##_RB_MINMAX(struct name *head, int val)				\
 	return (parent);						\
 }
 
-#define RB_NEGINF	-1
-#define RB_INF	1
+# define RB_NEGINF	-1
+# define RB_INF	1
 
-#define RB_INSERT(name, x, y)	name##_RB_INSERT(x, y)
-#define RB_REMOVE(name, x, y)	name##_RB_REMOVE(x, y)
-#define RB_FIND(name, x, y)	name##_RB_FIND(x, y)
-#define RB_NFIND(name, x, y)	name##_RB_NFIND(x, y)
-#define RB_NEXT(name, x, y)	name##_RB_NEXT(y)
-#define RB_PREV(name, x, y)	name##_RB_PREV(y)
-#define RB_MIN(name, x)		name##_RB_MINMAX(x, RB_NEGINF)
-#define RB_MAX(name, x)		name##_RB_MINMAX(x, RB_INF)
+# define RB_INSERT(name, x, y)	name##_RB_INSERT(x, y)
+# define RB_REMOVE(name, x, y)	name##_RB_REMOVE(x, y)
+# define RB_FIND(name, x, y)	name##_RB_FIND(x, y)
+# define RB_NFIND(name, x, y)	name##_RB_NFIND(x, y)
+# define RB_NEXT(name, x, y)	name##_RB_NEXT(y)
+# define RB_PREV(name, x, y)	name##_RB_PREV(y)
+# define RB_MIN(name, x)		name##_RB_MINMAX(x, RB_NEGINF)
+# define RB_MAX(name, x)		name##_RB_MINMAX(x, RB_INF)
 
-#define RB_FOREACH(x, name, head)					\
+# define RB_FOREACH(x, name, head)					\
 	for ((x) = RB_MIN(name, head);					\
 	     (x) != NULL;						\
 	     (x) = name##_RB_NEXT(x))
 
-#define RB_FOREACH_SAFE(x, name, head, y)				\
+# define RB_FOREACH_SAFE(x, name, head, y)				\
 	for ((x) = RB_MIN(name, head);					\
 	    ((x) != NULL) && ((y) = name##_RB_NEXT(x), 1);		\
 	     (x) = (y))
 
-#define RB_FOREACH_REVERSE(x, name, head)				\
+# define RB_FOREACH_REVERSE(x, name, head)				\
 	for ((x) = RB_MAX(name, head);					\
 	     (x) != NULL;						\
 	     (x) = name##_RB_PREV(x))
 
-#define RB_FOREACH_REVERSE_SAFE(x, name, head, y)			\
+# define RB_FOREACH_REVERSE_SAFE(x, name, head, y)			\
 	for ((x) = RB_MAX(name, head);					\
 	    ((x) != NULL) && ((y) = name##_RB_PREV(x), 1);		\
 	     (x) = (y))

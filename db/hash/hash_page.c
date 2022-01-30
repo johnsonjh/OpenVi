@@ -63,7 +63,7 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 #ifdef DEBUG
-#include <assert.h>
+# include <assert.h>
 #endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
@@ -80,7 +80,7 @@ static void	  putpair(char *, const DBT *, const DBT *);
 static void	  squeeze_key(u_int16_t *, const DBT *, const DBT *);
 static int	  ugly_split(HTAB *, u_int32_t, BUFHEAD *, BUFHEAD *, int, int);
 
-#define	PAGE_INIT(P) { \
+#define PAGE_INIT(P) { \
 	((u_int16_t *)(P))[0] = 0; \
 	((u_int16_t *)(P))[1] = hashp->BSIZE - 3 * sizeof(u_int16_t); \
 	((u_int16_t *)(P))[2] = hashp->BSIZE; \
@@ -692,7 +692,7 @@ overflow_page(HTAB *hashp)
 	offset = hashp->SPARES[splitnum] -
 	    (splitnum ? hashp->SPARES[splitnum - 1] : 0);
 
-#define	OVMSG	"HASH: Out of overflow pages.  Increase page size\n"
+#define OVMSG	"HASH: Out of overflow pages.  Increase page size\n"
 	if (offset > SPLITMASK) {
 		if (++splitnum >= NCACHED) {
 			(void)write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);

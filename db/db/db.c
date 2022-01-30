@@ -53,8 +53,8 @@ dbopen(const char *fname, int flags, int mode, DBTYPE type,
     const void *openinfo)
 {
 
-#define	DB_FLAGS	(DB_LOCK | DB_SHMEM | DB_TXN)
-#define	USE_OPEN_FLAGS							\
+#define DB_FLAGS	(DB_LOCK | DB_SHMEM | DB_TXN)
+#define USE_OPEN_FLAGS							\
 	(O_CREAT | O_EXCL | O_EXLOCK | O_NOFOLLOW | O_NONBLOCK | 	\
 	 O_ACCMODE | O_SHLOCK | O_SYNC | O_TRUNC)
 

@@ -33,13 +33,13 @@
  */
 
 #ifndef _COMPAT_UNISTD_H_
-#define	_COMPAT_UNISTD_H_
+# define _COMPAT_UNISTD_H_
 
-#include <sys/types.h>
+# include <sys/types.h>
 
-#define	STDIN_FILENO	0	/* standard input file descriptor */
-#define	STDOUT_FILENO	1	/* standard output file descriptor */
-#define	STDERR_FILENO	2	/* standard error file descriptor */
+# define STDIN_FILENO	0	/* standard input file descriptor */
+# define STDOUT_FILENO	1	/* standard output file descriptor */
+# define STDERR_FILENO	2	/* standard error file descriptor */
 
 int	 execvpe(const char *, char *const *, char *const *);
 int	 crypt_newhash(const char *, const char *, char *, size_t);
@@ -53,19 +53,19 @@ int	 setresgid(gid_t, gid_t, gid_t);
 int	 setresuid(uid_t, uid_t, uid_t);
 int	 pledge(const char *, const char *[]);
 
-#ifndef _GETOPT_DEFINED_
-#define _GETOPT_DEFINED_
-#define	getopt(argc, argv, optstr) \
+# ifndef _GETOPT_DEFINED_
+#  define _GETOPT_DEFINED_
+#  define getopt(argc, argv, optstr) \
 	openbsd_getopt(argc, argv, optstr)
-#define	opterr openbsd_opterr
-#define	optind openbsd_optind
+#  define opterr openbsd_opterr
+#  define optind openbsd_optind
 int	 getopt(int, char * const *, const char *);
 extern	 char *optarg;			/* getopt(3) external variables */
 extern	 int opterr, optind, optopt, optreset;
-#endif /* _GETOPT_DEFINED_ */
+# endif /* _GETOPT_DEFINED_ */
 
 #endif /* _COMPAT_UNISTD_H_ */
 
-#define	_COMPAT_GETOPT_H_	/* glibc includes getopt.h */
+#define _COMPAT_GETOPT_H_	/* glibc includes getopt.h */
 #include_next <unistd.h>
 #undef	_COMPAT_GETOPT_H_

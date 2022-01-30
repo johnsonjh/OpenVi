@@ -32,14 +32,14 @@
 #include_next <termios.h>
 
 #ifndef _COMPAT_TERMIOS_H
-#define _COMPAT_TERMIOS_H
+# define _COMPAT_TERMIOS_H
 
-#ifndef TCSASOFT
-# define TCSASOFT 0
-#endif /* ifndef TCSASOFT */
+# ifndef TCSASOFT
+#  define TCSASOFT 0
+# endif /* ifndef TCSASOFT */
 
-#ifndef CCEQ
-# define CCEQ(val, c) (c == val ? val != _POSIX_VDISABLE : 0)
-#endif /* ifndef CCEQ */
+# ifndef CCEQ
+#  define CCEQ(val, c) (c == val ? val != _POSIX_VDISABLE : 0)
+# endif /* ifndef CCEQ */
 
 #endif /* _COMPAT_TERMIOS_H */

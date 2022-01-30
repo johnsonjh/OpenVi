@@ -109,7 +109,7 @@ retry:		FREE_SPACE(sp, bp, blen);
 	 * mlen: length of the already written characters
 	 * blen: total length of the buffer
 	 */
-#define	REM	(blen - mlen)
+#define REM	(blen - mlen)
 	mp = bp;
 	mlen = 0;
 	if (mt == M_SYSERR) {
@@ -273,8 +273,8 @@ mod_rpt(SCR *sp)
 	 * I got complaints, so nvi conforms to System III/V historic practice
 	 * except that we report a yank of 1 line if report is set to 1.
 	 */
-#define	ARSIZE(a)	sizeof(a) / sizeof (*a)
-#define	MAXNUM		25
+#define ARSIZE(a)	sizeof(a) / sizeof (*a)
+#define MAXNUM		25
 	rptval = O_VAL(sp, O_REPORT);
 	for (cnt = 0, total = 0; cnt < ARSIZE(action); ++cnt)
 		total += sp->rptlines[cnt];

@@ -35,24 +35,24 @@
  */
 
 /* Macros to set/clear/test flags. */
-#define	F_SET(p, f)	(p)->flags |= (f)
-#define	F_CLR(p, f)	(p)->flags &= ~(f)
-#define	F_ISSET(p, f)	((p)->flags & (f))
+#define F_SET(p, f)	(p)->flags |= (f)
+#define F_CLR(p, f)	(p)->flags &= ~(f)
+#define F_ISSET(p, f)	((p)->flags & (f))
 
 #include <mpool.h>
 
-#define	DEFMINKEYPAGE	(2)		/* Minimum keys per page */
-#define	MINCACHE	(5)		/* Minimum cached pages */
-#define	MINPSIZE	(512)		/* Minimum page size */
+#define DEFMINKEYPAGE	(2)		/* Minimum keys per page */
+#define MINCACHE	(5)		/* Minimum cached pages */
+#define MINPSIZE	(512)		/* Minimum page size */
 
 /*
  * Page 0 of a btree file contains a copy of the meta-data.  This page is also
  * used as an out-of-band page, i.e. page pointers that point to nowhere point
  * to page 0.  Page 1 is the root of the btree.
  */
-#define	P_INVALID	 0		/* Invalid tree page number. */
-#define	P_META		 0		/* Tree metadata page number. */
-#define	P_ROOT		 1		/* Tree root page number. */
+#define P_INVALID	 0		/* Invalid tree page number. */
+#define P_META		 0		/* Tree metadata page number. */
+#define P_ROOT		 1		/* Tree root page number. */
 
 /*
  * There are five page layouts in the btree: btree internal pages (BINTERNAL),
@@ -67,13 +67,13 @@ typedef struct _page {
 	pgno_t	prevpg;			/* left sibling */
 	pgno_t	nextpg;			/* right sibling */
 
-#define	P_BINTERNAL	0x01		/* btree internal page */
-#define	P_BLEAF		0x02		/* leaf page */
-#define	P_OVERFLOW	0x04		/* overflow page */
-#define	P_RINTERNAL	0x08		/* recno internal page */
-#define	P_RLEAF		0x10		/* leaf page */
+#define P_BINTERNAL	0x01		/* btree internal page */
+#define P_BLEAF		0x02		/* leaf page */
+#define P_OVERFLOW	0x04		/* overflow page */
+#define P_RINTERNAL	0x08		/* recno internal page */
+#define P_RLEAF		0x10		/* leaf page */
 #define P_TYPE		0x1f		/* type mask */
-#define	P_PRESERVE	0x20		/* never delete this chain of pages */
+#define P_PRESERVE	0x20		/* never delete this chain of pages */
 	u_int32_t flags;
 
 	indx_t	lower;			/* lower bound of free space on page */
@@ -82,10 +82,10 @@ typedef struct _page {
 } PAGE;
 
 /* First and next index. */
-#define	BTDATAOFF							\
+#define BTDATAOFF							\
 	(sizeof(pgno_t) + sizeof(pgno_t) + sizeof(pgno_t) +		\
 	    sizeof(u_int32_t) + sizeof(indx_t) + sizeof(indx_t))
-#define	NEXTINDEX(p)	(((p)->lower - BTDATAOFF) / sizeof(indx_t))
+#define NEXTINDEX(p)	(((p)->lower - BTDATAOFF) / sizeof(indx_t))
 
 /*
  * For pages other than overflow pages, there is an array of offsets into the
@@ -103,8 +103,8 @@ typedef struct _page {
  * be manipulated without copying.  (This presumes that 32 bit items can be
  * manipulated on this system.)
  */
-#define	LALIGN(n)	(((n) + sizeof(pgno_t) - 1) & ~(sizeof(pgno_t) - 1))
-#define	NOVFLSIZE	(sizeof(pgno_t) + sizeof(u_int32_t))
+#define LALIGN(n)	(((n) + sizeof(pgno_t) - 1) & ~(sizeof(pgno_t) - 1))
+#define NOVFLSIZE	(sizeof(pgno_t) + sizeof(u_int32_t))
 
 /*
  * For the btree internal pages, the item is a key.  BINTERNALs are {key, pgno}
@@ -118,14 +118,14 @@ typedef struct _page {
 typedef struct _binternal {
 	u_int32_t ksize;		/* key size */
 	pgno_t	pgno;			/* page number stored on */
-#define	P_BIGDATA	0x01		/* overflow data */
-#define	P_BIGKEY	0x02		/* overflow key */
+#define P_BIGDATA	0x01		/* overflow data */
+#define P_BIGKEY	0x02		/* overflow key */
 	u_char	flags;
 	char	bytes[1];		/* data */
 } BINTERNAL;
 
 /* Get the page's BINTERNAL structure at index indx. */
-#define	GETBINTERNAL(pg, indx)						\
+#define GETBINTERNAL(pg, indx)						\
 	((BINTERNAL *)((char *)(pg) + (pg)->linp[indx]))
 
 /* Get the number of bytes in the entry. */
@@ -133,7 +133,7 @@ typedef struct _binternal {
 	LALIGN(sizeof(u_int32_t) + sizeof(pgno_t) + sizeof(u_char) + (len))
 
 /* Copy a BINTERNAL entry to the page. */
-#define	WR_BINTERNAL(p, size, pgno, flags) {				\
+#define WR_BINTERNAL(p, size, pgno, flags) {				\
 	*(u_int32_t *)p = size;						\
 	p += sizeof(u_int32_t);						\
 	*(pgno_t *)p = pgno;						\
@@ -152,7 +152,7 @@ typedef struct _rinternal {
 } RINTERNAL;
 
 /* Get the page's RINTERNAL structure at index indx. */
-#define	GETRINTERNAL(pg, indx)						\
+#define GETRINTERNAL(pg, indx)						\
 	((RINTERNAL *)((char *)(pg) + (pg)->linp[indx]))
 
 /* Get the number of bytes in the entry. */
@@ -160,7 +160,7 @@ typedef struct _rinternal {
 	LALIGN(sizeof(recno_t) + sizeof(pgno_t))
 
 /* Copy a RINTERAL entry to the page. */
-#define	WR_RINTERNAL(p, nrecs, pgno) {					\
+#define WR_RINTERNAL(p, nrecs, pgno) {					\
 	*(recno_t *)p = nrecs;						\
 	p += sizeof(recno_t);						\
 	*(pgno_t *)p = pgno;						\
@@ -175,7 +175,7 @@ typedef struct _bleaf {
 } BLEAF;
 
 /* Get the page's BLEAF structure at index indx. */
-#define	GETBLEAF(pg, indx)						\
+#define GETBLEAF(pg, indx)						\
 	((BLEAF *)((char *)(pg) + (pg)->linp[indx]))
 
 /* Get the number of bytes in the entry. */
@@ -187,7 +187,7 @@ typedef struct _bleaf {
 	    (ksize) + (dsize))
 
 /* Copy a BLEAF entry to the page. */
-#define	WR_BLEAF(p, key, data, flags) {					\
+#define WR_BLEAF(p, key, data, flags) {					\
 	*(u_int32_t *)p = key->size;					\
 	p += sizeof(u_int32_t);						\
 	*(u_int32_t *)p = data->size;					\
@@ -207,18 +207,18 @@ typedef struct _rleaf {
 } RLEAF;
 
 /* Get the page's RLEAF structure at index indx. */
-#define	GETRLEAF(pg, indx)						\
+#define GETRLEAF(pg, indx)						\
 	((RLEAF *)((char *)(pg) + (pg)->linp[indx]))
 
 /* Get the number of bytes in the entry. */
 #define NRLEAF(p)	NRLEAFDBT((p)->dsize)
 
 /* Get the number of bytes from the user's data. */
-#define	NRLEAFDBT(dsize)						\
+#define NRLEAFDBT(dsize)						\
 	LALIGN(sizeof(u_int32_t) + sizeof(u_char) + (dsize))
 
 /* Copy a RLEAF entry to the page. */
-#define	WR_RLEAF(p, data, flags) {					\
+#define WR_RLEAF(p, data, flags) {					\
 	*(u_int32_t *)p = data->size;					\
 	p += sizeof(u_int32_t);						\
 	*(u_char *)p = flags;						\
@@ -275,10 +275,10 @@ typedef struct _cursor {
 	DBT	 key;			/* B: Saved key, or key.data == NULL. */
 	recno_t	 rcursor;		/* R: recno cursor (1-based) */
 
-#define	CURS_ACQUIRE	0x01		/*  B: Cursor needs to be reacquired. */
-#define	CURS_AFTER	0x02		/*  B: Unreturned cursor after key. */
-#define	CURS_BEFORE	0x04		/*  B: Unreturned cursor before key. */
-#define	CURS_INIT	0x08		/* RB: Cursor initialized. */
+#define CURS_ACQUIRE	0x01		/*  B: Cursor needs to be reacquired. */
+#define CURS_AFTER	0x02		/*  B: Unreturned cursor after key. */
+#define CURS_BEFORE	0x04		/*  B: Unreturned cursor before key. */
+#define CURS_INIT	0x08		/* RB: Cursor initialized. */
 	u_int8_t flags;
 } CURSOR;
 
@@ -294,7 +294,7 @@ typedef struct _btmeta {
 	u_int32_t	free;		/* page number of first free page */
 	u_int32_t	nrecs;		/* R: number of records */
 
-#define	SAVEMETA	(B_NODUPS | R_RECNO)
+#define SAVEMETA	(B_NODUPS | R_RECNO)
 	u_int32_t	flags;		/* bt_flags & SAVEMETA */
 } BTMETA;
 
@@ -309,13 +309,13 @@ typedef struct _btree {
 
 	CURSOR	  bt_cursor;		/* cursor */
 
-#define	BT_PUSH(t, p, i) {						\
+#define BT_PUSH(t, p, i) {						\
 	t->bt_sp->pgno = p; 						\
 	t->bt_sp->index = i; 						\
 	++t->bt_sp;							\
 }
-#define	BT_POP(t)	(t->bt_sp == t->bt_stack ? NULL : --t->bt_sp)
-#define	BT_CLR(t)	(t->bt_sp = t->bt_stack)
+#define BT_POP(t)	(t->bt_sp == t->bt_stack ? NULL : --t->bt_sp)
+#define BT_CLR(t)	(t->bt_sp = t->bt_stack)
 	EPGNO	  bt_stack[50];		/* stack of parent pages */
 	EPGNO	 *bt_sp;		/* current stack pointer */
 
@@ -355,25 +355,25 @@ typedef struct _btree {
  * NB:
  * B_NODUPS and R_RECNO are stored on disk, and may not be changed.
  */
-#define	B_INMEM		0x00001		/* in-memory tree */
-#define	B_METADIRTY	0x00002		/* need to write metadata */
-#define	B_MODIFIED	0x00004		/* tree modified */
-#define	B_NEEDSWAP	0x00008		/* if byte order requires swapping */
-#define	B_RDONLY	0x00010		/* read-only tree */
+#define B_INMEM		0x00001		/* in-memory tree */
+#define B_METADIRTY	0x00002		/* need to write metadata */
+#define B_MODIFIED	0x00004		/* tree modified */
+#define B_NEEDSWAP	0x00008		/* if byte order requires swapping */
+#define B_RDONLY	0x00010		/* read-only tree */
 
-#define	B_NODUPS	0x00020		/* no duplicate keys permitted */
-#define	R_RECNO		0x00080		/* record oriented tree */
+#define B_NODUPS	0x00020		/* no duplicate keys permitted */
+#define R_RECNO		0x00080		/* record oriented tree */
 
-#define	R_CLOSEFP	0x00040		/* opened a file pointer */
-#define	R_EOF		0x00100		/* end of input file reached. */
-#define	R_FIXLEN	0x00200		/* fixed length records */
-#define	R_INMEM		0x00800		/* in-memory file */
-#define	R_MODIFIED	0x01000		/* modified file */
-#define	R_RDONLY	0x02000		/* read-only file */
+#define R_CLOSEFP	0x00040		/* opened a file pointer */
+#define R_EOF		0x00100		/* end of input file reached. */
+#define R_FIXLEN	0x00200		/* fixed length records */
+#define R_INMEM		0x00800		/* in-memory file */
+#define R_MODIFIED	0x01000		/* modified file */
+#define R_RDONLY	0x02000		/* read-only file */
 
-#define	B_DB_LOCK	0x04000		/* DB_LOCK specified. */
-#define	B_DB_SHMEM	0x08000		/* DB_SHMEM specified. */
-#define	B_DB_TXN	0x10000		/* DB_TXN specified. */
+#define B_DB_LOCK	0x04000		/* DB_LOCK specified. */
+#define B_DB_SHMEM	0x08000		/* DB_SHMEM specified. */
+#define B_DB_TXN	0x10000		/* DB_TXN specified. */
 	u_int32_t flags;
 } BTREE;
 

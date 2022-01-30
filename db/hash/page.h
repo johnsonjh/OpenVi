@@ -71,12 +71,12 @@
  * You might as well do this up front.
  */
 
-#define	PAIRSIZE(K,D)	(2*sizeof(u_int16_t) + (K)->size + (D)->size)
+#define PAIRSIZE(K,D)	(2*sizeof(u_int16_t) + (K)->size + (D)->size)
 #define BIGOVERHEAD	(4*sizeof(u_int16_t))
 #define KEYSIZE(K)	(4*sizeof(u_int16_t) + (K)->size);
 #define OVFLSIZE	(2*sizeof(u_int16_t))
 #define FREESPACE(P)	((P)[(P)[0]+1])
-#define	OFFSET(P)	((P)[(P)[0]+2])
+#define OFFSET(P)	((P)[(P)[0]+2])
 #define PAIRFITS(P,K,D) \
 	(((P)[2] >= REAL_KEY) && \
 	    (PAIRSIZE((K),(D)) + OVFLSIZE) <= FREESPACE((P)))

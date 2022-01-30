@@ -554,10 +554,10 @@ ex_tag_display(SCR *sp)
 	 * fixing.  (The obvious fix is to pass the filenames through the
 	 * msg_print function.)
 	 */
-#define	L_NAME	30		/* Name. */
-#define	L_SLOP	 4		/* Leading number plus trailing *. */
-#define	L_SPACE	 5		/* Spaces after name, before tag. */
-#define	L_TAG	20		/* Tag. */
+#define L_NAME	30		/* Name. */
+#define L_SLOP	 4		/* Leading number plus trailing *. */
+#define L_SPACE	 5		/* Spaces after name, before tag. */
+#define L_TAG	20		/* Tag. */
 	if (sp->cols <= L_NAME + L_SLOP) {
 		msgq(sp, M_ERR, "Display too small.");
 		return (0);
@@ -1178,11 +1178,11 @@ ctag_file(SCR *sp, TAGF *tfp, char *name, char **dirp, size_t *dlenp)
  * 	Trying to continue with binary search at this point would be
  *	more trouble than it's worth.
  */
-#define	EQUAL		0
-#define	GREATER		1
-#define	LESS		(-1)
+#define EQUAL		0
+#define GREATER		1
+#define LESS		(-1)
 
-#define	SKIP_PAST_NEWLINE(p, back)	while ((p) < (back) && *(p)++ != '\n');
+#define SKIP_PAST_NEWLINE(p, back)	while ((p) < (back) && *(p)++ != '\n');
 
 static char *
 binary_search(char *string, char *front, char *back)

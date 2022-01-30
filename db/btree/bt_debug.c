@@ -62,8 +62,8 @@ __bt_dump(DB *dbp)
 	    F_ISSET(t, B_INMEM) ? "memory" : "disk", t->bt_psize);
 	if (F_ISSET(t, R_RECNO))
 		(void)fprintf(stderr, " keys %u", t->bt_nrecs);
-#undef X
-#define	X(flag, name) \
+# undef X
+# define X(flag, name) \
 	if (F_ISSET(t, flag)) { \
 		(void)fprintf(stderr, "%s%s", sep, name); \
 		sep = ", "; \
@@ -78,7 +78,7 @@ __bt_dump(DB *dbp)
 		X(B_METADIRTY,"METADIRTY");
 		(void)fprintf(stderr, ")\n");
 	}
-#undef X
+# undef X
 
 	for (i = P_ROOT;
 	    (h = mpool_get(t->bt_mp, i, MPOOL_IGNOREPIN)) != NULL; ++i)
@@ -104,8 +104,8 @@ __bt_dmpage(PAGE *h)
 	(void)fprintf(stderr, "free %u\n", m->free);
 	(void)fprintf(stderr, "nrecs %u\n", m->nrecs);
 	(void)fprintf(stderr, "flags %u", m->flags);
-#undef X
-#define	X(flag, name) \
+# undef X
+# define X(flag, name) \
 	if (m->flags & flag) { \
 		(void)fprintf(stderr, "%s%s", sep, name); \
 		sep = ", "; \
@@ -152,8 +152,8 @@ __bt_dpage(PAGE *h)
 	char *sep;
 
 	(void)fprintf(stderr, "    page %u: (", h->pgno);
-#undef X
-#define	X(flag, name) \
+# undef X
+# define X(flag, name) \
 	if (h->flags & flag) { \
 		(void)fprintf(stderr, "%s%s", sep, name); \
 		sep = ", "; \
@@ -166,7 +166,7 @@ __bt_dpage(PAGE *h)
 	X(P_OVERFLOW,	"OVERFLOW")
 	X(P_PRESERVE,	"PRESERVE");
 	(void)fprintf(stderr, ")\n");
-#undef X
+# undef X
 
 	(void)fprintf(stderr, "\tprev %2u next %2u", h->prevpg, h->nextpg);
 	if (h->flags & P_OVERFLOW)

@@ -56,7 +56,7 @@ f_columns(SCR *sp, OPTION *op, char *str, u_long *valp)
 	 * number of lines/columns for the screen, but at least we don't drop
 	 * core.
 	 */
-#define	MAXIMUM_SCREEN_COLS	768
+#define MAXIMUM_SCREEN_COLS	768
 	if (*valp > MAXIMUM_SCREEN_COLS) {
 		msgq(sp, M_ERR, "Screen columns too large, greater than %d",
 		    MAXIMUM_SCREEN_COLS);
@@ -86,7 +86,7 @@ f_lines(SCR *sp, OPTION *op, char *str, u_long *valp)
 	 * number of lines/columns for the screen, but at least we don't drop
 	 * core.
 	 */
-#define	MAXIMUM_SCREEN_ROWS	500
+#define MAXIMUM_SCREEN_ROWS	500
 	if (*valp > MAXIMUM_SCREEN_ROWS) {
 		msgq(sp, M_ERR, "Screen lines too large, greater than %d",
 		    MAXIMUM_SCREEN_ROWS);

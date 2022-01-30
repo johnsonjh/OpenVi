@@ -30,11 +30,11 @@ typedef struct _cl_private {
 	char	*rmso, *smso;	/* Inverse video terminal strings. */
 	char	*smcup, *rmcup;	/* Terminal start/stop strings. */
 
-#define	INDX_HUP	0
-#define	INDX_INT	1
-#define	INDX_TERM	2
-#define	INDX_WINCH	3
-#define	INDX_MAX	4	/* Original signal information. */
+#define INDX_HUP	0
+#define INDX_INT	1
+#define INDX_TERM	2
+#define INDX_WINCH	3
+#define INDX_MAX	4	/* Original signal information. */
 	struct sigaction oact[INDX_MAX];
 
 	enum {			/* Tty group write mode. */
@@ -43,25 +43,25 @@ typedef struct _cl_private {
 	enum {			/* Terminal initialization strings. */
 	    TE_SENT=0, TI_SENT } ti_te;
 
-#define	CL_IN_EX	0x0001	/* Currently running ex. */
-#define	CL_RENAME	0x0002	/* X11 xterm icon/window renamed. */
-#define	CL_RENAME_OK	0x0004	/* User wants the windows renamed. */
-#define	CL_SCR_EX_INIT	0x0008	/* Ex screen initialized. */
-#define	CL_SCR_VI_INIT	0x0010	/* Vi screen initialized. */
-#define	CL_STDIN_TTY	0x0020	/* Talking to a terminal. */
+#define CL_IN_EX	0x0001	/* Currently running ex. */
+#define CL_RENAME	0x0002	/* X11 xterm icon/window renamed. */
+#define CL_RENAME_OK	0x0004	/* User wants the windows renamed. */
+#define CL_SCR_EX_INIT	0x0008	/* Ex screen initialized. */
+#define CL_SCR_VI_INIT	0x0010	/* Vi screen initialized. */
+#define CL_STDIN_TTY	0x0020	/* Talking to a terminal. */
 	u_int32_t flags;
 } CL_PRIVATE;
 
-#define	CLP(sp)		((CL_PRIVATE *)((sp)->gp->cl_private))
-#define	GCLP(gp)	((CL_PRIVATE *)(gp)->cl_private)
+#define CLP(sp)		((CL_PRIVATE *)((sp)->gp->cl_private))
+#define GCLP(gp)	((CL_PRIVATE *)(gp)->cl_private)
 
 /* Return possibilities from the keyboard read routine. */
 typedef enum { INP_OK=0, INP_EOF, INP_ERR, INP_INTR, INP_TIMEOUT } input_t;
 
 /* The screen line relative to a specific window. */
-#define	RLNO(sp, lno)	(sp)->woff + (lno)
+#define RLNO(sp, lno)	(sp)->woff + (lno)
 
 /* X11 xterm escape sequence to rename the icon/window. */
-#define	XTERM_RENAME	"\033]0;%s\007"
+#define XTERM_RENAME	"\033]0;%s\007"
 
 #include "cl_extern.h"

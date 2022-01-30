@@ -81,7 +81,7 @@ KEYLIST keylist[] = {
 	{K_VWERASE,	'\027'},	/* ^W */
 	{K_ZERO,	   '0'},	/*  0 */
 
-#define	ADDITIONAL_CHARACTERS	4
+#define ADDITIONAL_CHARACTERS	4
 	{K_NOTUSED, 0},			/* VEOF, VERASE, VKILL, VWERASE */
 	{K_NOTUSED, 0},
 	{K_NOTUSED, 0},
@@ -267,9 +267,9 @@ nopr:	if (iscntrl(ch) && (ch < 0x20 || ch == 0x7f)) {
 		sp->cname[1] = ch == 0x7f ? '?' : '@' + ch;
 		len = 2;
 	} else if (O_ISSET(sp, O_OCTAL)) {
-#define	BITS	(sizeof(CHAR_T) * 8)
-#define	SHIFT	(BITS - BITS % 3)
-#define	TOPMASK	(BITS % 3 == 2 ? 3 : 1) << (BITS - BITS % 3)
+#define BITS	(sizeof(CHAR_T) * 8)
+#define SHIFT	(BITS - BITS % 3)
+#define TOPMASK	(BITS % 3 == 2 ? 3 : 1) << (BITS - BITS % 3)
 		sp->cname[0] = '\\';
 		sp->cname[1] = octdigit[(ch & TOPMASK) >> SHIFT];
 		shift = SHIFT - 3;
@@ -339,7 +339,7 @@ v_event_push(SCR *sp, EVENT *p_evp, CHAR_T *p_s, size_t nitems, u_int flags)
 	 * leaving some extra room.  Get enough space plus a little
 	 * extra.
 	 */
-#define	TERM_PUSH_SHIFT	30
+#define TERM_PUSH_SHIFT	30
 	total = gp->i_cnt + gp->i_next + nitems + TERM_PUSH_SHIFT;
 	if (total >= gp->i_nelem && v_event_grow(sp, MAXIMUM(total, 64)))
 		return (1);
@@ -398,7 +398,7 @@ v_event_append(SCR *sp, EVENT *argp)
 }
 
 /* Remove events from the queue. */
-#define	QREM(len) {							\
+#define QREM(len) {							\
 	if ((gp->i_cnt -= (len)) == 0)					\
 		gp->i_next = 0;						\
 	else								\

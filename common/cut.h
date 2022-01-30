@@ -21,7 +21,7 @@ struct _cb {
 	CHAR_T	 name;			/* Cut buffer name. */
 	size_t	 len;			/* Total length of cut text. */
 
-#define	CB_LMODE	0x01		/* Cut was in line mode. */
+#define CB_LMODE	0x01		/* Cut was in line mode. */
 	u_int8_t flags;
 };
 
@@ -64,7 +64,7 @@ struct _text {				/* Text: a linked list of lines. */
  * Get named buffer 'name'.
  * Translate upper-case buffer names to lower-case buffer names.
  */
-#define	CBNAME(sp, cbp, nch) {						\
+#define CBNAME(sp, cbp, nch) {						\
 	CHAR_T L__name;							\
 	L__name = isupper(nch) ? tolower(nch) : (nch);			\
 	LIST_FOREACH((cbp), &(sp)->gp->cutq, q)				\
@@ -73,9 +73,9 @@ struct _text {				/* Text: a linked list of lines. */
 }
 
 /* Flags to the cut() routine. */
-#define	CUT_LINEMODE	0x01		/* Cut in line mode. */
-#define	CUT_NUMOPT	0x02		/* Numeric buffer: optional. */
-#define	CUT_NUMREQ	0x04		/* Numeric buffer: required. */
+#define CUT_LINEMODE	0x01		/* Cut in line mode. */
+#define CUT_NUMOPT	0x02		/* Numeric buffer: optional. */
+#define CUT_NUMREQ	0x04		/* Numeric buffer: required. */
 
 /* Special length to cut_line(). */
 #define CUT_LINE_TO_EOL	((size_t) -1)	/* Cut to the end of line. */

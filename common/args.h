@@ -26,6 +26,6 @@ typedef struct _args {
 	size_t	 blen;		/* Buffer length. */
 	size_t	 len;		/* Argument length. */
 
-#define	A_ALLOCATED	0x01	/* If allocated space. */
+#define A_ALLOCATED	0x01	/* If allocated space. */
 	u_int8_t flags;
 } ARGS;

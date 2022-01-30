@@ -43,28 +43,28 @@
  */
 
 #ifdef SNAMES
-#define	matcher	smatcher
-#define	fast	sfast
-#define	slow	sslow
-#define	dissect	sdissect
-#define	backref	sbackref
-#define	step	sstep
-#define	print	sprint
-#define	at	sat
-#define	match	smat
-#define	nope	snope
+# define matcher	smatcher
+# define fast	sfast
+# define slow	sslow
+# define dissect	sdissect
+# define backref	sbackref
+# define step	sstep
+# define print	sprint
+# define at	sat
+# define match	smat
+# define nope	snope
 #endif /* ifdef SNAMES */
 #ifdef LNAMES
-#define	matcher	lmatcher
-#define	fast	lfast
-#define	slow	lslow
-#define	dissect	ldissect
-#define	backref	lbackref
-#define	step	lstep
-#define	print	lprint
-#define	at	lat
-#define	match	lmat
-#define	nope	lnope
+# define matcher	lmatcher
+# define fast	lfast
+# define slow	lslow
+# define dissect	ldissect
+# define backref	lbackref
+# define step	lstep
+# define print	lprint
+# define at	lat
+# define match	lmat
+# define nope	lnope
 #endif /* ifdef LNAMES */
 
 /* another structure passed up and down to avoid zillions of parameters */
@@ -91,28 +91,28 @@ static char *fast(struct match *, char *, char *, sopno, sopno);
 static char *slow(struct match *, char *, char *, sopno, sopno);
 static states step(struct re_guts *, sopno, sopno, states, int, states);
 #define MAX_RECURSION	100
-#define	BOL	(OUT+1)
-#define	EOL	(BOL+1)
-#define	BOLEOL	(BOL+2)
-#define	NOTHING	(BOL+3)
-#define	BOW	(BOL+4)
-#define	EOW	(BOL+5)
+#define BOL	(OUT+1)
+#define EOL	(BOL+1)
+#define BOLEOL	(BOL+2)
+#define NOTHING	(BOL+3)
+#define BOW	(BOL+4)
+#define EOW	(BOL+5)
 /* update nonchars[] array below when adding fake chars here */
-#define	CODEMAX	(BOL+5)		/* highest code used */
-#define	NONCHAR(c)	((c) > CHAR_MAX)
-#define	NNONCHAR	(CODEMAX-CHAR_MAX)
+#define CODEMAX	(BOL+5)		/* highest code used */
+#define NONCHAR(c)	((c) > CHAR_MAX)
+#define NNONCHAR	(CODEMAX-CHAR_MAX)
 #ifdef REDEBUG
 static void print(struct match *, char *, states, int, FILE *);
 static void at(struct match *, char *, char *, char *, sopno, sopno);
 static const char *pchar(int);
-#define	SP(t, s, c)	print(m, t, s, c, stdout)
-#define	AT(t, p1, p2, s1, s2)	at(m, t, p1, p2, s1, s2)
-#define	NOTE(str)	{ if (m->eflags&REG_TRACE) (void)printf("=%s\n", (str)); }
+# define SP(t, s, c)	print(m, t, s, c, stdout)
+# define AT(t, p1, p2, s1, s2)	at(m, t, p1, p2, s1, s2)
+# define NOTE(str)	{ if (m->eflags&REG_TRACE) (void)printf("=%s\n", (str)); }
 static int nope = 0;
 #else
-#define	SP(t, s, c)	/* nothing */
-#define	AT(t, p1, p2, s1, s2)	/* nothing */
-#define	NOTE(s)	/* nothing */
+# define SP(t, s, c)	/* nothing */
+# define AT(t, p1, p2, s1, s2)	/* nothing */
+# define NOTE(s)	/* nothing */
 #endif /* ifdef REDEBUG */
 
 /*
@@ -981,11 +981,11 @@ at(struct match *m, char *title, char *start, char *stop, sopno startst,
 	(void)printf("%ld-%ld\n", (long)startst, (long)stopst);
 }
 
-#ifndef PCHARDONE
-#define	PCHARDONE	/* never again */
+# ifndef PCHARDONE
+#  define PCHARDONE	/* never again */
 static const char *nonchars[] =
     { "OUT", "BOL", "EOL", "BOLEOL", "NOTHING", "BOW", "EOW" };
-#define	PNONCHAR(c)						\
+#  define PNONCHAR(c)						\
 	((c) - OUT < (sizeof(nonchars)/sizeof(nonchars[0]))	\
 	    ? nonchars[(c) - OUT] : "invalid")
 
@@ -1013,7 +1013,7 @@ pchar(int ch)
 		(void)snprintf(pbuf, sizeof pbuf, "\\%o", ch);
 	return(pbuf);
 }
-#endif /* ifndef PCHARDONE */
+# endif /* ifndef PCHARDONE */
 #endif /* ifdef REDEBUG */
 
 #undef	matcher

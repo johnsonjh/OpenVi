@@ -389,7 +389,7 @@ display:
 		if (is_cached)
 			continue;
 
-#define	FLUSH(gp, sp, cbp, cbuf) do {					\
+#define FLUSH(gp, sp, cbp, cbuf) do {					\
 	*(cbp) = '\0';							\
 	(void)(gp)->scr_addstr((sp), (cbuf), (cbp) - (cbuf));		\
 	(cbp) = (cbuf);							\

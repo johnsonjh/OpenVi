@@ -48,8 +48,8 @@ static void	v_comlog(SCR *, VICMD *);
  *	The dot structure can be set by the underlying vi functions,
  *	see v_Put() and v_put().
  */
-#define	DOT		(&VIP(sp)->sdot)
-#define	DOTMOTION	(&VIP(sp)->sdotmotion)
+#define DOT		(&VIP(sp)->sdot)
+#define DOTMOTION	(&VIP(sp)->sdotmotion)
 
 /*
  * vi --
@@ -416,7 +416,7 @@ ret:		rval = 1;
 	return (rval);
 }
 
-#define	KEY(key, ec_flags) {						\
+#define KEY(key, ec_flags) {						\
 	if ((gcret = v_key(sp, 0, &ev, (ec_flags))) != GC_OK)		\
 		return (gcret);						\
 	if (ev.e_value == K_ESCAPE)					\

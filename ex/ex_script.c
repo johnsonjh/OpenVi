@@ -505,7 +505,7 @@ sscr_insert(SCR *sp)
 	if (db_last(sp, &lno))
 		return (1);
 
-#define	MINREAD	1024
+#define MINREAD	1024
 	GET_SPACE_RET(sp, bp, blen, MINREAD);
 	endp = bp;
 

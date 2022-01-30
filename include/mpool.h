@@ -33,9 +33,9 @@
  */
 
 #ifndef _MPOOL_H_
-#define _MPOOL_H_
+# define _MPOOL_H_
 
-#include <sys/queue.h>
+# include <sys/queue.h>
 
 /*
  * The memory pool scheme is a simple one.  Each in-memory page is referenced
@@ -44,8 +44,8 @@
  * Inactive pages are threaded on a free chain.  Each reference to a memory
  * pool is handed an opaque MPOOL cookie which stores all of this information.
  */
-#define	HASHSIZE	128
-#define	HASHKEY(pgno)	((pgno - 1 + HASHSIZE) % HASHSIZE)
+# define HASHSIZE	128
+# define HASHKEY(pgno)	((pgno - 1 + HASHSIZE) % HASHSIZE)
 
 /* The BKT structures are the elements of the queues. */
 typedef struct _bkt {
@@ -54,9 +54,9 @@ typedef struct _bkt {
 	void    *page;			/* page */
 	pgno_t   pgno;			/* page number */
 
-#define	MPOOL_DIRTY	0x01		/* page needs to be written */
-#define	MPOOL_PINNED	0x02		/* page is pinned into memory */
-#define	MPOOL_INUSE	0x04		/* page address is valid */
+# define MPOOL_DIRTY	0x01		/* page needs to be written */
+# define MPOOL_PINNED	0x02		/* page is pinned into memory */
+# define MPOOL_INUSE	0x04		/* page address is valid */
 	u_int8_t flags;			/* flags */
 } BKT;
 
@@ -74,7 +74,7 @@ typedef struct MPOOL {
 					/* page out conversion routine */
 	void    (*pgout)(void *, pgno_t, void *);
 	void	*pgcookie;		/* cookie for page in/out routines */
-#ifdef STATISTICS
+# ifdef STATISTICS
 	unsigned long	cachehit;
 	unsigned long	cachemiss;
 	unsigned long	pagealloc;
@@ -84,13 +84,13 @@ typedef struct MPOOL {
 	unsigned long	pageput;
 	unsigned long	pageread;
 	unsigned long	pagewrite;
-#endif /* ifdef STATISTICS */
+# endif /* ifdef STATISTICS */
 } MPOOL;
 
-#define	MPOOL_IGNOREPIN	0x01		/* Ignore if the page is pinned. */
-#define	MPOOL_PAGE_REQUEST	0x01	/* Allocate a new page with a
+# define MPOOL_IGNOREPIN	0x01		/* Ignore if the page is pinned. */
+# define MPOOL_PAGE_REQUEST	0x01	/* Allocate a new page with a
 					   specific page number. */
-#define	MPOOL_PAGE_NEXT		0x02	/* Allocate a new page with the next
+# define MPOOL_PAGE_NEXT		0x02	/* Allocate a new page with the next
 					  page number. */
 
 __BEGIN_HIDDEN_DECLS
@@ -113,10 +113,10 @@ PROTO_NORMAL(mpool_put);
 PROTO_NORMAL(mpool_sync);
 PROTO_NORMAL(mpool_close);
 
-#ifdef STATISTICS
+# ifdef STATISTICS
 void	 mpool_stat(MPOOL *);
 PROTO_NORMAL(mpool_stat);
-#endif /* ifdef STATISTICS */
+# endif /* ifdef STATISTICS */
 __END_HIDDEN_DECLS
 
 #endif /* ifndef _MPOOL_H_ */

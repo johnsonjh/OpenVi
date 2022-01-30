@@ -33,25 +33,25 @@
  */
 
 #ifndef _DB_H_
-#define	_DB_H_
+# define _DB_H_
 
-#include "../include/compat.h"
+# include "../include/compat.h"
 
-#include <sys/types.h>
+# include <sys/types.h>
 
-#include <limits.h>
+# include <limits.h>
 
-#undef open
+# undef open
 
-#define	RET_ERROR	-1		/* Return values. */
-#define	RET_SUCCESS	 0
-#define	RET_SPECIAL	 1
+# define RET_ERROR	-1		/* Return values. */
+# define RET_SUCCESS	 0
+# define RET_SPECIAL	 1
 
-#define	MAX_PAGE_NUMBER	0xffffffff	/* >= # of pages in a file */
+# define MAX_PAGE_NUMBER	0xffffffff	/* >= # of pages in a file */
 typedef u_int32_t	pgno_t;
-#define	MAX_PAGE_OFFSET	65535		/* >= # of bytes in a page */
+# define MAX_PAGE_OFFSET	65535		/* >= # of bytes in a page */
 typedef u_int16_t	indx_t;
-#define	MAX_REC_NUMBER	0xffffffff	/* >= # of records in a tree */
+# define MAX_REC_NUMBER	0xffffffff	/* >= # of records in a tree */
 typedef u_int32_t	recno_t;
 
 /* Key/data structure -- a Data-Base Thang. */
@@ -61,17 +61,17 @@ typedef struct {
 } DBT;
 
 /* Routine flags. */
-#define	R_CURSOR	1		/* del, put, seq */
-#define	__R_UNUSED	2		/* UNUSED */
-#define	R_FIRST		3		/* seq */
-#define	R_IAFTER	4		/* put (RECNO) */
-#define	R_IBEFORE	5		/* put (RECNO) */
-#define	R_LAST		6		/* seq (BTREE, RECNO) */
-#define	R_NEXT		7		/* seq */
-#define	R_NOOVERWRITE	8		/* put */
-#define	R_PREV		9		/* seq (BTREE, RECNO) */
-#define	R_SETCURSOR	10		/* put (RECNO) */
-#define	R_RECNOSYNC	11		/* sync (RECNO) */
+# define R_CURSOR	1		/* del, put, seq */
+# define __R_UNUSED	2		/* UNUSED */
+# define R_FIRST		3		/* seq */
+# define R_IAFTER	4		/* put (RECNO) */
+# define R_IBEFORE	5		/* put (RECNO) */
+# define R_LAST		6		/* seq (BTREE, RECNO) */
+# define R_NEXT		7		/* seq */
+# define R_NOOVERWRITE	8		/* put */
+# define R_PREV		9		/* seq (BTREE, RECNO) */
+# define R_SETCURSOR	10		/* put (RECNO) */
+# define R_RECNOSYNC	11		/* sync (RECNO) */
 
 typedef enum { DB_BTREE, DB_HASH, DB_RECNO } DBTYPE;
 
@@ -88,15 +88,15 @@ typedef enum { DB_BTREE, DB_HASH, DB_RECNO } DBTYPE;
  * is so that the access methods can skip copying the key/data pair when
  * the DB_LOCK flag isn't set.
  */
-#if UINT_MAX > 65535
-#define	DB_LOCK		0x20000000	/* Do locking. */
-#define	DB_SHMEM	0x40000000	/* Use shared memory. */
-#define	DB_TXN		0x80000000	/* Do transactions. */
-#else
-#define	DB_LOCK		    0x2000	/* Do locking. */
-#define	DB_SHMEM	    0x4000	/* Use shared memory. */
-#define	DB_TXN		    0x8000	/* Do transactions. */
-#endif /* if UINT_MAX > 65535 */
+# if UINT_MAX > 65535
+#  define DB_LOCK		0x20000000	/* Do locking. */
+#  define DB_SHMEM	0x40000000	/* Use shared memory. */
+#  define DB_TXN		0x80000000	/* Do transactions. */
+# else
+#  define DB_LOCK		    0x2000	/* Do locking. */
+#  define DB_SHMEM	    0x4000	/* Use shared memory. */
+#  define DB_TXN		    0x8000	/* Do transactions. */
+# endif /* if UINT_MAX > 65535 */
 
 /* Access method description structure. */
 typedef struct __db {
@@ -111,12 +111,12 @@ typedef struct __db {
 	int (*fd)(const struct __db *);
 } DB;
 
-#define	BTREEMAGIC	0x053162
-#define	BTREEVERSION	3
+# define BTREEMAGIC	0x053162
+# define BTREEVERSION	3
 
 /* Structure used to pass parameters to the btree routines. */
 typedef struct {
-#define	R_DUP		0x01	/* duplicate keys */
+# define R_DUP		0x01	/* duplicate keys */
 	unsigned long	flags;
 	unsigned int	cachesize;	/* bytes to cache */
 	int		maxkeypage;	/* maximum keys per page */
@@ -129,8 +129,8 @@ typedef struct {
 	int		lorder;		/* byte order */
 } BTREEINFO;
 
-#define	HASHMAGIC	0x061561
-#define	HASHVERSION	2
+# define HASHMAGIC	0x061561
+# define HASHVERSION	2
 
 /* Structure used to pass parameters to the hashing routines. */
 typedef struct {
@@ -145,9 +145,9 @@ typedef struct {
 
 /* Structure used to pass parameters to the record routines. */
 typedef struct {
-#define	R_FIXEDLEN		0x01	/* fixed-length records */
-#define	R_NOKEY			0x02	/* key not required */
-#define	R_SNAPSHOT		0x04	/* snapshot the input */
+# define R_FIXEDLEN		0x01	/* fixed-length records */
+# define R_NOKEY			0x02	/* key not required */
+# define R_SNAPSHOT		0x04	/* snapshot the input */
 	unsigned long	flags;
 	unsigned int	cachesize;	/* bytes to cache */
 	unsigned int	psize;		/* page size */

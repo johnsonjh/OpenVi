@@ -361,9 +361,9 @@ cl_ex_adjust(SCR *sp, exadj_t action)
 void
 cl_imctrl(SCR *sp, imctrl_t action)
 {
-#define	TT_IM_OFF	"\033[<t"	/* TTIMEST */
-#define	TT_IM_RESTORE	"\033[<r"	/* TTIMERS */
-#define	TT_IM_SAVE	"\033[<s"	/* TTIMESV */
+#define TT_IM_OFF	"\033[<t"	/* TTIMEST */
+#define TT_IM_RESTORE	"\033[<r"	/* TTIMERS */
+#define TT_IM_SAVE	"\033[<s"	/* TTIMESV */
 
 	if (!O_ISSET(sp, O_IMCTRL) && action != IMCTRL_INIT)
 		return;

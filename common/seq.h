@@ -38,9 +38,9 @@ struct _seq {
 	CHAR_T	*output;		/* Sequence output keys. */
 	size_t	 olen;			/* Output keys length. */
 
-#define	SEQ_FUNCMAP	0x01		/* If unresolved function key.*/
-#define	SEQ_NOOVERWRITE	0x02		/* Don't replace existing entry. */
-#define	SEQ_SCREEN	0x04		/* If screen specific. */
-#define	SEQ_USERDEF	0x08		/* If user defined. */
+#define SEQ_FUNCMAP	0x01		/* If unresolved function key.*/
+#define SEQ_NOOVERWRITE	0x02		/* Don't replace existing entry. */
+#define SEQ_SCREEN	0x04		/* If screen specific. */
+#define SEQ_USERDEF	0x08		/* If user defined. */
 	u_int8_t flags;
 };

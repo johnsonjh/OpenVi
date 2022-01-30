@@ -530,11 +530,11 @@ v_end(GS *gp)
 	/* Free any temporary space. */
 	free(gp->tmp_bp);
 
-#if defined(DEBUG)
+# if defined(DEBUG)
 	/* Close debugging file descriptor. */
 	if (gp->tracefp != NULL)
 		(void)fclose(gp->tracefp);
-#endif /* if defined(DEBUG) */
+# endif /* if defined(DEBUG) */
 #endif /* if defined(DEBUG) || defined(PURIFY) */
 }
 

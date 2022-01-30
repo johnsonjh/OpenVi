@@ -22,8 +22,8 @@ struct _tagf {			/* Tag files. */
 	char	*name;		/* Tag file name. */
 	int	 errnum;	/* Errno. */
 
-#define	TAGF_ERR	0x01	/* Error occurred. */
-#define	TAGF_ERR_WARN	0x02	/* Error reported. */
+#define TAGF_ERR	0x01	/* Error occurred. */
+#define TAGF_ERR_WARN	0x02	/* Error reported. */
 	u_int8_t flags;
 };
 

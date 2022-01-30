@@ -23,8 +23,8 @@
  * XXX
  * MINIMUM_SCREEN_COLS is almost certainly wrong.
  */
-#define	MINIMUM_SCREEN_ROWS	 1
-#define	MINIMUM_SCREEN_COLS	20
+#define MINIMUM_SCREEN_ROWS	 1
+#define MINIMUM_SCREEN_COLS	20
 
 /*
  * SCR --
@@ -65,13 +65,13 @@ struct _scr {
 
 	size_t	 rcm;			/* Vi: 0-N: Most attractive column. */
 
-#define	L_ADDED		0		/* Added lines. */
-#define	L_CHANGED	1		/* Changed lines. */
-#define	L_DELETED	2		/* Deleted lines. */
-#define	L_JOINED	3		/* Joined lines. */
-#define	L_MOVED		4		/* Moved lines. */
-#define	L_SHIFT		5		/* Shift lines. */
-#define	L_YANKED	6		/* Yanked lines. */
+#define L_ADDED		0		/* Added lines. */
+#define L_CHANGED	1		/* Changed lines. */
+#define L_DELETED	2		/* Deleted lines. */
+#define L_JOINED	3		/* Joined lines. */
+#define L_MOVED		4		/* Moved lines. */
+#define L_SHIFT		5		/* Shift lines. */
+#define L_YANKED	6		/* Yanked lines. */
 	recno_t	 rptlchange;		/* Ex/vi: last L_CHANGED lno. */
 	recno_t	 rptlines[L_YANKED + 1];/* Ex/vi: lines changed by last op. */
 
@@ -98,22 +98,22 @@ struct _scr {
 	CHAR_T	 at_lbuf;		/* Ex/vi: Last executed at buffer. */
 
 					/* Ex/vi: re_compile flags. */
-#define	RE_C_SEARCH	0x0002		/* Compile search replacement. */
-#define	RE_C_SILENT	0x0004		/* No error messages. */
-#define	RE_C_SUBST	0x0008		/* Compile substitute replacement. */
-#define	RE_C_TAG	0x0010		/* Compile ctag pattern. */
+#define RE_C_SEARCH	0x0002		/* Compile search replacement. */
+#define RE_C_SILENT	0x0004		/* No error messages. */
+#define RE_C_SUBST	0x0008		/* Compile substitute replacement. */
+#define RE_C_TAG	0x0010		/* Compile ctag pattern. */
 
-#define	RE_WSTART	"[[:<:]]"	/* Ex/vi: not-in-word search pattern. */
-#define	RE_WSTOP	"[[:>:]]"
+#define RE_WSTART	"[[:<:]]"	/* Ex/vi: not-in-word search pattern. */
+#define RE_WSTOP	"[[:>:]]"
 					/* Ex/vi: flags to search routines. */
-#define	SEARCH_EOL	0x0002		/* Offset past EOL is okay. */
-#define	SEARCH_FILE	0x0004		/* Search the entire file. */
-#define	SEARCH_INCR	0x0008		/* Search incrementally. */
-#define	SEARCH_MSG	0x0010		/* Display search messages. */
-#define	SEARCH_PARSE	0x0020		/* Parse the search pattern. */
-#define	SEARCH_SET	0x0040		/* Set search direction. */
-#define	SEARCH_TAG	0x0080		/* Search for a tag pattern. */
-#define	SEARCH_WMSG	0x0100		/* Display search-wrapped messages. */
+#define SEARCH_EOL	0x0002		/* Offset past EOL is okay. */
+#define SEARCH_FILE	0x0004		/* Search the entire file. */
+#define SEARCH_INCR	0x0008		/* Search incrementally. */
+#define SEARCH_MSG	0x0010		/* Display search messages. */
+#define SEARCH_PARSE	0x0020		/* Parse the search pattern. */
+#define SEARCH_SET	0x0040		/* Set search direction. */
+#define SEARCH_TAG	0x0080		/* Search for a tag pattern. */
+#define SEARCH_WMSG	0x0100		/* Display search-wrapped messages. */
 
 					/* Ex/vi: RE information. */
 	dir_t	 searchdir;		/* Last file search direction. */
@@ -138,8 +138,8 @@ struct _scr {
  *
  * Editor screens.
  */
-#define	SC_EX		0x00000001	/* Ex editor. */
-#define	SC_VI		0x00000002	/* Vi editor. */
+#define SC_EX		0x00000001	/* Ex editor. */
+#define SC_VI		0x00000002	/* Vi editor. */
 
 /*
  * Screen formatting flags, first major, then minor.
@@ -167,36 +167,36 @@ struct _scr {
  * SC_SCR_TOP
  *	If the current line isn't already on the screen, put it at the to@.
  */
-#define	SC_SCR_EX	0x00000004	/* Screen is in ex mode. */
-#define	SC_SCR_VI	0x00000008	/* Screen is in vi mode. */
-#define	SC_SCR_EXWROTE	0x00000010	/* Ex overwrite: see comment above. */
-#define	SC_SCR_REFORMAT	0x00000020	/* Reformat (refresh). */
-#define	SC_SCR_REDRAW	0x00000040	/* Refresh. */
+#define SC_SCR_EX	0x00000004	/* Screen is in ex mode. */
+#define SC_SCR_VI	0x00000008	/* Screen is in vi mode. */
+#define SC_SCR_EXWROTE	0x00000010	/* Ex overwrite: see comment above. */
+#define SC_SCR_REFORMAT	0x00000020	/* Reformat (refresh). */
+#define SC_SCR_REDRAW	0x00000040	/* Refresh. */
 
-#define	SC_SCR_CENTER	0x00000080	/* Center the line if not visible. */
-#define	SC_SCR_TOP	0x00000100	/* Top the line if not visible. */
+#define SC_SCR_CENTER	0x00000080	/* Center the line if not visible. */
+#define SC_SCR_TOP	0x00000100	/* Top the line if not visible. */
 
 /* Screen/file changes. */
-#define	SC_EXIT		0x00000200	/* Exiting (not forced). */
-#define	SC_EXIT_FORCE	0x00000400	/* Exiting (forced). */
-#define	SC_FSWITCH	0x00000800	/* Switch underlying files. */
-#define	SC_SSWITCH	0x00001000	/* Switch screens. */
+#define SC_EXIT		0x00000200	/* Exiting (not forced). */
+#define SC_EXIT_FORCE	0x00000400	/* Exiting (forced). */
+#define SC_FSWITCH	0x00000800	/* Switch underlying files. */
+#define SC_SSWITCH	0x00001000	/* Switch screens. */
 
-#define	SC_ARGNOFREE	0x00002000	/* Argument list wasn't allocated. */
-#define	SC_ARGRECOVER	0x00004000	/* Argument list is recovery files. */
-#define	SC_AT_SET	0x00008000	/* Last at buffer set. */
-#define	SC_COMEDIT	0x00010000	/* Colon command-line edit window. */
-#define	SC_EX_GLOBAL	0x00020000	/* Ex: executing a global command. */
-#define	SC_EX_SILENT	0x00040000	/* Ex: batch script. */
-#define	SC_EX_WAIT_NO	0x00080000	/* Ex: don't wait for the user. */
-#define	SC_EX_WAIT_YES	0x00100000	/* Ex:    do wait for the user. */
-#define	SC_READONLY	0x00200000	/* Persistent readonly state. */
-#define	SC_RE_SEARCH	0x00400000	/* Search RE has been compiled. */
-#define	SC_RE_SUBST	0x00800000	/* Substitute RE has been compiled. */
-#define	SC_SCRIPT	0x01000000	/* Shell script window. */
-#define	SC_STATUS	0x02000000	/* Welcome message. */
-#define	SC_STATUS_CNT	0x04000000	/* Welcome message plus file count. */
-#define	SC_TINPUT	0x08000000	/* Doing text input. */
-#define	SC_TINPUT_INFO	0x10000000	/* Doing text input on info line. */
+#define SC_ARGNOFREE	0x00002000	/* Argument list wasn't allocated. */
+#define SC_ARGRECOVER	0x00004000	/* Argument list is recovery files. */
+#define SC_AT_SET	0x00008000	/* Last at buffer set. */
+#define SC_COMEDIT	0x00010000	/* Colon command-line edit window. */
+#define SC_EX_GLOBAL	0x00020000	/* Ex: executing a global command. */
+#define SC_EX_SILENT	0x00040000	/* Ex: batch script. */
+#define SC_EX_WAIT_NO	0x00080000	/* Ex: don't wait for the user. */
+#define SC_EX_WAIT_YES	0x00100000	/* Ex:    do wait for the user. */
+#define SC_READONLY	0x00200000	/* Persistent readonly state. */
+#define SC_RE_SEARCH	0x00400000	/* Search RE has been compiled. */
+#define SC_RE_SUBST	0x00800000	/* Substitute RE has been compiled. */
+#define SC_SCRIPT	0x01000000	/* Shell script window. */
+#define SC_STATUS	0x02000000	/* Welcome message. */
+#define SC_STATUS_CNT	0x04000000	/* Welcome message plus file count. */
+#define SC_TINPUT	0x08000000	/* Doing text input. */
+#define SC_TINPUT_INFO	0x10000000	/* Doing text input on info line. */
 	u_int32_t flags;
 };

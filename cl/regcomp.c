@@ -62,7 +62,7 @@ struct parse {
 	sopno slen;		/* malloced strip length (used) */
 	int ncsalloc;		/* number of csets allocated */
 	struct re_guts *g;
-#	define	NPAREN	10	/* we need to remember () 1-9 for back refs */
+#define NPAREN	10	/* we need to remember () 1-9 for back refs */
 	sopno pbegin[NPAREN];	/* -> ( ([0] unused) */
 	sopno pend[NPAREN];	/* -> ) ([0] unused) */
 };
@@ -112,33 +112,33 @@ static char nuls[10];		/* place to point scanner in event of error */
  * macros for use with parse structure
  * BEWARE:  these know that the parse structure is named `p' !!!
  */
-#define	PEEK()	(*p->next)
-#define	PEEK2()	(*(p->next+1))
-#define	MORE()	(p->next < p->end)
-#define	MORE2()	(p->next+1 < p->end)
-#define	SEE(c)	(MORE() && PEEK() == (c))
-#define	SEETWO(a, b)	(MORE() && MORE2() && PEEK() == (a) && PEEK2() == (b))
-#define	EAT(c)	((SEE(c)) ? (NEXT(), 1) : 0)
-#define	EATTWO(a, b)	((SEETWO(a, b)) ? (NEXT2(), 1) : 0)
-#define	NEXT()	(p->next++)
-#define	NEXT2()	(p->next += 2)
-#define	NEXTn(n)	(p->next += (n))
-#define	GETNEXT()	(*p->next++)
-#define	SETERROR(e)	seterr(p, (e))
-#define	REQUIRE(co, e)	(void) ((co) || SETERROR(e))
-#define	EMIT(op, sopnd)	doemit(p, (sop)(op), (size_t)(sopnd))
-#define	INSERT(op, pos)	doinsert(p, (sop)(op), HERE()-(pos)+1, pos)
-#define	AHEAD(pos)		dofwd(p, pos, HERE()-(pos))
-#define	ASTERN(sop, pos)	EMIT(sop, HERE()-pos)
-#define	HERE()		(p->slen)
-#define	THERE()		(p->slen - 1)
-#define	THERETHERE()	(p->slen - 2)
-#define	DROP(n)	(p->slen -= (n))
+#define PEEK()	(*p->next)
+#define PEEK2()	(*(p->next+1))
+#define MORE()	(p->next < p->end)
+#define MORE2()	(p->next+1 < p->end)
+#define SEE(c)	(MORE() && PEEK() == (c))
+#define SEETWO(a, b)	(MORE() && MORE2() && PEEK() == (a) && PEEK2() == (b))
+#define EAT(c)	((SEE(c)) ? (NEXT(), 1) : 0)
+#define EATTWO(a, b)	((SEETWO(a, b)) ? (NEXT2(), 1) : 0)
+#define NEXT()	(p->next++)
+#define NEXT2()	(p->next += 2)
+#define NEXTn(n)	(p->next += (n))
+#define GETNEXT()	(*p->next++)
+#define SETERROR(e)	seterr(p, (e))
+#define REQUIRE(co, e)	(void) ((co) || SETERROR(e))
+#define EMIT(op, sopnd)	doemit(p, (sop)(op), (size_t)(sopnd))
+#define INSERT(op, pos)	doinsert(p, (sop)(op), HERE()-(pos)+1, pos)
+#define AHEAD(pos)		dofwd(p, pos, HERE()-(pos))
+#define ASTERN(sop, pos)	EMIT(sop, HERE()-pos)
+#define HERE()		(p->slen)
+#define THERE()		(p->slen - 1)
+#define THERETHERE()	(p->slen - 2)
+#define DROP(n)	(p->slen -= (n))
 
 #ifndef NDEBUG
 static int never = 0;		/* for use in asserts; shuts lint up */
 #else
-#define	never	0		/* some <assert.h>s have bugs too */
+# define never	0		/* some <assert.h>s have bugs too */
 #endif /* ifndef NDEBUG */
 
 /*
@@ -154,9 +154,9 @@ regcomp(regex_t *preg, const char *pattern, int cflags)
 	size_t len;
 	size_t maxlen;
 #ifdef REDEBUG
-#	define	GOODFLAGS(f)	(f)
+# define GOODFLAGS(f)	(f)
 #else
-#	define	GOODFLAGS(f)	((f)&~REG_DUMP)
+# define GOODFLAGS(f)	((f)&~REG_DUMP)
 #endif /* ifdef REDEBUG */
 
 	cflags = GOODFLAGS(cflags);
@@ -497,7 +497,7 @@ p_simp_re(struct parse *p,
 	sopno pos;
 	int i;
 	sopno subno;
-#	define	BACKSL	(1<<CHAR_BIT)
+#define BACKSL	(1<<CHAR_BIT)
 
 	pos = HERE();		/* repetion op, if any, covers from here */
 
@@ -970,10 +970,10 @@ repeat(struct parse *p,
     int to)			/* to this number of times (maybe INFINITY) */
 {
 	sopno finish = HERE();
-#	define	N	2
-#	define	INF	3
-#	define	REP(f, t)	((f)*8 + (t))
-#	define	MAP(n)	(((n) <= 1) ? (n) : ((n) == INFINITY) ? INF : N)
+#define N	2
+#define INF	3
+#define REP(f, t)	((f)*8 + (t))
+#define MAP(n)	(((n) <= 1) ? (n) : ((n) == INFINITY) ? INF : N)
 	sopno copy;
 
 	if (p->error != 0)	/* head off possible runaway recursion */

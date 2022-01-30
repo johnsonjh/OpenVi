@@ -45,36 +45,36 @@ struct _exf {
 	 * Recovery in general, and these fields specifically, are described
 	 * in recover.c.
 	 */
-#define	RCV_PERIOD	120		/* Sync every two minutes. */
+#define RCV_PERIOD	120		/* Sync every two minutes. */
 	char	*rcv_path;		/* Recover file name. */
 	char	*rcv_mpath;		/* Recover mail file name. */
 	int	 rcv_fd;		/* Locked mail file descriptor. */
 
-#define	F_DEVSET	0x001		/* mdev/minode fields initialized. */
-#define	F_FIRSTMODIFY	0x002		/* File not yet modified. */
-#define	F_MODIFIED	0x004		/* File is currently dirty. */
-#define	F_MULTILOCK	0x008		/* Multiple processes running, lock. */
-#define	F_NOLOG		0x010		/* Logging turned off. */
-#define	F_RCV_NORM	0x020		/* Don't delete recovery files. */
-#define	F_RCV_ON	0x040		/* Recovery is possible. */
-#define	F_UNDO		0x080		/* No change since last undo. */
+#define F_DEVSET	0x001		/* mdev/minode fields initialized. */
+#define F_FIRSTMODIFY	0x002		/* File not yet modified. */
+#define F_MODIFIED	0x004		/* File is currently dirty. */
+#define F_MULTILOCK	0x008		/* Multiple processes running, lock. */
+#define F_NOLOG		0x010		/* Logging turned off. */
+#define F_RCV_NORM	0x020		/* Don't delete recovery files. */
+#define F_RCV_ON	0x040		/* Recovery is possible. */
+#define F_UNDO		0x080		/* No change since last undo. */
 	u_int8_t flags;
 };
 
 /* Flags to db_get(). */
-#define	DBG_FATAL	0x001	/* If DNE, error message. */
-#define	DBG_NOCACHE	0x002	/* Ignore the front-end cache. */
+#define DBG_FATAL	0x001	/* If DNE, error message. */
+#define DBG_NOCACHE	0x002	/* Ignore the front-end cache. */
 
 /* Flags to file_init() and file_write(). */
-#define	FS_ALL		0x001	/* Write the entire file. */
-#define	FS_APPEND	0x002	/* Append to the file. */
-#define	FS_FORCE	0x004	/* Force is set. */
-#define	FS_OPENERR	0x008	/* Open failed, try it again. */
-#define	FS_POSSIBLE	0x010	/* Force could have been set. */
-#define	FS_SETALT	0x020	/* Set alternate file name. */
+#define FS_ALL		0x001	/* Write the entire file. */
+#define FS_APPEND	0x002	/* Append to the file. */
+#define FS_FORCE	0x004	/* Force is set. */
+#define FS_OPENERR	0x008	/* Open failed, try it again. */
+#define FS_POSSIBLE	0x010	/* Force could have been set. */
+#define FS_SETALT	0x020	/* Set alternate file name. */
 
 /* Flags to rcv_sync(). */
-#define	RCV_EMAIL	0x01	/* Send the user email, IFF file modified. */
-#define	RCV_ENDSESSION	0x02	/* End the file session. */
-#define	RCV_PRESERVE	0x04	/* Preserve backup file, IFF file modified. */
-#define	RCV_SNAPSHOT	0x08	/* Snapshot the recovery, and send email. */
+#define RCV_EMAIL	0x01	/* Send the user email, IFF file modified. */
+#define RCV_ENDSESSION	0x02	/* End the file session. */
+#define RCV_PRESERVE	0x04	/* Preserve backup file, IFF file modified. */
+#define RCV_SNAPSHOT	0x08	/* Snapshot the recovery, and send email. */

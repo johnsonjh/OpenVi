@@ -456,7 +456,7 @@ vs_output(SCR *sp, mtype_t mtype, const char *line, int llen)
 			(void)gp->scr_attr(sp, SA_INVERSE, 1);
 
 		/* Display the line, doing character translation. */
-#define	FLUSH {								\
+#define FLUSH {								\
 	*cbp = '\0';							\
 	(void)gp->scr_addstr(sp, cbuf, cbp - cbuf);			\
 	cbp = cbuf;							\
@@ -854,7 +854,7 @@ vs_divider(SCR *sp)
 	GS *gp;
 	size_t len;
 
-#define	DIVIDESTR	"+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+"
+#define DIVIDESTR	"+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+"
 	len =
 	    sizeof(DIVIDESTR) - 1 > sp->cols ? sp->cols : sizeof(DIVIDESTR) - 1;
 	gp = sp->gp;

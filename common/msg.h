@@ -63,5 +63,5 @@ struct _msg {
 };
 
 /* Flags to msgq_status(). */
-#define	MSTAT_SHOWLAST	0x01	/* Show the line number of the last line. */
-#define	MSTAT_TRUNCATE	0x02	/* Truncate the file name if it's too long. */
+#define MSTAT_SHOWLAST	0x01	/* Show the line number of the last line. */
+#define MSTAT_TRUNCATE	0x02	/* Truncate the file name if it's too long. */

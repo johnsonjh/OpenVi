@@ -37,21 +37,21 @@ ex_display(SCR *sp, EXCMD *cmdp)
 	switch (cmdp->argv[0]->bp[0]) {
 	case 'b':
 #undef	ARG
-#define	ARG	"buffers"
+#define ARG	"buffers"
 		if (cmdp->argv[0]->len >= sizeof(ARG) ||
 		    memcmp(cmdp->argv[0]->bp, ARG, cmdp->argv[0]->len))
 			break;
 		return (bdisplay(sp));
 	case 's':
 #undef	ARG
-#define	ARG	"screens"
+#define ARG	"screens"
 		if (cmdp->argv[0]->len >= sizeof(ARG) ||
 		    memcmp(cmdp->argv[0]->bp, ARG, cmdp->argv[0]->len))
 			break;
 		return (ex_sdisplay(sp));
 	case 't':
 #undef	ARG
-#define	ARG	"tags"
+#define ARG	"tags"
 		if (cmdp->argv[0]->len >= sizeof(ARG) ||
 		    memcmp(cmdp->argv[0]->bp, ARG, cmdp->argv[0]->len))
 			break;

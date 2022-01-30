@@ -106,8 +106,8 @@
  * Btree files are named "vi.XXXX" and recovery files are named "recover.XXXX".
  */
 
-#define	VI_FHEADER	"X-vi-recover-file: "
-#define	VI_PHEADER	"X-vi-recover-path: "
+#define VI_FHEADER	"X-vi-recover-file: "
+#define VI_PHEADER	"X-vi-recover-path: "
 
 int rcv_copy(SCR *, int, char *);
 void rcv_email(SCR *, int);
@@ -407,7 +407,7 @@ lerr:		msgq(sp, M_ERR, "Recovery file buffer overrun");
 	 * Format the message.  (Yes, I know it's silly.)
 	 * Requires that the message end in a <newline>.
 	 */
-#define	FMTCOLS	60
+#define FMTCOLS	60
 	for (t1 = buf; len > 0; len -= t2 - t1, t1 = t2) {
 		/* Check for a short length. */
 		if (len <= FMTCOLS) {

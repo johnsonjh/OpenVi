@@ -24,7 +24,7 @@
  * guaranteeing that we can malloc a line.
  */
 struct _mark {
-#define	OOBLNO		0		/* Out-of-band line number. */
+#define OOBLNO		0		/* Out-of-band line number. */
 	recno_t	 lno;			/* Line number. */
 	size_t	 cno;			/* Column number. */
 };
@@ -35,10 +35,10 @@ struct _lmark {
 	size_t	 cno;			/* Column number. */
 	CHAR_T	 name;			/* Mark name. */
 
-#define	MARK_DELETED	0x01		/* Mark was deleted. */
-#define	MARK_USERSET	0x02		/* User set this mark. */
+#define MARK_DELETED	0x01		/* Mark was deleted. */
+#define MARK_USERSET	0x02		/* User set this mark. */
 	u_int8_t flags;
 };
 
-#define	ABSMARK1	'\''		/* Absolute mark name. */
-#define	ABSMARK2	'`'		/* Absolute mark name. */
+#define ABSMARK1	'\''		/* Absolute mark name. */
+#define ABSMARK2	'`'		/* Absolute mark name. */

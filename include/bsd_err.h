@@ -33,9 +33,9 @@
  */
 
 #ifndef _COMPAT_ERR_H_
-#define	_COMPAT_ERR_H_
+# define _COMPAT_ERR_H_
 
-#include <stdarg.h> /* for va_list */
+# include <stdarg.h> /* for va_list */
 
 void	errc(int, int, const char *, ...)
 			__attribute__((__format__ (printf, 3, 4)));

@@ -23,7 +23,7 @@
 #include "../common/common.h"
 #include "vi.h"
 
-#define	INTEXT_CHECK {							\
+#define INTEXT_CHECK {							\
 	if (len == 0 || v_isempty(p, len)) {				\
 		if (!--cnt)						\
 			goto found;					\

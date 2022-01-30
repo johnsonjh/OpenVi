@@ -270,7 +270,7 @@ opts_init(SCR *sp, int *oargs)
 		goto err;						\
 	}								\
 }
-#define	OI(indx, str) {							\
+#define OI(indx, str) {							\
 	(void)strlcpy(b1, (str), sizeof(b1));				\
 	OI_b1(indx);							\
 }

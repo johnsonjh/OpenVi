@@ -43,7 +43,7 @@
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
 
-#define	__MPOOLINTERFACE_PRIVATE
+#define __MPOOLINTERFACE_PRIVATE
 #include <mpool.h>
 
 #undef open

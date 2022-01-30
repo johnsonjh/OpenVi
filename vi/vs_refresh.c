@@ -24,8 +24,8 @@
 #include "../common/common.h"
 #include "vi.h"
 
-#define	UPDATE_CURSOR	0x01			/* Update the cursor. */
-#define	UPDATE_SCREEN	0x02			/* Flush to screen. */
+#define UPDATE_CURSOR	0x01			/* Update the cursor. */
+#define UPDATE_SCREEN	0x02			/* Flush to screen. */
 
 static void	vs_modeline(SCR *);
 static int	vs_paint(SCR *, u_int);
@@ -163,11 +163,11 @@ vs_paint(SCR *sp, u_int flags)
 	int ch = 0, didpaint, isempty, leftright_warp;
 	char *p;
 
-#define	 LNO	sp->lno			/* Current file line. */
-#define	OLNO	vip->olno		/* Remembered file line. */
-#define	 CNO	sp->cno			/* Current file column. */
-#define	OCNO	vip->ocno		/* Remembered file column. */
-#define	SCNO	vip->sc_col		/* Current screen column. */
+#define LNO	sp->lno			/* Current file line. */
+#define OLNO	vip->olno		/* Remembered file line. */
+#define CNO	sp->cno			/* Current file column. */
+#define OCNO	vip->ocno		/* Remembered file column. */
+#define SCNO	vip->sc_col		/* Current screen column. */
 
 	gp = sp->gp;
 	vip = VIP(sp);
@@ -874,7 +874,7 @@ vs_modeline(SCR *sp)
 	 * line as possible, but guaranteeing at least two spaces between the
 	 * ruler and the modified flag.
 	 */
-#define	MODESIZE	9
+#define MODESIZE	9
 	endpoint = cols;
 	if (O_ISSET(sp, O_SHOWMODE)) {
 		if (F_ISSET(sp->ep, F_MODIFIED))

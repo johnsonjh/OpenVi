@@ -57,7 +57,7 @@
 #include <bsd_string.h>
 
 #ifdef DEBUG
-#include <assert.h>
+# include <assert.h>
 #endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
@@ -84,8 +84,8 @@ static BUFHEAD *newbuf(HTAB *, u_int32_t, BUFHEAD *);
 	(B)->next->prev = (B); \
 }
 
-#define	MRU	hashp->bufhead.next
-#define	LRU	hashp->bufhead.prev
+#define MRU	hashp->bufhead.next
+#define LRU	hashp->bufhead.prev
 
 #define MRU_INSERT(B)	BUF_INSERT((B), &hashp->bufhead)
 #define LRU_INSERT(B)	BUF_INSERT((B), LRU)

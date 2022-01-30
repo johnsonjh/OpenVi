@@ -64,8 +64,8 @@
 #undef open
 
 #ifdef DEBUG
-#undef	MINPSIZE
-#define	MINPSIZE	128
+# undef	MINPSIZE
+# define MINPSIZE	128
 #endif /* ifdef DEBUG */
 
 static int byteorder(void);

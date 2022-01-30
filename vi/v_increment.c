@@ -25,15 +25,15 @@
 #include "vi.h"
 
 static char * const fmt[] = {
-#define	DEC	0
+#define DEC	0
 	"%ld",
-#define	SDEC	1
+#define SDEC	1
 	"%+ld",
-#define	HEXC	2
+#define HEXC	2
 	"0X%0*lX",
-#define	HEXL	3
+#define HEXL	3
 	"0x%0*lx",
-#define	OCTAL	4
+#define OCTAL	4
 	"%#0*lo",
 };
 
@@ -94,9 +94,9 @@ v_increment(SCR *sp, VICMD *vp)
 	}
 
 #undef	ishex
-#define	ishex(c)	(isdigit(c) || strchr("abcdefABCDEF", (c)))
+#define ishex(c)	(isdigit(c) || strchr("abcdefABCDEF", (c)))
 #undef	isoctal
-#define	isoctal(c)	(isdigit(c) && (c) != '8' && (c) != '9')
+#define isoctal(c)	(isdigit(c) && (c) != '8' && (c) != '9')
 
 	/*
 	 * Look for 0[Xx], or leading + or - signs, guess at the base.

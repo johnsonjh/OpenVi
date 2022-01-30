@@ -14,7 +14,7 @@
 #include "../include/compat.h"
 
 /* Definition of a vi "word". */
-#define	inword(ch)	(isalnum(ch) || (ch) == '_')
+#define inword(ch)	(isalnum(ch) || (ch) == '_')
 
 typedef struct _vikeys VIKEYS;
 
@@ -27,9 +27,9 @@ typedef struct _vicmd {
 	u_long	count2;			/* Second count (only used by z). */
 	EVENT	ev;			/* Associated event. */
 
-#define	ISCMD(p, key)	((p) == &vikeys[(key)])
+#define ISCMD(p, key)	((p) == &vikeys[(key)])
 	VIKEYS const *kp;		/* Command/Motion VIKEYS entry. */
-#define	ISMOTION(vp)	((vp)->rkp != NULL && F_ISSET((vp)->rkp, V_MOTION))
+#define ISMOTION(vp)	((vp)->rkp != NULL && F_ISSET((vp)->rkp, V_MOTION))
 	VIKEYS const *rkp;		/* Related C/M VIKEYS entry. */
 
 	/*
@@ -53,29 +53,29 @@ typedef struct _vicmd {
 	 * the flags in the VICMD and VIKEYS structures live in the same name
 	 * space.
 	 */
-#define	VM_CMDFAILED	0x00000001	/* Command failed. */
-#define	VM_CUTREQ	0x00000002	/* Always cut into numeric buffers. */
-#define	VM_LDOUBLE	0x00000004	/* Doubled command for line mode. */
-#define	VM_LMODE	0x00000008	/* Motion is line oriented. */
-#define	VM_COMMASK	0x0000000f	/* Mask for VM flags. */
+#define VM_CMDFAILED	0x00000001	/* Command failed. */
+#define VM_CUTREQ	0x00000002	/* Always cut into numeric buffers. */
+#define VM_LDOUBLE	0x00000004	/* Doubled command for line mode. */
+#define VM_LMODE	0x00000008	/* Motion is line oriented. */
+#define VM_COMMASK	0x0000000f	/* Mask for VM flags. */
 
 	/*
 	 * The VM_RCM_* flags are single usage, i.e. if you set one, you have
 	 * to clear the others.
 	 */
-#define	VM_RCM		0x00000010	/* Use relative cursor movment (RCM). */
-#define	VM_RCM_SET	0x00000020	/* RCM: set to current position. */
-#define	VM_RCM_SETFNB	0x00000040	/* RCM: set to first non-blank (FNB). */
-#define	VM_RCM_SETLAST	0x00000080	/* RCM: set to last character. */
-#define	VM_RCM_SETNNB	0x00000100	/* RCM: set to next non-blank. */
-#define	VM_RCM_MASK	0x000001f0	/* Mask for RCM flags. */
+#define VM_RCM		0x00000010	/* Use relative cursor movment (RCM). */
+#define VM_RCM_SET	0x00000020	/* RCM: set to current position. */
+#define VM_RCM_SETFNB	0x00000040	/* RCM: set to first non-blank (FNB). */
+#define VM_RCM_SETLAST	0x00000080	/* RCM: set to last character. */
+#define VM_RCM_SETNNB	0x00000100	/* RCM: set to next non-blank. */
+#define VM_RCM_MASK	0x000001f0	/* Mask for RCM flags. */
 
 	/* Flags for the underlying function. */
-#define	VC_BUFFER	0x00000200	/* The buffer was set. */
-#define	VC_C1RESET	0x00000400	/* Reset C1SET flag for dot commands. */
-#define	VC_C1SET	0x00000800	/* Count 1 was set. */
-#define	VC_C2SET	0x00001000	/* Count 2 was set. */
-#define	VC_ISDOT	0x00002000	/* Command was the dot command. */
+#define VC_BUFFER	0x00000200	/* The buffer was set. */
+#define VC_C1RESET	0x00000400	/* Reset C1SET flag for dot commands. */
+#define VC_C1SET	0x00000800	/* Count 1 was set. */
+#define VC_C2SET	0x00001000	/* Count 2 was set. */
+#define VC_ISDOT	0x00002000	/* Command was the dot command. */
 	u_int32_t flags;
 
 	/*
@@ -131,23 +131,23 @@ typedef struct _vicmd {
 /* Vi command table structure. */
 struct _vikeys {			/* Underlying function. */
 	int	 (*func)(SCR *, VICMD *);
-#define	V_ABS		0x00004000	/* Absolute movement, set '' mark. */
-#define	V_ABS_C		0x00008000	/* V_ABS: if the line/column changed. */
-#define	V_ABS_L		0x00010000	/* V_ABS: if the line changed. */
-#define	V_CHAR		0x00020000	/* Character (required, trailing). */
-#define	V_CNT		0x00040000	/* Count (optional, leading). */
-#define	V_DOT		0x00080000	/* On success, sets dot command. */
-#define	V_KEYW		0x00100000	/* Cursor referenced word. */
-#define	V_MOTION	0x00200000	/* Motion (required, trailing). */
-#define	V_MOVE		0x00400000	/* Command defines movement. */
-#define	V_OBUF		0x00800000	/* Buffer (optional, leading). */
-#define	V_RBUF		0x01000000	/* Buffer (required, trailing). */
-#define	V_SECURE	0x02000000	/* Permission denied if O_SECURE set. */
+#define V_ABS		0x00004000	/* Absolute movement, set '' mark. */
+#define V_ABS_C		0x00008000	/* V_ABS: if the line/column changed. */
+#define V_ABS_L		0x00010000	/* V_ABS: if the line changed. */
+#define V_CHAR		0x00020000	/* Character (required, trailing). */
+#define V_CNT		0x00040000	/* Count (optional, leading). */
+#define V_DOT		0x00080000	/* On success, sets dot command. */
+#define V_KEYW		0x00100000	/* Cursor referenced word. */
+#define V_MOTION	0x00200000	/* Motion (required, trailing). */
+#define V_MOVE		0x00400000	/* Command defines movement. */
+#define V_OBUF		0x00800000	/* Buffer (optional, leading). */
+#define V_RBUF		0x01000000	/* Buffer (required, trailing). */
+#define V_SECURE	0x02000000	/* Permission denied if O_SECURE set. */
 	u_int32_t flags;
 	char	*usage;			/* Usage line. */
 	char	*help;			/* Help line. */
 };
-#define	MAXVIKEY	126		/* List of vi commands. */
+#define MAXVIKEY	126		/* List of vi commands. */
 extern VIKEYS const vikeys[MAXVIKEY + 1];
 extern VIKEYS const tmotion;		/* XXX Hacked ~ command. */
 
@@ -158,10 +158,10 @@ typedef struct _vcs {
 	CHAR_T	*cs_bp;			/* Buffer. */
 	size_t	 cs_len;		/* Length. */
 	CHAR_T	 cs_ch;			/* Character. */
-#define	CS_EMP	1			/* Empty line. */
-#define	CS_EOF	2			/* End-of-file. */
-#define	CS_EOL	3			/* End-of-line. */
-#define	CS_SOF	4			/* Start-of-file. */
+#define CS_EMP	1			/* Empty line. */
+#define CS_EOF	2			/* End-of-file. */
+#define CS_EOL	3			/* End-of-line. */
+#define CS_SOF	4			/* Start-of-file. */
 	int	 cs_flags;		/* Return flags. */
 } VCS;
 
@@ -213,8 +213,8 @@ typedef struct _smap {
 	u_int8_t c_ecsize;	/* 1-N: size of the last character. */
 } SMAP;
 				/* Macros to flush/test cached information. */
-#define	SMAP_CACHE(smp)		((smp)->c_ecsize != 0)
-#define	SMAP_FLUSH(smp)		((smp)->c_ecsize = 0)
+#define SMAP_CACHE(smp)		((smp)->c_ecsize != 0)
+#define SMAP_FLUSH(smp)		((smp)->c_ecsize = 0)
 
 				/* Character search information. */
 typedef enum { CNOTSET, FSEARCH, fSEARCH, TSEARCH, tSEARCH } cdir_t;
@@ -279,7 +279,7 @@ typedef struct _vi_private {
 	size_t	sv_t_maxrows;	/* tcmd: saved t_maxrows. */
 	size_t	sv_t_minrows;	/* tcmd: saved t_minrows. */
 	size_t	sv_t_rows;	/* tcmd: saved t_rows. */
-#define	SIZE_HMAP(sp)	(VIP(sp)->srows + 1)
+#define SIZE_HMAP(sp)	(VIP(sp)->srows + 1)
 
 	/*
 	 * Macros to get to the head/tail of the smap.  If the screen only has
@@ -288,14 +288,14 @@ typedef struct _vi_private {
 	 * and operating on each entry, use sp->t_rows as the count of slots,
 	 * don't use a loop that compares <= TMAP.
 	 */
-#define	_HMAP(sp)	(VIP(sp)->h_smap)
-#define	HMAP		_HMAP(sp)
-#define	_TMAP(sp)	(VIP(sp)->t_smap)
-#define	TMAP		_TMAP(sp)
+#define _HMAP(sp)	(VIP(sp)->h_smap)
+#define HMAP		_HMAP(sp)
+#define _TMAP(sp)	(VIP(sp)->t_smap)
+#define TMAP		_TMAP(sp)
 
 	recno_t	ss_lno;	/* 1-N: vi_opt_screens cached line number. */
 	size_t	ss_screens;	/* vi_opt_screens cached return value. */
-#define	VI_SCR_CFLUSH(vip)	((vip)->ss_lno = OOBLNO)
+#define VI_SCR_CFLUSH(vip)	((vip)->ss_lno = OOBLNO)
 
 	size_t	srows;		/* 1-N: rows in the terminal/window. */
 	recno_t	olno;		/* 1-N: old cursor file line. */
@@ -303,24 +303,24 @@ typedef struct _vi_private {
 	size_t	sc_col;		/* 0-N: LOGICAL screen column. */
 	SMAP   *sc_smap;	/* SMAP entry where sc_col occurs. */
 
-#define	VIP_CUR_INVALID	0x0001	/* Cursor position is unknown. */
-#define	VIP_DIVIDER	0x0002	/* Divider line was displayed. */
-#define	VIP_N_EX_PAINT	0x0004	/* Clear and repaint when ex finishes. */
-#define	VIP_N_EX_REDRAW	0x0008	/* Schedule SC_SCR_REDRAW when ex finishes. */
-#define	VIP_N_REFRESH	0x0010	/* Repaint (from SMAP) on the next refresh. */
-#define	VIP_N_RENUMBER	0x0020	/* Renumber screen on the next refresh. */
-#define	VIP_RCM_LAST	0x0040	/* Cursor drawn to the last column. */
-#define	VIP_S_MODELINE	0x0080	/* Skip next modeline refresh. */
-#define	VIP_S_REFRESH	0x0100	/* Skip next refresh. */
+#define VIP_CUR_INVALID	0x0001	/* Cursor position is unknown. */
+#define VIP_DIVIDER	0x0002	/* Divider line was displayed. */
+#define VIP_N_EX_PAINT	0x0004	/* Clear and repaint when ex finishes. */
+#define VIP_N_EX_REDRAW	0x0008	/* Schedule SC_SCR_REDRAW when ex finishes. */
+#define VIP_N_REFRESH	0x0010	/* Repaint (from SMAP) on the next refresh. */
+#define VIP_N_RENUMBER	0x0020	/* Renumber screen on the next refresh. */
+#define VIP_RCM_LAST	0x0040	/* Cursor drawn to the last column. */
+#define VIP_S_MODELINE	0x0080	/* Skip next modeline refresh. */
+#define VIP_S_REFRESH	0x0100	/* Skip next refresh. */
 	u_int16_t flags;
 } VI_PRIVATE;
 
 /* Vi private area. */
-#define	VIP(sp)	((VI_PRIVATE *)((sp)->vi_private))
+#define VIP(sp)	((VI_PRIVATE *)((sp)->vi_private))
 
-#define	O_NUMBER_FMT	"%6lu "			/* O_NUMBER format, length. */
-#define	O_NUMBER_LENGTH	7
-#define	SCREEN_COLS(sp)				/* Screen columns. */	\
+#define O_NUMBER_FMT	"%6lu "			/* O_NUMBER format, length. */
+#define O_NUMBER_LENGTH	7
+#define SCREEN_COLS(sp)				/* Screen columns. */	\
 	((O_ISSET((sp), O_NUMBER) ? (sp)->cols - O_NUMBER_LENGTH : (sp)->cols))
 
 /*
@@ -335,12 +335,12 @@ typedef struct _vi_private {
  * Small screen (see vs_refresh.c, section 6a) and one-line screen test.
  * Note, both cannot be true for the same screen.
  */
-#define	IS_SMALL(sp)	((sp)->t_minrows != (sp)->t_maxrows)
-#define	IS_ONELINE(sp)	((sp)->rows == 1)
+#define IS_SMALL(sp)	((sp)->t_minrows != (sp)->t_maxrows)
+#define IS_ONELINE(sp)	((sp)->rows == 1)
 
-#define	HALFTEXT(sp)				/* Half text. */	\
+#define HALFTEXT(sp)				/* Half text. */	\
 	((sp)->t_rows == 1 ? 1 : (sp)->t_rows / 2)
-#define	HALFSCREEN(sp)				/* Half text screen. */	\
+#define HALFSCREEN(sp)				/* Half text screen. */	\
 	((sp)->t_maxrows == 1 ? 1 : (sp)->t_maxrows / 2)
 
 /*
@@ -353,10 +353,10 @@ typedef struct _vi_private {
  * positions when <esc> is entered.  I believe that nvi does tabs correctly,
  * but there are some historical incompatibilities.
  */
-#define	TAB_OFF(c)	COL_OFF((c), O_VAL(sp, O_TABSTOP))
+#define TAB_OFF(c)	COL_OFF((c), O_VAL(sp, O_TABSTOP))
 
 /* If more than one screen being shown. */
-#define	IS_SPLIT(sp)	(TAILQ_NEXT((sp), q) || TAILQ_PREV((sp), _dqh, q))
+#define IS_SPLIT(sp)	(TAILQ_NEXT((sp), q) || TAILQ_PREV((sp), _dqh, q))
 
 /* Screen adjustment operations. */
 typedef enum { A_DECREASE, A_INCREASE, A_SET } adj_t;

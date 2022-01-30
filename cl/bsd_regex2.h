@@ -38,7 +38,7 @@
 /*
  * internals of regex_t
  */
-#define	MAGIC1	((('r'^0200)<<8) | 'e')
+#define MAGIC1	((('r'^0200)<<8) | 'e')
 
 /*
  * The internal representation is a *strip*, a sequence of
@@ -61,34 +61,34 @@
  */
 typedef unsigned long sop;	/* strip operator */
 typedef long sopno;
-#define	OPRMASK	0xf8000000LU
-#define	OPDMASK	0x07ffffffLU
-#define	OPSHIFT	((unsigned)27)
-#define	OP(n)	((n)&OPRMASK)
-#define	OPND(n)	((n)&OPDMASK)
-#define	SOP(op, opnd)	((op)|(opnd))
+#define OPRMASK	0xf8000000LU
+#define OPDMASK	0x07ffffffLU
+#define OPSHIFT	((unsigned)27)
+#define OP(n)	((n)&OPRMASK)
+#define OPND(n)	((n)&OPDMASK)
+#define SOP(op, opnd)	((op)|(opnd))
 /* operators			   meaning	operand			*/
 /*						(back, fwd are offsets)	*/
-#define	OEND	(1LU<<OPSHIFT)	/* endmarker	-			*/
-#define	OCHAR	(2LU<<OPSHIFT)	/* character	unsigned char		*/
-#define	OBOL	(3LU<<OPSHIFT)	/* left anchor	-			*/
-#define	OEOL	(4LU<<OPSHIFT)	/* right anchor	-			*/
-#define	OANY	(5LU<<OPSHIFT)	/* .		-			*/
-#define	OANYOF	(6LU<<OPSHIFT)	/* [...]	set number		*/
-#define	OBACK_	(7LU<<OPSHIFT)	/* begin \d	paren number		*/
-#define	O_BACK	(8LU<<OPSHIFT)	/* end \d	paren number		*/
-#define	OPLUS_	(9LU<<OPSHIFT)	/* + prefix	fwd to suffix		*/
-#define	O_PLUS	(10LU<<OPSHIFT)	/* + suffix	back to prefix		*/
-#define	OQUEST_	(11LU<<OPSHIFT)	/* ? prefix	fwd to suffix		*/
-#define	O_QUEST	(12LU<<OPSHIFT)	/* ? suffix	back to prefix		*/
-#define	OLPAREN	(13LU<<OPSHIFT)	/* (		fwd to )		*/
-#define	ORPAREN	(14LU<<OPSHIFT)	/* )		back to (		*/
-#define	OCH_	(15LU<<OPSHIFT)	/* begin choice	fwd to OOR2		*/
-#define	OOR1	(16LU<<OPSHIFT)	/* | pt. 1	back to OOR1 or OCH_	*/
-#define	OOR2	(17LU<<OPSHIFT)	/* | pt. 2	fwd to OOR2 or O_CH	*/
-#define	O_CH	(18LU<<OPSHIFT)	/* end choice	back to OOR1		*/
-#define	OBOW	(19LU<<OPSHIFT)	/* begin word	-			*/
-#define	OEOW	(20LU<<OPSHIFT)	/* end word	-			*/
+#define OEND	(1LU<<OPSHIFT)	/* endmarker	-			*/
+#define OCHAR	(2LU<<OPSHIFT)	/* character	unsigned char		*/
+#define OBOL	(3LU<<OPSHIFT)	/* left anchor	-			*/
+#define OEOL	(4LU<<OPSHIFT)	/* right anchor	-			*/
+#define OANY	(5LU<<OPSHIFT)	/* .		-			*/
+#define OANYOF	(6LU<<OPSHIFT)	/* [...]	set number		*/
+#define OBACK_	(7LU<<OPSHIFT)	/* begin \d	paren number		*/
+#define O_BACK	(8LU<<OPSHIFT)	/* end \d	paren number		*/
+#define OPLUS_	(9LU<<OPSHIFT)	/* + prefix	fwd to suffix		*/
+#define O_PLUS	(10LU<<OPSHIFT)	/* + suffix	back to prefix		*/
+#define OQUEST_	(11LU<<OPSHIFT)	/* ? prefix	fwd to suffix		*/
+#define O_QUEST	(12LU<<OPSHIFT)	/* ? suffix	back to prefix		*/
+#define OLPAREN	(13LU<<OPSHIFT)	/* (		fwd to )		*/
+#define ORPAREN	(14LU<<OPSHIFT)	/* )		back to (		*/
+#define OCH_	(15LU<<OPSHIFT)	/* begin choice	fwd to OOR2		*/
+#define OOR1	(16LU<<OPSHIFT)	/* | pt. 1	back to OOR1 or OCH_	*/
+#define OOR2	(17LU<<OPSHIFT)	/* | pt. 2	fwd to OOR2 or O_CH	*/
+#define O_CH	(18LU<<OPSHIFT)	/* end choice	back to OOR1		*/
+#define OBOW	(19LU<<OPSHIFT)	/* begin word	-			*/
+#define OEOW	(20LU<<OPSHIFT)	/* end word	-			*/
 
 /*
  * Structure for [] character-set representation.  Character sets are
@@ -110,12 +110,12 @@ typedef struct {
 	char *multis;		/* -> char[smulti]  ab\0cd\0ef\0\0 */
 } cset;
 /* note that CHadd and CHsub are unsafe, and CHIN doesn't yield 0/1 */
-#define	CHadd(cs, c)	((cs)->ptr[(uch)(c)] |= (cs)->mask, (cs)->hash += (c))
-#define	CHsub(cs, c)	((cs)->ptr[(uch)(c)] &= ~(cs)->mask, (cs)->hash -= (c))
-#define	CHIN(cs, c)	((cs)->ptr[(uch)(c)] & (cs)->mask)
-#define	MCadd(p, cs, cp)	mcadd(p, cs, cp)	/* regcomp() internal fns */
-#define	MCsub(p, cs, cp)	mcsub(p, cs, cp)
-#define	MCin(p, cs, cp)	mcin(p, cs, cp)
+#define CHadd(cs, c)	((cs)->ptr[(uch)(c)] |= (cs)->mask, (cs)->hash += (c))
+#define CHsub(cs, c)	((cs)->ptr[(uch)(c)] &= ~(cs)->mask, (cs)->hash -= (c))
+#define CHIN(cs, c)	((cs)->ptr[(uch)(c)] & (cs)->mask)
+#define MCadd(p, cs, cp)	mcadd(p, cs, cp)	/* regcomp() internal fns */
+#define MCsub(p, cs, cp)	mcsub(p, cs, cp)
+#define MCin(p, cs, cp)	mcin(p, cs, cp)
 
 /* stuff for character categories */
 typedef unsigned char cat_t;
@@ -125,7 +125,7 @@ typedef unsigned char cat_t;
  */
 struct re_guts {
 	int magic;
-#		define	MAGIC2	((('R'^0200)<<8)|'E')
+#define MAGIC2	((('R'^0200)<<8)|'E')
 	sop *strip;		/* malloced area for strip */
 	int csetsize;		/* number of bits in a cset vector */
 	int ncsets;		/* number of csets in use */
@@ -136,9 +136,9 @@ struct re_guts {
 	sopno firststate;	/* the initial OEND (normally 0) */
 	sopno laststate;	/* the final OEND */
 	int iflags;		/* internal flags */
-#		define	USEBOL	01	/* used ^ */
-#		define	USEEOL	02	/* used $ */
-#		define	BAD	04	/* something wrong */
+#define USEBOL	01	/* used ^ */
+#define USEEOL	02	/* used $ */
+#define BAD	04	/* something wrong */
 	int nbol;		/* number of ^ used */
 	int neol;		/* number of $ used */
 	int ncategories;	/* how many character categories */
@@ -153,5 +153,5 @@ struct re_guts {
 };
 
 /* misc utilities */
-#define	OUT	(CHAR_MAX+1)	/* a non-character value */
-#define	ISWORD(c)	(isalnum(c) || (c) == '_')
+#define OUT	(CHAR_MAX+1)	/* a non-character value */
+#define ISWORD(c)	(isalnum(c) || (c) == '_')

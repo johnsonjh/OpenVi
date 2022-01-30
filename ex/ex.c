@@ -369,7 +369,7 @@ loop:	ecp = LIST_FIRST(&gp->ecq);
 	 * from vi mode, and displayed lines 2, 3, and 4, so we do a default
 	 * command for each separator.
 	 */
-#define	SINGLE_CHAR_COMMANDS	"\004!#&*<=>@~"
+#define SINGLE_CHAR_COMMANDS	"\004!#&*<=>@~"
 	newscreen = 0;
 	if (ecp->clen != 0 && ecp->cp[0] != '|' && ecp->cp[0] != '\n') {
 		if (strchr(SINGLE_CHAR_COMMANDS, *ecp->cp)) {
