@@ -66,7 +66,7 @@
 #ifdef DEBUG
 #undef	MINPSIZE
 #define	MINPSIZE	128
-#endif
+#endif /* ifdef DEBUG */
 
 static int byteorder(void);
 static int nroot(BTREE *);

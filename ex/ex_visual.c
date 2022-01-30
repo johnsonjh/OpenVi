@@ -75,9 +75,9 @@ ex_visual(SCR *sp, EXCMD *cmdp)
 
 	if (FL_ISSET(cmdp->iflags, E_C_COUNT))
 		len = snprintf(buf, sizeof(buf),
-		     "%luz%c%lu", (ulong)sp->lno, pos, cmdp->count);
+		     "%luz%c%lu", (u_long)sp->lno, pos, cmdp->count);
 	else
-		len = snprintf(buf, sizeof(buf), "%luz%c", (ulong)sp->lno, pos);
+		len = snprintf(buf, sizeof(buf), "%luz%c", (u_long)sp->lno, pos);
 	if (len >= sizeof(buf))
 		len = sizeof(buf) - 1;
 	(void)v_event_push(sp, NULL, buf, len, CH_NOMAP | CH_QUOTED);

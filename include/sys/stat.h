@@ -1,7 +1,9 @@
 #ifndef _COMPAT_SYS_STAT_H_
 #define	_COMPAT_SYS_STAT_H_
 
-#define	S_ISTXT	S_ISVTX /* sticky bit */
+#ifndef S_ISTXT
+# define	S_ISTXT  S_ISVTX	/* sticky bit */
+#endif /* ifndef S_ISTXT */
 
 #ifndef st_atimespec
 # define	st_atimespec		st_atim

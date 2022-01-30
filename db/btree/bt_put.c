@@ -246,7 +246,7 @@ success:
 
 #ifdef STATISTICS
 u_long bt_cache_hit, bt_cache_miss;
-#endif
+#endif /* ifdef STATISTICS */
 
 /*
  * BT_FAST -- Do a quick check for sorted data.
@@ -300,13 +300,13 @@ bt_fast(BTREE *t, const DBT *key, const DBT *data, int *exactp)
 	*exactp = cmp == 0;
 #ifdef STATISTICS
 	++bt_cache_hit;
-#endif
+#endif /* ifdef STATISTICS */
 	return (&t->bt_cur);
 
 miss:
 #ifdef STATISTICS
 	++bt_cache_miss;
-#endif
+#endif /* ifdef STATISTICS */
 	t->bt_order = NOT;
 	mpool_put(t->bt_mp, h, 0);
 	return (NULL);

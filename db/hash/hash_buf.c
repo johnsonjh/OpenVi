@@ -58,7 +58,7 @@
 
 #ifdef DEBUG
 #include <assert.h>
-#endif
+#endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
@@ -125,7 +125,7 @@ __get_buf(HTAB *hashp, u_int32_t addr,
 		segp = hashp->dir[addr >> hashp->SSHIFT];
 #ifdef DEBUG
 		assert(segp != NULL);
-#endif
+#endif /* ifdef DEBUG */
 		bp = PTROF(segp[segment_ndx]);
 		is_disk_mask = ISDISK(segp[segment_ndx]);
 		is_disk = is_disk_mask || !hashp->new_file;
@@ -231,7 +231,7 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
 				segp = hashp->dir[bp->addr >> hashp->SSHIFT];
 #ifdef DEBUG
 				assert(segp != NULL);
-#endif
+#endif /* ifdef DEBUG */
 
 				if (hashp->new_file &&
 				    ((bp->flags & BUF_MOD) ||
@@ -275,7 +275,7 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
 #ifdef DEBUG1
 	(void)fprintf(stderr, "NEWBUF1: %d->ovfl was %d is now %d\n",
 	    bp->addr, (bp->ovfl ? bp->ovfl->addr : 0), 0);
-#endif
+#endif /* ifdef DEBUG1 */
 	bp->ovfl = NULL;
 	if (prev_bp) {
 		/*
@@ -286,7 +286,7 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
 		(void)fprintf(stderr, "NEWBUF2: %d->ovfl was %d is now %d\n",
 		    prev_bp->addr, (prev_bp->ovfl ? prev_bp->ovfl->addr : 0),
 		    (bp ? bp->addr : 0));
-#endif
+#endif /* ifdef DEBUG1 */
 		prev_bp->ovfl = bp;
 		bp->flags = 0;
 	} else

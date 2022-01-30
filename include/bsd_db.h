@@ -96,7 +96,7 @@ typedef enum { DB_BTREE, DB_HASH, DB_RECNO } DBTYPE;
 #define	DB_LOCK		    0x2000	/* Do locking. */
 #define	DB_SHMEM	    0x4000	/* Use shared memory. */
 #define	DB_TXN		    0x8000	/* Do transactions. */
-#endif
+#endif /* if UINT_MAX > 65535 */
 
 /* Access method description structure. */
 typedef struct __db {

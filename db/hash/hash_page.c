@@ -64,7 +64,7 @@
 #include <bsd_unistd.h>
 #ifdef DEBUG
 #include <assert.h>
-#endif
+#endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
@@ -250,7 +250,7 @@ __split_page(HTAB *hashp, u_int32_t obucket, u_int32_t nbucket)
 	(void)fprintf(stderr, "split %d/%d\n",
 	    ((u_int16_t *)np)[0] / 2,
 	    ((u_int16_t *)op)[0] / 2);
-#endif
+#endif /* ifdef DEBUG3 */
 	/* unpin both pages */
 	old_bufp->flags &= ~BUF_PIN;
 	new_bufp->flags &= ~BUF_PIN;
@@ -469,7 +469,7 @@ __add_ovflpage(HTAB *hashp, BUFHEAD *bufp)
 	u_int16_t *sp, ndx, ovfl_num;
 #ifdef DEBUG1
 	int tmp1, tmp2;
-#endif
+#endif /* ifdef DEBUG1 */
 	sp = (u_int16_t *)bufp->page;
 
 	/* Check if we are dynamically determining the fill factor */
@@ -483,14 +483,14 @@ __add_ovflpage(HTAB *hashp, BUFHEAD *bufp)
 #ifdef DEBUG1
 	tmp1 = bufp->addr;
 	tmp2 = bufp->ovfl ? bufp->ovfl->addr : 0;
-#endif
+#endif /* ifdef DEBUG1 */
 	if (!ovfl_num || !(bufp->ovfl = __get_buf(hashp, ovfl_num, bufp, 1)))
 		return (NULL);
 	bufp->ovfl->flags |= BUF_MOD;
 #ifdef DEBUG1
 	(void)fprintf(stderr, "ADDOVFLPAGE: %d->ovfl was %d is now %d\n",
 	    tmp1, tmp2, bufp->ovfl->addr);
-#endif
+#endif /* ifdef DEBUG1 */
 	ndx = sp[0];
 	/*
 	 * Since a pair is allocated on a page only if there's room to add
@@ -504,7 +504,7 @@ __add_ovflpage(HTAB *hashp, BUFHEAD *bufp)
 	sp[0] = ndx + 2;
 #ifdef HASH_STATISTICS
 	hash_overflows++;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 	return (bufp->ovfl);
 }
 
@@ -654,7 +654,7 @@ overflow_page(HTAB *hashp)
 	int bit, first_page, free_bit, free_page, i, in_use_bits, j;
 #ifdef DEBUG2
 	int tmp1, tmp2;
-#endif
+#endif /* ifdef DEBUG2 */
 	splitnum = hashp->OVFL_POINT;
 	max_free = hashp->SPARES[splitnum];
 
@@ -730,7 +730,7 @@ overflow_page(HTAB *hashp)
 		hashp->SPARES[splitnum]++;
 #ifdef DEBUG2
 		free_bit = 2;
-#endif
+#endif /* ifdef DEBUG2 */
 		offset++;
 		if (offset > SPLITMASK) {
 			if (++splitnum >= NCACHED) {
@@ -758,7 +758,7 @@ overflow_page(HTAB *hashp)
 #ifdef DEBUG2
 	(void)fprintf(stderr, "OVERFLOW_PAGE: ADDR: %d BIT: %d PAGE %d\n",
 	    addr, free_bit, free_page);
-#endif
+#endif /* ifdef DEBUG2 */
 	return (addr);
 
 found:
@@ -767,7 +767,7 @@ found:
 #ifdef DEBUG2
 	tmp1 = bit;
 	tmp2 = i;
-#endif
+#endif /* ifdef DEBUG2 */
 	/*
 	 * Bits are addressed starting with 0, but overflow pages are addressed
 	 * beginning at 1. Bit is a bit addressnumber, so we need to increment
@@ -789,7 +789,7 @@ found:
 #ifdef DEBUG2
 	(void)fprintf(stderr, "OVERFLOW_PAGE: ADDR: %d BIT: %d PAGE %d\n",
 	    addr, tmp1, tmp2);
-#endif
+#endif /* ifdef DEBUG2 */
 
 	/* Allocate and return the overflow page */
 	return (addr);
@@ -809,7 +809,7 @@ __free_ovflpage(HTAB *hashp, BUFHEAD *obufp)
 	addr = obufp->addr;
 #ifdef DEBUG1
 	(void)fprintf(stderr, "Freeing %d\n", addr);
-#endif
+#endif /* ifdef DEBUG1 */
 	ndx = (((u_int16_t)addr) >> SPLITSHIFT);
 	bit_address =
 	    (ndx ? hashp->SPARES[ndx - 1] : 0) + (addr & SPLITMASK) - 1;
@@ -828,12 +828,12 @@ __free_ovflpage(HTAB *hashp, BUFHEAD *obufp)
 	 */
 	if (!freep)
 		assert(0);
-#endif
+#endif /* ifdef DEBUG */
 	CLRBIT(freep, free_bit);
 #ifdef DEBUG2
 	(void)fprintf(stderr, "FREE_OVFLPAGE: ADDR: %d BIT: %d PAGE %d\n",
 	    obufp->addr, free_bit, free_page);
-#endif
+#endif /* ifdef DEBUG2 */
 	__reclaim_buf(hashp, obufp);
 }
 
@@ -932,4 +932,4 @@ print_chain(int addr)
 	}
 	(void)fprintf(stderr, "\n");
 }
-#endif
+#endif /* ifdef DEBUG4 */

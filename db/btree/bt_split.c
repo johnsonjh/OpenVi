@@ -55,7 +55,7 @@ static recno_t	 rec_total(PAGE *);
 
 #ifdef STATISTICS
 u_long	bt_rootsplit, bt_split, bt_sortsplit, bt_pfxsaved;
-#endif
+#endif /* ifdef STATISTICS */
 
 /*
  * __BT_SPLIT -- Split the tree.
@@ -188,7 +188,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
 				if (n < nbytes) {
 #ifdef STATISTICS
 					bt_pfxsaved += nbytes - n;
-#endif
+#endif /* ifdef STATISTICS */
 					nbytes = n;
 				} else
 					nksize = 0;
@@ -337,7 +337,7 @@ bt_page(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
 
 #ifdef STATISTICS
 	++bt_split;
-#endif
+#endif /* ifdef STATISTICS */
 	/* Put the new right page for the split into place. */
 	if ((r = __bt_new(t, &npg)) == NULL)
 		return (NULL);
@@ -361,7 +361,7 @@ bt_page(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
 	if (h->nextpg == P_INVALID && *skip == NEXTINDEX(h)) {
 #ifdef STATISTICS
 		++bt_sortsplit;
-#endif
+#endif /* ifdef STATISTICS */
 		h->nextpg = r->pgno;
 		r->lower = BTDATAOFF + sizeof(indx_t);
 		*skip = 0;
@@ -437,7 +437,7 @@ bt_root(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
 #ifdef STATISTICS
 	++bt_split;
 	++bt_rootsplit;
-#endif
+#endif /* ifdef STATISTICS */
 	/* Put the new left and right pages for the split into place. */
 	if ((l = __bt_new(t, &lnpg)) == NULL ||
 	    (r = __bt_new(t, &rnpg)) == NULL)

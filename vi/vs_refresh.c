@@ -856,7 +856,7 @@ vs_modeline(SCR *sp)
 	if (O_ISSET(sp, O_RULER)) {
 		vs_column(sp, &curcol);
 		len = snprintf(buf, sizeof(buf), "%lu,%zu",
-		    (ulong)sp->lno, curcol + 1);
+		    (u_long)sp->lno, curcol + 1);
 
 		midpoint = (cols - ((len + 1) / 2)) / 2;
 		if (curlen < midpoint) {

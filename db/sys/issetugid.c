@@ -1,6 +1,9 @@
 #include <errno.h>
 #include <sys/auxv.h>
 
+#ifdef __FreeBSD__
+# include <unistd.h>
+#else
 int
 issetugid(void)
 {
@@ -16,3 +19,4 @@ issetugid(void)
 
   return rv;
 }
+#endif /* ifdef __FreeBSD__ */

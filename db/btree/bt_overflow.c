@@ -89,7 +89,7 @@ __ovfl_get(BTREE *t, void *p, size_t *ssz, void **buf, size_t *bufsz)
 #ifdef DEBUG
 	if (pg == P_INVALID || sz == 0)
 		abort();
-#endif
+#endif /* ifdef DEBUG */
 	/* Make the buffer bigger as necessary. */
 	if (*bufsz < sz) {
 		tp = realloc(*buf, sz);
@@ -194,7 +194,7 @@ __ovfl_delete(BTREE *t, void *p)
 #ifdef DEBUG
 	if (pg == P_INVALID || sz == 0)
 		abort();
-#endif
+#endif /* ifdef DEBUG */
 	if ((h = mpool_get(t->bt_mp, pg, 0)) == NULL)
 		return (RET_ERROR);
 

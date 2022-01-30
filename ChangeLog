@@ -1,4 +1,5 @@
-OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sat Jan 29 16:00:09 2022
+OpenVi 7.0.7 -> OpenVi 7.0.8-dev (Unreleased): Sun Jan 30 03:38:03 AM UTC 2022
+	+ Add support for building on FreeBSD; tested on FreeBSD/aarch64 13.0-R-p6
 	+ Minor code clean-up
 	+ Drop memmove wrapper macro (for old systems with bcopy but no memmove)
 	+ Add support for building with musl libc

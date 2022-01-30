@@ -35,11 +35,15 @@
 #include <bsd_unistd.h>
 #include <util.h>
 
-#ifdef _AIX
-# include <sys/pty.h>
+#ifndef __FreeBSD__
+# ifdef _AIX
+#  include <sys/pty.h>
+# else
+#  include <pty.h>
+# endif /* ifdef _AIX */
 #else
-# include <pty.h>
-#endif /* ifdef _AIX */
+# include <libutil.h>
+#endif /* ifndef __FreeBSD__ */
 
 #include "../common/common.h"
 #include "../vi/vi.h"

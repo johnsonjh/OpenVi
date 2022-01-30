@@ -61,8 +61,8 @@ int	 __ovfl_put(BTREE *, const DBT *, pgno_t *);
 void	 __bt_dnpage(DB *, pgno_t);
 void	 __bt_dpage(PAGE *);
 void	 __bt_dump(DB *);
-#endif
+#endif /* ifdef DEBUG */
 #ifdef STATISTICS
 void	 __bt_stat(DB *);
-#endif
+#endif /* ifdef STATISTICS */
 __END_HIDDEN_DECLS

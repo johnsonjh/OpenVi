@@ -118,7 +118,7 @@ mpool_new(MPOOL *mp, pgno_t *pgnoaddr, u_int flags)
 	}
 #ifdef STATISTICS
 	++mp->pagenew;
-#endif
+#endif /* ifdef STATISTICS */
 	/*
 	 * Get a BKT from the cache.  Assign a new page number, attach
 	 * it to the head of the hash chain, the tail of the lru chain,
@@ -154,7 +154,7 @@ mpool_delete(MPOOL *mp, void *page)
 		    "mpool_delete: page %d not pinned\n", bp->pgno);
 		abort();
 	}
-#endif
+#endif /* ifdef DEBUG */
 
 	/* Remove from the hash and lru queues. */
 	head = &mp->hqh[HASHKEY(bp->pgno)];
@@ -181,7 +181,7 @@ mpool_get(MPOOL *mp, pgno_t pgno,
 
 #ifdef STATISTICS
 	++mp->pageget;
-#endif
+#endif /* ifdef STATISTICS */
 
 	/* Check for a page that is cached. */
 	if ((bp = mpool_look(mp, pgno)) != NULL) {
@@ -191,7 +191,7 @@ mpool_get(MPOOL *mp, pgno_t pgno,
 			    "mpool_get: page %d already pinned\n", bp->pgno);
 			abort();
 		}
-#endif
+#endif /* ifdef DEBUG */
 		/*
 		 * Move the page to the head of the hash chain and the tail
 		 * of the lru chain.
@@ -237,7 +237,7 @@ mpool_get(MPOOL *mp, pgno_t pgno,
 	}
 #ifdef STATISTICS
 	++mp->pageread;
-#endif
+#endif /* ifdef STATISTICS */
 
 	/* Set the page number, pin the page. */
 	bp->pgno = pgno;
@@ -271,7 +271,7 @@ mpool_put(MPOOL *mp, void *page, u_int flags)
 
 #ifdef STATISTICS
 	++mp->pageput;
-#endif
+#endif /* ifdef STATISTICS */
 	bp = (BKT *)((char *)page - sizeof(BKT));
 #ifdef DEBUG
 	if (!(bp->flags & MPOOL_PINNED)) {
@@ -279,7 +279,7 @@ mpool_put(MPOOL *mp, void *page, u_int flags)
 		    "mpool_put: page %d not pinned\n", bp->pgno);
 		abort();
 	}
-#endif
+#endif /* ifdef DEBUG */
 	bp->flags &= ~MPOOL_PINNED;
 	if (flags & MPOOL_DIRTY)
 		bp->flags |= flags & MPOOL_DIRTY;
@@ -353,7 +353,7 @@ mpool_bkt(MPOOL *mp)
 				return (NULL);
 #ifdef STATISTICS
 			++mp->pageflush;
-#endif
+#endif /* ifdef STATISTICS */
 			/* Remove from the hash and lru queues. */
 			head = &mp->hqh[HASHKEY(bp->pgno)];
 			TAILQ_REMOVE(head, bp, hq);
@@ -364,7 +364,7 @@ mpool_bkt(MPOOL *mp)
 				memset(bp, 0xff, sizeof(BKT) + mp->pagesize);
 				bp->page = spage;
 			}
-#endif
+#endif /* ifdef DEBUG */
 			bp->flags = 0;
 			return (bp);
 		}
@@ -373,7 +373,7 @@ new:	if ((bp = (BKT *)malloc(sizeof(BKT) + mp->pagesize)) == NULL)
 		return (NULL);
 #ifdef STATISTICS
 	++mp->pagealloc;
-#endif
+#endif /* ifdef STATISTICS */
 	memset(bp, 0xff, sizeof(BKT) + mp->pagesize);
 	bp->page = (char *)bp + sizeof(BKT);
 	bp->flags = 0;
@@ -392,7 +392,7 @@ mpool_write(MPOOL *mp, BKT *bp)
 
 #ifdef STATISTICS
 	++mp->pagewrite;
-#endif
+#endif /* ifdef STATISTICS */
 
 	/* Run through the user's filter. */
 	if (mp->pgout)
@@ -431,12 +431,12 @@ mpool_look(MPOOL *mp, pgno_t pgno)
 			((bp->flags & MPOOL_INUSE) == MPOOL_INUSE)) {
 #ifdef STATISTICS
 			++mp->cachehit;
-#endif
+#endif /* ifdef STATISTICS */
 			return (bp);
 		}
 #ifdef STATISTICS
 	++mp->cachemiss;
-#endif
+#endif /* ifdef STATISTICS */
 	return (NULL);
 }
 
@@ -485,4 +485,4 @@ mpool_stat(MPOOL *mp)
 	}
 	(void)fprintf(stderr, "\n");
 }
-#endif
+#endif /* ifdef STATISTICS */

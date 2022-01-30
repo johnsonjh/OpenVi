@@ -48,7 +48,7 @@
 #include <bsd_unistd.h>
 #ifdef DEBUG
 #include <assert.h>
-#endif
+#endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
@@ -77,7 +77,7 @@ static int   init_htab(HTAB *, int);
 #if BYTE_ORDER == LITTLE_ENDIAN
 static void  swap_header(HTAB *);
 static void  swap_header_copy(HASHHDR *, HASHHDR *);
-#endif
+#endif /* if BYTE_ORDER == LITTLE_ENDIAN */
 
 /* Fast arithmetic, relying on powers of 2, */
 #define MOD(x, y)		((x) & ((y) - 1))
@@ -91,7 +91,7 @@ static void  swap_header_copy(HASHHDR *, HASHHDR *);
 
 #ifdef HASH_STATISTICS
 int hash_accesses, hash_collisions, hash_expansions, hash_overflows;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 
 /************************** INTERFACE ROUTINES ***************************/
 /* OPEN/CLOSE */
@@ -144,7 +144,7 @@ __hash_open(const char *file, int flags, int mode,
 		hdrsize = read(hashp->fp, &hashp->hdr, sizeof(HASHHDR));
 #if BYTE_ORDER == LITTLE_ENDIAN
 		swap_header(hashp);
-#endif
+#endif /* if BYTE_ORDER == LITTLE_ENDIAN */
 		if (hdrsize == -1)
 			RETURN_ERROR(errno, error1);
 		if (hdrsize != sizeof(HASHHDR))
@@ -223,10 +223,10 @@ __hash_open(const char *file, int flags, int mode,
 	    "LOW  MASK       ", hashp->LOW_MASK,
 	    "NSEGS	     ", hashp->nsegs,
 	    "NKEYS	     ", hashp->NKEYS);
-#endif
+#endif /* ifdef DEBUG */
 #ifdef HASH_STATISTICS
 	hash_overflows = hash_accesses = hash_collisions = hash_expansions = 0;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 	return (dbp);
 
 error1:
@@ -398,7 +398,7 @@ hdestroy(HTAB *hashp)
 	for (i = 0; i < NCACHED; i++)
 		(void)fprintf(stderr,
 		    "spares[%d] = %d\n", i, hashp->SPARES[i]);
-#endif
+#endif /* ifdef HASH_STATISTICS */
 	/*
 	 * Call on buffer manager to free buffers, and if required,
 	 * write them to disk.
@@ -471,7 +471,7 @@ flush_meta(HTAB *hashp)
 	HASHHDR *whdrp;
 #if BYTE_ORDER == LITTLE_ENDIAN
 	HASHHDR whdr;
-#endif
+#endif /* if BYTE_ORDER == LITTLE_ENDIAN */
 	int fp, i, wsize;
 
 	if (!hashp->save_file)
@@ -485,7 +485,7 @@ flush_meta(HTAB *hashp)
 #if BYTE_ORDER == LITTLE_ENDIAN
 	whdrp = &whdr;
 	swap_header_copy(&hashp->hdr, whdrp);
-#endif
+#endif /* if BYTE_ORDER == LITTLE_ENDIAN */
 	if ((wsize = pwrite(fp, whdrp, sizeof(HASHHDR), 0)) == -1)
 		return (-1);
 	else
@@ -575,7 +575,7 @@ hash_access(HTAB *hashp, ACTION action, DBT *key, DBT *val)
 
 #ifdef HASH_STATISTICS
 	hash_accesses++;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 
 	off = hashp->BSIZE;
 	size = key->size;
@@ -596,7 +596,7 @@ hash_access(HTAB *hashp, ACTION action, DBT *key, DBT *val)
 			off = bp[1];
 #ifdef HASH_STATISTICS
 			hash_collisions++;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 			bp += 2;
 			ndx += 2;
 		} else if (bp[1] == OVFLPAGE) {
@@ -704,7 +704,7 @@ hash_seq(const DB *dbp, DBT *key, DBT *data, u_int32_t flag)
 	}
 #ifdef HASH_STATISTICS
 	hash_accesses++;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 	if ((hashp->cbucket < 0) || (flag == R_FIRST)) {
 		hashp->cbucket = 0;
 		hashp->cndx = 1;
@@ -745,7 +745,7 @@ hash_seq(const DB *dbp, DBT *key, DBT *data, u_int32_t flag)
 #ifdef DEBUG
 		assert(bp);
 		assert(bufp);
-#endif
+#endif /* ifdef DEBUG */
 		while (bp[hashp->cndx + 1] == OVFLPAGE) {
 			bufp = hashp->cpage =
 			    __get_buf(hashp, bp[hashp->cndx], bufp, 0);
@@ -789,7 +789,7 @@ __expand_table(HTAB *hashp)
 
 #ifdef HASH_STATISTICS
 	hash_expansions++;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 	new_bucket = ++hashp->MAX_BUCKET;
 	old_bucket = (hashp->MAX_BUCKET & hashp->LOW_MASK);
 
@@ -959,4 +959,4 @@ swap_header(HTAB *hashp)
 		M_16_SWAP(hdrp->bitmaps[i]);
 	}
 }
-#endif
+#endif /* if BYTE_ORDER == LITTLE_ENDIAN */

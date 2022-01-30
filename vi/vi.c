@@ -731,7 +731,7 @@ v_motion(SCR *sp, VICMD *dm, VICMD *vp, int *mappedp)
 	int tilde_reset, notused;
 #ifdef IMKEY
 	int rval;
-#endif
+#endif /* ifdef IMKEY */
 
 	/*
 	 * If '.' command, use the dot motion, else get the motion command.
@@ -863,7 +863,7 @@ v_motion(SCR *sp, VICMD *dm, VICMD *vp, int *mappedp)
 			imoff(sp);
 		if (rval)
 			return (1);
-#endif
+#endif /* ifndef IMKEY */
 
 		/*
 		 * If the current line is missing, i.e. the file is empty,

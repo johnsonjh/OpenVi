@@ -58,5 +58,5 @@ int	 __split_page(HTAB *, u_int32_t, u_int32_t);
 
 #ifdef HASH_STATISTICS
 extern int hash_accesses, hash_collisions, hash_expansions, hash_overflows;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 __END_HIDDEN_DECLS

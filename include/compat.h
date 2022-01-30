@@ -3,7 +3,9 @@
 
 # define FAIL_INSTEAD_OF_TRYING_FALLBACK
 
-# define __warn_references(x, y)
+# ifndef __warn_references
+#  define __warn_references(x, y)
+# endif /* ifndef __warn_references */
 
 # define __UNUSED __attribute__ (( unused ))
 
@@ -114,8 +116,6 @@ void setprogname(const char *progname);
 /* getbsize.c */
 char *getbsize(int *, long *);
 
-# define strtoq strtoll
-
 /* #define d_namlen d_reclen */
 # if !defined( _DIRENT_HAVE_NAMLEN )
 #  define D_NAMLEN(x) strnlen(( x )->d_name, ( x )->d_reclen)
@@ -123,35 +123,43 @@ char *getbsize(int *, long *);
 #  define D_NAMLEN(x) ( x )->d_namlen
 # endif /* if !defined( _DIRENT_HAVE_NAMLEN ) */
 
-/* for musl, required by xinstall */
 # ifndef S_BLKSIZE
 #  define S_BLKSIZE 512
 # endif /* ifndef S_BLKSIZE */
 
-/**/
 # ifndef MAXNAMLEN
 #  define MAXNAMLEN 255
 # endif /* ifndef MAXNAMLEN */
 
-/* XXX: read dynamically? */
-# define UID_MAX 60000
-# define GID_MAX 60000
+# ifndef UID_MAX
+#  define UID_MAX 60000
+# endif /* ifndef UID_MAX */
+
+# ifndef GID_MAX
+#  define GID_MAX 60000
+# endif /* ifndef GID_MAX */
 
 /* sys/sys/stat.h */
 # ifndef ACCESSPERMS
 # define ACCESSPERMS                                                          \
   ( S_IRWXU | S_IRWXG | S_IRWXO ) /* 00777 */
-# endif
+# endif /* ifndef ACCESSPERMS */
+
 # ifndef ALLPERMS
 # define ALLPERMS                                                             \
   ( S_ISUID | S_ISGID | S_ISTXT | S_IRWXU | S_IRWXG | S_IRWXO ) /* 00666 */
-# endif
+# endif /* ifndef ALLPERMS */
+
 # ifndef DEFFILEMODE
 # define DEFFILEMODE                                                          \
   ( S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH )
-# endif
+# endif /* ifndef DEFFILEMODE */
 
-# define S_ISTXT S_ISVTX
+# ifdef S_ISVTX
+#  ifndef S_ISTXT
+#   define S_ISTXT S_ISVTX
+#  endif /* ifndef S_ISVTX */
+# endif /* ifdef S_ISVTX */
 
 /* lib/libc/include/thread_private.h */
 # define _MUTEX_LOCK(mutex)                                                   \
@@ -169,10 +177,14 @@ char *getbsize(int *, long *);
 # define SHA512_Final SHA512Final
 
 /* sys/socket.h */
-# define RT_TABLEID_MAX 255
+# ifndef RT_TABLEID_MAX 
+#  define RT_TABLEID_MAX 255
+# endif /* ifndef RT_TABLEID_MAX */
 
 /* sys/syslimits.h */
-# define CHILD_MAX 80 /* max simultaneous processes */
+# ifndef CHILD_MAX
+#  define CHILD_MAX 80 /* max simultaneous processes */
+# endif /* ifndef CHILD_MAX */
 
 /* setproctitle.c */
 void setproctitle(const char *, ...);
@@ -182,5 +194,12 @@ struct passwd *pw_dup(const struct passwd *);
 
 int issetugid(void);
 
-# define OPEN_MAX 64 /* max open files per process */
+# ifndef HOST_NAME_MAX
+#  define HOST_NAME_MAX 255
+# endif /* ifndef HOST_NAME_MAX */
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 64 /* max open files per process */
+# endif /* ifndef OPEN_MAX */
+
 #endif /* ifndef _COMPAT_H_ */

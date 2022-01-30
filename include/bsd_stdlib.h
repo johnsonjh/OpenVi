@@ -41,6 +41,7 @@
 extern char *__progname;
 const char	*bsd_getprogname(void);
 char	*getbsize(int *, long *);
+#ifndef __FreeBSD__
 char	*cgetcap(char *, const char *, int);
 int	 cgetclose(void);
 int	 cgetent(char **, char **, const char *);
@@ -52,6 +53,7 @@ int	 cgetset(const char *);
 int	 cgetusedb(int);
 int	 cgetstr(char *, const char *, char **);
 int	 cgetustr(char *, const char *, char **);
+#endif /* ifndef __FreeBSD__ */
 
 uint32_t arc4random(void);
 uint32_t arc4random_uniform(uint32_t);

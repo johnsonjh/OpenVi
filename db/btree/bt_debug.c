@@ -227,7 +227,7 @@ __bt_dpage(PAGE *h)
 		(void)fprintf(stderr, "\n");
 	}
 }
-#endif
+#endif /* ifdef DEBUG */
 
 #ifdef STATISTICS
 /*
@@ -309,4 +309,4 @@ __bt_stat(DB *dbp)
 		(void)fprintf(stderr, "prefix checking removed %lu bytes.\n",
 		    bt_pfxsaved);
 }
-#endif
+#endif /* ifdef DEBUG */

@@ -127,7 +127,7 @@ vs_line(SCR *sp, SMAP *smp, size_t *yp, size_t *xp)
 			cols_per_screen -= O_NUMBER_LENGTH;
 			if ((!dne || smp->lno == 1) && skip_cols == 0) {
 				nlen = snprintf(cbuf, sizeof(cbuf),
-				    O_NUMBER_FMT, (ulong)smp->lno);
+				    O_NUMBER_FMT, (u_long)smp->lno);
 				if (nlen >= sizeof(cbuf))
 					nlen = sizeof(cbuf) - 1;
 				(void)gp->scr_addstr(sp, cbuf, nlen);
@@ -501,7 +501,7 @@ vs_number(SCR *sp)
 			break;
 
 		(void)gp->scr_move(sp, smp - HMAP, 0);
-		len = snprintf(nbuf, sizeof(nbuf), O_NUMBER_FMT, (ulong)smp->lno);
+		len = snprintf(nbuf, sizeof(nbuf), O_NUMBER_FMT, (u_long)smp->lno);
 		if (len >= sizeof(nbuf))
 			len = sizeof(nbuf) - 1;
 		(void)gp->scr_addstr(sp, nbuf, len);

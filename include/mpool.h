@@ -84,7 +84,7 @@ typedef struct MPOOL {
 	unsigned long	pageput;
 	unsigned long	pageread;
 	unsigned long	pagewrite;
-#endif
+#endif /* ifdef STATISTICS */
 } MPOOL;
 
 #define	MPOOL_IGNOREPIN	0x01		/* Ignore if the page is pinned. */
@@ -116,7 +116,7 @@ PROTO_NORMAL(mpool_close);
 #ifdef STATISTICS
 void	 mpool_stat(MPOOL *);
 PROTO_NORMAL(mpool_stat);
-#endif
+#endif /* ifdef STATISTICS */
 __END_HIDDEN_DECLS
 
-#endif
+#endif /* ifndef _MPOOL_H_ */

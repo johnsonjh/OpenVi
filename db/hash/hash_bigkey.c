@@ -59,7 +59,7 @@
 
 #ifdef DEBUG
 #include <assert.h>
-#endif
+#endif /* ifdef DEBUG */
 
 #include <bsd_db.h>
 #include <compat_bsd_db.h>
@@ -299,7 +299,7 @@ __find_bigpair(HTAB *hashp, BUFHEAD *bufp, int ndx, char *key, int size)
 	if (bytes != ksize || memcmp(p + bp[ndx], kkey, bytes)) {
 #ifdef HASH_STATISTICS
 		++hash_collisions;
-#endif
+#endif /* ifdef HASH_STATISTICS */
 		return (-2);
 	} else
 		return (ndx);
@@ -575,7 +575,7 @@ __big_split(HTAB *hashp,
 	/* Now make one of np/op point to the big key/data pair */
 #ifdef DEBUG
 	assert(np->ovfl == NULL);
-#endif
+#endif /* ifdef DEBUG */
 	if (change)
 		tmpp = np;
 	else
@@ -586,12 +586,12 @@ __big_split(HTAB *hashp,
 	(void)fprintf(stderr,
 	    "BIG_SPLIT: %d->ovfl was %d is now %d\n", tmpp->addr,
 	    (tmpp->ovfl ? tmpp->ovfl->addr : 0), (bp ? bp->addr : 0));
-#endif
+#endif /* ifdef DEBUG1 */
 	tmpp->ovfl = bp;	/* one of op/np point to big_keyp */
 	tp = (u_int16_t *)tmpp->page;
 #ifdef DEBUG
 	assert(FREESPACE(tp) >= OVFLSIZE);
-#endif
+#endif /* ifdef DEBUG */
 	n = tp[0];
 	off = OFFSET(tp);
 	free_space = FREESPACE(tp);
