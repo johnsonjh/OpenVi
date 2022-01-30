@@ -32,10 +32,12 @@
  *	@(#)string.h	5.10 (Berkeley) 3/9/91
  */
 
-#ifndef _COMPAT_STRING_H_
-# define _COMPAT_STRING_H_
+#ifndef __OpenBSD__
 
-# include <sys/types.h>
+# ifndef _COMPAT_STRING_H_
+#  define _COMPAT_STRING_H_
+
+#  include <sys/types.h>
 
 void	 explicit_bzero(void *, size_t);
 size_t	 strlcat(char *, const char *, size_t);
@@ -48,6 +50,8 @@ int	timingsafe_memcmp(const void *, const void *, size_t);
 char *strcasestr(const char *, const char *);
 void *memrchr(const void *, int, size_t);
 
-#endif /* _COMPAT_STRING_H_ */
+# endif /* _COMPAT_STRING_H_ */
+
+#endif /* ifndef __OpenBSD__ */
 
 #include_next <string.h>

@@ -40,8 +40,10 @@
 
 extern char *__progname;
 const char	*bsd_getprogname(void);
+
+# ifndef __OpenBSD__
 char	*getbsize(int *, long *);
-# ifndef __FreeBSD__
+#  ifndef __FreeBSD__
 char	*cgetcap(char *, const char *, int);
 int	 cgetclose(void);
 int	 cgetent(char **, char **, const char *);
@@ -53,7 +55,7 @@ int	 cgetset(const char *);
 int	 cgetusedb(int);
 int	 cgetstr(char *, const char *, char **);
 int	 cgetustr(char *, const char *, char **);
-# endif /* ifndef __FreeBSD__ */
+#  endif /* ifndef __FreeBSD__ */
 
 uint32_t arc4random(void);
 uint32_t arc4random_uniform(uint32_t);
@@ -69,9 +71,9 @@ void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
 int sradixsort(const unsigned char **, int, const unsigned char *, unsigned);
 double strtod(const char *__restrict, char **__restrict);
 long long strtonum(const char *, long long, long long, const char **);
-# ifndef _AIX
+#  ifndef _AIX
 long double strtold(const char *__restrict, char **__restrict);
-# endif /* ifndef _AIX */
+#  endif /* ifndef _AIX */
 long random(void);
 void srandom(unsigned int);
 void srandom_deterministic(unsigned int);
@@ -79,9 +81,11 @@ void srandomdev(void);
 char *initstate(unsigned int, char *, size_t);
 char *setstate(char *);
 
-# define srand_deterministic(x)	srand((x))
+#  define srand_deterministic(x)	srand((x))
 
 int mkostemp(char *, int);
+
+# endif /* ifndef __OpenBSD__ */
 
 #endif /* _COMPAT_STDLIB_H_ */
 

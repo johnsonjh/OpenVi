@@ -22,24 +22,33 @@
 #include <bitstring.h>
 #include <errno.h>
 #include <bsd_fcntl.h>
-#include <stdio.h>		/* XXX: OSF/1 bug: include before <grp.h> */
+#include <stdio.h>
 #include <grp.h>
 #include <limits.h>
 #include <poll.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
-#include <bsd_termios.h>
-#if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
-# include <termio.h>
-#endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
-#include <bsd_unistd.h>
-#include <util.h>
+
+#ifdef __OpenBSD__
+# include <unistd.h>
+# include <termios.h>
+# include <util.h>
+#else
+# include <bsd_termios.h>
+# if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
+#  include <termio.h>
+# endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
+# include <bsd_unistd.h>
+# include <util.h>
+#endif /* ifdef __OpenBSD__ */
 
 #ifndef __FreeBSD__
 # ifdef _AIX
 #  include <sys/pty.h>
 # else
-#  include <pty.h>
+#  ifndef __OpenBSD__
+#   include <pty.h>
+#  endif /* ifndef __OpenBSD__ */
 # endif /* ifdef _AIX */
 #else
 # include <libutil.h>
@@ -49,6 +58,10 @@
 #include "../vi/vi.h"
 #include "script.h"
 #include "pathnames.h"
+
+#ifdef __OpenBSD__
+int openpty(int *, int *, char *, struct termios *, struct winsize *);
+#endif /* ifdef __OpenBSD__ */
 
 static void	sscr_check(SCR *);
 static int	sscr_getprompt(SCR *);

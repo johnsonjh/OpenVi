@@ -32,9 +32,12 @@
  */
 
 #include <errno.h>
-#include <sys/auxv.h>
-
-#ifdef __FreeBSD__
+#if defined(__GLIBC__) && defined(__GLIBC_MINOR__)
+# include <sys/auxv.h>
+#else
+# include <unistd.h>
+#endif /* if defined(__GLIBC__) && defined(__GLIBC_MINOR__) */
+#if defined(__FreeBSD__) || defined(__OpenBSD__)
 # include <unistd.h>
 #else
 int
@@ -52,4 +55,4 @@ issetugid(void)
 
   return rv;
 }
-#endif /* ifdef __FreeBSD__ */
+#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__) */

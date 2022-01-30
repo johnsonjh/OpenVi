@@ -32,10 +32,12 @@
  *	@(#)err.h	8.1 (Berkeley) 6/2/93
  */
 
-#ifndef _COMPAT_ERR_H_
-# define _COMPAT_ERR_H_
+#ifndef __OpenBSD__
 
-# include <stdarg.h> /* for va_list */
+# ifndef _COMPAT_ERR_H_
+#  define _COMPAT_ERR_H_
+
+#  include <stdarg.h> /* for va_list */
 
 void	errc(int, int, const char *, ...)
 			__attribute__((__format__ (printf, 3, 4)));
@@ -46,6 +48,8 @@ void		warnc(int, const char *, ...)
 			__attribute__((__format__ (printf, 2, 3)));
 void		vwarnc(int, const char *, va_list)
 			__attribute__((__format__ (printf, 2, 0)));
-#endif /* !_COMPAT_ERR_H_ */
+# endif /* !_COMPAT_ERR_H_ */
+
+#endif /* ifndef __OpenBSD__ */
 
 #include_next <err.h>
