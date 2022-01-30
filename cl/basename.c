@@ -19,7 +19,10 @@
 #include <errno.h>
 #include <libgen.h>
 #include <limits.h>
+#include <bsd_stdlib.h>
 #include <bsd_string.h>
+
+#undef open
 
 char *
 basename(const char *path)

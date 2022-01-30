@@ -32,15 +32,17 @@
  *	@(#)string.h	5.10 (Berkeley) 3/9/91
  */
 
-#ifndef __OpenBSD__
 
 # ifndef _COMPAT_STRING_H_
 #  define _COMPAT_STRING_H_
 
+size_t	 openbsd_strlcpy(char *, const char *, size_t);
+
+#ifndef __OpenBSD__
+
 #  include <sys/types.h>
 
 void	 explicit_bzero(void *, size_t);
-size_t	 openbsd_strlcpy(char *, const char *, size_t);
 void	 strmode(int, char *);
 
 int	timingsafe_bcmp(const void *, const void *, size_t);
@@ -49,8 +51,8 @@ int	timingsafe_memcmp(const void *, const void *, size_t);
 char *strcasestr(const char *, const char *);
 void *memrchr(const void *, int, size_t);
 
-# endif /* _COMPAT_STRING_H_ */
-
 #endif /* ifndef __OpenBSD__ */
+
+# endif /* _COMPAT_STRING_H_ */
 
 #include_next <string.h>
