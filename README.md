@@ -126,15 +126,6 @@ User contributions to enhance platform support are welcomed.
   - *Mark Horton* added macros and other features, and made the editor work
     on a large number of terminals and UNIX systems.
 
-## Alternatives
-
-- [Elvis](http://elvis.the-little-red-haired-girl.org)
-  - [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex)
-- [Stevie](https://timthompson.com/tjt/stevie/)
-  - [Xvi](http://martinwguy.github.io/xvi/) 
-- [Levee](http://www.pell.portland.or.us/~orc/Code/levee/)
-- [S](https://github.com/udo-munk/s)
-
 ## See Also
 
 - [Nvi2](https://github.com/lichray/nvi2) is the currently maintained

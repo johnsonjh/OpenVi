@@ -1,5 +1,8 @@
+OpenVi 7.0.8 -> OpenVi 7.0.9-dev (Unreleased): Mon Jan 31 10:40:01 2022
+	+ Update `README.md`
+
 OpenVi 7.0.7 -> OpenVi 7.0.8: Mon Jan 31 10:12:53 2022
-	+ Rework README.md
+	+ Rework `README.md`
 	+ Drop `-pipe` and `-fomit-frame-pointer` defaults for wider compatibility
 	+ Add support for building on macOS; tested on 12.1/x86_64 (21C5021h)
 	+ Add support for building on OpenBSD; tested on 7.0-current/ARM64
