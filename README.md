@@ -40,10 +40,11 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 
 - The following operating systems are fully supported and regularly tested
   using ix86/AMD64, ARM/AArch64, m68k, MIPS, POWER, and RISC-V processors:
-  - Linux (*glibc* and *musl*)
-  - FreeBSD
-  - OpenBSD
-  - Darwin / macOS / MacOS X (*PowerPC*, *Intel*, *ARM64*)
+  - **Linux** (*glibc* and *musl*)
+  - **FreeBSD**
+  - **OpenBSD**
+  - **Darwin** / **macOS** / **MacOS X** (*PowerPC*, *Intel*, *ARM64*)
+  - *Microsoft* **Windows** (*WSL2*)
 
 - The following compilers are fully supported and regularly tested:
   - **Clang** V6+
@@ -60,12 +61,13 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
   - **Haiku** Walter
   - *Oracle* **Solaris** 10/11+
   - *illumos* **OpenIndiana** Hipster
+  - *Microsoft* **Windows** (*Cygwin*, *MSYS2*)
 
 - The following platforms are not currently supported, and **no support is planned**.
   - **AmigaOS**/**AROS**
   - **TOS**/**EmuTOS**
-  - *VSI*/*HP*/*Compaq*/*DEC* **OpenVMS* 8/9+
-  - *Microsoft* **Windows** (*MSVC*, *UWP*/*UCRT*)
+  - *VSI*/*HP*/*Compaq*/*DEC* **OpenVMS** 8/9+
+  - *Microsoft* **Windows** (*MinGW*, *MSVC*, *UCRT*)
 
 User contributions to enhance platform support are welcomed.
 
