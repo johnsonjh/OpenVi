@@ -163,6 +163,11 @@ date.
 
 ## Acknowledgements
 
+- *rqsd* of *Libera.Chat* for the idea that inspired the project and testing.
+- [S. V. Nickolas](https://github.com/buricco),
+  [Jason Stevens](https://virtuallyfun.com), and the
+  [Virtually Fun](https://discord.gg/HMwevcN) *Discord* community, for support
+  and feedback.
 - From the original `vi` acknowledgements by *Bill Joy* and *Mark Horton*:
   - *Bruce Englar* encouraged the early development of this display editor.
   - *Peter Kessler* helped bring sanity to version 2's command layout.
@@ -177,7 +182,7 @@ date.
   [Stevie](https://timthompson.com/tjt/stevie/)
 - [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
   cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org)
-- [Andy's Vim](sources.vsta.org:7100/vim57/tree), a simplified fork of
+- [Andy's Vim](http://sources.vsta.org:7100/vim57/tree), a simplified fork of
   [Vim](https://www.vim.org).
 
 ## See Also
