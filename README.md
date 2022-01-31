@@ -138,13 +138,17 @@ User contributions to enhance platform support are welcomed.
 The **OpenVi** version number is based on the version of the corresponding
 *OpenBSD* release, followed by the **OpenVi** release number. The `version`
 command can be used to display this information in the format shown below.
+
 ```text
 Version 7.0.1 (OpenVi) 10/25/2021.
 ```
+
 This message indicates the editor in use is **OpenVi**, release **1**, derived
 from *OpenBSD* version **7.0**, and is fully synchronized with *OpenBSD*'s
-`vi`, `ex`, and `db` code as of **10/25/2021** (*October 25th 2021*).  Changes
-which are **not** derived from *OpenBSD* commits do not advance this date.
+`vi`, `ex`, and `db` code as of **10/25/2021** (*October 25th 2021*).
+
+Changes which are **not** derived from *OpenBSD* commits do not advance this
+date.
 
 ## History
 
