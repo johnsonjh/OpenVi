@@ -179,9 +179,9 @@ date.
 ## Similar Projects
 
 - [Xvi](http://martinwguy.github.io/xvi/), an enhanced fork of
-  [Stevie](https://timthompson.com/tjt/stevie/)
+  [Stevie](https://timthompson.com/tjt/stevie/).
 - [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
-  cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org)
+  cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org).
 - [Andy's Vim](http://sources.vsta.org:7100/vim57/tree), a simplified fork of
   [Vim](https://www.vim.org).
 
