@@ -66,6 +66,7 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 - The following platforms are not currently supported, and **no support is planned**.
   - **AROS** / **AmigaOS** 3/4+
   - **EmuTOS** / **TOS**
+  - **OS/2** (**eComStation**, **ArcaOS**, etc.)
   - *VSI* / *HP* / *Compaq* / *DEC* **OpenVMS** 8/9+
   - *Microsoft* **Windows** (*MinGW*, *MSVC*, *UCRT*)
 
