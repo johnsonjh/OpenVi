@@ -1,5 +1,7 @@
 # OpenVi
 
+---
+
 **OpenVi** — Portable **OpenBSD** `vi`
 
 ---
