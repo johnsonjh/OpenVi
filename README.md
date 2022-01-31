@@ -10,7 +10,7 @@
 **OpenVi** is a fork of the `vi` editor included with **OpenBSD**,
 which is derived from the `nvi` editor originally distributed as
 part of the *Fourth Berkeley Software Distribution* (**4BSD**). The
-`nvi` was editor developed by *Keith Bostic* of the *Computer
+`nvi` editor was developed by *Keith Bostic* of the *Computer
 Systems Research Group* (**CSRG**) at the *University of
 California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 `Nvi` itself was derived from *Steve Kirkendall*'s `elvis` editor.
