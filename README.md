@@ -63,7 +63,7 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
   - **Linux** (*glibc* and *musl*)
   - **FreeBSD**
   - **OpenBSD**
-  - **Darwin** / **macOS** / **MacOS X** (*PowerPC*, *Intel*, *ARM64*)
+  - **Darwin** / **macOS** / **Mac OS X** (*PowerPC*, *Intel*, *ARM64*)
   - *Microsoft* **Windows** (*WSL2*)
 
 - The following compilers are fully supported and regularly tested:
