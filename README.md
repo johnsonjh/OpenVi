@@ -158,7 +158,8 @@ date.
 
 ## License
 
-- See the [LICENSE](/LICENSE) file for important redistribution information.
+- **OpenVi** is distributed under the terms of a **3-clause BSD** license.
+- See the [LICENSE](/LICENSE) file for the full license and distribution terms.
 
 ## Acknowledgements
 
