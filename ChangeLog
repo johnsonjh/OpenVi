@@ -1,4 +1,5 @@
-OpenVi 7.0.8 -> OpenVi 7.0.9-dev (Unreleased): Mon Jan 31 10:40:01 2022
+OpenVi 7.0.8 -> OpenVi 7.0.9: Mon Jan 31 20:49:16 2022
+	+ Add a missing include to fix compilation on Void Linux with musl libc.
 	+ Update `README.md`
 
 OpenVi 7.0.7 -> OpenVi 7.0.8: Mon Jan 31 10:12:53 2022

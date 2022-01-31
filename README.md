@@ -106,6 +106,19 @@ User contributions to enhance platform support are welcomed.
 - [GitHub source repository](https://github.com/johnsonjh/OpenVi)
 - [Latest source release](http://github.com/johnsonjh/OpenVi/releases/latest)
 
+## Versioning
+
+The **OpenVi** version number is based on the version of the corresponding
+*OpenBSD* release, followed by the **OpenVi** release number. The `version`
+command can be used to display this information in the format shown below.
+```text
+Version 7.0.1 (OpenVi) 10/25/2021.
+```
+This message indicates the editor in use is **OpenVi**, release **1**, derived
+from *OpenBSD* version **7.0**, and is fully synchronized with *OpenBSD*'s
+`vi`, `ex`, and `db` code as of **10/25/2021** (*October 25th 2021*).  Changes
+which are **not** derived from *OpenBSD* commits do not advance this date.
+
 ## History
 
 - [ChangeLog](/ChangeLog)
@@ -126,10 +139,19 @@ User contributions to enhance platform support are welcomed.
   - *Mark Horton* added macros and other features, and made the editor work
     on a large number of terminals and UNIX systems.
 
+## Similar Projects
+
+- [Xvi](http://martinwguy.github.io/xvi/), an enhanced fork of
+  [Stevie](https://timthompson.com/tjt/stevie/)
+- [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
+  cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org)
+- [Andy's Vim](sources.vsta.org:7100/vim57/tree), a simplified fork of
+  [Vim](https://www.vim.org).
+
 ## See Also
 
-- [Nvi2](https://github.com/lichray/nvi2) is the currently maintained
-  "*feature-branch*" of the 4BSD version of the `nvi` / `nex` editor,
-  focusing on extensibility and features.
-- [Traditional Vi](https://github.com/n-t-roff/heirloom-ex-vi) is the currently
+- [Traditional vi](https://github.com/n-t-roff/heirloom-ex-vi) is the currently
   maintained version of the original (2BSD) branch of the `vi` / `ex` editor.
+- [Nvi2](https://github.com/lichray/nvi2) is the currently maintained *feature*
+  *branch* of the 4BSD version of the `nvi` / `nex` editor, with a focus on
+  extensibility and new features.
