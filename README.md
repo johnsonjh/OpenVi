@@ -2,6 +2,10 @@
 
 **OpenVi** — Portable **OpenBSD** `vi`
 
+---
+
+## Table of Contents
+
 <!-- toc -->
 
 - [Overview](#overview)
