@@ -21,7 +21,7 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 
 #### Required prerequisites
 
-- **POSIX** environment: Bourne shell (`sh`), Awk (`mawk, `nawk`), etc.
+- **POSIX** environment: Bourne shell (`sh`), Awk (`mawk`, `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
 - **Curses** (*BSD curses*, `ncurses`, `PDCurses`, `PDCursesMod`, etc.)
@@ -46,12 +46,28 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
   - Darwin / macOS / MacOS X (*PowerPC*, *Intel*, *ARM64*)
 
 - The following compilers are fully supported and regularly tested:
-  - **Clang** 6+
-  - **GNU GCC** 7.5+
-  - **IBM XL C/C++ Compiler** 16.1+
-  - **Intel C Compiler Classic** 19.1+
-  - **Intel oneAPI DPC++/C++ Compiler** 2021+
-  - **Oracle Developer Studio** 12.6+
+  - **Clang** V6+
+  - **GNU GCC** V7.5+
+  - **IBM XL C/C++ Compiler** V16.1+
+  - **Intel C Compiler Classic** V19.1+
+  - **Intel oneAPI DPC++/C++ Compiler** V2021+
+  - **Oracle Developer Studio** V12.6+
+
+##### Unsupported platforms
+
+- The following platforms are not currently supported, but **support is planned**.
+  - *IBM* **AIX** 7.2+
+  - **Haiku** Walter
+  - *Oracle* **Solaris** 10/11+
+  - *illumos* **OpenIndiana** Hipster
+
+- The following platforms are not currently supported, and **no support is planned**.
+  - **AmigaOS**/**AROS**
+  - **TOS**/**EmuTOS**
+  - *VSI*/*HP*/*Compaq*/*DEC* **OpenVMS* 8/9+
+  - *Microsoft* **Windows** (*MSVC*, *UWP*/*UCRT*)
+
+User contributions to enhance platform support are welcomed.
 
 ### Compilation
 
@@ -60,15 +76,26 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 - GNU Make's `-j N` flag may be used to parallelize the compilation, where
   `N` is a positive integer representing the number of jobs requested.
 - The following environment variables influence compilation and installation:
-  - `CC` - C compiler to use for the compilation
+  - `CC` - C compiler to use
+     (e.g. `CC=gcc`)
+  - `OPTFLAGS` - Optimization flags
+     (e.g. `OPTFLAGS=-O2`)
   - `CFLAGS` - Flags to pass to the C compiler
+     (e.g. `CFLAGS="-Wall -pipe"`)
   - `LDFLAGS` - Flags to pass to the linker
+     (e.g. `LDFLAGS="-L/lib/path -static"`)
   - `V` - Set to enable verbose compilation output
-  - `DEBUG` - Set to compile a debugging build; also disables optimizations
+     (e.g. `V=1`)
+  - `DEBUG` - Set to compile a debugging build
+     (e.g. `DEBUG=1`)
   - `LGC` - Set to enable link-time garbage collection
+     (e.g. `LGC=1`)
   - `LTO` - Set to enable link-time optimization
-  - `EXTRA\_LIBS` - Extra libraries requested when linking
-  - `PREFIX` - Directory prefix for install and uninstall targets
+     (e.g. `LTO=1`)
+  - `EXTRA\_LIBS` - Extra libraries for linking
+     (e.g. `EXTRA_LIBS=-lmtmalloc`)
+  - `PREFIX` - Directory prefix for use with install and uninstall targets
+     (e.g. `PREFIX=/opt/OpenVi`)
 - The usual targets (`all`, `clean`, `install`, `uninstall`) are available;
   review the `GNUmakefile` to see all the available targets and options.
 
