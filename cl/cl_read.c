@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/time.h>
+#include <sys/ioctl.h>
 
 #include <bitstring.h>
 #include <curses.h>
