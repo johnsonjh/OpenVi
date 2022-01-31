@@ -2,6 +2,26 @@
 
 **OpenVi** — Portable **OpenBSD** `vi`
 
+<!-- toc -->
+
+- [Overview](#overview)
+- [Building](#building)
+  * [Prerequisites](#prerequisites)
+    + [Required prerequisites](#required-prerequisites)
+    + [Optional prerequisites](#optional-prerequisites)
+    + [Supported platforms](#supported-platforms)
+      - [Unsupported platforms](#unsupported-platforms)
+  * [Compilation](#compilation)
+- [Availability](#availability)
+- [Versioning](#versioning)
+- [History](#history)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+- [Similar Projects](#similar-projects)
+- [See Also](#see-also)
+
+<!-- tocstop -->
+
 ## Overview
 
 **OpenVi** is an enhanced and portable implementation of the Berkeley
