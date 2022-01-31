@@ -5,7 +5,7 @@
 ## Overview
 
 **OpenVi** is an enhanced and portable implementation of the Berkeley
-`vi`/`ex` text editor, originally developed by *Bill Joy*.
+`vi` / `ex` text editor, originally developed by *Bill Joy*.
 
 **OpenVi** is a fork of the `vi` editor included with **OpenBSD**,
 which is derived from the `nvi` editor originally distributed as
@@ -21,7 +21,7 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 
 #### Required prerequisites
 
-- **POSIX** environment: Bourne shell (`sh`), Awk (`mawk`, `nawk`), etc.
+- **POSIX** environment: POSIX shell (`sh`) and utilities, Awk (`mawk`, `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
 - **Curses** (*BSD curses*, `ncurses`, `PDCurses`, `PDCursesMod`, etc.)
@@ -48,11 +48,11 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 
 - The following compilers are fully supported and regularly tested:
   - **Clang** V6+
-  - **GNU GCC** V7.5+
-  - **IBM XL C/C++ Compiler** V16.1+
-  - **Intel C Compiler Classic** V19.1+
-  - **Intel oneAPI DPC++/C++ Compiler** V2021+
-  - **Oracle Developer Studio** V12.6+
+  - *GNU* **GCC** V7.5+
+  - *IBM* **XL C/C++ Compiler** V16.1+
+  - *Intel* **C Compiler Classic** V19.1+
+  - *Intel* **oneAPI DPC++/C++ Compiler** V2021+
+  - *Oracle* **Developer Studio** V12.6+
 
 ##### Unsupported platforms
 
@@ -64,9 +64,9 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
   - *Microsoft* **Windows** (*Cygwin*, *MSYS2*)
 
 - The following platforms are not currently supported, and **no support is planned**.
-  - **AmigaOS**/**AROS**
-  - **TOS**/**EmuTOS**
-  - *VSI*/*HP*/*Compaq*/*DEC* **OpenVMS** 8/9+
+  - **AROS** / **AmigaOS** 3/4+
+  - **EmuTOS** / **TOS**
+  - *VSI* / *HP* / *Compaq* / *DEC* **OpenVMS** 8/9+
   - *Microsoft* **Windows** (*MinGW*, *MSVC*, *UCRT*)
 
 User contributions to enhance platform support are welcomed.
@@ -79,25 +79,25 @@ User contributions to enhance platform support are welcomed.
   `N` is a positive integer representing the number of jobs requested.
 - The following environment variables influence compilation and installation:
   - `CC` - C compiler to use
-     (e.g. `CC=gcc`)
+    - (e.g. `CC=gcc`)
   - `OPTFLAGS` - Optimization flags
-     (e.g. `OPTFLAGS=-O2`)
+    - (e.g. `OPTFLAGS=-O2`)
   - `CFLAGS` - Flags to pass to the C compiler
-     (e.g. `CFLAGS="-Wall -pipe"`)
+    - (e.g. `CFLAGS="-Wall -pipe"`)
   - `LDFLAGS` - Flags to pass to the linker
-     (e.g. `LDFLAGS="-L/lib/path -static"`)
+    - (e.g. `LDFLAGS="-L/lib/path -static"`)
   - `V` - Set to enable verbose compilation output
-     (e.g. `V=1`)
+    - (e.g. `V=1`)
   - `DEBUG` - Set to compile a debugging build
-     (e.g. `DEBUG=1`)
+    - (e.g. `DEBUG=1`)
   - `LGC` - Set to enable link-time garbage collection
-     (e.g. `LGC=1`)
+    - (e.g. `LGC=1`)
   - `LTO` - Set to enable link-time optimization
-     (e.g. `LTO=1`)
-  - `EXTRA\_LIBS` - Extra libraries for linking
-     (e.g. `EXTRA_LIBS=-lmtmalloc`)
+    - (e.g. `LTO=1`)
+  - `EXTRA_LIBS` - Extra libraries for linking
+    - (e.g. `EXTRA_LIBS=-lmtmalloc`)
   - `PREFIX` - Directory prefix for use with install and uninstall targets
-     (e.g. `PREFIX=/opt/OpenVi`)
+    - (e.g. `PREFIX=/opt/OpenVi`)
 - The usual targets (`all`, `clean`, `install`, `uninstall`) are available;
   review the `GNUmakefile` to see all the available targets and options.
 
