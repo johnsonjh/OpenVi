@@ -115,3 +115,30 @@ User contributions to enhance platform support are welcomed.
 ## License
 
 - See the [LICENSE](/LICENSE) file for important redistribution information.
+
+## Acknowledgements
+
+- From the original `vi` acknowledgements by *Bill Joy* and *Mark Horton*:
+  - *Bruce Englar* encouraged the early development of this display editor.
+  - *Peter Kessler* helped bring sanity to version 2's command layout.
+  - *Bill Joy* wrote version 1, versions 2.0 through 2.7, and created the
+    framework that users see in the present editor.
+  - *Mark Horton* added macros and other features, and made the editor work
+    on a large number of terminals and UNIX systems.
+
+## Alternatives
+
+- [Elvis](http://elvis.the-little-red-haired-girl.org)
+  - [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex)
+- [Stevie](https://timthompson.com/tjt/stevie/)
+  - [Xvi](http://martinwguy.github.io/xvi/) 
+- [Levee](http://www.pell.portland.or.us/~orc/Code/levee/)
+- [S](https://github.com/udo-munk/s)
+
+## See Also
+
+- [Nvi2](https://github.com/lichray/nvi2) is the currently maintained
+  "*feature-branch*" of the 4BSD version of the `nvi` / `nex` editor,
+  focusing on extensibility and features.
+- [Traditional Vi](https://github.com/n-t-roff/heirloom-ex-vi) is the currently
+  maintained version of the original (2BSD) branch of the `vi` / `ex` editor.
