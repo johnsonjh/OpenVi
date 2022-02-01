@@ -55,6 +55,8 @@ OPTLIST const optlist[] = {
         {"backup",      NULL,           OPT_STR,        0},
 /* O_BEAUTIFY       4BSD */
         {"beautify",    NULL,           OPT_0BOOL,      0},
+/* O_BSERASE      OpenVi */
+        {"bserase",     NULL,           OPT_0BOOL,      0},
 /* O_CDPATH       4.4BSD */
         {"cdpath",      NULL,           OPT_STR,        0},
 /* O_CEDIT        4.4BSD */
@@ -208,6 +210,7 @@ static OABBREV const abbrev[] = {
         {"ap",          O_AUTOPRINT},           /*     4BSD */
         {"aw",          O_AUTOWRITE},           /*     4BSD */
         {"bf",          O_BEAUTIFY},            /*     4BSD */
+        {"bse",         O_BSERASE},             /*   OpenVi */
         {"co",          O_COLUMNS},             /*   4.4BSD */
         {"eb",          O_ERRORBELLS},          /*     4BSD */
         {"ed",          O_EDCOMPATIBLE},        /*     4BSD */

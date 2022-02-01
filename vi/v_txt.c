@@ -1012,7 +1012,7 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
                  * point in the screen.  So, if incrementally searching, erase
                  * the erased characters from the screen.
                  */
-                if (FL_ISSET(is_flags, IS_RUNNING))
+                if (FL_ISSET(is_flags, IS_RUNNING) || O_ISSET(sp, O_BSERASE))
                         tp->lb[tp->cno] = ' ';
 
                 /*

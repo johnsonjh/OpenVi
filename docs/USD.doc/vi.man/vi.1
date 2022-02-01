@@ -2316,6 +2316,10 @@ session.
 Back up files before they are overwritten.
 .It Cm beautify , bf Bq off
 Discard control characters.
+.It Cm bserase , bse Bq off
+.Nm vi
+only.
+Immediately erase backspaced characters from the screen.
 .It Cm cdpath Bq "environment variable CDPATH, or current directory"
 The directory paths used as path prefixes for the
 .Cm cd
@@ -2545,7 +2549,7 @@ Select an alternate erase algorithm.
 .Nm vi
 only.
 Display an error message for every error.
-.It Cm visibletab Bq off
+.It Cm visibletab , vt Bq off
 .Nm vi
 only.
 Displays tabs visibly while editing.

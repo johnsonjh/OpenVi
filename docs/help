@@ -207,24 +207,24 @@ unabbreviate: delete an abbreviation
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 Edit options:
-noaltwerase     filec=""        nomodeline      nosearchincr    timeout
-autoindent      flash           noprint=""      nosecure        nottywerase
-autoprint       hardtabs=0      nonumber        shiftwidth=8    novisibletab
-noautowrite     noiclower       nooctalr        noshowmatch     noverbose
-backup=""       noignorecase    open            noshowmode      warn
-nobeautify      keytime=6       optimize        sidescroll=16   window=35
-cedit=""        noleftright     print=""        noslowopen      nowindowname
-columns=80      lines=36        prompt          nosourceany     wraplen=0
-comment         nolisp          readonly        tabstop=8       wrapmargin=0
-noedcompatible  nolist          noredraw        taglength=0     wrapscan
-escapetime=2    lock            remap           tags="tags"     nowriteany
-noerrorbells    magic           report=5        term="xterm"
-exrc            matchtime=7     ruler           noterse
-noextended      mesg            scroll=17       notildeop
-cdpath="/usr/src/local/nvi:/tmp"
+noaltwerase     noerrorbells    nolist          remap           noterse
+noautoindent    noexpandtab     lock            report=5        notildeop
+autoprint       noexrc          magic           noruler         timeout
+noautowrite     noextended      matchtime=7     scroll=21       nottywerase
+backup=""       filec=" "       mesg            nosearchincr    noverbose
+nobeautify      noflash         noprint=""      nosecure        novisibletab
+nobserase       hardtabs=0      nonumber        shiftwidth=8    warn
+cdpath=":"      noiclower       nooctal         noshowmatch     window=42
+cedit=""        noignorecase    open            noshowmode      nowindowname
+columns=86      noimctrl        path=""         sidescroll=16   wraplen=0
+nocomment       keytime=6       print=""        tabstop=8       wrapmargin=0
+noedcompatible  noleftright     prompt          taglength=0     wrapscan
+escapetime=2    lines=43        noreadonly      tags="tags"     nowriteany
 directory="/tmp"
-paragraphs="IPLPPPQPP LIpplpipbp"
+imkey="/?aioAIO"
+paragraphs="iplpppqpp lipplpipbp"
 recdir="/tmp/vi.recover"
 sections="NHSHH HUnhsh"
-shell="/bin/csh"
+shell="/bin/sh"
 shellmeta="~{[*?$`'"\"
+term="vt100"

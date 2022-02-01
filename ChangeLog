@@ -1,5 +1,7 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Tue Feb 1 04:50:29 2022
-        + Convert tabs to spaces and adjust indentation with `cppi`
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Tue Feb 1 18:24:17 2022
+        + New feature: "set bserase" (abbrev "set bse") which causes
+          backspaced characters to be immediately erased from the screen
+        + Convert tabs to spaces and adjust source indentation with `cppi`
 
 OpenVi 7.0.8 -> OpenVi 7.0.9: Mon Jan 31 21:43:08 2022
         + Add a missing include to fix compilation on Void Linux with musl libc
