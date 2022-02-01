@@ -1,15 +1,15 @@
-#	$OpenBSD: quoting,v 1.3 2001/01/29 01:58:39 niklas Exp $
+#       $OpenBSD: quoting,v 1.3 2001/01/29 01:58:39 niklas Exp $
 
-#	@(#)quoting	5.5 (Berkeley) 11/12/94
+#       @(#)quoting     5.5 (Berkeley) 11/12/94
 
 QUOTING IN EX/VI:
 
 There are four escape characters in historic ex/vi:
 
-	\ (backslashes)
-	^V
-	^Q (assuming it wasn't used for IXON/IXOFF)
-	The terminal literal next character.
+        \ (backslashes)
+        ^V
+        ^Q (assuming it wasn't used for IXON/IXOFF)
+        The terminal literal next character.
 
 Vi did not use the lnext character, it always used ^V (or ^Q).
 ^V and ^Q were equivalent in all cases for vi.
@@ -17,23 +17,23 @@ Vi did not use the lnext character, it always used ^V (or ^Q).
 There are four different areas in ex/vi where escaping characters
 is interesting:
 
-	1: In vi text input mode.
-	2: In vi command mode.
-	3: In ex command and text input modes.
-	4: In the ex commands themselves.
+        1: In vi text input mode.
+        2: In vi command mode.
+        3: In ex command and text input modes.
+        4: In the ex commands themselves.
 
 1: Vi text input mode (a, i, o, :colon commands, etc.):
 
    The set of characters that users might want to escape are as follows.
    As ^L and ^Z were not special in input mode, they are not listed.
 
-	carriage return (^M)
-	escape		(^[)
-	autoindents	(^D, 0, ^, ^T)
-	erase		(^H)
-	word erase	(^W)
-	line erase	(^U)
-	newline		(^J)		(not historic practice)
+        carriage return (^M)
+        escape          (^[)
+        autoindents     (^D, 0, ^, ^T)
+        erase           (^H)
+        word erase      (^W)
+        line erase      (^U)
+        newline         (^J)            (not historic practice)
 
    Historic practice was that ^V was the only way to escape any
    of these characters, and that whatever character followed
@@ -87,17 +87,17 @@ is interesting:
 
    Escaping characters in file names in ex commands:
 
-	:cd [directory]				(directory)
-	:chdir [directory]			(directory)
-	:edit [+cmd] [file]			(file)
-	:ex [+cmd] [file]			(file)
-	:file [file]				(file)
-	:next [file ...]			(file ...)
-	:read [!cmd | file]			(file)
-	:source [file]				(file)
-	:write [!cmd | file]			(file)
-	:wq [file]				(file)
-	:xit [file]				(file)
+        :cd [directory]                         (directory)
+        :chdir [directory]                      (directory)
+        :edit [+cmd] [file]                     (file)
+        :ex [+cmd] [file]                       (file)
+        :file [file]                            (file)
+        :next [file ...]                        (file ...)
+        :read [!cmd | file]                     (file)
+        :source [file]                          (file)
+        :write [!cmd | file]                    (file)
+        :wq [file]                              (file)
+        :xit [file]                             (file)
 
    Since file names are also subject to word expansion, the
    underlying shell had better be doing the correct backslash
@@ -107,14 +107,14 @@ is interesting:
 
 4: Escaping characters in non-file arguments in ex commands:
 
-	:abbreviate word string			(word, string)
-*	:edit [+cmd] [file]			(+cmd)
-*	:ex [+cmd] [file]			(+cmd)
-	:map word string			(word, string)
-*	:set [option ...]			(option)
-*	:tag string				(string)
-	:unabbreviate word			(word)
-	:unmap word				(word)
+        :abbreviate word string                 (word, string)
+*       :edit [+cmd] [file]                     (+cmd)
+*       :ex [+cmd] [file]                       (+cmd)
+        :map word string                        (word, string)
+*       :set [option ...]                       (option)
+*       :tag string                             (string)
+        :unabbreviate word                      (word)
+        :unmap word                             (word)
 
    These commands use whitespace to delimit their arguments, and use
    ^V to escape those characters.  The exceptions are starred in the
@@ -135,25 +135,25 @@ is interesting:
    The edit/ex commands are a special case because | symbols may
    occur in the "+cmd" field, for example:
 
-	:edit +10|s/abc/ABC/ file.c
+        :edit +10|s/abc/ABC/ file.c
 
    In addition, the edit and ex commands have historically
    ignored literal next characters in the +cmd string, so that
    the following command won't work.
 
-	:edit +10|s/X/^V / file.c
+        :edit +10|s/X/^V / file.c
 
    I intend to handle the literal next character in edit/ex consistently
    with how it is handled in other commands.
 
    More fun facts to know and tell:
-	The acid test for the ex/edit commands:
+        The acid test for the ex/edit commands:
 
-		date > file1; date > file2
-		vi
-		:edit +1|s/./XXX/|w file1| e file2|1 | s/./XXX/|wq
+                date > file1; date > file2
+                vi
+                :edit +1|s/./XXX/|w file1| e file2|1 | s/./XXX/|wq
 
-	No version of vi, of which I'm aware, handles it.
+        No version of vi, of which I'm aware, handles it.
 
 4.2: The set command:
 
@@ -161,8 +161,8 @@ is interesting:
    following command won't work.  Backslashes do work in this
    case, though, so the second version of the command does work.
 
-	set tags=tags_file1^V tags_file2
-	set tags=tags_file1\ tags_file2
+        set tags=tags_file1^V tags_file2
+        set tags=tags_file1\ tags_file2
 
    I intend to continue permitting backslashes in set commands,
    but to also permit literal next characters to work as well.
@@ -180,9 +180,9 @@ is interesting:
 
 5: Regular expressions:
 
-	:global /pattern/ command
-	:substitute /pattern/replace/
-	:vglobal /pattern/ command
+        :global /pattern/ command
+        :substitute /pattern/replace/
+        :vglobal /pattern/ command
 
    I intend to treat a backslash in the pattern, followed by the
    delimiter character or a backslash, as that literal character.
@@ -198,7 +198,7 @@ is interesting:
    Within the pattern and replacement, the '|' character did not
    delimit ex commands.  For example, the following is legal.
 
-	:substitute /|/PIPE/|s/P/XXX/
+        :substitute /|/PIPE/|s/P/XXX/
 
    This is a special case that I will support.
 

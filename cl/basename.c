@@ -1,4 +1,4 @@
-/*	$OpenBSD: basename.c,v 1.15 2013/09/30 12:02:32 millert Exp $	*/
+/*      $OpenBSD: basename.c,v 1.15 2013/09/30 12:02:32 millert Exp $   */
 
 /*
  * Copyright (c) 1997, 2004 Todd C. Miller <Todd.Miller@courtesan.com>
@@ -27,40 +27,40 @@
 char *
 basename(const char *path)
 {
-	static char bname[PATH_MAX];
-	size_t len;
-	const char *endp, *startp;
+        static char bname[PATH_MAX];
+        size_t len;
+        const char *endp, *startp;
 
-	/* Empty or NULL string gets treated as "." */
-	if (path == NULL || *path == '\0') {
-		bname[0] = '.';
-		bname[1] = '\0';
-		return (bname);
-	}
+        /* Empty or NULL string gets treated as "." */
+        if (path == NULL || *path == '\0') {
+                bname[0] = '.';
+                bname[1] = '\0';
+                return (bname);
+        }
 
-	/* Strip any trailing slashes */
-	endp = path + strlen(path) - 1;
-	while (endp > path && *endp == '/')
-		endp--;
+        /* Strip any trailing slashes */
+        endp = path + strlen(path) - 1;
+        while (endp > path && *endp == '/')
+                endp--;
 
-	/* All slashes becomes "/" */
-	if (endp == path && *endp == '/') {
-		bname[0] = '/';
-		bname[1] = '\0';
-		return (bname);
-	}
+        /* All slashes becomes "/" */
+        if (endp == path && *endp == '/') {
+                bname[0] = '/';
+                bname[1] = '\0';
+                return (bname);
+        }
 
-	/* Find the start of the base */
-	startp = endp;
-	while (startp > path && *(startp - 1) != '/')
-		startp--;
+        /* Find the start of the base */
+        startp = endp;
+        while (startp > path && *(startp - 1) != '/')
+                startp--;
 
-	len = endp - startp + 1;
-	if (len >= sizeof(bname)) {
-		errno = ENAMETOOLONG;
-		return (NULL);
-	}
-	memcpy(bname, startp, len);
-	bname[len] = '\0';
-	return (bname);
+        len = endp - startp + 1;
+        if (len >= sizeof(bname)) {
+                errno = ENAMETOOLONG;
+                return (NULL);
+        }
+        memcpy(bname, startp, len);
+        bname[len] = '\0';
+        return (bname);
 }

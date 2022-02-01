@@ -1,8 +1,8 @@
-/*	$OpenBSD: hash_func.c,v 1.11 2016/05/29 20:47:49 guenther Exp $	*/
+/*      $OpenBSD: hash_func.c,v 1.11 2016/05/29 20:47:49 guenther Exp $ */
 
 /*-
  * Copyright (c) 1990, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Margo Seltzer.
@@ -43,39 +43,39 @@
 u_int32_t
 __default_hash(const void *key, size_t len)
 {
-	u_int32_t h, loop;
-	u_int8_t *k;
+        u_int32_t h, loop;
+        u_int8_t *k;
 
 #define HASH4a   h = (h << 5) - h + *k++;
 #define HASH4b   h = (h << 5) + h + *k++;
 #define HASH4 HASH4b
 
-	h = 0;
-	k = (u_int8_t *)key;
-	if (len > 0) {
-		loop = (len + 8 - 1) >> 3;
+        h = 0;
+        k = (u_int8_t *)key;
+        if (len > 0) {
+                loop = (len + 8 - 1) >> 3;
 
-		switch (len & (8 - 1)) {
-		case 0:
-			do {	/* All fall throughs */
-				HASH4;
-		case 7:
-				HASH4;
-		case 6:
-				HASH4;
-		case 5:
-				HASH4;
-		case 4:
-				HASH4;
-		case 3:
-				HASH4;
-		case 2:
-				HASH4;
-		case 1:
-				HASH4;
-			} while (--loop);
-		}
+                switch (len & (8 - 1)) {
+                case 0:
+                        do {    /* All fall throughs */
+                                HASH4;
+                case 7:
+                                HASH4;
+                case 6:
+                                HASH4;
+                case 5:
+                                HASH4;
+                case 4:
+                                HASH4;
+                case 3:
+                                HASH4;
+                case 2:
+                                HASH4;
+                case 1:
+                                HASH4;
+                        } while (--loop);
+                }
 
-	}
-	return (h);
+        }
+        return (h);
 }

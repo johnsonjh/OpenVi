@@ -1,16 +1,16 @@
-.\"	$OpenBSD: vi.ref,v 1.14 2016/08/08 15:09:33 sobrado Exp $
+.\"        $OpenBSD: vi.ref,v 1.14 2016/08/08 15:09:33 sobrado Exp $
 .\"
 .\" Copyright (c) 1994
-.\"     The Regents of the University of California.  All rights reserved.
+.\"        The Regents of the University of California.  All rights reserved.
 .\" Copyright (c) 1994, 1995, 1996
-.\"	Keith Bostic.  All rights reserved.
+.\"        Keith Bostic.  All rights reserved.
 .\"
 .\" This document may not be republished without written permission from
 .\" Keith Bostic.
 .\"
 .\" See the LICENSE file for redistribution information.
 .\"
-.\"     @(#)vi.ref	8.88 (Berkeley) 10/19/96
+.\"     @(#)vi.ref        8.88 (Berkeley) 10/19/96
 .\"
 .\"
 .if n \{\

@@ -1,8 +1,8 @@
-/*	$OpenBSD: page.h,v 1.6 2003/06/02 20:18:34 millert Exp $	*/
+/*      $OpenBSD: page.h,v 1.6 2003/06/02 20:18:34 millert Exp $        */
 
 /*-
  * Copyright (c) 1990, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Margo Seltzer.
@@ -31,7 +31,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)page.h	8.2 (Berkeley) 5/31/94
+ *      @(#)page.h      8.2 (Berkeley) 5/31/94
  */
 
 /*
@@ -42,17 +42,17 @@
  * routines dealing with a data page
  *
  * page format:
- *	+------------------------------+
- * p	| n | keyoff | datoff | keyoff |
- * 	+------------+--------+--------+
- *	| datoff | free  |  ptr  | --> |
- *	+--------+---------------------+
- *	|	 F R E E A R E A       |
- *	+--------------+---------------+
- *	|  <---- - - - | data	       |
- *	+--------+-----+----+----------+
- *	|  key   | data     | key      |
- *	+--------+----------+----------+
+ *      +------------------------------+
+ * p    | n | keyoff | datoff | keyoff |
+ *      +------------+--------+--------+
+ *      | datoff | free  |  ptr  | --> |
+ *      +--------+---------------------+
+ *      |        F R E E A R E A       |
+ *      +--------------+---------------+
+ *      |  <---- - - - | data          |
+ *      +--------+-----+----+----------+
+ *      |  key   | data     | key      |
+ *      +--------+----------+----------+
  *
  * Pointer to the free space is always:  p[p[0] + 2]
  * Amount of free space on the page is:  p[p[0] + 1]
@@ -60,8 +60,8 @@
 
 /*
  * How many bytes required for this pair?
- *	2 shorts in the table at the top of the page + room for the
- *	key and room for the data
+ *      2 shorts in the table at the top of the page + room for the
+ *      key and room for the data
  *
  * We prohibit entering a pair on a page unless there is also room to append
  * an overflow page. The reason for this it that you can get in a situation
@@ -71,20 +71,20 @@
  * You might as well do this up front.
  */
 
-#define PAIRSIZE(K,D)	(2*sizeof(u_int16_t) + (K)->size + (D)->size)
-#define BIGOVERHEAD	(4*sizeof(u_int16_t))
-#define KEYSIZE(K)	(4*sizeof(u_int16_t) + (K)->size);
-#define OVFLSIZE	(2*sizeof(u_int16_t))
-#define FREESPACE(P)	((P)[(P)[0]+1])
-#define OFFSET(P)	((P)[(P)[0]+2])
+#define PAIRSIZE(K,D)   (2*sizeof(u_int16_t) + (K)->size + (D)->size)
+#define BIGOVERHEAD     (4*sizeof(u_int16_t))
+#define KEYSIZE(K)      (4*sizeof(u_int16_t) + (K)->size);
+#define OVFLSIZE        (2*sizeof(u_int16_t))
+#define FREESPACE(P)    ((P)[(P)[0]+1])
+#define OFFSET(P)       ((P)[(P)[0]+2])
 #define PAIRFITS(P,K,D) \
-	(((P)[2] >= REAL_KEY) && \
-	    (PAIRSIZE((K),(D)) + OVFLSIZE) <= FREESPACE((P)))
-#define PAGE_META(N)	(((N)+3) * sizeof(u_int16_t))
+        (((P)[2] >= REAL_KEY) && \
+            (PAIRSIZE((K),(D)) + OVFLSIZE) <= FREESPACE((P)))
+#define PAGE_META(N)    (((N)+3) * sizeof(u_int16_t))
 
 typedef struct {
-	BUFHEAD *newp;
-	BUFHEAD *oldp;
-	BUFHEAD *nextp;
-	u_int16_t next_addr;
+        BUFHEAD *newp;
+        BUFHEAD *oldp;
+        BUFHEAD *nextp;
+        u_int16_t next_addr;
 }       SPLIT_RETURN;

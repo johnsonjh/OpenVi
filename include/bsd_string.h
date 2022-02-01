@@ -1,5 +1,5 @@
-/*	$OpenBSD: string.h,v 1.31 2016/09/09 18:12:37 millert Exp $	*/
-/*	$NetBSD: string.h,v 1.6 1994/10/26 00:56:30 cgd Exp $	*/
+/*      $OpenBSD: string.h,v 1.31 2016/09/09 18:12:37 millert Exp $     */
+/*      $NetBSD: string.h,v 1.6 1994/10/26 00:56:30 cgd Exp $   */
 
 /*-
  * Copyright (c) 1990 The Regents of the University of California.
@@ -29,30 +29,30 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)string.h	5.10 (Berkeley) 3/9/91
+ *      @(#)string.h    5.10 (Berkeley) 3/9/91
  */
 
 
-# ifndef _COMPAT_STRING_H_
-#  define _COMPAT_STRING_H_
+#ifndef _COMPAT_STRING_H_
+# define _COMPAT_STRING_H_
 
-size_t	 openbsd_strlcpy(char *, const char *, size_t);
+size_t   openbsd_strlcpy(char *, const char *, size_t);
 
-#ifndef __OpenBSD__
+# ifndef __OpenBSD__
 
 #  include <sys/types.h>
 
-void	 explicit_bzero(void *, size_t);
-void	 strmode(int, char *);
+void     explicit_bzero(void *, size_t);
+void     strmode(int, char *);
 
-int	timingsafe_bcmp(const void *, const void *, size_t);
-int	timingsafe_memcmp(const void *, const void *, size_t);
+int     timingsafe_bcmp(const void *, const void *, size_t);
+int     timingsafe_memcmp(const void *, const void *, size_t);
 
 char *strcasestr(const char *, const char *);
 void *memrchr(const void *, int, size_t);
 
-#endif /* ifndef __OpenBSD__ */
+# endif /* ifndef __OpenBSD__ */
 
-# endif /* _COMPAT_STRING_H_ */
+#endif /* _COMPAT_STRING_H_ */
 
 #include_next <string.h>

@@ -1,14 +1,14 @@
-/*	$OpenBSD: args.h,v 1.5 2016/05/27 09:18:11 martijn Exp $	*/
+/*      $OpenBSD: args.h,v 1.5 2016/05/27 09:18:11 martijn Exp $        */
 
 /*-
  * Copyright (c) 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  *
- *	@(#)args.h	10.2 (Berkeley) 3/6/96
+ *      @(#)args.h      10.2 (Berkeley) 3/6/96
  */
 
 /*
@@ -22,10 +22,10 @@
  * is found.
  */
 typedef struct _args {
-	CHAR_T	*bp;		/* Argument. */
-	size_t	 blen;		/* Buffer length. */
-	size_t	 len;		/* Argument length. */
+        CHAR_T  *bp;            /* Argument. */
+        size_t   blen;          /* Buffer length. */
+        size_t   len;           /* Argument length. */
 
-#define A_ALLOCATED	0x01	/* If allocated space. */
-	u_int8_t flags;
+#define A_ALLOCATED     0x01    /* If allocated space. */
+        u_int8_t flags;
 } ARGS;

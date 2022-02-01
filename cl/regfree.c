@@ -1,8 +1,8 @@
-/*	$OpenBSD: regfree.c,v 1.11 2015/12/28 22:27:03 mmcc Exp $ */
+/*      $OpenBSD: regfree.c,v 1.11 2015/12/28 22:27:03 mmcc Exp $ */
 /*-
  * Copyright (c) 1992, 1993, 1994 Henry Spencer.
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Henry Spencer.
@@ -31,7 +31,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)regfree.c	8.3 (Berkeley) 3/20/94
+ *      @(#)regfree.c   8.3 (Berkeley) 3/20/94
  */
 
 #include <sys/types.h>
@@ -49,20 +49,20 @@
 void
 regfree(regex_t *preg)
 {
-	struct re_guts *g;
+        struct re_guts *g;
 
-	if (preg->re_magic != MAGIC1)	/* oops */
-		return;			/* nice to complain, but hard */
+        if (preg->re_magic != MAGIC1)   /* oops */
+                return;                 /* nice to complain, but hard */
 
-	g = preg->re_g;
-	if (g == NULL || g->magic != MAGIC2)	/* oops again */
-		return;
-	preg->re_magic = 0;		/* mark it invalid */
-	g->magic = 0;			/* mark it invalid */
+        g = preg->re_g;
+        if (g == NULL || g->magic != MAGIC2)    /* oops again */
+                return;
+        preg->re_magic = 0;             /* mark it invalid */
+        g->magic = 0;                   /* mark it invalid */
 
-	free(g->strip);
-	free(g->sets);
-	free(g->setbits);
-	free(g->must);
-	free(g);
+        free(g->strip);
+        free(g->sets);
+        free(g->setbits);
+        free(g->must);
+        free(g);
 }

@@ -1,14 +1,14 @@
-/*	$OpenBSD: seq.h,v 1.5 2016/05/27 09:18:11 martijn Exp $	*/
+/*      $OpenBSD: seq.h,v 1.5 2016/05/27 09:18:11 martijn Exp $ */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  *
- *	@(#)seq.h	10.3 (Berkeley) 3/6/96
+ *      @(#)seq.h       10.3 (Berkeley) 3/6/96
  */
 
 /*
@@ -29,18 +29,18 @@
  * things, though, so it's probably not a big deal.
  */
 struct _seq {
-	LIST_ENTRY(_seq) q;		/* Linked list of all sequences. */
-	seq_t	 stype;			/* Sequence type. */
-	CHAR_T	*name;			/* Sequence name (if any). */
-	size_t	 nlen;			/* Name length. */
-	CHAR_T	*input;			/* Sequence input keys. */
-	size_t	 ilen;			/* Input keys length. */
-	CHAR_T	*output;		/* Sequence output keys. */
-	size_t	 olen;			/* Output keys length. */
+        LIST_ENTRY(_seq) q;             /* Linked list of all sequences. */
+        seq_t    stype;                 /* Sequence type. */
+        CHAR_T  *name;                  /* Sequence name (if any). */
+        size_t   nlen;                  /* Name length. */
+        CHAR_T  *input;                 /* Sequence input keys. */
+        size_t   ilen;                  /* Input keys length. */
+        CHAR_T  *output;                /* Sequence output keys. */
+        size_t   olen;                  /* Output keys length. */
 
-#define SEQ_FUNCMAP	0x01		/* If unresolved function key.*/
-#define SEQ_NOOVERWRITE	0x02		/* Don't replace existing entry. */
-#define SEQ_SCREEN	0x04		/* If screen specific. */
-#define SEQ_USERDEF	0x08		/* If user defined. */
-	u_int8_t flags;
+#define SEQ_FUNCMAP     0x01            /* If unresolved function key.*/
+#define SEQ_NOOVERWRITE 0x02            /* Don't replace existing entry. */
+#define SEQ_SCREEN      0x04            /* If screen specific. */
+#define SEQ_USERDEF     0x08            /* If user defined. */
+        u_int8_t flags;
 };

@@ -1,5 +1,5 @@
-/*	$OpenBSD: stdlib.h,v 1.67 2016/09/20 21:10:22 fcambus Exp $	*/
-/*	$NetBSD: stdlib.h,v 1.25 1995/12/27 21:19:08 jtc Exp $	*/
+/*      $OpenBSD: stdlib.h,v 1.67 2016/09/20 21:10:22 fcambus Exp $     */
+/*      $NetBSD: stdlib.h,v 1.25 1995/12/27 21:19:08 jtc Exp $  */
 
 /*-
  * Copyright (c) 1990 The Regents of the University of California.
@@ -29,7 +29,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)stdlib.h	5.13 (Berkeley) 6/4/91
+ *      @(#)stdlib.h    5.13 (Berkeley) 6/4/91
  */
 
 #ifndef _COMPAT_STDLIB_H_
@@ -39,7 +39,7 @@
 # include <stdint.h>
 
 extern char *__progname;
-const char	*bsd_getprogname(void);
+const char      *bsd_getprogname(void);
 
 uint32_t arc4random(void);
 uint32_t arc4random_uniform(uint32_t);

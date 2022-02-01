@@ -1,10 +1,10 @@
-/*	$OpenBSD: v_ex.c,v 1.13 2016/01/06 22:28:52 millert Exp $	*/
+/*      $OpenBSD: v_ex.c,v 1.13 2016/01/06 22:28:52 millert Exp $       */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -31,634 +31,634 @@ static int v_exec_ex(SCR *, VICMD *, EXCMD *);
 
 /*
  * v_again -- &
- *	Repeat the previous substitution.
+ *      Repeat the previous substitution.
  *
  * PUBLIC: int v_again(SCR *, VICMD *);
  */
 int
 v_again(SCR *sp, VICMD *vp)
 {
-	ARGS *ap[2], a;
-	EXCMD cmd;
+        ARGS *ap[2], a;
+        EXCMD cmd;
 
-	ex_cinit(&cmd, C_SUBAGAIN, 2, vp->m_start.lno, vp->m_start.lno, 1, ap);
-	ex_cadd(&cmd, &a, "", 1);
+        ex_cinit(&cmd, C_SUBAGAIN, 2, vp->m_start.lno, vp->m_start.lno, 1, ap);
+        ex_cadd(&cmd, &a, "", 1);
 
-	return (v_exec_ex(sp, vp, &cmd));
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_exmode -- Q
- *	Switch the editor into EX mode.
+ *      Switch the editor into EX mode.
  *
  * PUBLIC: int v_exmode(SCR *, VICMD *);
  */
 int
 v_exmode(SCR *sp, VICMD *vp)
 {
-	GS *gp;
+        GS *gp;
 
-	gp = sp->gp;
+        gp = sp->gp;
 
-	/* Try and switch screens -- the screen may not permit it. */
-	if (gp->scr_screen(sp, SC_EX)) {
-		msgq(sp, M_ERR,
-		    "The Q command requires the ex terminal interface");
-		return (1);
-	}
-	(void)gp->scr_attr(sp, SA_ALTERNATE, 0);
+        /* Try and switch screens -- the screen may not permit it. */
+        if (gp->scr_screen(sp, SC_EX)) {
+                msgq(sp, M_ERR,
+                    "The Q command requires the ex terminal interface");
+                return (1);
+        }
+        (void)gp->scr_attr(sp, SA_ALTERNATE, 0);
 
-	/* Save the current cursor position. */
-	sp->frp->lno = sp->lno;
-	sp->frp->cno = sp->cno;
-	F_SET(sp->frp, FR_CURSORSET);
+        /* Save the current cursor position. */
+        sp->frp->lno = sp->lno;
+        sp->frp->cno = sp->cno;
+        F_SET(sp->frp, FR_CURSORSET);
 
-	/* Switch to ex mode. */
-	F_CLR(sp, SC_VI | SC_SCR_VI);
-	F_SET(sp, SC_EX);
+        /* Switch to ex mode. */
+        F_CLR(sp, SC_VI | SC_SCR_VI);
+        F_SET(sp, SC_EX);
 
-	/* Move out of the vi screen. */
-	(void)ex_puts(sp, "\n");
+        /* Move out of the vi screen. */
+        (void)ex_puts(sp, "\n");
 
-	return (0);
+        return (0);
 }
 
 /*
  * v_join -- [count]J
- *	Join lines together.
+ *      Join lines together.
  *
  * PUBLIC: int v_join(SCR *, VICMD *);
  */
 int
 v_join(SCR *sp, VICMD *vp)
 {
-	EXCMD cmd;
-	int lno;
+        EXCMD cmd;
+        int lno;
 
-	/*
-	 * YASC.
-	 * The general rule is that '#J' joins # lines, counting the current
-	 * line.  However, 'J' and '1J' are the same as '2J', i.e. join the
-	 * current and next lines.  This doesn't map well into the ex command
-	 * (which takes two line numbers), so we handle it here.  Note that
-	 * we never test for EOF -- historically going past the end of file
-	 * worked just fine.
-	 */
-	lno = vp->m_start.lno + 1;
-	if (F_ISSET(vp, VC_C1SET) && vp->count > 2)
-		lno = vp->m_start.lno + (vp->count - 1);
+        /*
+         * YASC.
+         * The general rule is that '#J' joins # lines, counting the current
+         * line.  However, 'J' and '1J' are the same as '2J', i.e. join the
+         * current and next lines.  This doesn't map well into the ex command
+         * (which takes two line numbers), so we handle it here.  Note that
+         * we never test for EOF -- historically going past the end of file
+         * worked just fine.
+         */
+        lno = vp->m_start.lno + 1;
+        if (F_ISSET(vp, VC_C1SET) && vp->count > 2)
+                lno = vp->m_start.lno + (vp->count - 1);
 
-	ex_cinit(&cmd, C_JOIN, 2, vp->m_start.lno, lno, 0, NULL);
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_JOIN, 2, vp->m_start.lno, lno, 0, NULL);
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_shiftl -- [count]<motion
- *	Shift lines left.
+ *      Shift lines left.
  *
  * PUBLIC: int v_shiftl(SCR *, VICMD *);
  */
 int
 v_shiftl(SCR *sp, VICMD *vp)
 {
-	ARGS *ap[2], a;
-	EXCMD cmd;
+        ARGS *ap[2], a;
+        EXCMD cmd;
 
-	ex_cinit(&cmd, C_SHIFTL, 2, vp->m_start.lno, vp->m_stop.lno, 0, ap);
-	ex_cadd(&cmd, &a, "<", 1);
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_SHIFTL, 2, vp->m_start.lno, vp->m_stop.lno, 0, ap);
+        ex_cadd(&cmd, &a, "<", 1);
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_shiftr -- [count]>motion
- *	Shift lines right.
+ *      Shift lines right.
  *
  * PUBLIC: int v_shiftr(SCR *, VICMD *);
  */
 int
 v_shiftr(SCR *sp, VICMD *vp)
 {
-	ARGS *ap[2], a;
-	EXCMD cmd;
+        ARGS *ap[2], a;
+        EXCMD cmd;
 
-	ex_cinit(&cmd, C_SHIFTR, 2, vp->m_start.lno, vp->m_stop.lno, 0, ap);
-	ex_cadd(&cmd, &a, ">", 1);
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_SHIFTR, 2, vp->m_start.lno, vp->m_stop.lno, 0, ap);
+        ex_cadd(&cmd, &a, ">", 1);
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_suspend -- ^Z
- *	Suspend vi.
+ *      Suspend vi.
  *
  * PUBLIC: int v_suspend(SCR *, VICMD *);
  */
 int
 v_suspend(SCR *sp, VICMD *vp)
 {
-	ARGS *ap[2], a;
-	EXCMD cmd;
+        ARGS *ap[2], a;
+        EXCMD cmd;
 
-	ex_cinit(&cmd, C_STOP, 0, OOBLNO, OOBLNO, 0, ap);
-	ex_cadd(&cmd, &a, "suspend", sizeof("suspend") - 1);
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_STOP, 0, OOBLNO, OOBLNO, 0, ap);
+        ex_cadd(&cmd, &a, "suspend", sizeof("suspend") - 1);
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_switch -- ^^
- *	Switch to the previous file.
+ *      Switch to the previous file.
  *
  * PUBLIC: int v_switch(SCR *, VICMD *);
  */
 int
 v_switch(SCR *sp, VICMD *vp)
 {
-	ARGS *ap[2], a;
-	EXCMD cmd;
-	char *name;
+        ARGS *ap[2], a;
+        EXCMD cmd;
+        char *name;
 
-	/*
-	 * Try the alternate file name, then the previous file
-	 * name.  Use the real name, not the user's current name.
-	 */
-	if (sp->alt_name == NULL) {
-		msgq(sp, M_ERR, "No previous file to edit");
-		return (1);
-	}
-	if ((name = strdup(sp->alt_name)) == NULL) {
-		msgq(sp, M_SYSERR, NULL);
-		return (1);
-	}
+        /*
+         * Try the alternate file name, then the previous file
+         * name.  Use the real name, not the user's current name.
+         */
+        if (sp->alt_name == NULL) {
+                msgq(sp, M_ERR, "No previous file to edit");
+                return (1);
+        }
+        if ((name = strdup(sp->alt_name)) == NULL) {
+                msgq(sp, M_SYSERR, NULL);
+                return (1);
+        }
 
-	/* If autowrite is set, write out the file. */
-	if (file_m1(sp, 0, FS_ALL)) {
-		free(name);
-		return (1);
-	}
+        /* If autowrite is set, write out the file. */
+        if (file_m1(sp, 0, FS_ALL)) {
+                free(name);
+                return (1);
+        }
 
-	ex_cinit(&cmd, C_EDIT, 0, OOBLNO, OOBLNO, 0, ap);
-	ex_cadd(&cmd, &a, name, strlen(name));
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_EDIT, 0, OOBLNO, OOBLNO, 0, ap);
+        ex_cadd(&cmd, &a, name, strlen(name));
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_tagpush -- ^[
- *	Do a tag search on the cursor keyword.
+ *      Do a tag search on the cursor keyword.
  *
  * PUBLIC: int v_tagpush(SCR *, VICMD *);
  */
 int
 v_tagpush(SCR *sp, VICMD *vp)
 {
-	ARGS *ap[2], a;
-	EXCMD cmd;
+        ARGS *ap[2], a;
+        EXCMD cmd;
 
-	ex_cinit(&cmd, C_TAG, 0, OOBLNO, 0, 0, ap);
-	ex_cadd(&cmd, &a, VIP(sp)->keyw, strlen(VIP(sp)->keyw));
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_TAG, 0, OOBLNO, 0, 0, ap);
+        ex_cadd(&cmd, &a, VIP(sp)->keyw, strlen(VIP(sp)->keyw));
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_tagpop -- ^T
- *	Pop the tags stack.
+ *      Pop the tags stack.
  *
  * PUBLIC: int v_tagpop(SCR *, VICMD *);
  */
 int
 v_tagpop(SCR *sp, VICMD *vp)
 {
-	EXCMD cmd;
+        EXCMD cmd;
 
-	ex_cinit(&cmd, C_TAGPOP, 0, OOBLNO, 0, 0, NULL);
-	return (v_exec_ex(sp, vp, &cmd));
+        ex_cinit(&cmd, C_TAGPOP, 0, OOBLNO, 0, 0, NULL);
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_filter -- [count]!motion command(s)
- *	Run range through shell commands, replacing text.
+ *      Run range through shell commands, replacing text.
  *
  * PUBLIC: int v_filter(SCR *, VICMD *);
  */
 int
 v_filter(SCR *sp, VICMD *vp)
 {
-	EXCMD cmd;
-	TEXT *tp;
+        EXCMD cmd;
+        TEXT *tp;
 
-	/*
-	 * !!!
-	 * Historical vi permitted "!!" in an empty file, and it's handled
-	 * as a special case in the ex_bang routine.  Don't modify this setup
-	 * without understanding that one.  In particular, note that we're
-	 * manipulating the ex argument structures behind ex's back.
-	 *
-	 * !!!
-	 * Historical vi did not permit the '!' command to be associated with
-	 * a non-line oriented motion command, in general, although it did
-	 * with search commands.  So, !f; and !w would fail, but !/;<CR>
-	 * would succeed, even if they all moved to the same location in the
-	 * current line.  I don't see any reason to disallow '!' using any of
-	 * the possible motion commands.
-	 *
-	 * !!!
-	 * Historical vi ran the last bang command if N or n was used as the
-	 * search motion.
-	 */
-	if (F_ISSET(vp, VC_ISDOT) ||
-	    ISCMD(vp->rkp, 'N') || ISCMD(vp->rkp, 'n')) {
-		ex_cinit(&cmd, C_BANG,
-		    2, vp->m_start.lno, vp->m_stop.lno, 0, NULL);
-		EXP(sp)->argsoff = 0;			/* XXX */
+        /*
+         * !!!
+         * Historical vi permitted "!!" in an empty file, and it's handled
+         * as a special case in the ex_bang routine.  Don't modify this setup
+         * without understanding that one.  In particular, note that we're
+         * manipulating the ex argument structures behind ex's back.
+         *
+         * !!!
+         * Historical vi did not permit the '!' command to be associated with
+         * a non-line oriented motion command, in general, although it did
+         * with search commands.  So, !f; and !w would fail, but !/;<CR>
+         * would succeed, even if they all moved to the same location in the
+         * current line.  I don't see any reason to disallow '!' using any of
+         * the possible motion commands.
+         *
+         * !!!
+         * Historical vi ran the last bang command if N or n was used as the
+         * search motion.
+         */
+        if (F_ISSET(vp, VC_ISDOT) ||
+            ISCMD(vp->rkp, 'N') || ISCMD(vp->rkp, 'n')) {
+                ex_cinit(&cmd, C_BANG,
+                    2, vp->m_start.lno, vp->m_stop.lno, 0, NULL);
+                EXP(sp)->argsoff = 0;                   /* XXX */
 
-		if (argv_exp1(sp, &cmd, "!", 1, 1))
-			return (1);
-		cmd.argc = EXP(sp)->argsoff;		/* XXX */
-		cmd.argv = EXP(sp)->args;		/* XXX */
-		return (v_exec_ex(sp, vp, &cmd));
-	}
+                if (argv_exp1(sp, &cmd, "!", 1, 1))
+                        return (1);
+                cmd.argc = EXP(sp)->argsoff;            /* XXX */
+                cmd.argv = EXP(sp)->args;               /* XXX */
+                return (v_exec_ex(sp, vp, &cmd));
+        }
 
-	/* Get the command from the user. */
-	if (v_tcmd(sp, vp,
-	    '!', TXT_BS | TXT_CR | TXT_ESCAPE | TXT_FILEC | TXT_PROMPT))
-		return (1);
+        /* Get the command from the user. */
+        if (v_tcmd(sp, vp,
+            '!', TXT_BS | TXT_CR | TXT_ESCAPE | TXT_FILEC | TXT_PROMPT))
+                return (1);
 
-	/*
-	 * Check to see if the user changed their mind.
-	 *
-	 * !!!
-	 * Entering <escape> on an empty line was historically an error,
-	 * this implementation doesn't bother.
-	 */
-	tp = TAILQ_FIRST(&sp->tiq);
-	if (tp->term != TERM_OK) {
-		vp->m_final.lno = sp->lno;
-		vp->m_final.cno = sp->cno;
-		return (0);
-	}
+        /*
+         * Check to see if the user changed their mind.
+         *
+         * !!!
+         * Entering <escape> on an empty line was historically an error,
+         * this implementation doesn't bother.
+         */
+        tp = TAILQ_FIRST(&sp->tiq);
+        if (tp->term != TERM_OK) {
+                vp->m_final.lno = sp->lno;
+                vp->m_final.cno = sp->cno;
+                return (0);
+        }
 
-	/* Home the cursor. */
-	vs_home(sp);
+        /* Home the cursor. */
+        vs_home(sp);
 
-	ex_cinit(&cmd, C_BANG, 2, vp->m_start.lno, vp->m_stop.lno, 0, NULL);
-	EXP(sp)->argsoff = 0;			/* XXX */
+        ex_cinit(&cmd, C_BANG, 2, vp->m_start.lno, vp->m_stop.lno, 0, NULL);
+        EXP(sp)->argsoff = 0;                   /* XXX */
 
-	if (argv_exp1(sp, &cmd, tp->lb + 1, tp->len - 1, 1))
-		return (1);
-	cmd.argc = EXP(sp)->argsoff;		/* XXX */
-	cmd.argv = EXP(sp)->args;		/* XXX */
-	return (v_exec_ex(sp, vp, &cmd));
+        if (argv_exp1(sp, &cmd, tp->lb + 1, tp->len - 1, 1))
+                return (1);
+        cmd.argc = EXP(sp)->argsoff;            /* XXX */
+        cmd.argv = EXP(sp)->args;               /* XXX */
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_event_exec --
- *	Execute some command(s) based on an event.
+ *      Execute some command(s) based on an event.
  *
  * PUBLIC: int v_event_exec(SCR *, VICMD *);
  */
 int
 v_event_exec(SCR *sp, VICMD *vp)
 {
-	EXCMD cmd;
+        EXCMD cmd;
 
-	switch (vp->ev.e_event) {
-	case E_QUIT:
-		ex_cinit(&cmd, C_QUIT, 0, OOBLNO, OOBLNO, 0, NULL);
-		break;
-	case E_WRITE:
-		ex_cinit(&cmd, C_WRITE, 0, OOBLNO, OOBLNO, 0, NULL);
-		break;
-	default:
-		abort();
-	}
-	return (v_exec_ex(sp, vp, &cmd));
+        switch (vp->ev.e_event) {
+        case E_QUIT:
+                ex_cinit(&cmd, C_QUIT, 0, OOBLNO, OOBLNO, 0, NULL);
+                break;
+        case E_WRITE:
+                ex_cinit(&cmd, C_WRITE, 0, OOBLNO, OOBLNO, 0, NULL);
+                break;
+        default:
+                abort();
+        }
+        return (v_exec_ex(sp, vp, &cmd));
 }
 
 /*
  * v_exec_ex --
- *	Execute an ex command.
+ *      Execute an ex command.
  */
 static int
 v_exec_ex(SCR *sp, VICMD *vp, EXCMD *exp)
 {
-	int rval;
+        int rval;
 
-	rval = exp->cmd->fn(sp, exp);
-	return (v_ex_done(sp, vp) || rval);
+        rval = exp->cmd->fn(sp, exp);
+        return (v_ex_done(sp, vp) || rval);
 }
 
 /*
  * v_ex -- :
- *	Execute a colon command line.
+ *      Execute a colon command line.
  *
  * PUBLIC: int v_ex(SCR *, VICMD *);
  */
 int
 v_ex(SCR *sp, VICMD *vp)
 {
-	GS *gp;
-	TEXT *tp;
-	int do_cedit, do_resolution, ifcontinue;
+        GS *gp;
+        TEXT *tp;
+        int do_cedit, do_resolution, ifcontinue;
 
-	gp = sp->gp;
+        gp = sp->gp;
 
-	/*
-	 * !!!
-	 * If we put out more than a single line of messages, or ex trashes
-	 * the screen, the user may continue entering ex commands.  We find
-	 * this out when we do the screen/message resolution.  We can't enter
-	 * completely into ex mode however, because the user can elect to
-	 * return into vi mode by entering any key, i.e. we have to be in raw
-	 * mode.
-	 */
-	for (do_cedit = do_resolution = 0;;) {
-		/*
-		 * !!!
-		 * There may already be an ex command waiting to run.  If
-		 * so, we continue with it.
-		 */
-		if (!EXCMD_RUNNING(gp)) {
-			/* Get a command. */
-			if (v_tcmd(sp, vp, ':',
-			    TXT_BS | TXT_CEDIT | TXT_FILEC | TXT_PROMPT))
-				return (1);
-			tp = TAILQ_FIRST(&sp->tiq);
+        /*
+         * !!!
+         * If we put out more than a single line of messages, or ex trashes
+         * the screen, the user may continue entering ex commands.  We find
+         * this out when we do the screen/message resolution.  We can't enter
+         * completely into ex mode however, because the user can elect to
+         * return into vi mode by entering any key, i.e. we have to be in raw
+         * mode.
+         */
+        for (do_cedit = do_resolution = 0;;) {
+                /*
+                 * !!!
+                 * There may already be an ex command waiting to run.  If
+                 * so, we continue with it.
+                 */
+                if (!EXCMD_RUNNING(gp)) {
+                        /* Get a command. */
+                        if (v_tcmd(sp, vp, ':',
+                            TXT_BS | TXT_CEDIT | TXT_FILEC | TXT_PROMPT))
+                                return (1);
+                        tp = TAILQ_FIRST(&sp->tiq);
 
-			/*
-			 * If the user entered a single <esc>, they want to
-			 * edit their colon command history.  If they already
-			 * entered some text, move it into the edit history.
-			 */
-			if (tp->term == TERM_CEDIT) {
-				if (tp->len > 1 && v_ecl_log(sp, tp))
-					return (1);
-				do_cedit = 1;
-				break;
-			}
+                        /*
+                         * If the user entered a single <esc>, they want to
+                         * edit their colon command history.  If they already
+                         * entered some text, move it into the edit history.
+                         */
+                        if (tp->term == TERM_CEDIT) {
+                                if (tp->len > 1 && v_ecl_log(sp, tp))
+                                        return (1);
+                                do_cedit = 1;
+                                break;
+                        }
 
-			/* If the user changed their mind, return. */
-			if (tp->term != TERM_OK)
-				break;
+                        /* If the user changed their mind, return. */
+                        if (tp->term != TERM_OK)
+                                break;
 
-			/* Log the command. */
-			if (O_STR(sp, O_CEDIT) != NULL && v_ecl_log(sp, tp))
-				return (1);
+                        /* Log the command. */
+                        if (O_STR(sp, O_CEDIT) != NULL && v_ecl_log(sp, tp))
+                                return (1);
 
-			/* Push a command on the command stack. */
-			if (ex_run_str(sp, NULL, tp->lb, tp->len, 0, 1))
-				return (1);
-		}
+                        /* Push a command on the command stack. */
+                        if (ex_run_str(sp, NULL, tp->lb, tp->len, 0, 1))
+                                return (1);
+                }
 
-		/* Home the cursor. */
-		vs_home(sp);
+                /* Home the cursor. */
+                vs_home(sp);
 
-		/*
-		 * !!!
-		 * If the editor wrote the screen behind curses back, put out
-		 * a <newline> so that we don't overwrite the user's command
-		 * with its output or the next want-to-continue? message.  This
-		 * doesn't belong here, but I can't find another place to put
-		 * it.  See, we resolved the output from the last ex command,
-		 * and the user entered another one.  This is the only place
-		 * where we have control before the ex command writes output.
-		 * We could get control in vs_msg(), but we have no way to know
-		 * if command didn't put out any output when we try and resolve
-		 * this command.  This fixes a bug where combinations of ex
-		 * commands, e.g. ":set<CR>:!date<CR>:set" didn't look right.
-		 */
-		if (F_ISSET(sp, SC_SCR_EXWROTE))
-			(void)putchar('\n');
+                /*
+                 * !!!
+                 * If the editor wrote the screen behind curses back, put out
+                 * a <newline> so that we don't overwrite the user's command
+                 * with its output or the next want-to-continue? message.  This
+                 * doesn't belong here, but I can't find another place to put
+                 * it.  See, we resolved the output from the last ex command,
+                 * and the user entered another one.  This is the only place
+                 * where we have control before the ex command writes output.
+                 * We could get control in vs_msg(), but we have no way to know
+                 * if command didn't put out any output when we try and resolve
+                 * this command.  This fixes a bug where combinations of ex
+                 * commands, e.g. ":set<CR>:!date<CR>:set" didn't look right.
+                 */
+                if (F_ISSET(sp, SC_SCR_EXWROTE))
+                        (void)putchar('\n');
 
-		/* Call the ex parser. */
-		(void)ex_cmd(sp);
+                /* Call the ex parser. */
+                (void)ex_cmd(sp);
 
-		/* Flush ex messages. */
-		(void)ex_fflush(sp);
+                /* Flush ex messages. */
+                (void)ex_fflush(sp);
 
-		/* Resolve any messages. */
-		if (vs_ex_resolve(sp, &ifcontinue))
-			return (1);
+                /* Resolve any messages. */
+                if (vs_ex_resolve(sp, &ifcontinue))
+                        return (1);
 
-		/*
-		 * Continue or return.  If continuing, make sure that we
-		 * eventually do resolution.
-		 */
-		if (!ifcontinue)
-			break;
-		do_resolution = 1;
+                /*
+                 * Continue or return.  If continuing, make sure that we
+                 * eventually do resolution.
+                 */
+                if (!ifcontinue)
+                        break;
+                do_resolution = 1;
 
-		/* If we're continuing, it's a new command. */
-		++sp->ccnt;
-	}
+                /* If we're continuing, it's a new command. */
+                ++sp->ccnt;
+        }
 
-	/*
-	 * If the user previously continued an ex command, we have to do
-	 * resolution to clean up the screen.  Don't wait, we already did
-	 * that.
-	 */
-	if (do_resolution) {
-		F_SET(sp, SC_EX_WAIT_NO);
-		if (vs_ex_resolve(sp, &ifcontinue))
-			return (1);
-	}
+        /*
+         * If the user previously continued an ex command, we have to do
+         * resolution to clean up the screen.  Don't wait, we already did
+         * that.
+         */
+        if (do_resolution) {
+                F_SET(sp, SC_EX_WAIT_NO);
+                if (vs_ex_resolve(sp, &ifcontinue))
+                        return (1);
+        }
 
-	/* Cleanup from the ex command. */
-	if (v_ex_done(sp, vp))
-		return (1);
+        /* Cleanup from the ex command. */
+        if (v_ex_done(sp, vp))
+                return (1);
 
-	/* The user may want to edit their colon command history. */
-	if (do_cedit)
-		return (v_ecl(sp));
+        /* The user may want to edit their colon command history. */
+        if (do_cedit)
+                return (v_ecl(sp));
 
-	return (0);
+        return (0);
 }
 
 /*
  * v_ex_done --
- *	Cleanup from an ex command.
+ *      Cleanup from an ex command.
  */
 static int
 v_ex_done(SCR *sp, VICMD *vp)
 {
-	size_t len;
+        size_t len;
 
-	/*
-	 * The only cursor modifications are real, however, the underlying
-	 * line may have changed; don't trust anything.  This code has been
-	 * a remarkably fertile place for bugs.  Do a reality check on a
-	 * cursor value, and make sure it's okay.  If necessary, change it.
-	 * Ex keeps track of the line number, but it cares less about the
-	 * column and it may have disappeared.
-	 *
-	 * Don't trust ANYTHING.
-	 *
-	 * XXX
-	 * Ex will soon have to start handling the column correctly; see
-	 * the POSIX 1003.2 standard.
-	 */
-	if (db_eget(sp, sp->lno, NULL, &len, NULL)) {
-		sp->lno = 1;
-		sp->cno = 0;
-	} else if (sp->cno >= len)
-		sp->cno = len ? len - 1 : 0;
+        /*
+         * The only cursor modifications are real, however, the underlying
+         * line may have changed; don't trust anything.  This code has been
+         * a remarkably fertile place for bugs.  Do a reality check on a
+         * cursor value, and make sure it's okay.  If necessary, change it.
+         * Ex keeps track of the line number, but it cares less about the
+         * column and it may have disappeared.
+         *
+         * Don't trust ANYTHING.
+         *
+         * XXX
+         * Ex will soon have to start handling the column correctly; see
+         * the POSIX 1003.2 standard.
+         */
+        if (db_eget(sp, sp->lno, NULL, &len, NULL)) {
+                sp->lno = 1;
+                sp->cno = 0;
+        } else if (sp->cno >= len)
+                sp->cno = len ? len - 1 : 0;
 
-	vp->m_final.lno = sp->lno;
-	vp->m_final.cno = sp->cno;
+        vp->m_final.lno = sp->lno;
+        vp->m_final.cno = sp->cno;
 
-	/*
-	 * Don't re-adjust the cursor after executing an ex command,
-	 * and ex movements are permanent.
-	 */
-	F_CLR(vp, VM_RCM_MASK);
-	F_SET(vp, VM_RCM_SET);
+        /*
+         * Don't re-adjust the cursor after executing an ex command,
+         * and ex movements are permanent.
+         */
+        F_CLR(vp, VM_RCM_MASK);
+        F_SET(vp, VM_RCM_SET);
 
-	return (0);
+        return (0);
 }
 
 /*
  * v_ecl --
- *	Start an edit window on the colon command-line commands.
+ *      Start an edit window on the colon command-line commands.
  */
 static int
 v_ecl(SCR *sp)
 {
-	GS *gp;
-	SCR *new;
+        GS *gp;
+        SCR *new;
 
-	/* Initialize the screen, if necessary. */
-	gp = sp->gp;
-	if (gp->ccl_sp == NULL && v_ecl_init(sp))
-		return (1);
+        /* Initialize the screen, if necessary. */
+        gp = sp->gp;
+        if (gp->ccl_sp == NULL && v_ecl_init(sp))
+                return (1);
 
-	/* Get a new screen. */
-	if (screen_init(gp, sp, &new))
-		return (1);
-	if (vs_split(sp, new, 1)) {
-		(void)screen_end(new);
-		return (1);
-	}
+        /* Get a new screen. */
+        if (screen_init(gp, sp, &new))
+                return (1);
+        if (vs_split(sp, new, 1)) {
+                (void)screen_end(new);
+                return (1);
+        }
 
-	/* Attach to the screen. */
-	new->ep = gp->ccl_sp->ep;
-	++new->ep->refcnt;
+        /* Attach to the screen. */
+        new->ep = gp->ccl_sp->ep;
+        ++new->ep->refcnt;
 
-	new->frp = gp->ccl_sp->frp;
-	new->frp->flags = sp->frp->flags;
+        new->frp = gp->ccl_sp->frp;
+        new->frp->flags = sp->frp->flags;
 
-	/* Move the cursor to the end. */
-	(void)db_last(new, &new->lno);
-	if (new->lno == 0)
-		new->lno = 1;
+        /* Move the cursor to the end. */
+        (void)db_last(new, &new->lno);
+        if (new->lno == 0)
+                new->lno = 1;
 
-	/* Remember the originating window. */
-	sp->ccl_parent = sp;
+        /* Remember the originating window. */
+        sp->ccl_parent = sp;
 
-	/* It's a special window. */
-	F_SET(new, SC_COMEDIT);
+        /* It's a special window. */
+        F_SET(new, SC_COMEDIT);
 
-	/* Set up the switch. */
-	sp->nextdisp = new;
-	F_SET(sp, SC_SSWITCH);
-	return (0);
+        /* Set up the switch. */
+        sp->nextdisp = new;
+        F_SET(sp, SC_SSWITCH);
+        return (0);
 }
 
 /*
  * v_ecl_exec --
- *	Execute a command from a colon command-line window.
+ *      Execute a command from a colon command-line window.
  *
  * PUBLIC: int v_ecl_exec(SCR *);
  */
 int
 v_ecl_exec(SCR *sp)
 {
-	size_t len;
-	char *p;
+        size_t len;
+        char *p;
 
-	if (db_get(sp, sp->lno, 0, &p, &len) && sp->lno == 1) {
-		v_emsg(sp, NULL, VIM_EMPTY);
-		return (1);
-	}
-	if (len == 0) {
-		msgq(sp, M_BERR, "No ex command to execute");
-		return (1);
-	}
+        if (db_get(sp, sp->lno, 0, &p, &len) && sp->lno == 1) {
+                v_emsg(sp, NULL, VIM_EMPTY);
+                return (1);
+        }
+        if (len == 0) {
+                msgq(sp, M_BERR, "No ex command to execute");
+                return (1);
+        }
 
-	/* Push the command on the command stack. */
-	if (ex_run_str(sp, NULL, p, len, 0, 0))
-		return (1);
+        /* Push the command on the command stack. */
+        if (ex_run_str(sp, NULL, p, len, 0, 0))
+                return (1);
 
-	/* Set up the switch. */
-	sp->nextdisp = sp->ccl_parent;
-	F_SET(sp, SC_EXIT);
-	return (0);
+        /* Set up the switch. */
+        sp->nextdisp = sp->ccl_parent;
+        F_SET(sp, SC_EXIT);
+        return (0);
 }
 
 /*
  * v_ecl_log --
- *	Log a command into the colon command-line log file.
+ *      Log a command into the colon command-line log file.
  */
 static int
 v_ecl_log(SCR *sp, TEXT *tp)
 {
-	EXF *save_ep;
-	recno_t lno;
-	int rval;
+        EXF *save_ep;
+        recno_t lno;
+        int rval;
 
-	/* Initialize the screen, if necessary. */
-	if (sp->gp->ccl_sp == NULL && v_ecl_init(sp))
-		return (1);
+        /* Initialize the screen, if necessary. */
+        if (sp->gp->ccl_sp == NULL && v_ecl_init(sp))
+                return (1);
 
-	/*
-	 * Don't log colon command window commands into the colon command
-	 * window...
-	 */
-	if (sp->ep == sp->gp->ccl_sp->ep)
-		return (0);
+        /*
+         * Don't log colon command window commands into the colon command
+         * window...
+         */
+        if (sp->ep == sp->gp->ccl_sp->ep)
+                return (0);
 
-	/*
-	 * XXX
-	 * Swap the current EXF with the colon command file EXF.  This
-	 * isn't pretty, but too many routines "know" that sp->ep points
-	 * to the current EXF.
-	 */
-	save_ep = sp->ep;
-	sp->ep = sp->gp->ccl_sp->ep;
-	if (db_last(sp, &lno)) {
-		sp->ep = save_ep;
-		return (1);
-	}
-	rval = db_append(sp, 0, lno, tp->lb, tp->len);
-	sp->ep = save_ep;
-	return (rval);
+        /*
+         * XXX
+         * Swap the current EXF with the colon command file EXF.  This
+         * isn't pretty, but too many routines "know" that sp->ep points
+         * to the current EXF.
+         */
+        save_ep = sp->ep;
+        sp->ep = sp->gp->ccl_sp->ep;
+        if (db_last(sp, &lno)) {
+                sp->ep = save_ep;
+                return (1);
+        }
+        rval = db_append(sp, 0, lno, tp->lb, tp->len);
+        sp->ep = save_ep;
+        return (rval);
 }
 
 /*
  * v_ecl_init --
- *	Initialize the colon command-line log file.
+ *      Initialize the colon command-line log file.
  */
 static int
 v_ecl_init(SCR *sp)
 {
-	FREF *frp;
-	GS *gp;
+        FREF *frp;
+        GS *gp;
 
-	gp = sp->gp;
+        gp = sp->gp;
 
-	/* Get a temporary file. */
-	if ((frp = file_add(sp, NULL)) == NULL)
-		return (1);
+        /* Get a temporary file. */
+        if ((frp = file_add(sp, NULL)) == NULL)
+                return (1);
 
-	/*
-	 * XXX
-	 * Create a screen -- the file initialization code wants one.
-	 */
-	if (screen_init(gp, sp, &gp->ccl_sp))
-		return (1);
-	if (file_init(gp->ccl_sp, frp, NULL, 0)) {
-		(void)screen_end(gp->ccl_sp);
-		return (1);
-	}
+        /*
+         * XXX
+         * Create a screen -- the file initialization code wants one.
+         */
+        if (screen_init(gp, sp, &gp->ccl_sp))
+                return (1);
+        if (file_init(gp->ccl_sp, frp, NULL, 0)) {
+                (void)screen_end(gp->ccl_sp);
+                return (1);
+        }
 
-	/* The underlying file isn't recoverable. */
-	F_CLR(gp->ccl_sp->ep, F_RCV_ON);
+        /* The underlying file isn't recoverable. */
+        F_CLR(gp->ccl_sp->ep, F_RCV_ON);
 
-	return (0);
+        return (0);
 }

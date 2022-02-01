@@ -1,6 +1,6 @@
-#	$OpenBSD: structures,v 1.3 2001/01/29 01:58:39 niklas Exp $
+#       $OpenBSD: structures,v 1.3 2001/01/29 01:58:39 niklas Exp $
 
-#	@(#)structures	5.4 (Berkeley) 10/4/95
+#       @(#)structures  5.4 (Berkeley) 10/4/95
 
 There are three major data structures in this package, plus a single data
 structure per screen type.  The first is a single global structure (GS)
@@ -39,32 +39,29 @@ even depend on it, so don't try and change it!)  The global structure is
 
 A few other data structures:
 
-TEXT	In nvi/cut.h.  This structure describes a portion of a line,
-	and is used by the input routines and as the "line" part of a
-	cut buffer.
+TEXT    In nvi/cut.h.  This structure describes a portion of a line,
+        and is used by the input routines and as the "line" part of a
+        cut buffer.
 
-CB	In nvi/cut.h.	A cut buffer.  A cut buffer is a place to
-	hang a list of TEXT structures.
+CB      In nvi/cut.h.   A cut buffer.  A cut buffer is a place to
+        hang a list of TEXT structures.
 
-CL	The curses screen private data structure.  Everything to
-	do standalone curses screens.
+CL      The curses screen private data structure.  Everything to
+        do standalone curses screens.
 
-MARK	In nvi/mark.h.  A cursor position, consisting of a line number
-	and a column number.
+MARK    In nvi/mark.h.  A cursor position, consisting of a line number
+        and a column number.
 
-MSG	In nvi/msg.h.  A chain of messages for the user.
+MSG     In nvi/msg.h.  A chain of messages for the user.
 
-SEQ	In nvi/seq.h.  An abbreviation or a map entry.
-
-TK	The Tcl/Tk screen private data structure.  Everything to
-	do standalone Tcl/Tk screens.
+SEQ     In nvi/seq.h.  An abbreviation or a map entry.
 
 EXCMD   In nvi/ex/ex.h.  The structure that gets passed around to the
-	functions that implement the ex commands.  (The main ex command
-	loop (see nvi/ex/ex.c) builds this up and then passes it to the
-	ex functions.)
+        functions that implement the ex commands.  (The main ex command
+        loop (see nvi/ex/ex.c) builds this up and then passes it to the
+        ex functions.)
 
-VICMD	In nvi/vi/vi.h.  The structure that gets passed around to the
-	functions that implement the vi commands.  (The main vi command
-	loop (see nvi/vi/vi.c) builds this up and then passes it to the
-	vi functions.)
+VICMD   In nvi/vi/vi.h.  The structure that gets passed around to the
+        functions that implement the vi commands.  (The main vi command
+        loop (see nvi/vi/vi.c) builds this up and then passes it to the
+        vi functions.)

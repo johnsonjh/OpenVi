@@ -1,9 +1,9 @@
-/*	$OpenBSD: ndbm.h,v 1.6 2004/05/03 17:27:50 millert Exp $	*/
-/*	$NetBSD: ndbm.h,v 1.6 1995/07/20 23:31:11 jtc Exp $	*/
+/*      $OpenBSD: ndbm.h,v 1.6 2004/05/03 17:27:50 millert Exp $        */
+/*      $NetBSD: ndbm.h,v 1.6 1995/07/20 23:31:11 jtc Exp $     */
 
 /*-
  * Copyright (c) 1990, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Margo Seltzer.
@@ -32,7 +32,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)ndbm.h	8.1 (Berkeley) 6/2/93
+ *      @(#)ndbm.h      8.1 (Berkeley) 6/2/93
  */
 
 #ifndef _NDBM_H_
@@ -46,7 +46,7 @@
 # undef open
 
 /* Map dbm interface onto db(3). */
-# define DBM_RDONLY	O_RDONLY
+# define DBM_RDONLY     O_RDONLY
 
 /* Flags to dbm_store(). */
 # define DBM_INSERT      0
@@ -56,28 +56,28 @@
  * The db(3) support for ndbm(3) always appends this suffix to the
  * file name to avoid overwriting the user's original database.
  */
-# define DBM_SUFFIX	".db"
+# define DBM_SUFFIX     ".db"
 
 typedef struct {
-	void *dptr;
-	size_t dsize;
+        void *dptr;
+        size_t dsize;
 } datum;
 
 typedef DB DBM;
-# define dbm_pagfno(a)	DBM_PAGFNO_NOT_AVAILABLE
+# define dbm_pagfno(a)  DBM_PAGFNO_NOT_AVAILABLE
 
 __BEGIN_DECLS
-int	 dbm_clearerr(DBM *);
-void	 dbm_close(DBM *);
-int	 dbm_delete(DBM *, datum);
-int	 dbm_error(DBM *);
-datum	 dbm_fetch(DBM *, datum);
-datum	 dbm_firstkey(DBM *);
-datum	 dbm_nextkey(DBM *);
-DBM	*dbm_open(const char *, int, mode_t);
-int	 dbm_store(DBM *, datum, datum, int);
-int	 dbm_dirfno(DBM *);
-int	 dbm_rdonly(DBM *);
+int      dbm_clearerr(DBM *);
+void     dbm_close(DBM *);
+int      dbm_delete(DBM *, datum);
+int      dbm_error(DBM *);
+datum    dbm_fetch(DBM *, datum);
+datum    dbm_firstkey(DBM *);
+datum    dbm_nextkey(DBM *);
+DBM     *dbm_open(const char *, int, mode_t);
+int      dbm_store(DBM *, datum, datum, int);
+int      dbm_dirfno(DBM *);
+int      dbm_rdonly(DBM *);
 __END_DECLS
 
 #endif /* !_NDBM_H_ */

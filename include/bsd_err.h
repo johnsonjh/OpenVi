@@ -1,9 +1,9 @@
-/*	$OpenBSD: err.h,v 1.13 2015/08/31 02:53:56 guenther Exp $	*/
-/*	$NetBSD: err.h,v 1.11 1994/10/26 00:55:52 cgd Exp $	*/
+/*      $OpenBSD: err.h,v 1.13 2015/08/31 02:53:56 guenther Exp $       */
+/*      $NetBSD: err.h,v 1.11 1994/10/26 00:55:52 cgd Exp $     */
 
 /*-
  * Copyright (c) 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -29,7 +29,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)err.h	8.1 (Berkeley) 6/2/93
+ *      @(#)err.h       8.1 (Berkeley) 6/2/93
  */
 
 #ifndef __OpenBSD__
@@ -39,15 +39,15 @@
 
 #  include <stdarg.h> /* for va_list */
 
-void	errc(int, int, const char *, ...)
-			__attribute__((__format__ (printf, 3, 4)));
-void	verrc(int, int, const char *, va_list)
-			__attribute__((__format__ (printf, 3, 0)));
+void    errc(int, int, const char *, ...)
+                        __attribute__((__format__ (printf, 3, 4)));
+void    verrc(int, int, const char *, va_list)
+                        __attribute__((__format__ (printf, 3, 0)));
 
-void		warnc(int, const char *, ...)
-			__attribute__((__format__ (printf, 2, 3)));
-void		vwarnc(int, const char *, va_list)
-			__attribute__((__format__ (printf, 2, 0)));
+void            warnc(int, const char *, ...)
+                        __attribute__((__format__ (printf, 2, 3)));
+void            vwarnc(int, const char *, va_list)
+                        __attribute__((__format__ (printf, 2, 0)));
 # endif /* !_COMPAT_ERR_H_ */
 
 #endif /* ifndef __OpenBSD__ */

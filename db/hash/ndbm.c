@@ -1,8 +1,8 @@
-/*	$OpenBSD: ndbm.c,v 1.27 2021/10/24 10:05:22 jsg Exp $	*/
+/*      $OpenBSD: ndbm.c,v 1.27 2021/10/24 10:05:22 jsg Exp $   */
 
 /*-
  * Copyright (c) 1990, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Margo Seltzer.
@@ -57,199 +57,199 @@ static DBM *_dbm_open(const char *, const char *, int, mode_t);
 
 /*
  * Returns:
- * 	*DBM on success
- *	 NULL on failure
+ *      *DBM on success
+ *       NULL on failure
  */
 static DBM *
 _dbm_open(const char *file, const char *suff, int flags, mode_t mode)
 {
-	HASHINFO info;
-	char path[PATH_MAX];
-	int len;
+        HASHINFO info;
+        char path[PATH_MAX];
+        int len;
 
-	len = snprintf(path, sizeof path, "%s%s", file, suff);
-	if (len < 0 || len >= sizeof path) {
-		errno = ENAMETOOLONG;
-		return (NULL);
-	}
-	/* O_WRONLY not supported by db(3) but traditional ndbm allowed it. */
-	if ((flags & O_ACCMODE) == O_WRONLY) {
-		flags &= ~O_WRONLY;
-		flags |= O_RDWR;
-	}
-	info.bsize = 4096;
-	info.ffactor = 40;
-	info.nelem = 1;
-	info.cachesize = 0;
-	info.hash = NULL;
-	info.lorder = 0;
-	return ((DBM *)__hash_open(path, flags, mode, &info, 0));
+        len = snprintf(path, sizeof path, "%s%s", file, suff);
+        if (len < 0 || len >= sizeof path) {
+                errno = ENAMETOOLONG;
+                return (NULL);
+        }
+        /* O_WRONLY not supported by db(3) but traditional ndbm allowed it. */
+        if ((flags & O_ACCMODE) == O_WRONLY) {
+                flags &= ~O_WRONLY;
+                flags |= O_RDWR;
+        }
+        info.bsize = 4096;
+        info.ffactor = 40;
+        info.nelem = 1;
+        info.cachesize = 0;
+        info.hash = NULL;
+        info.lorder = 0;
+        return ((DBM *)__hash_open(path, flags, mode, &info, 0));
 }
 
 /*
  * Returns:
- * 	*DBM on success
- *	 NULL on failure
+ *      *DBM on success
+ *       NULL on failure
  */
 DBM *
 dbm_open(const char *file, int flags, mode_t mode)
 {
 
-	return(_dbm_open(file, DBM_SUFFIX, flags, mode));
+        return(_dbm_open(file, DBM_SUFFIX, flags, mode));
 }
 
 /*
  * Returns:
- *	Nothing.
+ *      Nothing.
  */
 void
 dbm_close(DBM *db)
 {
 
-	(void)(db->close)(db);
+        (void)(db->close)(db);
 }
 DEF_WEAK(dbm_close);
 
 /*
  * Returns:
- *	DATUM on success
- *	NULL on failure
+ *      DATUM on success
+ *      NULL on failure
  */
 datum
 dbm_fetch(DBM *db, datum key)
 {
-	datum retdata;
-	int status;
-	DBT dbtkey, dbtretdata;
+        datum retdata;
+        int status;
+        DBT dbtkey, dbtretdata;
 
-	dbtkey.data = key.dptr;
-	dbtkey.size = key.dsize;
-	status = (db->get)(db, &dbtkey, &dbtretdata, 0);
-	if (status) {
-		dbtretdata.data = NULL;
-		dbtretdata.size = 0;
-	}
-	retdata.dptr = dbtretdata.data;
-	retdata.dsize = dbtretdata.size;
-	return (retdata);
+        dbtkey.data = key.dptr;
+        dbtkey.size = key.dsize;
+        status = (db->get)(db, &dbtkey, &dbtretdata, 0);
+        if (status) {
+                dbtretdata.data = NULL;
+                dbtretdata.size = 0;
+        }
+        retdata.dptr = dbtretdata.data;
+        retdata.dsize = dbtretdata.size;
+        return (retdata);
 }
 DEF_WEAK(dbm_fetch);
 
 /*
  * Returns:
- *	DATUM on success
- *	NULL on failure
+ *      DATUM on success
+ *      NULL on failure
  */
 datum
 dbm_firstkey(DBM *db)
 {
-	int status;
-	datum retkey;
-	DBT dbtretkey, dbtretdata;
+        int status;
+        datum retkey;
+        DBT dbtretkey, dbtretdata;
 
-	status = (db->seq)(db, &dbtretkey, &dbtretdata, R_FIRST);
-	if (status)
-		dbtretkey.data = NULL;
-	retkey.dptr = dbtretkey.data;
-	retkey.dsize = dbtretkey.size;
-	return (retkey);
+        status = (db->seq)(db, &dbtretkey, &dbtretdata, R_FIRST);
+        if (status)
+                dbtretkey.data = NULL;
+        retkey.dptr = dbtretkey.data;
+        retkey.dsize = dbtretkey.size;
+        return (retkey);
 }
 DEF_WEAK(dbm_firstkey);
 
 /*
  * Returns:
- *	DATUM on success
- *	NULL on failure
+ *      DATUM on success
+ *      NULL on failure
  */
 datum
 dbm_nextkey(DBM *db)
 {
-	int status;
-	datum retkey;
-	DBT dbtretkey, dbtretdata;
+        int status;
+        datum retkey;
+        DBT dbtretkey, dbtretdata;
 
-	status = (db->seq)(db, &dbtretkey, &dbtretdata, R_NEXT);
-	if (status)
-		dbtretkey.data = NULL;
-	retkey.dptr = dbtretkey.data;
-	retkey.dsize = dbtretkey.size;
-	return (retkey);
+        status = (db->seq)(db, &dbtretkey, &dbtretdata, R_NEXT);
+        if (status)
+                dbtretkey.data = NULL;
+        retkey.dptr = dbtretkey.data;
+        retkey.dsize = dbtretkey.size;
+        return (retkey);
 }
 DEF_WEAK(dbm_nextkey);
 
 /*
  * Returns:
- *	 0 on success
- *	<0 on failure
+ *       0 on success
+ *      <0 on failure
  */
 int
 dbm_delete(DBM *db, datum key)
 {
-	int status;
-	DBT dbtkey;
+        int status;
+        DBT dbtkey;
 
-	dbtkey.data = key.dptr;
-	dbtkey.size = key.dsize;
-	status = (db->del)(db, &dbtkey, 0);
-	if (status)
-		return (-1);
-	else
-		return (0);
+        dbtkey.data = key.dptr;
+        dbtkey.size = key.dsize;
+        status = (db->del)(db, &dbtkey, 0);
+        if (status)
+                return (-1);
+        else
+                return (0);
 }
 DEF_WEAK(dbm_delete);
 
 /*
  * Returns:
- *	 0 on success
- *	<0 on failure
- *	 1 if DBM_INSERT and entry exists
+ *       0 on success
+ *      <0 on failure
+ *       1 if DBM_INSERT and entry exists
  */
 int
 dbm_store(DBM *db, datum key, datum data, int flags)
 {
-	DBT dbtkey, dbtdata;
+        DBT dbtkey, dbtdata;
 
-	dbtkey.data = key.dptr;
-	dbtkey.size = key.dsize;
-	dbtdata.data = data.dptr;
-	dbtdata.size = data.dsize;
-	return ((db->put)(db, &dbtkey, &dbtdata,
-	    (flags == DBM_INSERT) ? R_NOOVERWRITE : 0));
+        dbtkey.data = key.dptr;
+        dbtkey.size = key.dsize;
+        dbtdata.data = data.dptr;
+        dbtdata.size = data.dsize;
+        return ((db->put)(db, &dbtkey, &dbtdata,
+            (flags == DBM_INSERT) ? R_NOOVERWRITE : 0));
 }
 DEF_WEAK(dbm_store);
 
 int
 dbm_error(DBM *db)
 {
-	HTAB *hp;
+        HTAB *hp;
 
-	hp = (HTAB *)db->internal;
-	return (hp->err);
+        hp = (HTAB *)db->internal;
+        return (hp->err);
 }
 
 int
 dbm_clearerr(DBM *db)
 {
-	HTAB *hp;
+        HTAB *hp;
 
-	hp = (HTAB *)db->internal;
-	hp->err = 0;
-	return (0);
+        hp = (HTAB *)db->internal;
+        hp->err = 0;
+        return (0);
 }
 
 int
 dbm_dirfno(DBM *db)
 {
 
-	return(((HTAB *)db->internal)->fp);
+        return(((HTAB *)db->internal)->fp);
 }
 
 int
 dbm_rdonly(DBM *dbp)
 {
-	HTAB *hashp = (HTAB *)dbp->internal;
+        HTAB *hashp = (HTAB *)dbp->internal;
 
-	/* Could use DBM_RDONLY instead if we wanted... */
-	return ((hashp->flags & O_ACCMODE) == O_RDONLY);
+        /* Could use DBM_RDONLY instead if we wanted... */
+        return ((hashp->flags & O_ACCMODE) == O_RDONLY);
 }
 DEF_WEAK(dbm_rdonly);

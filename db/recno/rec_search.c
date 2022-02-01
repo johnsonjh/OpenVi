@@ -1,8 +1,8 @@
-/*	$OpenBSD: rec_search.c,v 1.11 2005/08/05 13:03:00 espie Exp $	*/
+/*      $OpenBSD: rec_search.c,v 1.11 2005/08/05 13:03:00 espie Exp $   */
 
 /*-
  * Copyright (c) 1990, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -44,77 +44,77 @@
  * __REC_SEARCH -- Search a btree for a key.
  *
  * Parameters:
- *	t:	tree to search
- *	recno:	key to find
- *	op: 	search operation
+ *      t:      tree to search
+ *      recno:  key to find
+ *      op:     search operation
  *
  * Returns:
- *	EPG for matching record, if any, or the EPG for the location of the
- *	key, if it were inserted into the tree.
+ *      EPG for matching record, if any, or the EPG for the location of the
+ *      key, if it were inserted into the tree.
  *
  * Returns:
- *	The EPG for matching record, if any, or the EPG for the location
- *	of the key, if it were inserted into the tree, is entered into
- *	the bt_cur field of the tree.  A pointer to the field is returned.
+ *      The EPG for matching record, if any, or the EPG for the location
+ *      of the key, if it were inserted into the tree, is entered into
+ *      the bt_cur field of the tree.  A pointer to the field is returned.
  */
 EPG *
 __rec_search(BTREE *t, recno_t recno, enum SRCHOP op)
 {
-	indx_t idx;
-	PAGE *h;
-	EPGNO *parent;
-	RINTERNAL *r;
-	pgno_t pg;
-	indx_t top;
-	recno_t total;
-	int sverrno;
+        indx_t idx;
+        PAGE *h;
+        EPGNO *parent;
+        RINTERNAL *r;
+        pgno_t pg;
+        indx_t top;
+        recno_t total;
+        int sverrno;
 
-	BT_CLR(t);
-	for (pg = P_ROOT, total = 0;;) {
-		if ((h = mpool_get(t->bt_mp, pg, 0)) == NULL)
-			goto err;
-		if (h->flags & P_RLEAF) {
-			t->bt_cur.page = h;
-			t->bt_cur.index = recno - total;
-			return (&t->bt_cur);
-		}
-		for (idx = 0, top = NEXTINDEX(h);;) {
-			r = GETRINTERNAL(h, idx);
-			if (++idx == top || total + r->nrecs > recno)
-				break;
-			total += r->nrecs;
-		}
+        BT_CLR(t);
+        for (pg = P_ROOT, total = 0;;) {
+                if ((h = mpool_get(t->bt_mp, pg, 0)) == NULL)
+                        goto err;
+                if (h->flags & P_RLEAF) {
+                        t->bt_cur.page = h;
+                        t->bt_cur.index = recno - total;
+                        return (&t->bt_cur);
+                }
+                for (idx = 0, top = NEXTINDEX(h);;) {
+                        r = GETRINTERNAL(h, idx);
+                        if (++idx == top || total + r->nrecs > recno)
+                                break;
+                        total += r->nrecs;
+                }
 
-		BT_PUSH(t, pg, idx - 1);
+                BT_PUSH(t, pg, idx - 1);
 
-		pg = r->pgno;
-		switch (op) {
-		case SDELETE:
-			--GETRINTERNAL(h, (idx - 1))->nrecs;
-			mpool_put(t->bt_mp, h, MPOOL_DIRTY);
-			break;
-		case SINSERT:
-			++GETRINTERNAL(h, (idx - 1))->nrecs;
-			mpool_put(t->bt_mp, h, MPOOL_DIRTY);
-			break;
-		case SEARCH:
-			mpool_put(t->bt_mp, h, 0);
-			break;
-		}
+                pg = r->pgno;
+                switch (op) {
+                case SDELETE:
+                        --GETRINTERNAL(h, (idx - 1))->nrecs;
+                        mpool_put(t->bt_mp, h, MPOOL_DIRTY);
+                        break;
+                case SINSERT:
+                        ++GETRINTERNAL(h, (idx - 1))->nrecs;
+                        mpool_put(t->bt_mp, h, MPOOL_DIRTY);
+                        break;
+                case SEARCH:
+                        mpool_put(t->bt_mp, h, 0);
+                        break;
+                }
 
-	}
-	/* Try and recover the tree. */
-err:	sverrno = errno;
-	if (op != SEARCH)
-		while  ((parent = BT_POP(t)) != NULL) {
-			if ((h = mpool_get(t->bt_mp, parent->pgno, 0)) == NULL)
-				break;
-			if (op == SINSERT)
-				--GETRINTERNAL(h, parent->index)->nrecs;
-			else
-				++GETRINTERNAL(h, parent->index)->nrecs;
-			mpool_put(t->bt_mp, h, MPOOL_DIRTY);
-		}
-	errno = sverrno;
-	return (NULL);
+        }
+        /* Try and recover the tree. */
+err:    sverrno = errno;
+        if (op != SEARCH)
+                while  ((parent = BT_POP(t)) != NULL) {
+                        if ((h = mpool_get(t->bt_mp, parent->pgno, 0)) == NULL)
+                                break;
+                        if (op == SINSERT)
+                                --GETRINTERNAL(h, parent->index)->nrecs;
+                        else
+                                ++GETRINTERNAL(h, parent->index)->nrecs;
+                        mpool_put(t->bt_mp, h, MPOOL_DIRTY);
+                }
+        errno = sverrno;
+        return (NULL);
 }

@@ -1,7 +1,7 @@
-.\"	$OpenBSD: vi.apwh.ms,v 1.5 2004/01/24 12:29:13 jmc Exp $
+.\"        $OpenBSD: vi.apwh.ms,v 1.5 2004/01/24 12:29:13 jmc Exp $
 .\"
 .\" Copyright (c) 1980, 1993
-.\"	The Regents of the University of California.  All rights reserved.
+.\"        The Regents of the University of California.  All rights reserved.
 .\"
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions
@@ -27,7 +27,7 @@
 .\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 .\" SUCH DAMAGE.
 .\"
-.\"	@(#)vi.apwh.ms	8.2 (Berkeley) 8/18/96
+.\"        @(#)vi.apwh.ms        8.2 (Berkeley) 8/18/96
 .\"
 .if n \{\
 .po 5n

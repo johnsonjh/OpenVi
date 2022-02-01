@@ -1,6 +1,6 @@
-#	$OpenBSD: input,v 1.2 2001/01/29 01:58:38 niklas Exp $
+#       $OpenBSD: input,v 1.2 2001/01/29 01:58:38 niklas Exp $
 
-#	@(#)input	5.5 (Berkeley) 7/2/94
+#       @(#)input       5.5 (Berkeley) 7/2/94
 
 MAPS, EXECUTABLE BUFFERS AND INPUT IN EX/VI:
 
@@ -28,20 +28,20 @@ One other difference between the historic ex/vi and nex/nvi is that nex
 displays the executed buffers as it executes them.  This means that if
 the file is:
 
-	set term=xterm
-	set term=yterm
-	set term=yterm
+        set term=xterm
+        set term=yterm
+        set term=yterm
 
 the user will see the following during a typical edit session:
 
-	nex testfile
-	testfile: unmodified: line 3
-	:1,$yank a
-	:@a
-	:set term=zterm
-	:set term=yterm
-	:set term=xterm
-	:q!
+        nex testfile
+        testfile: unmodified: line 3
+        :1,$yank a
+        :@a
+        :set term=zterm
+        :set term=yterm
+        :set term=xterm
+        :q!
 
 This seems like a feature and unlikely to break anything, so I don't
 intend to match historic practice in this area.

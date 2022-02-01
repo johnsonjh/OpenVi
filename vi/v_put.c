@@ -1,10 +1,10 @@
-/*	$OpenBSD: v_put.c,v 1.8 2016/05/27 09:18:12 martijn Exp $	*/
+/*      $OpenBSD: v_put.c,v 1.8 2016/05/27 09:18:12 martijn Exp $       */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -20,68 +20,68 @@
 #include "../common/common.h"
 #include "vi.h"
 
-static void	inc_buf(SCR *, VICMD *);
+static void     inc_buf(SCR *, VICMD *);
 
 /*
  * v_Put -- [buffer]P
- *	Insert the contents of the buffer before the cursor.
+ *      Insert the contents of the buffer before the cursor.
  *
  * PUBLIC: int v_Put(SCR *, VICMD *);
  */
 int
 v_Put(SCR *sp, VICMD *vp)
 {
-	u_long cnt;
+        u_long cnt;
 
-	if (F_ISSET(vp, VC_ISDOT))
-		inc_buf(sp, vp);
+        if (F_ISSET(vp, VC_ISDOT))
+                inc_buf(sp, vp);
 
-	/*
-	 * !!!
-	 * Historic vi did not support a count with the 'p' and 'P'
-	 * commands.  It's useful, so we do.
-	 */
-	for (cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1; cnt--;) {
-		if (put(sp, NULL,
-		    F_ISSET(vp, VC_BUFFER) ? &vp->buffer : NULL,
-		    &vp->m_start, &vp->m_final, 0))
-			return (1);
-		vp->m_start = vp->m_final;
-		if (INTERRUPTED(sp))
-			return (1);
-	}
-	return (0);
+        /*
+         * !!!
+         * Historic vi did not support a count with the 'p' and 'P'
+         * commands.  It's useful, so we do.
+         */
+        for (cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1; cnt--;) {
+                if (put(sp, NULL,
+                    F_ISSET(vp, VC_BUFFER) ? &vp->buffer : NULL,
+                    &vp->m_start, &vp->m_final, 0))
+                        return (1);
+                vp->m_start = vp->m_final;
+                if (INTERRUPTED(sp))
+                        return (1);
+        }
+        return (0);
 }
 
 /*
  * v_put -- [buffer]p
- *	Insert the contents of the buffer after the cursor.
+ *      Insert the contents of the buffer after the cursor.
  *
  * PUBLIC: int v_put(SCR *, VICMD *);
  */
 int
 v_put(SCR *sp, VICMD *vp)
 {
-	u_long cnt;
+        u_long cnt;
 
-	if (F_ISSET(vp, VC_ISDOT))
-		inc_buf(sp, vp);
+        if (F_ISSET(vp, VC_ISDOT))
+                inc_buf(sp, vp);
 
-	/*
-	 * !!!
-	 * Historic vi did not support a count with the 'p' and 'P'
-	 * commands.  It's useful, so we do.
-	 */
-	for (cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1; cnt--;) {
-		if (put(sp, NULL,
-		    F_ISSET(vp, VC_BUFFER) ? &vp->buffer : NULL,
-		    &vp->m_start, &vp->m_final, 1))
-			return (1);
-		vp->m_start = vp->m_final;
-		if (INTERRUPTED(sp))
-			return (1);
-	}
-	return (0);
+        /*
+         * !!!
+         * Historic vi did not support a count with the 'p' and 'P'
+         * commands.  It's useful, so we do.
+         */
+        for (cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1; cnt--;) {
+                if (put(sp, NULL,
+                    F_ISSET(vp, VC_BUFFER) ? &vp->buffer : NULL,
+                    &vp->m_start, &vp->m_final, 1))
+                        return (1);
+                vp->m_start = vp->m_final;
+                if (INTERRUPTED(sp))
+                        return (1);
+        }
+        return (0);
 }
 
 /*
@@ -102,35 +102,35 @@ v_put(SCR *sp, VICMD *vp)
 static void
 inc_buf(SCR *sp, VICMD *vp)
 {
-	CHAR_T v;
+        CHAR_T v;
 
-	switch (vp->buffer) {
-	case '1':
-		v = '2';
-		break;
-	case '2':
-		v = '3';
-		break;
-	case '3':
-		v = '4';
-		break;
-	case '4':
-		v = '5';
-		break;
-	case '5':
-		v = '6';
-		break;
-	case '6':
-		v = '7';
-		break;
-	case '7':
-		v = '8';
-		break;
-	case '8':
-		v = '9';
-		break;
-	default:
-		return;
-	}
-	VIP(sp)->sdot.buffer = vp->buffer = v;
+        switch (vp->buffer) {
+        case '1':
+                v = '2';
+                break;
+        case '2':
+                v = '3';
+                break;
+        case '3':
+                v = '4';
+                break;
+        case '4':
+                v = '5';
+                break;
+        case '5':
+                v = '6';
+                break;
+        case '6':
+                v = '7';
+                break;
+        case '7':
+                v = '8';
+                break;
+        case '8':
+                v = '9';
+                break;
+        default:
+                return;
+        }
+        VIP(sp)->sdot.buffer = vp->buffer = v;
 }

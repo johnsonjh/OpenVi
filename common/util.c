@@ -1,10 +1,10 @@
-/*	$OpenBSD: util.c,v 1.17 2018/07/11 06:39:23 martijn Exp $	*/
+/*      $OpenBSD: util.c,v 1.17 2018/07/11 06:39:23 martijn Exp $       */
 
 /*-
  * Copyright (c) 1991, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1991, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -22,91 +22,91 @@
 
 #include "common.h"
 
-#define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
+#define MAXIMUM(a, b)   (((a) > (b)) ? (a) : (b))
 
 /*
  * binc --
- *	Increase the size of a buffer.
+ *      Increase the size of a buffer.
  *
  * PUBLIC: void *binc(SCR *, void *, size_t *, size_t);
  */
 void *
 binc(SCR *sp, void *bp, size_t *bsizep, size_t min)
 {
-	size_t csize;
+        size_t csize;
 
-	/* If already larger than the minimum, just return. */
-	if (min && *bsizep >= min)
-		return (bp);
+        /* If already larger than the minimum, just return. */
+        if (min && *bsizep >= min)
+                return (bp);
 
-	csize = *bsizep + MAXIMUM(min, 256);
-	REALLOC(sp, bp, csize);
+        csize = *bsizep + MAXIMUM(min, 256);
+        REALLOC(sp, bp, csize);
 
-	if (bp == NULL) {
-		*bsizep = 0;
-		return (NULL);
-	}
-	/*
-	 * Memory is guaranteed to be zero-filled, various parts of
-	 * nvi depend on this.
-	 */
-	memset((char *)bp + *bsizep, 0, csize - *bsizep);
-	*bsizep = csize;
-	return (bp);
+        if (bp == NULL) {
+                *bsizep = 0;
+                return (NULL);
+        }
+        /*
+         * Memory is guaranteed to be zero-filled, various parts of
+         * nvi depend on this.
+         */
+        memset((char *)bp + *bsizep, 0, csize - *bsizep);
+        *bsizep = csize;
+        return (bp);
 }
 
 /*
  * nonblank --
- *	Set the column number of the first non-blank character
- *	including or after the starting column.  On error, set
- *	the column to 0, it's safest.
+ *      Set the column number of the first non-blank character
+ *      including or after the starting column.  On error, set
+ *      the column to 0, it's safest.
  *
  * PUBLIC: int nonblank(SCR *, recno_t, size_t *);
  */
 int
 nonblank(SCR *sp, recno_t lno, size_t *cnop)
 {
-	char *p;
-	size_t cnt, len, off;
-	int isempty;
+        char *p;
+        size_t cnt, len, off;
+        int isempty;
 
-	/* Default. */
-	off = *cnop;
-	*cnop = 0;
+        /* Default. */
+        off = *cnop;
+        *cnop = 0;
 
-	/* Get the line, succeeding in an empty file. */
-	if (db_eget(sp, lno, &p, &len, &isempty))
-		return (!isempty);
+        /* Get the line, succeeding in an empty file. */
+        if (db_eget(sp, lno, &p, &len, &isempty))
+                return (!isempty);
 
-	/* Set the offset. */
-	if (len == 0 || off >= len)
-		return (0);
+        /* Set the offset. */
+        if (len == 0 || off >= len)
+                return (0);
 
-	for (cnt = off, p = &p[off],
-	    len -= off; len && isblank(*p); ++cnt, ++p, --len);
+        for (cnt = off, p = &p[off],
+            len -= off; len && isblank(*p); ++cnt, ++p, --len);
 
-	/* Set the return. */
-	*cnop = len ? cnt : cnt - 1;
-	return (0);
+        /* Set the return. */
+        *cnop = len ? cnt : cnt - 1;
+        return (0);
 }
 
 /*
  * v_strdup --
- *	Strdup for wide character strings with an associated length.
+ *      Strdup for wide character strings with an associated length.
  *
  * PUBLIC: CHAR_T *v_strdup(SCR *, const CHAR_T *, size_t);
  */
 CHAR_T *
 v_strdup(SCR *sp, const CHAR_T *str, size_t len)
 {
-	CHAR_T *copy;
+        CHAR_T *copy;
 
-	MALLOC(sp, copy, len + 1);
-	if (copy == NULL)
-		return (NULL);
-	memcpy(copy, str, len * sizeof(CHAR_T));
-	copy[len] = '\0';
-	return (copy);
+        MALLOC(sp, copy, len + 1);
+        if (copy == NULL)
+                return (NULL);
+        memcpy(copy, str, len * sizeof(CHAR_T));
+        copy[len] = '\0';
+        return (copy);
 }
 
 /*
@@ -118,13 +118,13 @@ v_strdup(SCR *sp, const CHAR_T *str, size_t len)
 enum nresult
 nget_uslong(u_long *valp, const char *p, char **endp, int base)
 {
-	errno = 0;
-	*valp = strtoul(p, endp, base);
-	if (errno == 0)
-		return (NUM_OK);
-	if (errno == ERANGE && *valp == ULONG_MAX)
-		return (NUM_OVER);
-	return (NUM_ERR);
+        errno = 0;
+        *valp = strtoul(p, endp, base);
+        if (errno == 0)
+                return (NUM_OK);
+        if (errno == ERANGE && *valp == ULONG_MAX)
+                return (NUM_OVER);
+        return (NUM_ERR);
 }
 
 /*
@@ -136,17 +136,17 @@ nget_uslong(u_long *valp, const char *p, char **endp, int base)
 enum nresult
 nget_slong(long *valp, const char *p, char **endp, int base)
 {
-	errno = 0;
-	*valp = strtol(p, endp, base);
-	if (errno == 0)
-		return (NUM_OK);
-	if (errno == ERANGE) {
-		if (*valp == LONG_MAX)
-			return (NUM_OVER);
-		if (*valp == LONG_MIN)
-			return (NUM_UNDER);
-	}
-	return (NUM_ERR);
+        errno = 0;
+        *valp = strtol(p, endp, base);
+        if (errno == 0)
+                return (NUM_OK);
+        if (errno == ERANGE) {
+                if (*valp == LONG_MAX)
+                        return (NUM_OVER);
+                if (*valp == LONG_MIN)
+                        return (NUM_UNDER);
+        }
+        return (NUM_ERR);
 }
 
 #ifdef DEBUG
@@ -154,23 +154,23 @@ nget_slong(long *valp, const char *p, char **endp, int base)
 
 /*
  * TRACE --
- *	debugging trace routine.
+ *      debugging trace routine.
  *
  * PUBLIC: void TRACE(SCR *, const char *, ...);
  */
 void
 TRACE(SCR *sp, const char *fmt, ...)
 {
-	FILE *tfp;
-	va_list ap;
+        FILE *tfp;
+        va_list ap;
 
-	if ((tfp = sp->gp->tracefp) == NULL)
-		return;
-	va_start(ap, fmt);
-	(void)vfprintf(tfp, fmt, ap);
-	fflush(tfp);
-	va_end(ap);
+        if ((tfp = sp->gp->tracefp) == NULL)
+                return;
+        va_start(ap, fmt);
+        (void)vfprintf(tfp, fmt, ap);
+        fflush(tfp);
+        va_end(ap);
 
-	(void)fflush(tfp);
+        (void)fflush(tfp);
 }
 #endif /* ifdef DEBUG */

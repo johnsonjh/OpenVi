@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 1988, 1989, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -26,7 +26,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)termios.h	8.3 (Berkeley) 3/28/94
+ *      @(#)termios.h   8.3 (Berkeley) 3/28/94
  */
 
 #include_next <termios.h>

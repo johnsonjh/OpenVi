@@ -1,8 +1,8 @@
-/*	$OpenBSD: extern.h,v 1.7 2015/08/27 04:37:09 guenther Exp $	*/
+/*      $OpenBSD: extern.h,v 1.7 2015/08/27 04:37:09 guenther Exp $     */
 
 /*-
  * Copyright (c) 1991, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,27 +28,27 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)extern.h	8.3 (Berkeley) 6/4/94
+ *      @(#)extern.h    8.3 (Berkeley) 6/4/94
  */
 
 #include "../btree/extern.h"
 
 __BEGIN_HIDDEN_DECLS
-int	 __rec_close(DB *);
-int	 __rec_delete(const DB *, const DBT *, u_int);
-int	 __rec_dleaf(BTREE *, PAGE *, u_int32_t);
-int	 __rec_fd(const DB *);
-int	 __rec_fmap(BTREE *, recno_t);
-int	 __rec_fout(BTREE *);
-int	 __rec_fpipe(BTREE *, recno_t);
-int	 __rec_get(const DB *, const DBT *, DBT *, u_int);
-int	 __rec_iput(BTREE *, recno_t, const DBT *, u_int);
-int	 __rec_put(const DB *dbp, DBT *, const DBT *, u_int);
-int	 __rec_ret(BTREE *, EPG *, recno_t, DBT *, DBT *);
-EPG	*__rec_search(BTREE *, recno_t, enum SRCHOP);
-int	 __rec_seq(const DB *, DBT *, DBT *, u_int);
-int	 __rec_sync(const DB *, u_int);
-int	 __rec_vmap(BTREE *, recno_t);
-int	 __rec_vout(BTREE *);
-int	 __rec_vpipe(BTREE *, recno_t);
+int      __rec_close(DB *);
+int      __rec_delete(const DB *, const DBT *, u_int);
+int      __rec_dleaf(BTREE *, PAGE *, u_int32_t);
+int      __rec_fd(const DB *);
+int      __rec_fmap(BTREE *, recno_t);
+int      __rec_fout(BTREE *);
+int      __rec_fpipe(BTREE *, recno_t);
+int      __rec_get(const DB *, const DBT *, DBT *, u_int);
+int      __rec_iput(BTREE *, recno_t, const DBT *, u_int);
+int      __rec_put(const DB *dbp, DBT *, const DBT *, u_int);
+int      __rec_ret(BTREE *, EPG *, recno_t, DBT *, DBT *);
+EPG     *__rec_search(BTREE *, recno_t, enum SRCHOP);
+int      __rec_seq(const DB *, DBT *, DBT *, u_int);
+int      __rec_sync(const DB *, u_int);
+int      __rec_vmap(BTREE *, recno_t);
+int      __rec_vout(BTREE *);
+int      __rec_vpipe(BTREE *, recno_t);
 __END_HIDDEN_DECLS

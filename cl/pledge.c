@@ -34,5 +34,5 @@
 int
 pledge(const char *promises, const char *paths[])
 {
-	return 0;
+        return 0;
 }

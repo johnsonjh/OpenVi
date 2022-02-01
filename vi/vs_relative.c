@@ -1,10 +1,10 @@
-/*	$OpenBSD: vs_relative.c,v 1.9 2014/11/12 04:28:41 bentley Exp $	*/
+/*      $OpenBSD: vs_relative.c,v 1.9 2014/11/12 04:28:41 bentley Exp $ */
 
 /*-
  * Copyright (c) 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -23,271 +23,271 @@
 
 /*
  * vs_column --
- *	Return the logical column of the cursor in the line.
+ *      Return the logical column of the cursor in the line.
  *
  * PUBLIC: int vs_column(SCR *, size_t *);
  */
 int
 vs_column(SCR *sp, size_t *colp)
 {
-	VI_PRIVATE *vip;
+        VI_PRIVATE *vip;
 
-	vip = VIP(sp);
+        vip = VIP(sp);
 
-	*colp = (O_ISSET(sp, O_LEFTRIGHT) ?
-	    vip->sc_smap->coff : (vip->sc_smap->soff - 1) * sp->cols) +
-	    vip->sc_col - (O_ISSET(sp, O_NUMBER) ? O_NUMBER_LENGTH : 0);
-	return (0);
+        *colp = (O_ISSET(sp, O_LEFTRIGHT) ?
+            vip->sc_smap->coff : (vip->sc_smap->soff - 1) * sp->cols) +
+            vip->sc_col - (O_ISSET(sp, O_NUMBER) ? O_NUMBER_LENGTH : 0);
+        return (0);
 }
 
 /*
  * vs_screens --
- *	Return the screens necessary to display the line, or if specified,
- *	the physical character column within the line, including space
- *	required for the O_NUMBER and O_LIST options.
+ *      Return the screens necessary to display the line, or if specified,
+ *      the physical character column within the line, including space
+ *      required for the O_NUMBER and O_LIST options.
  *
  * PUBLIC: size_t vs_screens(SCR *, recno_t, size_t *);
  */
 size_t
 vs_screens(SCR *sp, recno_t lno, size_t *cnop)
 {
-	size_t cols, screens;
+        size_t cols, screens;
 
-	/* Left-right screens are simple, it's always 1. */
-	if (O_ISSET(sp, O_LEFTRIGHT))
-		return (1);
+        /* Left-right screens are simple, it's always 1. */
+        if (O_ISSET(sp, O_LEFTRIGHT))
+                return (1);
 
-	/*
-	 * Check for a cached value.  We maintain a cache because, if the
-	 * line is large, this routine gets called repeatedly.  One other
-	 * hack, lots of time the cursor is on column one, which is an easy
-	 * one.
-	 */
-	if (cnop == NULL) {
-		if (VIP(sp)->ss_lno == lno)
-			return (VIP(sp)->ss_screens);
-	} else if (*cnop == 0)
-		return (1);
+        /*
+         * Check for a cached value.  We maintain a cache because, if the
+         * line is large, this routine gets called repeatedly.  One other
+         * hack, lots of time the cursor is on column one, which is an easy
+         * one.
+         */
+        if (cnop == NULL) {
+                if (VIP(sp)->ss_lno == lno)
+                        return (VIP(sp)->ss_screens);
+        } else if (*cnop == 0)
+                return (1);
 
-	/* Figure out how many columns the line/column needs. */
-	cols = vs_columns(sp, NULL, lno, cnop, NULL);
+        /* Figure out how many columns the line/column needs. */
+        cols = vs_columns(sp, NULL, lno, cnop, NULL);
 
-	screens = (cols / sp->cols + (cols % sp->cols ? 1 : 0));
-	if (screens == 0)
-		screens = 1;
+        screens = (cols / sp->cols + (cols % sp->cols ? 1 : 0));
+        if (screens == 0)
+                screens = 1;
 
-	/* Cache the value. */
-	if (cnop == NULL) {
-		VIP(sp)->ss_lno = lno;
-		VIP(sp)->ss_screens = screens;
-	}
-	return (screens);
+        /* Cache the value. */
+        if (cnop == NULL) {
+                VIP(sp)->ss_lno = lno;
+                VIP(sp)->ss_screens = screens;
+        }
+        return (screens);
 }
 
 /*
  * vs_columns --
- *	Return the screen columns necessary to display the line, or,
- *	if specified, the physical character column within the line.
+ *      Return the screen columns necessary to display the line, or,
+ *      if specified, the physical character column within the line.
  *
  * PUBLIC: size_t vs_columns(SCR *, char *, recno_t, size_t *, size_t *);
  */
 size_t
 vs_columns(SCR *sp, char *lp, recno_t lno, size_t *cnop, size_t *diffp)
 {
-	size_t chlen, cno, curoff, last, len, scno;
-	int ch, leftright, listset;
-	char *p;
+        size_t chlen, cno, curoff, last, len, scno;
+        int ch, leftright, listset;
+        char *p;
 
-	/*
-	 * Initialize the screen offset.
-	 */
-	scno = 0;
-	curoff = 0;
+        /*
+         * Initialize the screen offset.
+         */
+        scno = 0;
+        curoff = 0;
 
-	/* Leading number if O_NUMBER option set. */
-	if (O_ISSET(sp, O_NUMBER)) {
-		scno += O_NUMBER_LENGTH;
-		curoff += O_NUMBER_LENGTH;
-	}
+        /* Leading number if O_NUMBER option set. */
+        if (O_ISSET(sp, O_NUMBER)) {
+                scno += O_NUMBER_LENGTH;
+                curoff += O_NUMBER_LENGTH;
+        }
 
-	/* Need the line to go any further. */
-	if (lp == NULL) {
-		(void)db_get(sp, lno, 0, &lp, &len);
-		if (len == 0)
-			goto done;
-	}
+        /* Need the line to go any further. */
+        if (lp == NULL) {
+                (void)db_get(sp, lno, 0, &lp, &len);
+                if (len == 0)
+                        goto done;
+        }
 
-	/* Missing or empty lines are easy. */
-	if (lp == NULL) {
-done:		if (diffp != NULL)		/* XXX */
-			*diffp = 0;
-		return (scno);
-	}
+        /* Missing or empty lines are easy. */
+        if (lp == NULL) {
+done:           if (diffp != NULL)              /* XXX */
+                        *diffp = 0;
+                return (scno);
+        }
 
-	/* Store away the values of the list and leftright edit options. */
-	listset = O_ISSET(sp, O_LIST);
-	leftright = O_ISSET(sp, O_LEFTRIGHT);
+        /* Store away the values of the list and leftright edit options. */
+        listset = O_ISSET(sp, O_LIST);
+        leftright = O_ISSET(sp, O_LEFTRIGHT);
 
-	/*
-	 * Initialize the pointer into the buffer.
-	 */
-	p = lp;
+        /*
+         * Initialize the pointer into the buffer.
+         */
+        p = lp;
 
-	/* Macro to return the display length of any signal character. */
-#define CHLEN(val) (ch = *(u_char *)p++) == '\t' &&			\
-	    !listset ? TAB_OFF(val) : KEY_LEN(sp, ch);
+        /* Macro to return the display length of any signal character. */
+#define CHLEN(val) (ch = *(u_char *)p++) == '\t' &&                     \
+            !listset ? TAB_OFF(val) : KEY_LEN(sp, ch);
 
-	/*
-	 * If folding screens (the historic vi screen format), past the end
-	 * of the current screen, and the character was a tab, reset the
-	 * current screen column to 0, and the total screen columns to the
-	 * last column of the screen.  Otherwise, display the rest of the
-	 * character in the next screen.
-	 */
-#define TAB_RESET {							\
-	curoff += chlen;						\
-	if (!leftright && curoff >= sp->cols) {				\
-		if (ch == '\t') {					\
-			curoff = 0;					\
-			scno -= scno % sp->cols;			\
-		} else							\
-			curoff -= sp->cols;				\
-	}								\
+        /*
+         * If folding screens (the historic vi screen format), past the end
+         * of the current screen, and the character was a tab, reset the
+         * current screen column to 0, and the total screen columns to the
+         * last column of the screen.  Otherwise, display the rest of the
+         * character in the next screen.
+         */
+#define TAB_RESET {                                                     \
+        curoff += chlen;                                                \
+        if (!leftright && curoff >= sp->cols) {                         \
+                if (ch == '\t') {                                       \
+                        curoff = 0;                                     \
+                        scno -= scno % sp->cols;                        \
+                } else                                                  \
+                        curoff -= sp->cols;                             \
+        }                                                               \
 }
-	if (cnop == NULL)
-		while (len--) {
-			chlen = CHLEN(curoff);
-			last = scno;
-			scno += chlen;
-			TAB_RESET;
-		}
-	else
-		for (cno = *cnop;; --cno) {
-			chlen = CHLEN(curoff);
-			last = scno;
-			scno += chlen;
-			TAB_RESET;
-			if (cno == 0)
-				break;
-		}
+        if (cnop == NULL)
+                while (len--) {
+                        chlen = CHLEN(curoff);
+                        last = scno;
+                        scno += chlen;
+                        TAB_RESET;
+                }
+        else
+                for (cno = *cnop;; --cno) {
+                        chlen = CHLEN(curoff);
+                        last = scno;
+                        scno += chlen;
+                        TAB_RESET;
+                        if (cno == 0)
+                                break;
+                }
 
-	/* Add the trailing '$' if the O_LIST option set. */
-	if (listset && cnop == NULL)
-		scno += KEY_LEN(sp, '$');
+        /* Add the trailing '$' if the O_LIST option set. */
+        if (listset && cnop == NULL)
+                scno += KEY_LEN(sp, '$');
 
-	/*
-	 * The text input screen code needs to know how much additional
-	 * room the last two characters required, so that it can handle
-	 * tab character displays correctly.
-	 */
-	if (diffp != NULL)
-		*diffp = scno - last;
-	return (scno);
+        /*
+         * The text input screen code needs to know how much additional
+         * room the last two characters required, so that it can handle
+         * tab character displays correctly.
+         */
+        if (diffp != NULL)
+                *diffp = scno - last;
+        return (scno);
 }
 
 /*
  * vs_rcm --
- *	Return the physical column from the line that will display a
- *	character closest to the currently most attractive character
- *	position (which is stored as a screen column).
+ *      Return the physical column from the line that will display a
+ *      character closest to the currently most attractive character
+ *      position (which is stored as a screen column).
  *
  * PUBLIC: size_t vs_rcm(SCR *, recno_t, int);
  */
 size_t
 vs_rcm(SCR *sp, recno_t lno, int islast)
 {
-	size_t len;
+        size_t len;
 
-	/* Last character is easy, and common. */
-	if (islast) {
-		if (db_get(sp, lno, 0, NULL, &len) || len == 0)
-			return (0);
-		return (len - 1);
-	}
+        /* Last character is easy, and common. */
+        if (islast) {
+                if (db_get(sp, lno, 0, NULL, &len) || len == 0)
+                        return (0);
+                return (len - 1);
+        }
 
-	/* First character is easy, and common. */
-	if (sp->rcm == 0)
-		return (0);
+        /* First character is easy, and common. */
+        if (sp->rcm == 0)
+                return (0);
 
-	return (vs_colpos(sp, lno, sp->rcm));
+        return (vs_colpos(sp, lno, sp->rcm));
 }
 
 /*
  * vs_colpos --
- *	Return the physical column from the line that will display a
- *	character closest to the specified screen column.
+ *      Return the physical column from the line that will display a
+ *      character closest to the specified screen column.
  *
  * PUBLIC: size_t vs_colpos(SCR *, recno_t, size_t);
  */
 size_t
 vs_colpos(SCR *sp, recno_t lno, size_t cno)
 {
-	size_t chlen, curoff, len, llen, off, scno;
-	int ch, leftright, listset;
-	char *lp, *p;
+        size_t chlen, curoff, len, llen, off, scno;
+        int ch, leftright, listset;
+        char *lp, *p;
 
-	/* Need the line to go any further. */
-	(void)db_get(sp, lno, 0, &lp, &llen);
+        /* Need the line to go any further. */
+        (void)db_get(sp, lno, 0, &lp, &llen);
 
-	/* Missing or empty lines are easy. */
-	if (lp == NULL || llen == 0)
-		return (0);
+        /* Missing or empty lines are easy. */
+        if (lp == NULL || llen == 0)
+                return (0);
 
-	/* Store away the values of the list and leftright edit options. */
-	listset = O_ISSET(sp, O_LIST);
-	leftright = O_ISSET(sp, O_LEFTRIGHT);
+        /* Store away the values of the list and leftright edit options. */
+        listset = O_ISSET(sp, O_LIST);
+        leftright = O_ISSET(sp, O_LEFTRIGHT);
 
-	/* Discard screen (logical) lines. */
-	off = cno / sp->cols;
-	cno %= sp->cols;
-	for (scno = 0, p = lp, len = llen; off--;) {
-		for (; len && scno < sp->cols; --len)
-			scno += CHLEN(scno);
+        /* Discard screen (logical) lines. */
+        off = cno / sp->cols;
+        cno %= sp->cols;
+        for (scno = 0, p = lp, len = llen; off--;) {
+                for (; len && scno < sp->cols; --len)
+                        scno += CHLEN(scno);
 
-		/*
-		 * If reached the end of the physical line, return the last
-		 * physical character in the line.
-		 */
-		if (len == 0)
-			return (llen - 1);
+                /*
+                 * If reached the end of the physical line, return the last
+                 * physical character in the line.
+                 */
+                if (len == 0)
+                        return (llen - 1);
 
-		/*
-		 * If folding screens (the historic vi screen format), past
-		 * the end of the current screen, and the character was a tab,
-		 * reset the current screen column to 0.  Otherwise, the rest
-		 * of the character is displayed in the next screen.
-		 */
-		if (leftright && ch == '\t')
-			scno = 0;
-		else
-			scno -= sp->cols;
-	}
+                /*
+                 * If folding screens (the historic vi screen format), past
+                 * the end of the current screen, and the character was a tab,
+                 * reset the current screen column to 0.  Otherwise, the rest
+                 * of the character is displayed in the next screen.
+                 */
+                if (leftright && ch == '\t')
+                        scno = 0;
+                else
+                        scno -= sp->cols;
+        }
 
-	/* Step through the line until reach the right character or EOL. */
-	for (curoff = scno; len--;) {
-		chlen = CHLEN(curoff);
+        /* Step through the line until reach the right character or EOL. */
+        for (curoff = scno; len--;) {
+                chlen = CHLEN(curoff);
 
-		/*
-		 * If we've reached the specific character, there are three
-		 * cases.
-		 *
-		 * 1: scno == cno, i.e. the current character ends at the
-		 *    screen character we care about.
-		 *	a: off < llen - 1, i.e. not the last character in
-		 *	   the line, return the offset of the next character.
-		 *	b: else return the offset of the last character.
-		 * 2: scno != cno, i.e. this character overruns the character
-		 *    we care about, return the offset of this character.
-		 */
-		if ((scno += chlen) >= cno) {
-			off = p - lp;
-			return (scno == cno ?
-			    (off < llen - 1 ? off : llen - 1) : off - 1);
-		}
+                /*
+                 * If we've reached the specific character, there are three
+                 * cases.
+                 *
+                 * 1: scno == cno, i.e. the current character ends at the
+                 *    screen character we care about.
+                 *      a: off < llen - 1, i.e. not the last character in
+                 *         the line, return the offset of the next character.
+                 *      b: else return the offset of the last character.
+                 * 2: scno != cno, i.e. this character overruns the character
+                 *    we care about, return the offset of this character.
+                 */
+                if ((scno += chlen) >= cno) {
+                        off = p - lp;
+                        return (scno == cno ?
+                            (off < llen - 1 ? off : llen - 1) : off - 1);
+                }
 
-		TAB_RESET;
-	}
+                TAB_RESET;
+        }
 
-	/* No such character; return the start of the last character. */
-	return (llen - 1);
+        /* No such character; return the start of the last character. */
+        return (llen - 1);
 }

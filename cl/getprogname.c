@@ -23,5 +23,5 @@ extern char *__progname;
 const char *
 bsd_getprogname(void)
 {
-	return (__progname);
+        return (__progname);
 }

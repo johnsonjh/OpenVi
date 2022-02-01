@@ -1,8 +1,8 @@
-/*	$OpenBSD: recno.h,v 1.5 2003/06/02 20:18:34 millert Exp $	*/
+/*      $OpenBSD: recno.h,v 1.5 2003/06/02 20:18:34 millert Exp $       */
 
 /*-
  * Copyright (c) 1991, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,10 +28,10 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)recno.h	8.1 (Berkeley) 6/4/93
+ *      @(#)recno.h     8.1 (Berkeley) 6/4/93
  */
 
-enum SRCHOP { SDELETE, SINSERT, SEARCH};	/* Rec_search operation. */
+enum SRCHOP { SDELETE, SINSERT, SEARCH};        /* Rec_search operation. */
 
 #include "../btree/btree.h"
 #include "extern.h"

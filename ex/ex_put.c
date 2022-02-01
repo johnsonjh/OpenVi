@@ -1,10 +1,10 @@
-/*	$OpenBSD: ex_put.c,v 1.6 2014/11/12 04:28:41 bentley Exp $	*/
+/*      $OpenBSD: ex_put.c,v 1.6 2014/11/12 04:28:41 bentley Exp $      */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -22,24 +22,24 @@
 
 /*
  * ex_put -- [line] pu[t] [buffer]
- *	Append a cut buffer into the file.
+ *      Append a cut buffer into the file.
  *
  * PUBLIC: int ex_put(SCR *, EXCMD *);
  */
 int
 ex_put(SCR *sp, EXCMD *cmdp)
 {
-	MARK m;
+        MARK m;
 
-	NEEDFILE(sp, cmdp);
+        NEEDFILE(sp, cmdp);
 
-	m.lno = sp->lno;
-	m.cno = sp->cno;
-	if (put(sp, NULL,
-	    FL_ISSET(cmdp->iflags, E_C_BUFFER) ? &cmdp->buffer : NULL,
-	    &cmdp->addr1, &m, 1))
-		return (1);
-	sp->lno = m.lno;
-	sp->cno = m.cno;
-	return (0);
+        m.lno = sp->lno;
+        m.cno = sp->cno;
+        if (put(sp, NULL,
+            FL_ISSET(cmdp->iflags, E_C_BUFFER) ? &cmdp->buffer : NULL,
+            &cmdp->addr1, &m, 1))
+                return (1);
+        sp->lno = m.lno;
+        sp->cno = m.cno;
+        return (0);
 }

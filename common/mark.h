@@ -1,14 +1,14 @@
-/*	$OpenBSD: mark.h,v 1.5 2016/05/27 09:18:11 martijn Exp $	*/
+/*      $OpenBSD: mark.h,v 1.5 2016/05/27 09:18:11 martijn Exp $        */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  *
- *	@(#)mark.h	10.3 (Berkeley) 3/6/96
+ *      @(#)mark.h      10.3 (Berkeley) 3/6/96
  */
 
 /*
@@ -24,21 +24,21 @@
  * guaranteeing that we can malloc a line.
  */
 struct _mark {
-#define OOBLNO		0		/* Out-of-band line number. */
-	recno_t	 lno;			/* Line number. */
-	size_t	 cno;			/* Column number. */
+#define OOBLNO          0               /* Out-of-band line number. */
+        recno_t  lno;                   /* Line number. */
+        size_t   cno;                   /* Column number. */
 };
 
 struct _lmark {
-	LIST_ENTRY(_lmark) q;		/* Linked list of marks. */
-	recno_t	 lno;			/* Line number. */
-	size_t	 cno;			/* Column number. */
-	CHAR_T	 name;			/* Mark name. */
+        LIST_ENTRY(_lmark) q;           /* Linked list of marks. */
+        recno_t  lno;                   /* Line number. */
+        size_t   cno;                   /* Column number. */
+        CHAR_T   name;                  /* Mark name. */
 
-#define MARK_DELETED	0x01		/* Mark was deleted. */
-#define MARK_USERSET	0x02		/* User set this mark. */
-	u_int8_t flags;
+#define MARK_DELETED    0x01            /* Mark was deleted. */
+#define MARK_USERSET    0x02            /* User set this mark. */
+        u_int8_t flags;
 };
 
-#define ABSMARK1	'\''		/* Absolute mark name. */
-#define ABSMARK2	'`'		/* Absolute mark name. */
+#define ABSMARK1        '\''            /* Absolute mark name. */
+#define ABSMARK2        '`'             /* Absolute mark name. */

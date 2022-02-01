@@ -1,10 +1,10 @@
-/*	$OpenBSD: v_mark.c,v 1.10 2015/03/29 01:04:23 bcallah Exp $	*/
+/*      $OpenBSD: v_mark.c,v 1.10 2015/03/29 01:04:23 bcallah Exp $     */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -23,14 +23,14 @@
 
 /*
  * v_mark -- m[a-z]
- *	Set a mark.
+ *      Set a mark.
  *
  * PUBLIC: int v_mark(SCR *, VICMD *);
  */
 int
 v_mark(SCR *sp, VICMD *vp)
 {
-	return (mark_set(sp, vp->character, &vp->m_start, 1));
+        return (mark_set(sp, vp->character, &vp->m_start, 1));
 }
 
 enum which {BQMARK, FQMARK};
@@ -38,7 +38,7 @@ static int mark(SCR *, VICMD *, enum which);
 
 /*
  * v_bmark -- `['`a-z]
- *	Move to a mark.
+ *      Move to a mark.
  *
  * Moves to a mark, setting both row and column.
  *
@@ -54,12 +54,12 @@ static int mark(SCR *, VICMD *, enum which);
 int
 v_bmark(SCR *sp, VICMD *vp)
 {
-	return (mark(sp, vp, BQMARK));
+        return (mark(sp, vp, BQMARK));
 }
 
 /*
  * v_fmark -- '['`a-z]
- *	Move to a mark.
+ *      Move to a mark.
  *
  * Move to the first nonblank character of the line containing the mark.
  *
@@ -68,135 +68,135 @@ v_bmark(SCR *sp, VICMD *vp)
 int
 v_fmark(SCR *sp, VICMD *vp)
 {
-	return (mark(sp, vp, FQMARK));
+        return (mark(sp, vp, FQMARK));
 }
 
 /*
  * mark --
- *	Mark commands.
+ *      Mark commands.
  */
 static int
 mark(SCR *sp, VICMD *vp, enum which cmd)
 {
-	MARK m;
-	size_t len;
+        MARK m;
+        size_t len;
 
-	if (mark_get(sp, vp->character, &vp->m_stop, M_BERR))
-		return (1);
+        if (mark_get(sp, vp->character, &vp->m_stop, M_BERR))
+                return (1);
 
-	/*
-	 * !!!
-	 * Historically, BQMARKS for character positions that no longer
-	 * existed acted as FQMARKS.
-	 *
-	 * FQMARKS move to the first non-blank.
-	 */
-	switch (cmd) {
-	case BQMARK:
-		if (db_get(sp, vp->m_stop.lno, DBG_FATAL, NULL, &len))
-			return (1);
-		if (vp->m_stop.cno < len ||
-		    (vp->m_stop.cno == len && len == 0))
-			break;
+        /*
+         * !!!
+         * Historically, BQMARKS for character positions that no longer
+         * existed acted as FQMARKS.
+         *
+         * FQMARKS move to the first non-blank.
+         */
+        switch (cmd) {
+        case BQMARK:
+                if (db_get(sp, vp->m_stop.lno, DBG_FATAL, NULL, &len))
+                        return (1);
+                if (vp->m_stop.cno < len ||
+                    (vp->m_stop.cno == len && len == 0))
+                        break;
 
-		if (ISMOTION(vp))
-			F_SET(vp, VM_LMODE);
-		cmd = FQMARK;
-		/* FALLTHROUGH */
-	case FQMARK:
-		vp->m_stop.cno = 0;
-		if (nonblank(sp, vp->m_stop.lno, &vp->m_stop.cno))
-			return (1);
-		break;
-	default:
-		abort();
-	}
+                if (ISMOTION(vp))
+                        F_SET(vp, VM_LMODE);
+                cmd = FQMARK;
+                /* FALLTHROUGH */
+        case FQMARK:
+                vp->m_stop.cno = 0;
+                if (nonblank(sp, vp->m_stop.lno, &vp->m_stop.cno))
+                        return (1);
+                break;
+        default:
+                abort();
+        }
 
-	/* Non-motion commands move to the end of the range. */
-	if (!ISMOTION(vp)) {
-		vp->m_final = vp->m_stop;
-		return (0);
-	}
+        /* Non-motion commands move to the end of the range. */
+        if (!ISMOTION(vp)) {
+                vp->m_final = vp->m_stop;
+                return (0);
+        }
 
-	/*
-	 * !!!
-	 * If a motion component to a BQMARK, the cursor has to move.
-	 */
-	if (cmd == BQMARK &&
-	    vp->m_stop.lno == vp->m_start.lno &&
-	    vp->m_stop.cno == vp->m_start.cno) {
-		v_nomove(sp);
-		return (1);
-	}
+        /*
+         * !!!
+         * If a motion component to a BQMARK, the cursor has to move.
+         */
+        if (cmd == BQMARK &&
+            vp->m_stop.lno == vp->m_start.lno &&
+            vp->m_stop.cno == vp->m_start.cno) {
+                v_nomove(sp);
+                return (1);
+        }
 
-	/*
-	 * If the motion is in the reverse direction, switch the start and
-	 * stop MARK's so that it's in a forward direction.  (There's no
-	 * reason for this other than to make the tests below easier.  The
-	 * code in vi.c:vi() would have done the switch.)  Both forward
-	 * and backward motions can happen for any kind of search command.
-	 */
-	if (vp->m_start.lno > vp->m_stop.lno ||
-	    (vp->m_start.lno == vp->m_stop.lno &&
-	    vp->m_start.cno > vp->m_stop.cno)) {
-		m = vp->m_start;
-		vp->m_start = vp->m_stop;
-		vp->m_stop = m;
-	}
+        /*
+         * If the motion is in the reverse direction, switch the start and
+         * stop MARK's so that it's in a forward direction.  (There's no
+         * reason for this other than to make the tests below easier.  The
+         * code in vi.c:vi() would have done the switch.)  Both forward
+         * and backward motions can happen for any kind of search command.
+         */
+        if (vp->m_start.lno > vp->m_stop.lno ||
+            (vp->m_start.lno == vp->m_stop.lno &&
+            vp->m_start.cno > vp->m_stop.cno)) {
+                m = vp->m_start;
+                vp->m_start = vp->m_stop;
+                vp->m_stop = m;
+        }
 
-	/*
-	 * Yank cursor motion, when associated with marks as motion commands,
-	 * historically behaved as follows:
-	 *
-	 * ` motion			' motion
-	 *		Line change?		Line change?
-	 *		Y	N		Y	N
-	 *	      --------------	      ---------------
-	 * FORWARD:  |	NM	NM	      | NM	NM
-	 *	     |			      |
-	 * BACKWARD: |	M	M	      | M	NM(1)
-	 *
-	 * where NM means the cursor didn't move, and M means the cursor
-	 * moved to the mark.
-	 *
-	 * As the cursor was usually moved for yank commands associated
-	 * with backward motions, this implementation regularizes it by
-	 * changing the NM at position (1) to be an M.  This makes mark
-	 * motions match search motions, which is probably A Good Thing.
-	 *
-	 * Delete cursor motion was always to the start of the text region,
-	 * regardless.  Ignore other motion commands.
-	 */
-	vp->m_final = vp->m_start;
+        /*
+         * Yank cursor motion, when associated with marks as motion commands,
+         * historically behaved as follows:
+         *
+         * ` motion                     ' motion
+         *              Line change?            Line change?
+         *              Y       N               Y       N
+         *            --------------          ---------------
+         * FORWARD:  |  NM      NM            | NM      NM
+         *           |                        |
+         * BACKWARD: |  M       M             | M       NM(1)
+         *
+         * where NM means the cursor didn't move, and M means the cursor
+         * moved to the mark.
+         *
+         * As the cursor was usually moved for yank commands associated
+         * with backward motions, this implementation regularizes it by
+         * changing the NM at position (1) to be an M.  This makes mark
+         * motions match search motions, which is probably A Good Thing.
+         *
+         * Delete cursor motion was always to the start of the text region,
+         * regardless.  Ignore other motion commands.
+         */
+        vp->m_final = vp->m_start;
 
-	/*
-	 * Forward marks are always line oriented, and it's set in the
-	 * vcmd.c table.
-	 */
-	if (cmd == FQMARK)
-		return (0);
+        /*
+         * Forward marks are always line oriented, and it's set in the
+         * vcmd.c table.
+         */
+        if (cmd == FQMARK)
+                return (0);
 
-	/*
-	 * BQMARK'S moving backward and starting at column 0, and ones moving
-	 * forward and ending at column 0 are corrected to the last column of
-	 * the previous line.  Otherwise, adjust the starting/ending point to
-	 * the character before the current one (this is safe because we know
-	 * the search had to move to succeed).
-	 *
-	 * Mark motions become line mode opertions if they start at the first
-	 * nonblank and end at column 0 of another line.
-	 */
-	if (vp->m_start.lno < vp->m_stop.lno && vp->m_stop.cno == 0) {
-		if (db_get(sp, --vp->m_stop.lno, DBG_FATAL, NULL, &len))
-			return (1);
-		vp->m_stop.cno = len ? len - 1 : 0;
-		len = 0;
-		if (nonblank(sp, vp->m_start.lno, &len))
-			return (1);
-		if (vp->m_start.cno <= len)
-			F_SET(vp, VM_LMODE);
-	} else
-		--vp->m_stop.cno;
+        /*
+         * BQMARK'S moving backward and starting at column 0, and ones moving
+         * forward and ending at column 0 are corrected to the last column of
+         * the previous line.  Otherwise, adjust the starting/ending point to
+         * the character before the current one (this is safe because we know
+         * the search had to move to succeed).
+         *
+         * Mark motions become line mode opertions if they start at the first
+         * nonblank and end at column 0 of another line.
+         */
+        if (vp->m_start.lno < vp->m_stop.lno && vp->m_stop.cno == 0) {
+                if (db_get(sp, --vp->m_stop.lno, DBG_FATAL, NULL, &len))
+                        return (1);
+                vp->m_stop.cno = len ? len - 1 : 0;
+                len = 0;
+                if (nonblank(sp, vp->m_start.lno, &len))
+                        return (1);
+                if (vp->m_start.cno <= len)
+                        F_SET(vp, VM_LMODE);
+        } else
+                --vp->m_stop.cno;
 
-	return (0);
+        return (0);
 }

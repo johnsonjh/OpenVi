@@ -1,8 +1,8 @@
-/*	$OpenBSD: db.c,v 1.13 2015/09/05 11:28:35 guenther Exp $	*/
+/*      $OpenBSD: db.c,v 1.13 2015/09/05 11:28:35 guenther Exp $        */
 
 /*-
  * Copyright (c) 1991, 1993
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -53,49 +53,49 @@ dbopen(const char *fname, int flags, int mode, DBTYPE type,
     const void *openinfo)
 {
 
-#define DB_FLAGS	(DB_LOCK | DB_SHMEM | DB_TXN)
-#define USE_OPEN_FLAGS							\
-	(O_CREAT | O_EXCL | O_EXLOCK | O_NOFOLLOW | O_NONBLOCK | 	\
-	 O_ACCMODE | O_SHLOCK | O_SYNC | O_TRUNC)
+#define DB_FLAGS        (DB_LOCK | DB_SHMEM | DB_TXN)
+#define USE_OPEN_FLAGS                                                  \
+        (O_CREAT | O_EXCL | O_EXLOCK | O_NOFOLLOW | O_NONBLOCK |        \
+         O_ACCMODE | O_SHLOCK | O_SYNC | O_TRUNC)
 
-	if (((flags & O_ACCMODE) == O_RDONLY || (flags & O_ACCMODE) == O_RDWR)
-	    && (flags & ~(USE_OPEN_FLAGS | DB_FLAGS)) == 0)
-		switch (type) {
-		case DB_BTREE:
-			return (__bt_open(fname, flags & USE_OPEN_FLAGS,
-			    mode, openinfo, flags & DB_FLAGS));
-		case DB_HASH:
-			return (__hash_open(fname, flags & USE_OPEN_FLAGS,
-			    mode, openinfo, flags & DB_FLAGS));
-		case DB_RECNO:
-			return (__rec_open(fname, flags & USE_OPEN_FLAGS,
-			    mode, openinfo, flags & DB_FLAGS));
-		}
-	errno = EINVAL;
-	return (NULL);
+        if (((flags & O_ACCMODE) == O_RDONLY || (flags & O_ACCMODE) == O_RDWR)
+            && (flags & ~(USE_OPEN_FLAGS | DB_FLAGS)) == 0)
+                switch (type) {
+                case DB_BTREE:
+                        return (__bt_open(fname, flags & USE_OPEN_FLAGS,
+                            mode, openinfo, flags & DB_FLAGS));
+                case DB_HASH:
+                        return (__hash_open(fname, flags & USE_OPEN_FLAGS,
+                            mode, openinfo, flags & DB_FLAGS));
+                case DB_RECNO:
+                        return (__rec_open(fname, flags & USE_OPEN_FLAGS,
+                            mode, openinfo, flags & DB_FLAGS));
+                }
+        errno = EINVAL;
+        return (NULL);
 }
 DEF_WEAK(dbopen);
 
 static int
 __dberr(void)
 {
-	return (RET_ERROR);
+        return (RET_ERROR);
 }
 
 /*
  * __DBPANIC -- Stop.
  *
  * Parameters:
- *	dbp:	pointer to the DB structure.
+ *      dbp:    pointer to the DB structure.
  */
 void
 __dbpanic(DB *dbp)
 {
-	/* The only thing that can succeed is a close. */
-	dbp->del = (int (*)(const struct __db *, const DBT*, u_int))__dberr;
-	dbp->fd = (int (*)(const struct __db *))__dberr;
-	dbp->get = (int (*)(const struct __db *, const DBT*, DBT *, u_int))__dberr;
-	dbp->put = (int (*)(const struct __db *, DBT *, const DBT *, u_int))__dberr;
-	dbp->seq = (int (*)(const struct __db *, DBT *, DBT *, u_int))__dberr;
-	dbp->sync = (int (*)(const struct __db *, u_int))__dberr;
+        /* The only thing that can succeed is a close. */
+        dbp->del = (int (*)(const struct __db *, const DBT*, u_int))__dberr;
+        dbp->fd = (int (*)(const struct __db *))__dberr;
+        dbp->get = (int (*)(const struct __db *, const DBT*, DBT *, u_int))__dberr;
+        dbp->put = (int (*)(const struct __db *, DBT *, const DBT *, u_int))__dberr;
+        dbp->seq = (int (*)(const struct __db *, DBT *, DBT *, u_int))__dberr;
+        dbp->sync = (int (*)(const struct __db *, u_int))__dberr;
 }

@@ -1,5 +1,5 @@
-/*	$OpenBSD: unistd.h,v 1.103 2016/09/12 19:36:26 guenther Exp $ */
-/*	$NetBSD: unistd.h,v 1.26.4.1 1996/05/28 02:31:51 mrg Exp $	*/
+/*      $OpenBSD: unistd.h,v 1.103 2016/09/12 19:36:26 guenther Exp $ */
+/*      $NetBSD: unistd.h,v 1.26.4.1 1996/05/28 02:31:51 mrg Exp $      */
 
 /*-
  * Copyright (c) 1991 The Regents of the University of California.
@@ -29,7 +29,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)unistd.h	5.13 (Berkeley) 6/17/91
+ *      @(#)unistd.h    5.13 (Berkeley) 6/17/91
  */
 
 #ifdef __OpenBSD__
@@ -41,37 +41,37 @@
 
 #  include <sys/types.h>
 
-#  define STDIN_FILENO	0	/* standard input file descriptor */
-#  define STDOUT_FILENO	1	/* standard output file descriptor */
-#  define STDERR_FILENO	2	/* standard error file descriptor */
+#  define STDIN_FILENO  0       /* standard input file descriptor */
+#  define STDOUT_FILENO 1       /* standard output file descriptor */
+#  define STDERR_FILENO 2       /* standard error file descriptor */
 
-int	 execvpe(const char *, char *const *, char *const *);
-int	 crypt_newhash(const char *, const char *, char *, size_t);
-int	 getdtablecount(void);
-int	 getentropy(void *, size_t);
-mode_t	 getmode(const void *, mode_t);
-int	 getresgid(gid_t *, gid_t *, gid_t *);
-int	 getresuid(uid_t *, uid_t *, uid_t *);
-void	*setmode(const char *);
-int	 setresgid(gid_t, gid_t, gid_t);
-int	 setresuid(uid_t, uid_t, uid_t);
-int	 pledge(const char *, const char *[]);
+int      execvpe(const char *, char *const *, char *const *);
+int      crypt_newhash(const char *, const char *, char *, size_t);
+int      getdtablecount(void);
+int      getentropy(void *, size_t);
+mode_t   getmode(const void *, mode_t);
+int      getresgid(gid_t *, gid_t *, gid_t *);
+int      getresuid(uid_t *, uid_t *, uid_t *);
+void    *setmode(const char *);
+int      setresgid(gid_t, gid_t, gid_t);
+int      setresuid(uid_t, uid_t, uid_t);
+int      pledge(const char *, const char *[]);
 
 #  ifndef _GETOPT_DEFINED_
 #   define _GETOPT_DEFINED_
 #   define getopt(argc, argv, optstr) \
-	openbsd_getopt(argc, argv, optstr)
+        openbsd_getopt(argc, argv, optstr)
 #   define opterr openbsd_opterr
 #   define optind openbsd_optind
-int	 getopt(int, char * const *, const char *);
-extern	 char *optarg;			/* getopt(3) external variables */
-extern	 int opterr, optind, optopt, optreset;
+int      getopt(int, char * const *, const char *);
+extern   char *optarg;                  /* getopt(3) external variables */
+extern   int opterr, optind, optopt, optreset;
 #  endif /* _GETOPT_DEFINED_ */
 
 # endif /* _COMPAT_UNISTD_H_ */
 
 #endif /* ifdef __OpenBSD__ */
 
-#define _COMPAT_GETOPT_H_	/* glibc includes getopt.h */
+#define _COMPAT_GETOPT_H_       /* glibc includes getopt.h */
 #include_next <unistd.h>
-#undef	_COMPAT_GETOPT_H_
+#undef  _COMPAT_GETOPT_H_

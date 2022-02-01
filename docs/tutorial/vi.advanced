@@ -954,7 +954,7 @@ during input mode.  These are summarized in the following table.
     ^D      back-tabs over the indentation set by the autoindent option
     0^D     back-tabs over all indentation back to the beginning of the line
     ^^D     (up-arrow followed by control-d)same as 0^D, except the indentation
-	    will be restored at the beginning of the next line.
+            will be restored at the beginning of the next line.
     ^V      quotes the next non-printing character into the file
 
 If you wish to type in your erase or kill character (say # or @ or ^U) then you

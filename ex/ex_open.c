@@ -1,10 +1,10 @@
-/*	$OpenBSD: ex_open.c,v 1.7 2016/01/06 22:28:52 millert Exp $	*/
+/*      $OpenBSD: ex_open.c,v 1.7 2016/01/06 22:28:52 millert Exp $     */
 
 /*-
  * Copyright (c) 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -25,20 +25,20 @@
 /*
  * ex_open -- :[line] o[pen] [/pattern/] [flags]
  *
- *	Switch to single line "open" mode.
+ *      Switch to single line "open" mode.
  *
  * PUBLIC: int ex_open(SCR *, EXCMD *);
  */
 int
 ex_open(SCR *sp, EXCMD *cmdp)
 {
-	/* If open option off, disallow open command. */
-	if (!O_ISSET(sp, O_OPEN)) {
-		msgq(sp, M_ERR,
-	    "The open command requires that the open option be set");
-		return (1);
-	}
+        /* If open option off, disallow open command. */
+        if (!O_ISSET(sp, O_OPEN)) {
+                msgq(sp, M_ERR,
+            "The open command requires that the open option be set");
+                return (1);
+        }
 
-	msgq(sp, M_ERR, "The open command is not yet implemented");
-	return (1);
+        msgq(sp, M_ERR, "The open command is not yet implemented");
+        return (1);
 }

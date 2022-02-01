@@ -1,16 +1,16 @@
-#	$OpenBSD: options.awk,v 1.4 2017/12/14 10:02:53 martijn Exp $
+#       $OpenBSD: options.awk,v 1.4 2017/12/14 10:02:53 martijn Exp $
 
-#	@(#)options.awk	10.1 (Berkeley) 6/8/95
+#       @(#)options.awk 10.1 (Berkeley) 6/8/95
 
 BEGIN {
-	printf("#undef O_PATH\nenum {\n");
-	first = 1;
+        printf("#undef O_PATH\n\nenum {\n");
+        first = 1;
 }
 /^\/\* O_[0-9A-Z_]*/ {
-	printf("\t%s%s,\n", $2, first ? " = 0" : "");
-	first = 0;
-	next;
+        printf("\t%s%s,\n", $2, first ? " = 0" : "");
+        first = 0;
+        next;
 }
 END {
-	printf("\tO_OPTIONCOUNT\n};\n");
+        printf("\tO_OPTIONCOUNT\n};\n");
 }

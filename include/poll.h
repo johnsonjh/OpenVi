@@ -37,7 +37,7 @@
 # define _COMPAT_POLL_H_
 
 # ifndef INFTIM
-#  define INFTIM	(-1)
+#  define INFTIM        (-1)
 # endif /* ifndef INFTIM */
 
 #endif /* ifndef _COMPAT_POLL_H */

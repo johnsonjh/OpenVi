@@ -1,10 +1,10 @@
-/*	$OpenBSD: v_redraw.c,v 1.6 2014/11/12 04:28:41 bentley Exp $	*/
+/*      $OpenBSD: v_redraw.c,v 1.6 2014/11/12 04:28:41 bentley Exp $    */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
+ *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
- *	Keith Bostic.  All rights reserved.
+ *      Keith Bostic.  All rights reserved.
  *
  * See the LICENSE file for redistribution information.
  */
@@ -22,12 +22,12 @@
 
 /*
  * v_redraw -- ^L, ^R
- *	Redraw the screen.
+ *      Redraw the screen.
  *
  * PUBLIC: int v_redraw(SCR *, VICMD *);
  */
 int
 v_redraw(SCR *sp, VICMD *vp)
 {
-	return (sp->gp->scr_refresh(sp, 1));
+        return (sp->gp->scr_refresh(sp, 1));
 }

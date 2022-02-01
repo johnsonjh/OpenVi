@@ -1,36 +1,36 @@
-	@(#)openmode	8.1 (Berkeley) 10/29/94
+        @(#)openmode    8.1 (Berkeley) 10/29/94
 
 Open mode has the following special behaviors:
 
 z, ^F, ^B:
-	If count is not specified, it shall default to the window
-	edit option - 2.
+        If count is not specified, it shall default to the window
+        edit option - 2.
 
-	Write lines from the edit buffer starting at:
+        Write lines from the edit buffer starting at:
 
-		(the current line) - ((count - 2) / 2)
+                (the current line) - ((count - 2) / 2)
 
-	until:
+        until:
 
-		(((count + 1) / 2) * 2) - 1
+                (((count + 1) / 2) * 2) - 1
 
-	lines, or the last line in the edit buffer has been written.  A
-	line consisting of the smaller of the number of columns in the
-	display divided by two or 40 ``-'' characters shall be written
-	immediately before and after the specified is written.  These two
-	lines shall count against the total number of lines to be written.
-	A blank line shall be written after the last line is written.
+        lines, or the last line in the edit buffer has been written.  A
+        line consisting of the smaller of the number of columns in the
+        display divided by two or 40 ``-'' characters shall be written
+        immediately before and after the specified is written.  These two
+        lines shall count against the total number of lines to be written.
+        A blank line shall be written after the last line is written.
 
-	z, ^F and ^B all behave identically.
+        z, ^F and ^B all behave identically.
 
-^D:	Display the next scroll value lines, change the current line.
+^D:     Display the next scroll value lines, change the current line.
 
-^U:	Change the current line, do nothing else.
+^U:     Change the current line, do nothing else.
 
-^E, ^Y:	Do nothing.
+^E, ^Y: Do nothing.
 
-^L:	Clear the screen and re-display the current line.
+^L:     Clear the screen and re-display the current line.
 
 H, L, M:
-	Move to the first nonblank of the current line and do nothing
-	else.
+        Move to the first nonblank of the current line and do nothing
+        else.

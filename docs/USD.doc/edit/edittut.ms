@@ -1,7 +1,7 @@
-.\"	$OpenBSD: edittut.ms,v 1.7 2004/02/20 19:56:53 jmc Exp $
+.\"        $OpenBSD: edittut.ms,v 1.7 2004/02/20 19:56:53 jmc Exp $
 .\"
 .\" Copyright (c) 1980, 1993
-.\"	The Regents of the University of California.  All rights reserved.
+.\"        The Regents of the University of California.  All rights reserved.
 .\"
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions
@@ -27,15 +27,15 @@
 .\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 .\" SUCH DAMAGE.
 .\"
-.\"	@(#)edittut.ms	8.3 (Berkeley) 8/18/96
+.\"        @(#)edittut.ms        8.3 (Berkeley) 8/18/96
 .\"
 .ie n \{\
-.	po 5n
-.	ll 70n
+.po 5n
+.ll 70n
 .\}
 .el \{\
-.	ll 6.5i
-.	nr LL 6.5i
+.ll 6.5i
+.nr LL 6.5i
 .\}
 .EH 'USD:11-%''Ex:  A Tutorial'
 .OH 'Ex:  A Tutorial''USD:11-%'
@@ -2442,4 +2442,3 @@ undo (u) command, 16-17, 23
 \s-1UNIX\s0, 3
 write (w) command, 8, 13, 21, 22
 z command, 12-13
-
