@@ -413,7 +413,7 @@ endif # DEBUG
 	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man1" || \
         $(MKDIR) "$(PREFIX)/share/man/man1"
 ifndef DEBUG
-	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "$(PREFIX)/share/man/man1"
+	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "$(PREFIX)/share/man/man8"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man8" || \
         $(MKDIR) "$(PREFIX)/share/man/man8"
