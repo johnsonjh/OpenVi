@@ -1,33 +1,25 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:35:39 2022
-        + Housekeeping: Update header comment of all modified files
-        + Housekeeping: Reformat the ChangeLog to break lines at 76 columns
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:38:02 2022
+        + Update header comment of all modified files
+        + Reformat the ChangeLog to break lines at 76 columns
         + New feature: `set bserase` (abbrev `bse`) which causes
           backspaced characters to be immediately erased from the screen
         + Convert tabs to spaces and adjust source indentation with `cppi`
-		+ Update documentation; Markdown-ify `LICENSE` and rename to
-          `LICENSE.md`
+        + Update docs; Markdown-ify `LICENSE` and rename to `LICENSE.md`
 
 OpenVi 7.0.8 -> OpenVi 7.0.9: Mon Jan 31 21:43:08 2022
-        + Add a missing include to fix compilation on Void Linux with musl
-          libc
+        + Add a missing include to fix compilation on Void with musl libc
         + Update `README.md`
 
 OpenVi 7.0.7 -> OpenVi 7.0.8: Mon Jan 31 10:12:53 2022
         + Rework `README.md`
-        + Drop `-pipe` and `-fomit-frame-pointer` defaults for wider
-          compatibility
-        + Add support for building on macOS; tested on 12.1/x86_64
-          (21C5021h)
+        + Drop `-pipe` and `-fomit-frame-pointer` for wider compatibility
+        + Add support for building on macOS; tested on 12.1/x86_64/21C5021h
         + Add support for building on OpenBSD; tested on 7.0-current/ARM64
-        + Normalize licensing text, acknowledgements, and copyright
-          statements
-        + Normalize macro defines and conditional if/ifdef/ifndef's with
-          `cppi`
-        + Add support for building on FreeBSD; tested on
-          13.0-RELEASE-p6/ARM64
+        + Normalize licensing, acknowledgements, and copyright statements
+        + Normalize macros and conditional if/ifdef/ifndef's with `cppi`
+        + Add support for building on FreeBSD; tested on 13.0-REL-p6/ARM64
         + Minor code clean-up
-        + Drop memmove wrapper macro (for old systems with bcopy but no
-          memmove)
+        + Drop memmove wrapper (for old systems with bcopy but no memmove)
         + Add support for building with musl libc
         + Add `imctrl` and `imkey` options, inspired by `cannactrl` and
           `fepkey` options in `nvi-m17n` by itojun. If `imctrl` option is
@@ -46,10 +38,8 @@ OpenVi 7.0.7 -> OpenVi 7.0.8: Mon Jan 31 10:12:53 2022
 
 OpenVi 7.0.6 -> OpenVi 7.0.7: Fri Jan 28 16:33:22 2022
         + Important fix to `GNUmakefile` for linking with Clang's `lld`
-          linker
         + Remove installed man pages as part of the `uninstall` target
-        + Workaround to accommodate the case of `make clean all -j N' when
-          `N` > 1
+        + Workaround to accommodate `make clean all -j N' where `N` > 1
         + Clean-up whitespace and line lengths of sources and `GNUmakefile`
 
 OpenVi 7.0.5 -> OpenVi 7.0.6: Thu Jan 27 16:45:12 2022
@@ -57,16 +47,14 @@ OpenVi 7.0.5 -> OpenVi 7.0.6: Thu Jan 27 16:45:12 2022
           back to using the system libc-provided mkstemp functions to elide
           some issues that would otherwise occur on networked filesystems.
         + Add proper attribution for DragonflyBSD Project to `LICENSE` text
-        + Correct `GNUmakefile` non-verbose messages for the `install`
-          target
+        + Correct `GNUmakefile` messages for the `make install` target
         + Clean-up excess and trailing whitespace in source files
 
 OpenVi 7.0.4 -> OpenVi 7.0.5: Thu Jan 27 11:00:46 2022
         + No verbose build by default; set variables V (or DEBUG) to enable
         + No LTO and LGC by default; set variables LTO and/or LGC to enable
         + Don't attempt linking with libjemalloc or libmtmalloc by default
-        + Clean-up headers to speed compilation time and decrease binary
-          size
+        + Clean-up headers to speed compilation time & decrease binary size
         + Import and adapt OpenBSD Berkeley DB from OpenBSD 7-current libc
         + Remove the unused "maintainer-clean" target from GNUmakefile
         + Build against the newly bundled OpenBSD Berkeley DB by default;
@@ -81,24 +69,19 @@ OpenVi 7.0.3 -> OpenVi 7.0.4: Wed Jan 26 13:09:45 2022
         + Portably seed the standard random number generator
 
 OpenVi 7.0.2 -> OpenVi 7.0.3: Wed Jan 26 08:31:28 2022
-        + GNUmakefile "install" targets now install documentation (man
-          pages)
+        + GNUmakefile "install" target now installs docs (man pages)
         + Remove 'docs/internals/cscope.NOTES' and documentation references
-        + General GNUmakefile, portability, and code readability
-          improvements
+        + General build, portability, and code readability improvements
         + Relicense new contributions under the same 3-clause BSD license
           used by the overall project and update LICENSE file text
-        + Remove unused headers and legacy documentation from the source
-          tree
+        + Remove unused headers and legacy documentation from the sources
         + Add standalone "strip" target to GNUmakefile which strips the
           uninstalled compiled binary
         + Set visible tab character to '~' and expose option in GNUmakefile
-        + Installed binaries are now prefixed with 'o' (e.g. 'ovi') by
-          default
+        + Installed binaries are prefixed with 'o' (e.g. 'ovi') by default
         + Explicitly invoke the POSIX-compliant version of the awk utility
         + Clarify (and simplify) GNUmakefile and build configuration
-        + Update ChangeLog and docs for consistency, fix spelling and other
-          typos
+        + Update ChangeLog and docs for consistency, fix spelling and typos
         + Update LICENSE text
 
 OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
@@ -106,15 +89,13 @@ OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
         + Only pass '-pipe' to the compiler for non-debugging builds
         + Expand the formatting of the usage help text for readability
         + Change the DEBUG_VI GNUmakefile flag to simply DEBUG
-        + For debugging builds, document the existence of -T (Trace) in
-          usage
+        + For debug builds, document the existence of -T (Trace) in usage
         + Don't strip the binary by default; add "install-strip" target
         + Make clean targets more robust; warn if unable to remove 'bin'
         + Add standard "clean", "distclean", "realclean", "mostlyclean", and
           "maintainer-clean" targets to GNUmakefile
         + Increase the default escapetime to 2/10ths of a second
-        + Add OpenBSD-compatible mkstemp function allowing for longer
-          filenames
+        + Add OpenBSD-compatible mkstemp function allowing for longer names
         + Silence some potential warnings with explicit casting
         + Exit with an error when screen is too small for visual mode
         + Apply Debian's patch to fix backwards sentence moving
