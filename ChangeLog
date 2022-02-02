@@ -1,4 +1,6 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:49:42 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:57:19 2022
+        + Reword "Already in the first column" to "Already at the first
+          column" to be consistent with the other movement error messages.
         + Remove documentation files not explicitly under the 3-BSD license
         + Update header comment of all modified files
         + Reformat the ChangeLog to break lines at 76 columns

@@ -107,7 +107,7 @@ v_sof(SCR *sp, MARK *mp)
 void
 v_sol(SCR *sp)
 {
-        msgq(sp, M_BERR, "Already in the first column");
+        msgq(sp, M_BERR, "Already at the first column");
 }
 
 /*
