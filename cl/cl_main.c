@@ -271,6 +271,7 @@ sig_init(GS *gp, SCR *sp)
         if (sp == NULL) {
                 if (setsig(SIGHUP, &clp->oact[INDX_HUP], h_term) ||
                     setsig(SIGINT, &clp->oact[INDX_INT], h_int) ||
+                    setsig(SIGQUIT, &clp->oact[INDX_INT], h_int) ||
                     setsig(SIGTERM, &clp->oact[INDX_TERM], h_term) ||
                     setsig(SIGWINCH, &clp->oact[INDX_WINCH], h_winch)
                     )
@@ -278,6 +279,7 @@ sig_init(GS *gp, SCR *sp)
         } else
                 if (setsig(SIGHUP, NULL, h_term) ||
                     setsig(SIGINT, NULL, h_int) ||
+                    setsig(SIGQUIT, NULL, h_int) ||
                     setsig(SIGTERM, NULL, h_term) ||
                     setsig(SIGWINCH, NULL, h_winch)
                     ) {

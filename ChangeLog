@@ -1,4 +1,13 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 05:34:50 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 14:33:14 2022
+        + Handle `SIGQUIT` like `SIGINT`, which prevents `^\` (Control-\)
+          from causing ex-mode to abort and drop core; aligns closer to
+          Vim's behavior in ex-mode - which uses non-canonical input mode
+          so `^\` doesn't cause a stop.  The rationale for this change is
+          that because we use `^\` as a shortcut to enter our ex-mode (which
+          for `nex` uses standard canonical line-based input) if `SIGQUIT`
+          is unhandled, it's too easy to exit the editor by accident if
+          the user enters more than one `^\` in succession, which can happen
+          all too easily on a lagged connection.
         + Fix a long-standing bug where using `^G` on an empty file would
           include a random garbage byte in the displayed output
         + Reword "Already in the first column" to "Already at the first
