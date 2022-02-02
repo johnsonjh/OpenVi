@@ -433,7 +433,7 @@ msgq_status(SCR *sp, recno_t lno, u_int flags)
                 if (db_last(sp, &last))
                         return;
                 if (last == 0) {
-						char* mtfilestr = "empty file";
+                        char* mtfilestr = "empty file";
                         len = strlen(mtfilestr);
                         memcpy(p, mtfilestr, len);
                         p += len;

@@ -781,6 +781,7 @@ vs_modeline(SCR *sp)
         const char *t = NULL;
         int ellipsis;
         char *p, buf[20];
+        recno_t last = 0;
 
         /*
          * It's possible that this routine will be called after sp->frp
@@ -789,6 +790,9 @@ vs_modeline(SCR *sp)
          */
         if (sp->frp == NULL)
                 return;
+
+        len = 0;
+        midpoint = 0;
 
         gp = sp->gp;
 
@@ -855,10 +859,26 @@ vs_modeline(SCR *sp)
          */
         cols = sp->cols - 1;
         if (O_ISSET(sp, O_RULER)) {
-                vs_column(sp, &curcol);
-                len = snprintf(buf, sizeof(buf), "%lu,%zu",
-                    (u_long)sp->lno, curcol + 1);
-
+            vs_column(sp, &curcol);
+            if (!(db_last(sp, &last))) {
+                  if (last > 1) {
+                    len = snprintf(buf, sizeof(buf), "%lu,%lu  %2lu%%",
+                        (u_long)sp->lno, (u_long)curcol + 1,
+                        (u_long)((((u_long)sp->lno) * 100L) / (u_long)last));
+                    if (sp->lno >= last)
+                        len = snprintf(buf, sizeof(buf), "%lu,%lu  Bot",
+                            (u_long)sp->lno, (u_long)curcol + 1);
+                    if (sp->lno < 2)
+                        len = snprintf(buf, sizeof(buf), "%lu,%lu  Top",
+                            (u_long)sp->lno, (u_long)curcol + 1);
+                } else {
+                    len = snprintf(buf, sizeof(buf), "%lu,%lu",
+                        (u_long)sp->lno, (u_long)curcol + 1);
+                }
+            } else {
+                len = snprintf(buf, sizeof(buf), "%lu,%lu",
+                    (u_long)sp->lno, (u_long)curcol + 1);
+            }
                 midpoint = (cols - ((len + 1) / 2)) / 2;
                 if (curlen < midpoint) {
                         (void)gp->scr_move(sp, LASTLINE(sp), midpoint);

@@ -1,5 +1,8 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 15:14:57 2022
-        + New feature: If `windowname` is set, always try to show the name
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 18:34:58 2022
+        + New feature: If `ruler` is set, print a percentage after position
+        + New feature: If `windowname` is set, always show the file name
+        + New feature: If `bserase` (abbrev `bse`) is set, then any newly
+          backspaced characters are immediately erased from the screen
         + Handle `SIGQUIT` like `SIGINT`, which prevents `^\` (Control-\)
           from causing ex-mode to abort and drop core; aligns closer to
           Vim's behavior in ex-mode - which uses non-canonical input mode,
@@ -16,8 +19,6 @@ OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 15:14:57 2022
         + Remove documentation files not explicitly under the 3-BSD license
         + Update header comment of all modified files
         + Reformat the ChangeLog to break lines at 76 columns
-        + New feature: `set bserase` (abbrev `bse`) which causes
-          backspaced characters to be immediately erased from the screen
         + Convert tabs to spaces and adjust source indentation with `cppi`
         + Update docs; Markdown-ify `LICENSE` and rename to `LICENSE.md`
 
