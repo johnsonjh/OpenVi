@@ -3,6 +3,7 @@
  * Copyright (c) 1992, 1993, 1994 Henry Spencer.
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * This code is derived from software contributed to Berkeley by
  * Henry Spencer.

@@ -2,6 +2,7 @@
 
 /*
  * Copyright (c) 2015 Philip Guenther <guenther@openbsd.org>
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above

@@ -1,5 +1,6 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 01:29:49 2022
-        + Reformat the ChangeLog to break lines at 76 columns
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:35:39 2022
+        + Housekeeping: Update header comment of all modified files
+        + Housekeeping: Reformat the ChangeLog to break lines at 76 columns
         + New feature: `set bserase` (abbrev `bse`) which causes
           backspaced characters to be immediately erased from the screen
         + Convert tabs to spaces and adjust source indentation with `cppi`

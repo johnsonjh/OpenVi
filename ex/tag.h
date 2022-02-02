@@ -7,6 +7,7 @@
  *      Keith Bostic.  All rights reserved.
  * Copyright (c) 1994, 1996
  *      Rob Mayoff.  All rights reserved.
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * See the LICENSE.md file for redistribution information.
  *

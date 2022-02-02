@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1988, 1989, 1993, 1994
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *      The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

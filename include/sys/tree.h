@@ -1,7 +1,8 @@
 /*      $OpenBSD: tree.h,v 1.14 2015/05/25 03:07:49 deraadt Exp $       */
 
 /*
- * Copyright 2002 Niels Provos <provos@citi.umich.edu>
+ * Copyright (c) 2002 Niels Provos <provos@citi.umich.edu>
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

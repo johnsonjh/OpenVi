@@ -2,6 +2,7 @@
 
 /*
  * Copyright (c) 1997, 2004 Todd C. Miller <Todd.Miller@courtesan.com>
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above

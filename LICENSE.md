@@ -30,7 +30,7 @@ This program contains code derived from software contributed to Berkeley by:
   * Brian Hirt       * Paul Vixie    * David Hitz, Auspex Systems, Inc.
 
 This program contains code derived from software contributed to The NetBSD
-Foundation, Inc. by Dieter Baron and Thomas Klausner.
+Foundation, Inc. by Dieter Baron, Thomas Klausner, and Jeremy C. Reed.
 
 This program contains code derived from material licensed to the University
 of California, Berkeley by American Telephone and Telegraph Co. or UNIX System

@@ -3,6 +3,7 @@
 
 /*-
  * Copyright (c) 1991 The Regents of the University of California.
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

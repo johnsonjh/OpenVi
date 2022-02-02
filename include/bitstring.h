@@ -4,6 +4,7 @@
 /*
  * Copyright (c) 1989, 1993
  *      The Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * This code is derived from software contributed to Berkeley by
  * Paul Vixie.
