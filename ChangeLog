@@ -1,4 +1,5 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:38:02 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 02:49:42 2022
+        + Remove documentation files not explicitly under the 3-BSD license
         + Update header comment of all modified files
         + Reformat the ChangeLog to break lines at 76 columns
         + New feature: `set bserase` (abbrev `bse`) which causes
