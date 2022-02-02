@@ -1,4 +1,5 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 14:33:14 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 15:14:57 2022
+        + New feature: If `windowname` is set, always try to show the name
         + Handle `SIGQUIT` like `SIGINT`, which prevents `^\` (Control-\)
           from causing ex-mode to abort and drop core; aligns closer to
           Vim's behavior in ex-mode - which uses non-canonical input mode,

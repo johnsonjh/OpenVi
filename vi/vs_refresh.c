@@ -807,9 +807,9 @@ vs_modeline(SCR *sp)
          */
         (void)gp->scr_move(sp, LASTLINE(sp), 0);
 
-        /* If more than one screen in the display, show the file name. */
+        /* If windowname is set, or >1 screen exists, then show the name */
         curlen = 0;
-        if (IS_SPLIT(sp)) {
+        if ((IS_SPLIT(sp)) || O_ISSET(sp, O_WINDOWNAME)) {
                 for (p = sp->frp->name; *p != '\0'; ++p);
                 for (ellipsis = 0, cols = sp->cols / 2; --p > sp->frp->name;) {
                         if (*p == '/') {
