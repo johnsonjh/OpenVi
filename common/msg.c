@@ -433,8 +433,9 @@ msgq_status(SCR *sp, recno_t lno, u_int flags)
                 if (db_last(sp, &last))
                         return;
                 if (last == 0) {
-                        len = strlen("emptry file");
-                        memcpy(p, "empty file", len);
+						char* mtfilestr = "empty file";
+                        len = strlen(mtfilestr);
+                        memcpy(p, mtfilestr, len);
                         p += len;
                 } else {
                         (void)snprintf(p, ep - p, "line %lu of %lu [%lu%%]",
