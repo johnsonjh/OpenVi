@@ -8,9 +8,9 @@
 .\" This document may not be republished without written permission from
 .\" Keith Bostic.
 .\"
-.\" See the LICENSE file for redistribution information.
+.\" See the LICENSE.md file for redistribution information.
 .\"
-.\"     @(#)vi.ref        8.88 (Berkeley) 10/19/96
+.\"        @(#)vi.ref        8.88 (Berkeley) 10/19/96
 .\"
 .\"
 .if n \{\
@@ -65,7 +65,7 @@ Keith Bostic.  All Rights Reserved.
 .pp
 The vi program is freely redistributable.  You are welcome to copy,
 modify and share it with others under the conditions listed in the
-LICENSE file.  If any company (not individual!) finds vi sufficiently
+LICENSE.md file.  If any company (not individual!) finds vi sufficiently
 useful that you would have purchased it, or if any company wishes to
 redistribute it, contributions to the authors would be appreciated.
 .bp 2

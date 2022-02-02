@@ -9,7 +9,7 @@
  * This code is derived from software contributed to Berkeley by
  * Brian Hirt.
  *
- * See the LICENSE file for redistribution information.
+ * See the LICENSE.md file for redistribution information.
  */
 
 #include <sys/types.h>

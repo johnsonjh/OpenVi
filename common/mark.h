@@ -6,7 +6,7 @@
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
  *
- * See the LICENSE file for redistribution information.
+ * See the LICENSE.md file for redistribution information.
  *
  *      @(#)mark.h      10.3 (Berkeley) 3/6/96
  */

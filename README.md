@@ -1,10 +1,6 @@
 # OpenVi
 
----
-
 **OpenVi** — Portable **OpenBSD** `vi`
-
----
 
 ## Table of Contents
 
@@ -30,16 +26,17 @@
 
 ## Overview
 
-**OpenVi** is an enhanced and portable implementation of the Berkeley
-`vi` / `ex` text editor, originally developed by *Bill Joy*.
+**OpenVi** is an enhanced and portable implementation of the Berkeley `vi` /
+`ex` text editor, originally developed by *Bill Joy*.
 
-**OpenVi** is a fork of the `vi` editor included with **OpenBSD**,
-which is derived from the `nvi` editor originally distributed as
-part of the *Fourth Berkeley Software Distribution* (**4BSD**). The
-`nvi` editor was developed by *Keith Bostic* of the *Computer
-Systems Research Group* (**CSRG**) at the *University of
-California, Berkeley*, *Sven Verdoolaege*, and other contributors.
-`Nvi` itself was derived from *Steve Kirkendall*'s `elvis` editor.
+**OpenVi** is a fork of the `vi` editor included with **OpenBSD**, which is
+derived from the `nvi` editor originally distributed as part of the *Fourth
+Berkeley Software Distribution* (**4BSD**).
+
+The `nvi` editor was developed by *Keith Bostic* of the *Computer Systems
+Research Group* (**CSRG**) at the *University of California, Berkeley*, *Sven
+Verdoolaege*, and other contributors. `Nvi` itself was derived from *Steve
+Kirkendall*'s `elvis` editor.
 
 ## Building
 
@@ -47,7 +44,8 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 
 #### Required prerequisites
 
-- **POSIX** environment: POSIX shell (`sh`) and utilities, Awk (`mawk`, `nawk`), etc.
+- **POSIX** environment: POSIX shell (`sh`) and utilities, Awk (`mawk`,
+  `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
 - **Curses** (*BSD curses*, `ncurses`, `PDCurses`, `PDCursesMod`, etc.)
@@ -82,28 +80,22 @@ California, Berkeley*, *Sven Verdoolaege*, and other contributors.
 
 ##### Unsupported platforms
 
-- The following platforms are not currently supported, but **support is planned**.
+- The following platforms are **not** currently supported, but **support is
+  planned** for a future release.
   - *IBM* **AIX** 7.2+
   - **Haiku** Walter
   - *Oracle* **Solaris** 10/11+
   - *illumos* **OpenIndiana** Hipster
-  - *Microsoft* **Windows** (*Cygwin*, *MSYS2*)
-
-- The following platforms are not currently supported, and **no support is planned**.
-  - **AROS** / **AmigaOS** 3/4+
-  - **EmuTOS** / **TOS**
-  - **OS/2** (*eComStation*, *ArcaOS*, etc.)
-  - *VSI* / *HP* / *Compaq* / *DEC* **OpenVMS** 8/9+
-  - *Microsoft* **Windows** (*MinGW*, *MSVC*, *UCRT*)
+  - *Microsoft* **Windows** (*Cygwin*, *MSYS2*, *Midipix*)
 
 User contributions to enhance platform support are welcomed.
 
 ### Compilation
 
-- Compilation can be performed by invoking GNU Make (usually `gmake` or
-  `make`) from the top-level directory of a source release or git checkout.
-- GNU Make's `-j N` flag may be used to parallelize the compilation, where
-  `N` is a positive integer representing the number of jobs requested.
+- Compilation can be performed by invoking GNU Make (usually `gmake` or `make`)
+  from the top-level directory of a source release or git checkout.
+- GNU Make's `-j N` flag may be used to parallelize the compilation, where `N`
+  is a positive integer representing the number of jobs requested.
 - The following environment variables influence compilation and installation:
   - `CC` - C compiler to use
     - (e.g. `CC=gcc`)
@@ -147,7 +139,7 @@ This message indicates the editor in use is **OpenVi**, release **1**, derived
 from *OpenBSD* version **7.0**, and is fully synchronized with *OpenBSD*'s
 `vi`, `ex`, and `db` code as of **10/25/2021** (*October 25th 2021*).
 
-Changes which are **not** derived from *OpenBSD* commits do not advance this
+Changes which are **not** derived from *OpenBSD*'s commits do not advance this
 date.
 
 ## History
@@ -159,7 +151,8 @@ date.
 ## License
 
 - **OpenVi** is distributed under the terms of a **3-clause BSD** license.
-- See the [LICENSE](/LICENSE) file for the full license and distribution terms.
+- See the [LICENSE.md](/LICENSE.md) file for the full license and distribution
+  terms.
 
 ## Acknowledgements
 
@@ -173,8 +166,8 @@ date.
   - *Peter Kessler* helped bring sanity to version 2's command layout.
   - *Bill Joy* wrote version 1, versions 2.0 through 2.7, and created the
     framework that users see in the present editor.
-  - *Mark Horton* added macros and other features, and made the editor work
-    on a large number of terminals and UNIX systems.
+  - *Mark Horton* added macros and other features, and made the editor work on
+    a large number of terminals and UNIX systems.
 
 ## Similar Projects
 
@@ -182,13 +175,15 @@ date.
   [STEVIE](https://timthompson.com/tjt/stevie/).
 - [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
   cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org).
-- [Andy's Vim](http://sources.vsta.org:7100/vim57/tree), a simplified fork of
-  [Vim](https://www.vim.org).
+- [Andy Valencia's Vim](http://sources.vsta.org:7100/vim57/tree), a simplified
+  fork of [Vim](https://www.vim.org).
 
 ## See Also
 
-- [Traditional vi](https://github.com/n-t-roff/heirloom-ex-vi) is the currently
-  maintained version of the original (2BSD) branch of the `vi` / `ex` editor.
+- [Carsten Kunze's vi](https://github.com/n-t-roff/heirloom-ex-vi) is the
+  currently maintained version of the original (2BSD) branch of the `vi` /
+  `ex` editor, derived from *Gunnar Ritter*'s version of the
+  [traditional vi](http://ex-vi.sourceforge.net) editor.
 - [Nvi2](https://github.com/lichray/nvi2) is the currently maintained *feature*
-  *branch* of the 4BSD version of the `nvi` / `nex` editor, with a focus on
+  *branch* of the new (4BSD) version of the `nvi` / `nex` editor, with a focus on
   extensibility and new features.

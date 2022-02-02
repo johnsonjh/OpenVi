@@ -9,7 +9,7 @@
  * This code is derived from software contributed to Berkeley by
  * David Hitz of Auspex Systems, Inc.
  *
- * See the LICENSE file for redistribution information.
+ * See the LICENSE.md file for redistribution information.
  */
 
 #include "../include/compat.h"

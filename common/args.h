@@ -6,7 +6,7 @@
  * Copyright (c) 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
  *
- * See the LICENSE file for redistribution information.
+ * See the LICENSE.md file for redistribution information.
  *
  *      @(#)args.h      10.2 (Berkeley) 3/6/96
  */
@@ -15,7 +15,7 @@
  * Structure for building "argc/argv" vector of arguments.
  *
  * !!!
- * All arguments are nul terminated as well as having an associated length.
+ * All arguments are NULL terminated as well as having an associated length.
  * The argument vector is NOT necessarily NULL terminated.  The proper way
  * to check the number of arguments is to use the argc value in the EXCMDARG
  * structure or to walk the array until an ARGS structure with a length of 0

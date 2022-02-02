@@ -8,7 +8,7 @@
  * Copyright (c) 1994, 1996
  *      Rob Mayoff.  All rights reserved.
  *
- * See the LICENSE file for redistribution information.
+ * See the LICENSE.md file for redistribution information.
  *
  *      @(#)tag.h       10.5 (Berkeley) 5/15/96
  */
