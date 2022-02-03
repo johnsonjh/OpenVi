@@ -124,7 +124,7 @@ OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
           closes GH issue #3
         + Apply .exrc writeability patch from hesso at
           pool.math.tu-berlin.de
-        + If TERM is unset, set to null, or otherwise unknown, first attempt
+        + If TERM is unset, set to NULL, or otherwise unknown, first attempt
           to fallback to "vt100"; exit with a fatal error if "vt100" fails
         + Disallow pattern spaces which would cause intermediate
           calculations to overflow size_t. (CERT: VU#695940)
@@ -1428,7 +1428,7 @@ Nvi 1.70 -> Nvi 1.71: 7/1/1996
           lines in the file during substitution commands
         + Make window resize events separate from interrupts - too many
           users complained
-        + Fix bug in first-character-is-null text input semantic
+        + Fix bug in first-character-is-NULL text input semantic
         + Rework search routines to take a length instead of a NULL
           terminated string for a pattern. This fixes a couple of bugs in
           searching, but probably introduces new ones

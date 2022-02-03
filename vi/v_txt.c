@@ -416,7 +416,7 @@ newtp:          if ((tp = text_init(sp, lp, len, len + 32)) == NULL)
         /* Initialize abbreviation checks. */
         abcnt = ab_turnoff = 0;
         abb = F_ISSET(gp, G_ABBREV) &&
-            LF_ISSET(TXT_MAPINPUT) ? AB_INWORD : AB_NOTSET;
+              LF_ISSET(TXT_MAPINPUT) ? AB_INWORD : AB_NOTSET;
 
         /*
          * Set up the dot command.  Dot commands are done by saving the actual
@@ -513,11 +513,13 @@ next:   if (v_event_get(sp, evp, 0, ec_flags))
                  * mode.  It also beeped the terminal, but that seems a bit
                  * excessive.
                  */
+
                 /*
                  * If we are recording, morph into <escape> key so that
                  * we can repeat the command safely: there is no way to
                  * invalidate the repetition of an instance of a command,
                  * which would be the alternative possibility.
+                 *
                  * If we are not recording (most likely on the command line),
                  * simply discard the input and return to command mode
                  * so that an INTERRUPT doesn't become for example a file
@@ -537,7 +539,7 @@ next:   if (v_event_get(sp, evp, 0, ec_flags))
 
         /*
          * !!!
-         * If the first character of the input is a nul, replay the previous
+         * If the first character of the input is a NULL, replay the previous
          * input.  (Historically, it's okay to replay non-existent input.)
          * This was not documented as far as I know, and is a great test of vi
          * clones.
@@ -586,7 +588,7 @@ next:   if (v_event_get(sp, evp, 0, ec_flags))
                 if (++abcnt > MAX_ABBREVIATION_EXPANSION) {
                         if (v_event_flush(sp, CH_ABBREVIATED))
                                 msgq(sp, M_ERR,
-"Abbreviation exceeded expansion limit: characters discarded");
+                "Abbreviation exceeded expansion limit: characters discarded");
                         abcnt = 0;
                         if (LF_ISSET(TXT_REPLAY))
                                 goto done;
@@ -2317,7 +2319,7 @@ txt_hex(SCR *sp, TEXT *tp)
         char *p, *wp;
 
         /*
-         * Null-terminate the string.  Since nul isn't a legal hex value,
+         * NULL-terminate the string.  Since NULL isn't a legal hex value,
          * this should be okay, and lets us use a local routine, which
          * presumably understands the character set, to convert the value.
          */

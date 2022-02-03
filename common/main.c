@@ -100,19 +100,19 @@ editor(GS *gp, int argc, char *argv[])
 
         /* Set initial screen type and mode based on the program name. */
         readonly = 0;
-        if (!strcmp(bsd_getprogname(), "ex") ||
-            !strcmp(bsd_getprogname(), "nex") ||
-                !strcmp(bsd_getprogname(), "oex") ||
-                !strcmp(bsd_getprogname(), "obex") ||
-                !strcmp(bsd_getprogname(), "openex"))
+        if (!strcmp(bsd_getprogname(), "ex")   ||
+            !strcmp(bsd_getprogname(), "nex")  ||
+            !strcmp(bsd_getprogname(), "oex")  ||
+            !strcmp(bsd_getprogname(), "obex") ||
+            !strcmp(bsd_getprogname(), "openex"))
                 LF_INIT(SC_EX);
         else {
                 /* Nview, view are readonly. */
-                if (!strcmp(bsd_getprogname(), "view") ||
-                    !strcmp(bsd_getprogname(), "nview") ||
-                        !strcmp(bsd_getprogname(), "oview") ||
-                        !strcmp(bsd_getprogname(), "obview") ||
-                        !strcmp(bsd_getprogname(), "openview"))
+                if (!strcmp(bsd_getprogname(), "view")   ||
+                    !strcmp(bsd_getprogname(), "nview")  ||
+                    !strcmp(bsd_getprogname(), "oview")  ||
+                    !strcmp(bsd_getprogname(), "obview") ||
+                    !strcmp(bsd_getprogname(), "openview"))
                         readonly = 1;
 
                 /* Vi is the default. */
@@ -133,24 +133,24 @@ editor(GS *gp, int argc, char *argv[])
         F_SET(gp, G_SNAPSHOT);
 
         pmode = MODE_EX;
-        if (!strcmp(bsd_getprogname(), "ex") ||
-                !strcmp(bsd_getprogname(), "nex") ||
-                !strcmp(bsd_getprogname(), "oex") ||
-                !strcmp(bsd_getprogname(), "obex") ||
-                !strcmp(bsd_getprogname(), "openex"))
+        if (!strcmp(bsd_getprogname(), "ex")   ||
+            !strcmp(bsd_getprogname(), "nex")  ||
+            !strcmp(bsd_getprogname(), "oex")  ||
+            !strcmp(bsd_getprogname(), "obex") ||
+            !strcmp(bsd_getprogname(), "openex"))
                 pmode = MODE_EX;
-        else if (!strcmp(bsd_getprogname(), "vi") ||
-                         !strcmp(bsd_getprogname(), "nvi") ||
-                         !strcmp(bsd_getprogname(), "ovi") ||
-                         !strcmp(bsd_getprogname(), "obvi") ||
-                         !strcmp(bsd_getprogname(), "openvi"))
-                pmode = MODE_VI;
-        else if (!strcmp(bsd_getprogname(), "view") ||
-                         !strcmp(bsd_getprogname(), "nview") ||
-                         !strcmp(bsd_getprogname(), "oview") ||
-                         !strcmp(bsd_getprogname(), "obview") ||
-                         !strcmp(bsd_getprogname(), "openview"))
-                pmode = MODE_VIEW;
+        else if (!strcmp(bsd_getprogname(), "vi")   ||
+                 !strcmp(bsd_getprogname(), "nvi")  ||
+                 !strcmp(bsd_getprogname(), "ovi")  ||
+                 !strcmp(bsd_getprogname(), "obvi") ||
+                 !strcmp(bsd_getprogname(), "openvi"))
+                     pmode = MODE_VI;
+        else if (!strcmp(bsd_getprogname(), "view")   ||
+                 !strcmp(bsd_getprogname(), "nview")  ||
+                 !strcmp(bsd_getprogname(), "oview")  ||
+                 !strcmp(bsd_getprogname(), "obview") ||
+                 !strcmp(bsd_getprogname(), "openview"))
+                    pmode = MODE_VIEW;
 
         while ((ch = getopt(argc, argv, optstr[pmode])) != -1)
                 switch (ch) {
@@ -244,7 +244,8 @@ editor(GS *gp, int argc, char *argv[])
         argv += optind;
 
         if (secure)
-                if (pledge("stdio rpath wpath cpath fattr flock getpw tty", NULL) == -1) {
+                if (pledge(
+                    "stdio rpath wpath cpath fattr flock getpw tty", NULL) == -1) {
                         perror("pledge");
                         goto err;
                 }
@@ -293,9 +294,9 @@ editor(GS *gp, int argc, char *argv[])
         if (wsizearg != NULL) {
                 ARGS *av[2], a, b;
                 (void)snprintf(path, sizeof(path), "window=%s", wsizearg);
-                a.bp = (CHAR_T *)path;
+                a.bp  = (CHAR_T *)path;
                 a.len = strlen(path);
-                b.bp = NULL;
+                b.bp  = NULL;
                 b.len = 0;
                 av[0] = &a;
                 av[1] = &b;
@@ -431,7 +432,7 @@ editor(GS *gp, int argc, char *argv[])
                 for (;;) {
                         if (v_event_get(sp, &ev, 0, 0))
                                 goto err;
-                        if (ev.e_event == E_INTERRUPT ||
+                        if (ev.e_event  == E_INTERRUPT ||
                             (ev.e_event == E_CHARACTER &&
                             (ev.e_value == K_CR || ev.e_value == K_NL)))
                                 break;

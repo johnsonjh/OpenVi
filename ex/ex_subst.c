@@ -109,7 +109,7 @@ subagain:       return (ex_subagain(sp, cmdp));
                                 ++p;
                         /*
                          * !!!
-                         * Nul terminate the pattern string -- it's passed
+                         * NULL terminate the pattern string -- it's passed
                          * to regcomp which doesn't understand anything else.
                          */
                         *t = '\0';
@@ -526,7 +526,7 @@ noargs: if (F_ISSET(sp, SC_VI) && sp->c_suffix && (lflag || nflag || pflag)) {
                 /* New line, do an EOL match. */
                 do_eol_match = 1;
 
-                /* It's not nul terminated, but we pretend it is. */
+                /* It's not NULL terminated, but we pretend it is. */
                 eflags = REG_STARTEND;
 
                 /* The search area is from s + offset to the EOL.  */
@@ -922,7 +922,7 @@ re_compile(SCR *sp, char *ptrn, size_t plen, char **ptrnp, size_t *lenp,
                  * Copy the string into allocated memory.
                  *
                  * XXX
-                 * Regcomp isn't 8-bit clean, so the pattern is nul-terminated
+                 * Regcomp isn't 8-bit clean, so the pattern is NULL-terminated
                  * for now.  There's just no other solution.
                  */
                 MALLOC(sp, *ptrnp, plen + 1);
@@ -944,7 +944,7 @@ re_compile(SCR *sp, char *ptrn, size_t plen, char **ptrnp, size_t *lenp,
         /*
          * XXX
          * Regcomp isn't 8-bit clean, so we just lost if the pattern
-         * contained a nul.  Bummer!
+         * contained a NULL.  Bummer!
          */
         if ((rval = regcomp(rep, ptrn, /* plen, */ reflags)) != 0) {
                 if (!LF_ISSET(RE_C_SILENT))

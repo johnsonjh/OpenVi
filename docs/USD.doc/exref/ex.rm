@@ -639,7 +639,7 @@ then all but the last one or two are ignored.
 If the command takes two addresses, the first addressed line must
 precede the second in the buffer.**
 .FS
-** Null address specifications are permitted in a list of addresses,
+** NULL address specifications are permitted in a list of addresses,
 the default in this case is the current line `.';
 thus `,100' is equivalent to `\fB.\fR,100'.
 It is an error to give a prefix address to a command which expects none.
@@ -1600,7 +1600,7 @@ command
 and the previous regular expression used elsewhere
 (referred to as the previous \fIscanning\fR regular expression.)
 The previous regular expression
-can always be referred to by a null \fIre\fR, e.g. `//' or `??'.
+can always be referred to by a NULL \fIre\fR, e.g. `//' or `??'.
 .NH 2
 Magic and nomagic
 .PP

@@ -385,7 +385,7 @@ dissect(struct match *m, char *start, char *stop, sopno startst, sopno stopst)
                         for (;;) {      /* find last match of innards */
                                 sep = slow(m, ssp, rest, ssub, esub);
                                 if (sep == NULL || sep == ssp)
-                                        break;  /* failed or matched null */
+                                        break;  /* failed or matched NULL */
                                 oldssp = ssp;   /* on to next try */
                                 ssp = sep;
                         }
@@ -539,7 +539,7 @@ backref(struct match *m, char *start, char *stop, sopno startst, sopno stopst,
                         break;
                 case O_QUEST:
                         break;
-                case OOR1:      /* matches null but needs to skip */
+                case OOR1:      /* matches NULL but needs to skip */
                         ss++;
                         s = m->g->strip[ss];
                         do {
@@ -582,7 +582,7 @@ backref(struct match *m, char *start, char *stop, sopno startst, sopno stopst,
                         ss++;
                 return(backref(m, sp+len, stop, ss+1, stopst, lev, rec));
                 break;
-        case OQUEST_:           /* to null or not */
+        case OQUEST_:           /* to NULL or not */
                 dp = backref(m, sp, stop, ss+1, stopst, lev, rec);
                 if (dp != NULL)
                         return(dp);     /* not */
@@ -595,7 +595,7 @@ backref(struct match *m, char *start, char *stop, sopno startst, sopno stopst,
                 return(backref(m, sp, stop, ss+1, stopst, lev+1, rec));
                 break;
         case O_PLUS:
-                if (sp == m->lastpos[lev])      /* last pass matched null */
+                if (sp == m->lastpos[lev])      /* last pass matched NULL */
                         return(backref(m, sp, stop, ss+1, stopst, lev-1, rec));
                 /* try another pass */
                 m->lastpos[lev] = sp;

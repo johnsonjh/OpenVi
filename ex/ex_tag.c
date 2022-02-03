@@ -1239,7 +1239,7 @@ linear_search(char *string, char *front, char *back)
  *      o Matches up to len(s1) are EQUAL.
  *      o Matches up to len(s2) are GREATER.
  *
- * The string "s1" is null terminated.  The string s2 is '\t', space, (or
+ * The string "s1" is NULL terminated.  The string s2 is '\t', space, (or
  * "back") terminated.
  *
  * !!!

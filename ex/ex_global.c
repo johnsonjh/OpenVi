@@ -107,7 +107,7 @@ usage:          ex_emsg(sp, cmdp->cmd->usage, EXM_USAGE);
                                 ++p;
                         /*
                          * !!!
-                         * Nul terminate the pattern string -- it's passed
+                         * NULL terminate the pattern string -- it's passed
                          * to regcomp which doesn't understand anything else.
                          */
                         *t = '\0';

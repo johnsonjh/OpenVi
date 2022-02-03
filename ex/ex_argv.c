@@ -361,7 +361,7 @@ ins_ch:                 ++len;
                         *p++ = *cmd;
                 }
 
-        /* Nul termination. */
+        /* NULL termination. */
         ++len;
         off = p - bp;
         ADD_SPACE_RET(sp, bp, blen, len);
@@ -515,7 +515,7 @@ argv_lexp(SCR *sp, EXCMD *excp, char *path)
                                 continue;
                 }
 
-                /* Directory + name + slash + null. */
+                /* Directory + name + slash + NULL. */
                 argv_alloc(sp, dlen + nlen + 2);
                 p = exp->args[exp->argsoff]->bp;
                 if (dlen != 0) {
@@ -669,7 +669,7 @@ err:            if (ifp != NULL)
                         blen = *blenp - len;
                 }
 
-        /* Delete the final newline, nul terminate the string. */
+        /* Delete the final newline, NULL terminate the string. */
         if (p > bp && (p[-1] == '\n' || p[-1] == '\r')) {
                 --p;
                 --len;
