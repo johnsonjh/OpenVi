@@ -193,7 +193,7 @@ cl_vi_init(SCR *sp)
         /* Curses vi always reads from (and writes to) a terminal. */
         if (!F_ISSET(clp, CL_STDIN_TTY) || !isatty(STDOUT_FILENO)) {
                 msgq(sp, M_ERR,
-                    "Vi's standard input and output must be a terminal");
+                    "Standard input and standard output must be a terminal");
                 return (1);
         }
 
@@ -222,7 +222,7 @@ cl_vi_init(SCR *sp)
         o_term = getenv("TERM");
         cl_putenv("TERM", ttype, 0);
         o_lines = getenv("LINES");
-        cl_putenv("LINES", NULL, (u_long)O_VAL(sp, O_LINES));
+        cl_putenv("LINES",   NULL, (u_long)O_VAL(sp, O_LINES));
         o_cols = getenv("COLUMNS");
         cl_putenv("COLUMNS", NULL, (u_long)O_VAL(sp, O_COLUMNS));
 
@@ -436,10 +436,10 @@ cl_ex_init(SCR *sp)
                 return (0);
 
         /* Get the ex termcap/terminfo strings. */
-        (void)cl_getcap(sp, "cup", &clp->cup);
+        (void)cl_getcap(sp, "cup",  &clp->cup);
         (void)cl_getcap(sp, "smso", &clp->smso);
         (void)cl_getcap(sp, "rmso", &clp->rmso);
-        (void)cl_getcap(sp, "el", &clp->el);
+        (void)cl_getcap(sp, "el",   &clp->el);
         (void)cl_getcap(sp, "cuu1", &clp->cuu1);
 
         /* Enter_standout_mode and exit_standout_mode are paired. */

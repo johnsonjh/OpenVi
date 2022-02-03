@@ -1,5 +1,5 @@
-/*      $OpenBSD: getopt_long.c,v 1.29 2015/10/01 02:32:07 guenther Exp $       */
-/*      $NetBSD: getopt_long.c,v 1.15 2002/01/31 22:43:40 tv Exp $      */
+/*      $OpenBSD: getopt_long.c,v 1.29 2015/10/01 02:32:07 guenther Exp $    */
+/*      $NetBSD: getopt_long.c,v 1.15 2002/01/31 22:43:40 tv Exp $           */
 
 /*
  * Copyright (c) 2002 Todd C. Miller <Todd.Miller@courtesan.com>
@@ -21,6 +21,7 @@
  * Agency (DARPA) and Air Force Research Laboratory, Air Force
  * Materiel Command, USAF, under agreement number F39502-99-1-0512.
  */
+
 /*-
  * Copyright (c) 2000 The NetBSD Foundation, Inc.
  * All rights reserved.
@@ -85,18 +86,18 @@ static int parse_long_options(char * const *, const char *,
 static int gcd(int, int);
 static void permute_args(int, int, int, char * const *);
 
-static char *place = EMSG; /* option letter processing */
+static char *place = EMSG;    /* option letter processing */
 
 /* XXX: set optreset to 1 rather than these two */
 static int nonopt_start = -1; /* first non option argument (for permute) */
 static int nonopt_end = -1;   /* first option after non options (for permute) */
 
 /* Error messages */
-static const char recargchar[] = "option requires an argument -- %c";
+static const char recargchar[]   = "option requires an argument -- %c";
 static const char recargstring[] = "option requires an argument -- %s";
-static const char ambig[] = "ambiguous option -- %.*s";
-static const char noarg[] = "option doesn't take an argument -- %.*s";
-static const char illoptchar[] = "unknown option -- %c";
+static const char ambig[]        = "ambiguous option -- %.*s";
+static const char noarg[]        = "option doesn't take an argument -- %.*s";
+static const char illoptchar[]   = "unknown option -- %c";
 static const char illoptstring[] = "unknown option -- %s";
 
 /*
@@ -456,7 +457,7 @@ start:
                 if (*place)                     /* no white space */
                         optarg = place;
                 else if (oli[1] != ':') {       /* arg not optional */
-                        if (++optind >= nargc) {        /* no arg */
+                        if (++optind >= nargc) {          /* no arg */
                                 place = EMSG;
                                 if (PRINT_ERROR)
                                         warnx(recargchar, optchar);

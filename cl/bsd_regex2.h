@@ -137,9 +137,9 @@ struct re_guts {
         sopno firststate;       /* the initial OEND (normally 0) */
         sopno laststate;        /* the final OEND */
         int iflags;             /* internal flags */
-#define USEBOL  01      /* used ^ */
-#define USEEOL  02      /* used $ */
-#define BAD     04      /* something wrong */
+#define USEBOL  01              /* used ^ */
+#define USEEOL  02              /* used $ */
+#define BAD     04              /* something wrong */
         int nbol;               /* number of ^ used */
         int neol;               /* number of $ used */
         int ncategories;        /* how many character categories */

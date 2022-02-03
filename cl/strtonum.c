@@ -28,7 +28,7 @@
 
 long long
 strtonum(const char *numstr, long long minval, long long maxval,
-    const char **errstrp)
+         const char **errstrp)
 {
         long long ll = 0;
         int error = 0;
@@ -37,7 +37,7 @@ strtonum(const char *numstr, long long minval, long long maxval,
                 const char *errstr;
                 int err;
         } ev[4] = {
-                { NULL,         0 },
+                { NULL,         0      },
                 { "invalid",    EINVAL },
                 { "too small",  ERANGE },
                 { "too large",  ERANGE },

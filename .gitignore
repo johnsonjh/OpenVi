@@ -76,6 +76,7 @@ typescript
 .nvimlog
 .vimlog
 *.*.swp
+test.txt
 
 # Tags
 tags

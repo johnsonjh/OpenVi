@@ -68,7 +68,7 @@ struct parse {
         sopno slen;             /* malloced strip length (used) */
         int ncsalloc;           /* number of csets allocated */
         struct re_guts *g;
-#define NPAREN  10      /* we need to remember () 1-9 for back refs */
+#define NPAREN  10              /* we need to remember () 1-9 for back refs */
         sopno pbegin[NPAREN];   /* -> ( ([0] unused) */
         sopno pend[NPAREN];     /* -> ) ([0] unused) */
 };
@@ -118,28 +118,28 @@ static char nuls[10];           /* place to point scanner in event of error */
  * macros for use with parse structure
  * BEWARE:  these know that the parse structure is named `p' !!!
  */
-#define PEEK()  (*p->next)
-#define PEEK2() (*(p->next+1))
-#define MORE()  (p->next < p->end)
-#define MORE2() (p->next+1 < p->end)
-#define SEE(c)  (MORE() && PEEK() == (c))
-#define SEETWO(a, b)    (MORE() && MORE2() && PEEK() == (a) && PEEK2() == (b))
-#define EAT(c)  ((SEE(c)) ? (NEXT(), 1) : 0)
-#define EATTWO(a, b)    ((SEETWO(a, b)) ? (NEXT2(), 1) : 0)
-#define NEXT()  (p->next++)
-#define NEXT2() (p->next += 2)
-#define NEXTn(n)        (p->next += (n))
-#define GETNEXT()       (*p->next++)
-#define SETERROR(e)     seterr(p, (e))
-#define REQUIRE(co, e)  (void) ((co) || SETERROR(e))
-#define EMIT(op, sopnd) doemit(p, (sop)(op), (size_t)(sopnd))
-#define INSERT(op, pos) doinsert(p, (sop)(op), HERE()-(pos)+1, pos)
-#define AHEAD(pos)              dofwd(p, pos, HERE()-(pos))
-#define ASTERN(sop, pos)        EMIT(sop, HERE()-pos)
-#define HERE()          (p->slen)
-#define THERE()         (p->slen - 1)
-#define THERETHERE()    (p->slen - 2)
-#define DROP(n) (p->slen -= (n))
+#define PEEK()           (*p->next)
+#define PEEK2()          (*(p->next+1))
+#define MORE()           (p->next < p->end)
+#define MORE2()          (p->next+1 < p->end)
+#define SEE(c)           (MORE() && PEEK() == (c))
+#define SEETWO(a, b)     (MORE() && MORE2() && PEEK() == (a) && PEEK2() == (b))
+#define EAT(c)           ((SEE(c)) ? (NEXT(), 1) : 0)
+#define EATTWO(a, b)     ((SEETWO(a, b)) ? (NEXT2(), 1) : 0)
+#define NEXT()           (p->next++)
+#define NEXT2()          (p->next += 2)
+#define NEXTn(n)         (p->next += (n))
+#define GETNEXT()        (*p->next++)
+#define SETERROR(e)      seterr(p, (e))
+#define REQUIRE(co, e)   (void) ((co) || SETERROR(e))
+#define EMIT(op, sopnd)  doemit(p, (sop)(op), (size_t)(sopnd))
+#define INSERT(op, pos)  doinsert(p, (sop)(op), HERE()-(pos)+1, pos)
+#define AHEAD(pos)       dofwd(p, pos, HERE()-(pos))
+#define ASTERN(sop, pos) EMIT(sop, HERE()-pos)
+#define HERE()           (p->slen)
+#define THERE()          (p->slen - 1)
+#define THERETHERE()     (p->slen - 2)
+#define DROP(n)          (p->slen -= (n))
 
 #ifndef NDEBUG
 static int never = 0;           /* for use in asserts; shuts lint up */
@@ -205,30 +205,30 @@ regcomp(regex_t *preg, const char *pattern, int cflags)
         }
 
         /* set things up */
-        p->g = g;
-        p->next = (char *)pattern;      /* convenience; we do not modify it */
-        p->end = p->next + len;
-        p->error = 0;
+        p->g        = g;
+        p->next     = (char *)pattern;   /* convenience; we do not modify it */
+        p->end      = p->next + len;
+        p->error    = 0;
         p->ncsalloc = 0;
         for (i = 0; i < NPAREN; i++) {
                 p->pbegin[i] = 0;
-                p->pend[i] = 0;
+                p->pend[i]   = 0;
         }
-        g->csetsize = NC;
-        g->sets = NULL;
-        g->setbits = NULL;
-        g->ncsets = 0;
-        g->cflags = cflags;
-        g->iflags = 0;
-        g->nbol = 0;
-        g->neol = 0;
-        g->must = NULL;
-        g->mlen = 0;
-        g->nsub = 0;
+        g->csetsize    = NC;
+        g->sets        = NULL;
+        g->setbits     = NULL;
+        g->ncsets      = 0;
+        g->cflags      = cflags;
+        g->iflags      = 0;
+        g->nbol        = 0;
+        g->neol        = 0;
+        g->must        = NULL;
+        g->mlen        = 0;
+        g->nsub        = 0;
         g->ncategories = 1;     /* category 0 is "everything else" */
-        g->categories = &g->catspace[-(CHAR_MIN)];
+        g->categories  = &g->catspace[-(CHAR_MIN)];
         memset(g->catspace, 0, sizeof(g->catspace));
-        g->backrefs = 0;
+        g->backrefs    = 0;
 
         /* do it */
         EMIT(OEND, 0);
@@ -585,8 +585,8 @@ p_simp_re(struct parse *p,
 
         if (EAT('*')) {         /* implemented as +? */
                 /* this case does not require the (y|) trick, noKLUDGE */
-                INSERT(OPLUS_, pos);
-                ASTERN(O_PLUS, pos);
+                INSERT(OPLUS_,  pos);
+                ASTERN(O_PLUS,  pos);
                 INSERT(OQUEST_, pos);
                 ASTERN(O_QUEST, pos);
         } else if (EATTWO('\\', '{')) {
@@ -595,7 +595,7 @@ p_simp_re(struct parse *p,
                         if (MORE() && isdigit((uch)PEEK())) {
                                 count2 = p_count(p);
                                 REQUIRE(count <= count2, REG_BADBR);
-                        } else          /* single number with comma */
+                        } else  /* single number with comma */
                                 count2 = INFINITY;
                 } else          /* just a single number */
                         count2 = count;
@@ -976,10 +976,10 @@ repeat(struct parse *p,
     int to)                     /* to this number of times (maybe INFINITY) */
 {
         sopno finish = HERE();
-#define N       2
-#define INF     3
+#define N               2
+#define INF             3
 #define REP(f, t)       ((f)*8 + (t))
-#define MAP(n)  (((n) <= 1) ? (n) : ((n) == INFINITY) ? INF : N)
+#define MAP(n)          (((n) <= 1) ? (n) : ((n) == INFINITY) ? INF : N)
         sopno copy;
 
         if (p->error != 0)      /* head off possible runaway recursion */
@@ -1090,11 +1090,11 @@ allocset(struct parse *p)
                 goto nomem;
 
         cs = &p->g->sets[no];
-        cs->ptr = p->g->setbits + css*((no)/CHAR_BIT);
-        cs->mask = 1 << ((no) % CHAR_BIT);
-        cs->hash = 0;
+        cs->ptr     = p->g->setbits + css*((no)/CHAR_BIT);
+        cs->mask    = 1 << ((no) % CHAR_BIT);
+        cs->hash    = 0;
         cs->smultis = 0;
-        cs->multis = NULL;
+        cs->multis  = NULL;
 
         return(cs);
 nomem:
@@ -1523,7 +1523,7 @@ pluscount(struct parse *p, struct re_guts *g)
         sop *scan;
         sop s;
         sopno plusnest = 0;
-        sopno maxnest = 0;
+        sopno maxnest  = 0;
 
         if (p->error != 0)
                 return(0);      /* there may not be an OEND */

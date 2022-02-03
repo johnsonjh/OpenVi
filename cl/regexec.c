@@ -54,22 +54,23 @@
 #include "bsd_regex2.h"
 
 /* macros for manipulating states, small version */
-#define states  long
-typedef states  states1;                /* for later use in regexec() decision */
-#define CLEAR(v)        ((v) = 0)
-#define SET0(v, n)      ((v) &= ~((unsigned long)1 << (n)))
-#define SET1(v, n)      ((v) |= (unsigned long)1 << (n))
-#define ISSET(v, n)     (((v) & ((unsigned long)1 << (n))) != 0)
-#define ASSIGN(d, s)    ((d) = (s))
-#define EQ(a, b)        ((a) == (b))
-#define STATEVARS       long dummy      /* dummy version */
-#define STATESETUP(m, n)        /* nothing */
-#define STATETEARDOWN(m)        /* nothing */
-#define SETUP(v)        ((v) = 0)
-#define onestate        long
-#define INIT(o, n)      ((o) = (unsigned long)1 << (n))
-#define INC(o)          ((o) <<= 1)
-#define ISSTATEIN(v, o) (((v) & (o)) != 0)
+#define states            long
+typedef states            states1;    /* for later use in regexec() decision */
+#define CLEAR(v)          ((v) = 0)
+#define SET0(v, n)        ((v) &= ~((unsigned long)1 << (n)))
+#define SET1(v, n)        ((v) |= (unsigned long)1 << (n))
+#define ISSET(v, n)       (((v) & ((unsigned long)1 << (n))) != 0)
+#define ASSIGN(d, s)      ((d) = (s))
+#define EQ(a, b)          ((a) == (b))
+#define STATEVARS         long dummy  /* dummy version */
+#define STATESETUP(m, n)              /* nothing */
+#define STATETEARDOWN(m)              /* nothing */
+#define SETUP(v)          ((v) = 0)
+#define onestate          long
+#define INIT(o, n)        ((o) = (unsigned long)1 << (n))
+#define INC(o)            ((o) <<= 1)
+#define ISSTATEIN(v, o)   (((v) & (o)) != 0)
+
 /* some abbreviations; note that some of these know variable names! */
 /* do "if I'm here, I can also be there" etc without branches */
 #define FWD(dst, src, n)        ((dst) |= ((unsigned long)(src)&(here)) << (n))
@@ -118,8 +119,9 @@ typedef states  states1;                /* for later use in regexec() decision *
 #define SETUP(v)        ((v) = &m->space[m->vn++ * m->g->nstates])
 #define onestate        long
 #define INIT(o, n)      ((o) = (n))
-#define INC(o)  ((o)++)
+#define INC(o)          ((o)++)
 #define ISSTATEIN(v, o) ((v)[o])
+
 /* some abbreviations; note that some of these know variable names! */
 /* do "if I'm here, I can also be there" etc without branches */
 #define FWD(dst, src, n)        ((dst)[here+(n)] |= (src)[here])

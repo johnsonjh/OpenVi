@@ -45,27 +45,28 @@
 
 #ifdef SNAMES
 # define matcher        smatcher
-# define fast   sfast
-# define slow   sslow
+# define fast           sfast
+# define slow           sslow
 # define dissect        sdissect
 # define backref        sbackref
-# define step   sstep
-# define print  sprint
-# define at     sat
-# define match  smat
-# define nope   snope
+# define step           sstep
+# define print          sprint
+# define at             sat
+# define match          smat
+# define nope           snope
 #endif /* ifdef SNAMES */
+
 #ifdef LNAMES
 # define matcher        lmatcher
-# define fast   lfast
-# define slow   lslow
+# define fast           lfast
+# define slow           lslow
 # define dissect        ldissect
 # define backref        lbackref
-# define step   lstep
-# define print  lprint
-# define at     lat
-# define match  lmat
-# define nope   lnope
+# define step           lstep
+# define print          lprint
+# define at             lat
+# define match          lmat
+# define nope           lnope
 #endif /* ifdef LNAMES */
 
 /* another structure passed up and down to avoid zillions of parameters */
@@ -91,6 +92,7 @@ static char *backref(struct match *, char *, char *, sopno, sopno, sopno, int);
 static char *fast(struct match *, char *, char *, sopno, sopno);
 static char *slow(struct match *, char *, char *, sopno, sopno);
 static states step(struct re_guts *, sopno, sopno, states, int, states);
+
 #define MAX_RECURSION   100
 #define BOL     (OUT+1)
 #define EOL     (BOL+1)
@@ -98,10 +100,12 @@ static states step(struct re_guts *, sopno, sopno, states, int, states);
 #define NOTHING (BOL+3)
 #define BOW     (BOL+4)
 #define EOW     (BOL+5)
+
 /* update nonchars[] array below when adding fake chars here */
 #define CODEMAX (BOL+5)         /* highest code used */
 #define NONCHAR(c)      ((c) > CHAR_MAX)
 #define NNONCHAR        (CODEMAX-CHAR_MAX)
+
 #ifdef REDEBUG
 static void print(struct match *, char *, states, int, FILE *);
 static void at(struct match *, char *, char *, char *, sopno, sopno);
@@ -157,13 +161,13 @@ matcher(struct re_guts *g, char *string, size_t nmatch, regmatch_t pmatch[],
         }
 
         /* match struct setup */
-        m->g = g;
-        m->eflags = eflags;
-        m->pmatch = NULL;
+        m->g       = g;
+        m->eflags  = eflags;
+        m->pmatch  = NULL;
         m->lastpos = NULL;
-        m->offp = string;
-        m->beginp = start;
-        m->endp = stop;
+        m->offp    = string;
+        m->beginp  = start;
+        m->endp    = stop;
         STATESETUP(m, 4);
         SETUP(m->st);
         SETUP(m->fresh);

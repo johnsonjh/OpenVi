@@ -264,23 +264,23 @@ sig_init(GS *gp, SCR *sp)
 
         clp = GCLP(gp);
 
-        cl_sigint = 0;
-        cl_sigterm = 0;
+        cl_sigint   = 0;
+        cl_sigterm  = 0;
         cl_sigwinch = 0;
 
         if (sp == NULL) {
-                if (setsig(SIGHUP, &clp->oact[INDX_HUP], h_term) ||
-                    setsig(SIGINT, &clp->oact[INDX_INT], h_int) ||
-                    setsig(SIGQUIT, &clp->oact[INDX_INT], h_int) ||
-                    setsig(SIGTERM, &clp->oact[INDX_TERM], h_term) ||
+                if (setsig(SIGHUP,   &clp->oact[INDX_HUP],   h_term) ||
+                    setsig(SIGINT,   &clp->oact[INDX_INT],   h_int)  ||
+                    setsig(SIGQUIT,  &clp->oact[INDX_INT],   h_int)  ||
+                    setsig(SIGTERM,  &clp->oact[INDX_TERM],  h_term) ||
                     setsig(SIGWINCH, &clp->oact[INDX_WINCH], h_winch)
                     )
                         err(1, NULL);
         } else
-                if (setsig(SIGHUP, NULL, h_term) ||
-                    setsig(SIGINT, NULL, h_int) ||
-                    setsig(SIGQUIT, NULL, h_int) ||
-                    setsig(SIGTERM, NULL, h_term) ||
+                if (setsig(SIGHUP,   NULL, h_term) ||
+                    setsig(SIGINT,   NULL, h_int)  ||
+                    setsig(SIGQUIT,  NULL, h_int)  ||
+                    setsig(SIGTERM,  NULL, h_term) ||
                     setsig(SIGWINCH, NULL, h_winch)
                     ) {
                         msgq(sp, M_SYSERR, "signal-reset");
@@ -320,9 +320,10 @@ sig_end(GS *gp)
         CL_PRIVATE *clp;
 
         clp = GCLP(gp);
-        (void)sigaction(SIGHUP, NULL, &clp->oact[INDX_HUP]);
-        (void)sigaction(SIGINT, NULL, &clp->oact[INDX_INT]);
-        (void)sigaction(SIGTERM, NULL, &clp->oact[INDX_TERM]);
+        (void)sigaction(SIGHUP,   NULL, &clp->oact[INDX_HUP]);
+        (void)sigaction(SIGINT,   NULL, &clp->oact[INDX_INT]);
+        (void)sigaction(SIGQUIT,  NULL, &clp->oact[INDX_INT]);
+        (void)sigaction(SIGTERM,  NULL, &clp->oact[INDX_TERM]);
         (void)sigaction(SIGWINCH, NULL, &clp->oact[INDX_WINCH]);
 }
 
@@ -333,26 +334,26 @@ sig_end(GS *gp)
 static void
 cl_func_std(GS *gp)
 {
-        gp->scr_addstr = cl_addstr;
-        gp->scr_attr = cl_attr;
-        gp->scr_baud = cl_baud;
-        gp->scr_bell = cl_bell;
-        gp->scr_busy = NULL;
-        gp->scr_clrtoeol = cl_clrtoeol;
-        gp->scr_cursor = cl_cursor;
-        gp->scr_deleteln = cl_deleteln;
-        gp->scr_event = cl_event;
+        gp->scr_addstr    = cl_addstr;
+        gp->scr_attr      = cl_attr;
+        gp->scr_baud      = cl_baud;
+        gp->scr_bell      = cl_bell;
+        gp->scr_busy      = NULL;
+        gp->scr_clrtoeol  = cl_clrtoeol;
+        gp->scr_cursor    = cl_cursor;
+        gp->scr_deleteln  = cl_deleteln;
+        gp->scr_event     = cl_event;
         gp->scr_ex_adjust = cl_ex_adjust;
-        gp->scr_fmap = cl_fmap;
-        gp->scr_imctrl = cl_imctrl;
-        gp->scr_insertln = cl_insertln;
-        gp->scr_keyval = cl_keyval;
-        gp->scr_move = cl_move;
-        gp->scr_msg = NULL;
+        gp->scr_fmap      = cl_fmap;
+        gp->scr_imctrl    = cl_imctrl;
+        gp->scr_insertln  = cl_insertln;
+        gp->scr_keyval    = cl_keyval;
+        gp->scr_move      = cl_move;
+        gp->scr_msg       = NULL;
         gp->scr_optchange = cl_optchange;
-        gp->scr_refresh = cl_refresh;
-        gp->scr_rename = cl_rename;
-        gp->scr_screen = cl_screen;
-        gp->scr_suspend = cl_suspend;
-        gp->scr_usage = cl_usage;
+        gp->scr_refresh   = cl_refresh;
+        gp->scr_rename    = cl_rename;
+        gp->scr_screen    = cl_screen;
+        gp->scr_suspend   = cl_suspend;
+        gp->scr_usage     = cl_usage;
 }
