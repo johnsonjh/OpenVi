@@ -9,9 +9,8 @@ OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 18:34:58 2022
           so `^\` doesn't cause a stop.  The rationale for this change is
           because we're using `^\` as a shortcut to enter our ex-mode (which
           for `nex` uses standard canonical line-based input), if `SIGQUIT`
-          is unhandled, it's all too easy to exit the editor by accident if
-          the user sends more than one `^\` in succession, which can happen
-          all too easily on a slow or lagged connection.
+          is unhandled, it's easy to abort by accident by sending more than
+          one `^\` in succession, which can happen on lagged connection.
         + Fix a long-standing bug where using `^G` on an empty file would
           include a random garbage byte in the displayed output
         + Reword "Already in the first column" to "Already at the first
