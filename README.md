@@ -144,21 +144,21 @@ date.
 
 ## History
 
-- [ChangeLog](/ChangeLog)
+- [`ChangeLog`](/ChangeLog)
 - [GitHub release history](http://github.com/johnsonjh/OpenVi/releases/)
 - [GitHub commit history](https://github.com/johnsonjh/OpenVi/commits/master)
 
 ## License
 
 - **OpenVi** is distributed under the terms of a **3-clause BSD** license.
-- See the [LICENSE.md](/LICENSE.md) file for the full license and distribution
-  terms.
+- See the [`LICENSE.md`](/LICENSE.md) file for the full license and
+  distribution terms.
 
 ## Acknowledgements
 
 - *rqsd* of *Libera.Chat* for the idea that inspired the project and testing.
-- [*S. V. Nickolas*](https://github.com/buricco),
-  [*Jason Stevens*](https://virtuallyfun.com), and the
+- [*S. V. Nickolas*](https://github.com/buricco/),
+  [*Jason Stevens*](https://virtuallyfun.com/), and the
   [*Virtually Fun* Discord](https://discord.gg/HMwevcN) community, for support
   and feedback.
 - From the original `vi` acknowledgements by *Bill Joy* and *Mark Horton*:
@@ -167,23 +167,23 @@ date.
   - *Bill Joy* wrote version 1, versions 2.0 through 2.7, and created the
     framework that users see in the present editor.
   - *Mark Horton* added macros and other features, and made the editor work on
-    a large number of terminals and UNIX systems.
+    a large number of terminals and *UNIX* systems.
 
 ## Similar Projects
 
-- [Xvi](http://martinwguy.github.io/xvi/), an enhanced fork of
-  [STEVIE](https://timthompson.com/tjt/stevie/).
-- [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
-  cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org).
-- [*Andy Valencia*'s Vim](http://sources.vsta.org:7100/vim57/tree), a
-  simplified fork of [Vim](https://www.vim.org).
+- [**Xvi**](http://martinwguy.github.io/xvi/), an enhanced fork of
+  [**STEVIE**](https://timthompson.com/tjt/stevie/).
+- [**Sivle**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
+  cleaned-up fork of [**Elvis**](http://elvis.the-little-red-haired-girl.org/).
+- [*Andy Valencia*'s **Vim**](http://sources.vsta.org:7100/vim57/tree), a
+  simplified fork of [**Vim**](https://www.vim.org/) (*version* *5.7*).
 
 ## See Also
 
-- [*Carsten Kunze*'s vi](https://github.com/n-t-roff/heirloom-ex-vi) is the
-  currently maintained version of the original (2BSD) branch of the `vi` /
-  `ex` editor, derived from *Gunnar Ritter*'s version of the
-  [*traditional* vi](http://ex-vi.sourceforge.net) editor.
+- [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/) is
+  the currently maintained version of the original (*2BSD*) branch of the
+  `vi` / `ex` editor, derived from *Gunnar Ritter*'s enhanced
+  [*traditional* **`vi`**](http://ex-vi.sourceforge.net/) editor.
 - [Nvi2](https://github.com/lichray/nvi2) is the currently maintained *feature*
-  *branch* of the new (4BSD) version of the `nvi` / `nex` editor, with a focus on
-  extensibility and new features.
+  *branch* of the new (*4BSD*) version of the `nvi` / `nex` editor, with a
+  focus on extensibility and new features.
