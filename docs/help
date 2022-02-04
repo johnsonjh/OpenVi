@@ -223,7 +223,7 @@ escapetime=2    lines=43        noreadonly      tags="tags"     nowriteany
 directory="/tmp"
 imkey="/?aioAIO"
 paragraphs="iplpppqpp lipplpipbp"
-recdir="/tmp/vi.recover"
+recdir="/var/tmp/vi.recover"
 sections="NHSHH HUnhsh"
 shell="/bin/sh"
 shellmeta="~{[*?$`'"\"

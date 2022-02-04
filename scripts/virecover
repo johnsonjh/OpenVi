@@ -8,7 +8,7 @@ use warnings;
 use strict;
 use Fcntl;
 
-my $recoverdir = $ARGV[0] || "/tmp/vi.recover";
+my $recoverdir = $ARGV[0] || "/var/tmp/vi.recover";
 my $sendmail = "/usr/sbin/sendmail";
 
 die "Sorry, $0 must be run as root\n" if $>;

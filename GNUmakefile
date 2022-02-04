@@ -393,12 +393,12 @@ endif # (,$(findstring install,$(MAKECMDGOALS)))
 install: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1 \
          scripts/virecover scripts/virecover.8
 ifndef DEBUG
-	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "/tmp/vi.recover"
+	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "/var/tmp/vi.recover"
 endif # DEBUG
-	@$(VERBOSE); $(TEST) -d "/tmp/vi.recover" || { \
-        $(MKDIR) "/tmp/vi.recover" && $(TEST) -d "/tmp/vi.recover" && \
-            $(CHOWN) "$(IUSGR)" "/tmp/vi.recover" && \
-                $(CHMOD) "1777" "/tmp/vi.recover"; }
+	@$(VERBOSE); $(TEST) -d "/var/tmp/vi.recover" || { \
+        $(MKDIR) "/var/tmp/vi.recover" && $(TEST) -d "/var/tmp/vi.recover" && \
+            $(CHOWN) "$(IUSGR)" "/var/tmp/vi.recover" && \
+                $(CHMOD) "1777" "/var/tmp/vi.recover"; }
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "$(PREFIX)/bin"
 endif # DEBUG

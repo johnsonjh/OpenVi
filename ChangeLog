@@ -1,4 +1,7 @@
 OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 18:34:58 2022
+        + Use `/var/tmp` for the `vi.recover` directory; on most Linux
+          systems, this persists across reboots and gives a higher chance
+          of recovery than `/tmp` which is often a memory-backed filesystem
         + New feature: If `ruler` is set, print a percentage after position
         + New feature: If `windowname` is set, always show the file name
         + New feature: If `bserase` (abbrev `bse`) is set, then any newly

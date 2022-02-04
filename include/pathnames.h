@@ -50,7 +50,7 @@
 #  undef _PATH_PRESERVE
 # endif /* ifdef _PATH_PRESERVE */
 
-# define _PATH_PRESERVE "/tmp/vi.recover"
+# define _PATH_PRESERVE "/var/tmp/vi.recover"
 
 # ifdef _PATH_SYSEXRC
 #  undef _PATH_TAGS
