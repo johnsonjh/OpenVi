@@ -29,14 +29,19 @@
 ***OpenVi*** is an enhanced and portable implementation of the Berkeley
 `vi` / `ex` text editor, originally developed by *Bill Joy*.
 
-***OpenVi*** is a fork of the `vi` editor included with *OpenBSD*, which is
-derived from the `nvi` editor originally distributed as part of the *Fourth
-Berkeley Software Distribution* (**4BSD**).
+***OpenVi*** is a fork of the `vi` / `ex` editor included with *OpenBSD*, which
+is derived from version 1.79 of the `nvi` editor originally distributed as part
+of the *Fourth Berkeley Software Distribution* (**4BSD**).
 
 The `nvi` editor was developed by *Keith Bostic* of the *Computer Systems
 Research Group* (**CSRG**) at the *University of California, Berkeley*, *Sven
 Verdoolaege*, and other contributors. `Nvi` itself was derived from *Steve
 Kirkendall*'s `Elvis` editor.
+
+***OpenVi*** makes use of *OpenBSD*'s
+[POSIX.1 regular expression engine](https://man.openbsd.org/re_format.7) and
+[*Berkeley DB*](https://www.usenix.org/legacy/event/usenix99/full_papers/olson/olson.pdf)
+[database engine](https://man.openbsd.org/man3/dbopen.3).
 
 ## Building
 
@@ -44,7 +49,7 @@ Kirkendall*'s `Elvis` editor.
 
 #### Required prerequisites
 
-- **POSIX** environment: POSIX shell (`sh`) and utilities, Awk (`mawk`,
+- **POSIX** environment: POSIX shell (`sh`) and utilities, **Awk** (`mawk`,
   `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
