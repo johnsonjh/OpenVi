@@ -157,9 +157,9 @@ date.
 ## Acknowledgements
 
 - *rqsd* of *Libera.Chat* for the idea that inspired the project and testing.
-- [S. V. Nickolas](https://github.com/buricco),
-  [Jason Stevens](https://virtuallyfun.com), and the
-  [Virtually Fun Discord](https://discord.gg/HMwevcN) community, for support
+- [*S. V. Nickolas*](https://github.com/buricco),
+  [*Jason Stevens*](https://virtuallyfun.com), and the
+  [*Virtually Fun* Discord](https://discord.gg/HMwevcN) community, for support
   and feedback.
 - From the original `vi` acknowledgements by *Bill Joy* and *Mark Horton*:
   - *Bruce Englar* encouraged the early development of this display editor.
@@ -175,15 +175,15 @@ date.
   [STEVIE](https://timthompson.com/tjt/stevie/).
 - [Sivle](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
   cleaned-up fork of [Elvis](http://elvis.the-little-red-haired-girl.org).
-- [Andy Valencia's Vim](http://sources.vsta.org:7100/vim57/tree), a simplified
-  fork of [Vim](https://www.vim.org).
+- [*Andy Valencia*'s Vim](http://sources.vsta.org:7100/vim57/tree), a
+  simplified fork of [Vim](https://www.vim.org).
 
 ## See Also
 
 - [*Carsten Kunze*'s vi](https://github.com/n-t-roff/heirloom-ex-vi) is the
   currently maintained version of the original (2BSD) branch of the `vi` /
   `ex` editor, derived from *Gunnar Ritter*'s version of the
-  [_traditional_ vi](http://ex-vi.sourceforge.net) editor.
+  [*traditional* vi](http://ex-vi.sourceforge.net) editor.
 - [Nvi2](https://github.com/lichray/nvi2) is the currently maintained *feature*
   *branch* of the new (4BSD) version of the `nvi` / `nex` editor, with a focus on
   extensibility and new features.
