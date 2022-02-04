@@ -38,10 +38,9 @@ Research Group* (**CSRG**) at the *University of California, Berkeley*, *Sven
 Verdoolaege*, and other contributors. `Nvi` itself was derived from *Steve
 Kirkendall*'s `Elvis` editor.
 
-***OpenVi*** makes use of *OpenBSD*'s
-[POSIX.1 regular expression engine](https://man.openbsd.org/re_format.7) and
-[*Berkeley DB*](https://www.usenix.org/legacy/event/usenix99/full_papers/olson/olson.pdf)
-[database engine](https://man.openbsd.org/man3/dbopen.3).
+***OpenVi*** utilizes the *OpenBSD*
+[regular expression engine](https://man.openbsd.org/re_format.7) and
+[database library](https://man.openbsd.org/man3/dbopen.3).
 
 ## Building
 
