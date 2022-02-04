@@ -1,6 +1,6 @@
 # OpenVi
 
-**OpenVi** — Portable **OpenBSD** `vi`
+***OpenVi*** — Portable *OpenBSD* `vi` for *UNIX* systems
 
 ## Table of Contents
 
@@ -26,17 +26,17 @@
 
 ## Overview
 
-**OpenVi** is an enhanced and portable implementation of the Berkeley `vi` /
-`ex` text editor, originally developed by *Bill Joy*.
+***OpenVi*** is an enhanced and portable implementation of the Berkeley
+`vi` / `ex` text editor, originally developed by *Bill Joy*.
 
-**OpenVi** is a fork of the `vi` editor included with **OpenBSD**, which is
+***OpenVi*** is a fork of the `vi` editor included with *OpenBSD*, which is
 derived from the `nvi` editor originally distributed as part of the *Fourth
 Berkeley Software Distribution* (**4BSD**).
 
 The `nvi` editor was developed by *Keith Bostic* of the *Computer Systems
 Research Group* (**CSRG**) at the *University of California, Berkeley*, *Sven
 Verdoolaege*, and other contributors. `Nvi` itself was derived from *Steve
-Kirkendall*'s `elvis` editor.
+Kirkendall*'s `Elvis` editor.
 
 ## Building
 
@@ -127,30 +127,35 @@ User contributions to enhance platform support are welcomed.
 
 ## Versioning
 
-The **OpenVi** version number is based on the version of the corresponding
-*OpenBSD* release, followed by the **OpenVi** release number. The `version`
+The ***OpenVi*** version number is based on the version of the corresponding
+*OpenBSD* release, followed by the ***OpenVi*** release number. The `version`
 command can be used to display this information in the format shown below.
 
 ```text
 Version 7.0.1 (OpenVi) 10/25/2021.
 ```
 
-This message indicates the editor in use is **OpenVi**, release **1**, derived
-from *OpenBSD* version **7.0**, and is fully synchronized with *OpenBSD*'s
-`vi`, `ex`, and `db` code as of **10/25/2021** (*October 25th 2021*).
+This message indicates the editor in use is ***OpenVi***, release **1**,
+derived from *OpenBSD* version **7.0**, and is fully synchronized with the
+*OpenBSD* versions of ***`vi`***, ***`ex`***, and ***`db`*** as of
+**10/25/2021** (*October 25th 2021*).
 
-Changes which are **not** derived from *OpenBSD*'s commits do not advance this
-date.
+Changes **not** derived from *OpenBSD* commits do not advance this date.
 
 ## History
 
-- [`ChangeLog`](/ChangeLog)
-- [GitHub release history](http://github.com/johnsonjh/OpenVi/releases/)
-- [GitHub commit history](https://github.com/johnsonjh/OpenVi/commits/master)
+- ***OpenVi***
+  - [`ChangeLog`](/ChangeLog)
+  - [Release history](http://github.com/johnsonjh/OpenVi/releases/)
+  - [Commit history](https://github.com/johnsonjh/OpenVi/commits/master)
+- *OpenBSD* ***`vi`*** / ***`ex`***
+  - [Commit history](https://github.com/openbsd/src/commits/master/usr.bin/vi)
+- *OpenBSD* ***`db`***
+  - [Commit history](https://github.com/openbsd/src/commits/master/lib/libc/db)
 
 ## License
 
-- **OpenVi** is distributed under the terms of a **3-clause BSD** license.
+- ***OpenVi*** is distributed under the terms of a **3-clause BSD** license.
 - See the [`LICENSE.md`](/LICENSE.md) file for the full license and
   distribution terms.
 
@@ -159,24 +164,27 @@ date.
 - *rqsd* of *Libera.Chat* for the idea that inspired the project and testing.
 - [*S. V. Nickolas*](https://github.com/buricco/),
   [*Jason Stevens*](https://virtuallyfun.com/), and the
-  [*Virtually Fun* Discord](https://discord.gg/HMwevcN) community, for support
-  and feedback.
-- From the original `vi` acknowledgements by *Bill Joy* and *Mark Horton*:
+  [***Virtually Fun*** *Discord*](https://discord.gg/HMwevcN) community, for
+  support and feedback.
+- From the original `vi` acknowledgements (by *Bill Joy* and *Mark Horton*):
   - *Bruce Englar* encouraged the early development of this display editor.
   - *Peter Kessler* helped bring sanity to version 2's command layout.
-  - *Bill Joy* wrote version 1, versions 2.0 through 2.7, and created the
-    framework that users see in the present editor.
+  - *Bill Joy* wrote version **1**, versions **2.0** through **2.7**, and
+    created the framework that users see in the present editor.
   - *Mark Horton* added macros and other features, and made the editor work on
     a large number of terminals and *UNIX* systems.
 
 ## Similar Projects
 
-- [**Xvi**](http://martinwguy.github.io/xvi/), an enhanced fork of
-  [**STEVIE**](https://timthompson.com/tjt/stevie/).
-- [**Sivle**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
-  cleaned-up fork of [**Elvis**](http://elvis.the-little-red-haired-girl.org/).
-- [*Andy Valencia*'s **Vim**](http://sources.vsta.org:7100/vim57/tree), a
-  simplified fork of [**Vim**](https://www.vim.org/) (*version* *5.7*).
+- *Martin Guy*'s [**`Xvi`**](http://martinwguy.github.io/xvi/), an enhanced
+  fork of *Tim Thompson*'s [**`STEVIE`**](https://timthompson.com/tjt/stevie/).
+- *S. V. Nickolas*'
+  [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
+  cleaned-up fork of
+  [**`Elvis`**](http://elvis.the-little-red-haired-girl.org/).
+- *Andy Valencia*'s [**`Vim`**](http://sources.vsta.org:7100/vim57/tree), a
+  simplified fork of [**`Vim`**](https://www.vim.org/) derived from
+  *Bram Moolenaar*'s [Vim](https://www.vim.org) (*version 5.7*).
 
 ## See Also
 
