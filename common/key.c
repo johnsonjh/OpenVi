@@ -110,7 +110,7 @@ v_key_init(SCR *sp)
         /*
          * XXX
          * 8-bit only, for now.  Recompilation should get you any 8-bit
-         * character set, as long as nul isn't a character.
+         * character set, as long as NULL isn't a character.
          */
         (void)setlocale(LC_ALL, "");
         v_key_ilookup(sp);

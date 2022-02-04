@@ -510,7 +510,7 @@ skip_srch:      if (ecp->cmd == &cmds[C_VISUAL_EX] && F_ISSET(sp, SC_VI))
                 /*
                  * Multiple < and > characters; another "feature".  Note,
                  * The string passed to the underlying function may not be
-                 * nul terminated in this case.
+                 * NULL terminated in this case.
                  */
                 if ((ecp->cmd == &cmds[C_SHIFTL] && *p == '<') ||
                     (ecp->cmd == &cmds[C_SHIFTR] && *p == '>')) {

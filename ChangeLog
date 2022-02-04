@@ -1,4 +1,4 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Fri Feb 4 10:14:40 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Fri Feb 4 12:36:42 2022
         + Use `/var/tmp` for the `vi.recover` directory; on most Linux
           systems, this persists across reboots and gives a higher chance
           of recovery than `/tmp` which is often a memory-backed filesystem
@@ -1353,7 +1353,7 @@ Nvi 1.76 -> Nvi 1.78: 10/1/1996
           were on
         + Fix bug where splitting in the middle of the screen could repaint
           incorrectly
-        + Fix first-nul in input bug, where random garbage was inserted
+        + Fix first-NULL in input bug, where random garbage was inserted
         + Correct search and mark-as-motion-command bug, it's a line mode
           action if the search starts at or before the first non<blank>
         + Fix bug autoindent bug, where ^D could shift too far in the line
