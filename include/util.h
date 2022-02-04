@@ -16,17 +16,17 @@
 # define _UTIL_H
 
 /* Macros to init/set/clear/test flags. */
-# define FL_INIT(l, f)  (l) = (f)               /* Specific flags location. */
+# define FL_INIT(l, f)  (l) = (f)                 /* Specific flags location. */
 # define FL_SET(l, f)   ((l) |= (f))
 # define FL_CLR(l, f)   ((l) &= ~(f))
 # define FL_ISSET(l, f) ((l) & (f))
 
-# define LF_INIT(f)     FL_INIT(flags, (f))     /* Local variable flags. */
+# define LF_INIT(f)     FL_INIT(flags, (f))       /* Local variable flags. */
 # define LF_SET(f)      FL_SET(flags, (f))
 # define LF_CLR(f)      FL_CLR(flags, (f))
 # define LF_ISSET(f)    FL_ISSET(flags, (f))
 
-# define F_INIT(p, f)   FL_INIT((p)->flags, (f))        /* Structure element flags. */
+# define F_INIT(p, f)   FL_INIT((p)->flags, (f))  /* Structure element flags. */
 # define F_SET(p, f)    FL_SET((p)->flags, (f))
 # define F_CLR(p, f)    FL_CLR((p)->flags, (f))
 # define F_ISSET(p, f)  FL_ISSET((p)->flags, (f))
