@@ -1,4 +1,4 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 2 18:34:58 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Fri Feb 4 10:14:40 2022
         + Use `/var/tmp` for the `vi.recover` directory; on most Linux
           systems, this persists across reboots and gives a higher chance
           of recovery than `/tmp` which is often a memory-backed filesystem
