@@ -662,11 +662,11 @@ err:            if (ifp != NULL)
          * shell that does that is broken.
          */
         for (p = bp, len = 0, ch = EOF;
-            (ch = getc(ifp)) != EOF; *p++ = ch, --blen, ++len)
+            (ch = getc(ifp)) != EOF; *p++ = ch, blen -= sizeof(CHAR_T), ++len)
                 if (blen < 5) {
                         ADD_SPACE_GOTO(sp, bp, *blenp, *blenp * 2);
                         p = bp + len;
-                        blen = *blenp - len;
+                        blen = *blenp - len * sizeof(CHAR_T);
                 }
 
         /* Delete the final newline, NULL terminate the string. */
