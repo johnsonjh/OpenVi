@@ -27,16 +27,16 @@
 ## Overview
 
 ***OpenVi*** is an enhanced and portable implementation of the Berkeley
-`vi` / `ex` text editor, originally developed by *Bill Joy*.
+**`vi`** / **`ex`** text editor, originally developed by *Bill Joy*.
 
-***OpenVi*** is a fork of the `vi` / `ex` editor included with *OpenBSD*, which
-is derived from version 1.79 of the `nvi` editor originally distributed as part
-of the *Fourth Berkeley Software Distribution* (**4BSD**).
+***OpenVi*** is a fork of the **`vi`** / **`ex`** editor included with
+*OpenBSD*, which is derived from version 1.79 of the `nvi` editor originally
+distributed as part of the *Fourth Berkeley Software Distribution* (**4BSD**).
 
-The `nvi` editor was developed by *Keith Bostic* of the *Computer Systems
+The **`nvi`** editor was developed by *Keith Bostic* of the *Computer Systems
 Research Group* (**CSRG**) at the *University of California, Berkeley*, *Sven
-Verdoolaege*, and other contributors. `Nvi` itself was derived from *Steve
-Kirkendall*'s `Elvis` editor.
+Verdoolaege*, and other contributors. **`Nvi`** itself was derived from *Steve
+Kirkendall*'s **`Elvis`** editor.
 
 ## Building
 
@@ -95,7 +95,7 @@ User contributions to enhance platform support are welcomed.
 - Compilation can be performed by invoking GNU Make (usually `gmake` or `make`)
   from the top-level directory of a source release or git checkout.
 - GNU Make's `-j N` flag may be used to parallelize the compilation, where `N`
-  is a positive integer representing the number of jobs requested.
+  is a positive integer representing the number of parallel jobs requested.
 - The following environment variables influence compilation and installation:
   - `CC` - C compiler to use
     - (e.g. `CC=gcc`)
@@ -177,14 +177,14 @@ Changes **not** derived from *OpenBSD* commits do not advance this date.
 ## Similar Projects
 
 - *Martin Guy*'s [**`Xvi`**](http://martinwguy.github.io/xvi/), an enhanced
-  fork of *Tim Thompson*'s [**`STEVIE`**](https://timthompson.com/tjt/stevie/).
+  fork of *Tim Thompson*'s [**`STEVIE`**](https://timthompson.com/tjt/stevie/)
 - *S. V. Nickolas*'
   [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
-  cleaned-up fork of
-  [**`Elvis`**](http://elvis.the-little-red-haired-girl.org/).
-- *Andy Valencia*'s [**`Vim`**](http://sources.vsta.org:7100/vim57/tree), a
-  simplified fork of [**`Vim`**](https://www.vim.org/) derived from
-  *Bram Moolenaar*'s [Vim](https://www.vim.org) (*version 5.7*).
+  cleaned-up fork of *Steve Kirkendall*'s
+  [**`Elvis`**](http://elvis.the-little-red-haired-girl.org/)
+- *Andy Valencia*'s [**`Vim57`**](http://sources.vsta.org:7100/vim57/tree), a
+  simplified fork of version 5.7 of *Bram Moolenaar*'s
+  [**`Vim`**](https://www.vim.org/)
 
 ## See Also
 
