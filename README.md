@@ -1,6 +1,6 @@
 # OpenVi
 
-***OpenVi*** — Portable *OpenBSD* `vi` / `ex`
+***OpenVi*** — Portable *OpenBSD* **`vi`** / **`ex`**
 
 ## Table of Contents
 
@@ -166,7 +166,7 @@ Changes **not** derived from *OpenBSD* commits do not advance this date.
   [*Jason Stevens*](https://virtuallyfun.com/), and the
   [***Virtually Fun*** *Discord*](https://discord.gg/HMwevcN) community, for
   support and feedback.
-- From the original `vi` acknowledgements (by *Bill Joy* and *Mark Horton*):
+- From the original **`vi`** acknowledgements (by *Bill Joy* & *Mark Horton*):
   - *Bruce Englar* encouraged the early development of this display editor.
   - *Peter Kessler* helped bring sanity to version 2's command layout.
   - *Bill Joy* wrote version **1**, versions **2.0** through **2.7**, and
@@ -189,9 +189,9 @@ Changes **not** derived from *OpenBSD* commits do not advance this date.
 ## See Also
 
 - [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/) is
-  the currently maintained version of the original (*2BSD*) branch of the
-  `vi` / `ex` editor, derived from *Gunnar Ritter*'s enhanced
-  [*traditional* **`vi`**](http://ex-vi.sourceforge.net/) editor.
-- [Nvi2](https://github.com/lichray/nvi2) is the currently maintained *feature*
-  *branch* of the new (*4BSD*) version of the `nvi` / `nex` editor, with a
-  focus on extensibility and new features.
+  the currently maintained fork of the original (**2BSD**) branch of the
+  **`vi`** / **`ex`** editor, derived from *Gunnar Ritter*'s enhanced version
+  of the [**traditional** **`vi`**](http://ex-vi.sourceforge.net/) editor.
+- [**`Nvi2`**](https://github.com/lichray/nvi2) is the currently maintained
+  *feature branch* of the new (**4BSD**) version of the **`nvi`** / **`nex`**
+  editor, with a focus on extensibility and new features.
