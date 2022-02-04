@@ -340,7 +340,7 @@ ex_readfp(SCR *sp, char *name, FILE *fp, MARK *fm, recno_t *nlinesp,
         if (!silent) {
                 p = msg_print(sp, name, &nf);
                 msgq(sp, M_INFO,
-                    "%s: %lu lines, %lu characters", p, lcnt, ccnt);
+                    "%s: %'lu lines, %'lu characters", p, lcnt, ccnt);
                 if (nf)
                         FREE_SPACE(sp, p, 0);
         }

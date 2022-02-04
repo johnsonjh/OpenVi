@@ -366,7 +366,7 @@ msgq_status(SCR *sp, recno_t lno, u_int flags)
         if (F_ISSET(sp, SC_STATUS_CNT) && sp->argv != NULL) {
                 for (cnt = 0, ap = sp->argv; *ap != NULL; ++ap, ++cnt);
                 if (cnt > 1) {
-                        (void)snprintf(p, ep - p, "%d files to edit", cnt);
+                        (void)snprintf(p, ep - p, "%'d files to edit", cnt);
                         p += strlen(p);
                         *p++ = ':';
                         *p++ = ' ';
@@ -431,21 +431,27 @@ msgq_status(SCR *sp, recno_t lno, u_int flags)
         }
         if (LF_ISSET(MSTAT_SHOWLAST)) {
                 if (db_last(sp, &last))
-                        return;
+                        last = 0;
                 if (last == 0) {
                         char* mtfilestr = "empty file";
                         len = strlen(mtfilestr);
                         memcpy(p, mtfilestr, len);
                         p += len;
                 } else {
-                        (void)snprintf(p, ep - p, "line %lu of %lu [%lu%%]",
+                        (void)snprintf(p, ep - p, "line %'lu of %'lu [%lu%%]",
                             (unsigned long)lno, (unsigned long)last,
                             (unsigned long)(lno * 100) / last);
                         p += strlen(p);
                 }
         } else {
-                (void)snprintf(p, ep - p, "line %lu", (unsigned long)lno);
+                if (db_last(sp, &last))
+                        last = 0;
+                (void)snprintf(p, ep - p, "line %'lu", (unsigned long)lno);
                 p += strlen(p);
+                if (last) {
+                        (void)snprintf(p, ep - p, " of %'lu", (unsigned long)last);
+                        p += strlen(p);
+                }
         }
 #ifdef DEBUG
         (void)snprintf(p, ep - p, " (pid %ld)", (long)getpid());
@@ -504,7 +510,7 @@ msg_cmsg(SCR *sp, cmsg_t which, size_t *lenp)
         const char *s;
         switch (which) {
         case CMSG_CONF:
-                s = "confirm? [ynq]";
+                s = "Confirm? [y/n/q]";
                 break;
         case CMSG_CONT:
                 s = "Press any key to continue: ";
@@ -516,7 +522,7 @@ msg_cmsg(SCR *sp, cmsg_t which, size_t *lenp)
                 s = "Press Enter to continue: ";
                 break;
         case CMSG_CONT_S:
-                s = " cont?";
+                s = " Cont?";
                 break;
         case CMSG_CONT_Q:
                 s = "Press any key to continue [q to quit]: ";

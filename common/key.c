@@ -113,6 +113,7 @@ v_key_init(SCR *sp)
          * character set, as long as NULL isn't a character.
          */
         (void)setlocale(LC_ALL, "");
+		(void)setlocale(LC_NUMERIC, "");
         v_key_ilookup(sp);
 
         v_keyval(sp, K_CNTRLD, KEY_VEOF);

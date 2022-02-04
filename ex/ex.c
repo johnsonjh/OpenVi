@@ -2282,7 +2282,7 @@ ex_badaddr(SCR *sp, EXCMDLIST const *cp, enum badaddr ba, enum nresult nret)
                         return;
                 if (lno != 0) {
                         msgq(sp, M_ERR,
-                            "Illegal address: only %lu lines in the file",
+                            "Illegal address: only %'lu lines in the file",
                             lno);
                         break;
                 }

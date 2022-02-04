@@ -919,14 +919,14 @@ file_write(SCR *sp, MARK *fm, MARK *tm, char *name, int flags)
         switch (mtype) {
         case NEWFILE:
                 len = snprintf(buf, sizeof(buf),
-                    "%s: new file: %lu lines, %lu characters", p, nlno, nch);
+                    "%s: new file: %'lu lines, %'lu characters", p, nlno, nch);
                 if (len >= sizeof(buf))
                         len = sizeof(buf) - 1;
                 break;
         case OLDFILE:
                 msgstr = LF_ISSET(FS_APPEND) ?
-                    "%s: appended: %lu lines, %lu characters" :
-                    "%s: %lu lines, %lu characters";
+                    "%s: appended: %'lu lines, %'lu characters" :
+                    "%s: %'lu lines, %'lu characters";
                 len = snprintf(buf, sizeof(buf), msgstr, p, nlno, nch);
                 if (len >= sizeof(buf))
                         len = sizeof(buf) - 1;

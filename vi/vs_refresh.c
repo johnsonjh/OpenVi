@@ -862,21 +862,21 @@ vs_modeline(SCR *sp)
             vs_column(sp, &curcol);
             if (!(db_last(sp, &last))) {
                   if (last > 1) {
-                    len = snprintf(buf, sizeof(buf), "%lu,%lu  %2lu%%",
+                    len = snprintf(buf, sizeof(buf), "%lu:%lu  %2lu%%",
                         (u_long)sp->lno, (u_long)curcol + 1,
                         (u_long)((((u_long)sp->lno) * 100L) / (u_long)last));
                     if (sp->lno >= last)
-                        len = snprintf(buf, sizeof(buf), "%lu,%lu  Bot",
+                        len = snprintf(buf, sizeof(buf), "%lu:%lu  Bot",
                             (u_long)sp->lno, (u_long)curcol + 1);
                     if (sp->lno < 2)
-                        len = snprintf(buf, sizeof(buf), "%lu,%lu  Top",
+                        len = snprintf(buf, sizeof(buf), "%lu:%lu  Top",
                             (u_long)sp->lno, (u_long)curcol + 1);
                 } else {
-                    len = snprintf(buf, sizeof(buf), "%lu,%lu",
+                    len = snprintf(buf, sizeof(buf), "%lu:%lu",
                         (u_long)sp->lno, (u_long)curcol + 1);
                 }
             } else {
-                len = snprintf(buf, sizeof(buf), "%lu,%lu",
+                len = snprintf(buf, sizeof(buf), "%lu:%lu",
                     (u_long)sp->lno, (u_long)curcol + 1);
             }
                 midpoint = (cols - ((len + 1) / 2)) / 2;
