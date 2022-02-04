@@ -1,6 +1,6 @@
 # OpenVi
 
-***OpenVi*** — Portable *OpenBSD* `vi` for *UNIX* systems
+***OpenVi*** — Portable *OpenBSD* `vi` / `ex`
 
 ## Table of Contents
 
