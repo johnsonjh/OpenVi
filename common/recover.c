@@ -44,7 +44,7 @@
 /*
  * Recovery code.
  *
- * The basic scheme is as follows.  In the EXF structure, we maintain full
+ * The basic scheme is as follows:  In the EXF structure, we maintain full
  * paths of a b+tree file and a mail recovery file.  The former is the file
  * used as backing store by the DB package.  The latter is the file that
  * contains an email message to be sent to the user if we crash.  The two

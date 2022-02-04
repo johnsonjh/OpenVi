@@ -24,7 +24,8 @@ is interesting:
 
 1: Vi text input mode (a, i, o, :colon commands, etc.):
 
-   The set of characters that users might want to escape are as follows.
+   The set of characters that users might want to escape are as follows:
+
    As ^L and ^Z were not special in input mode, they are not listed.
 
         carriage return (^M)

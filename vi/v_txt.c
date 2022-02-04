@@ -127,12 +127,12 @@ txt_map_init(SCR *sp)
                  *
                  * Save the current location.
                  */
-                vip->sv_tm_lno = TMAP->lno;
-                vip->sv_tm_soff = TMAP->soff;
-                vip->sv_tm_coff = TMAP->coff;
+                vip->sv_tm_lno    = TMAP->lno;
+                vip->sv_tm_soff   = TMAP->soff;
+                vip->sv_tm_coff   = TMAP->coff;
                 vip->sv_t_maxrows = sp->t_maxrows;
                 vip->sv_t_minrows = sp->t_minrows;
-                vip->sv_t_rows = sp->t_rows;
+                vip->sv_t_rows    = sp->t_rows;
 
                 /*
                  * If it's a small screen, TMAP may be small for the screen.
@@ -141,13 +141,13 @@ txt_map_init(SCR *sp)
                 if (IS_SMALL(sp))
                         for (esmp =
                             HMAP + (sp->t_maxrows - 1); TMAP < esmp; ++TMAP) {
-                                TMAP[1].lno = TMAP[0].lno + 1;
+                                TMAP[1].lno  = TMAP[0].lno + 1;
                                 TMAP[1].coff = HMAP->coff;
                                 TMAP[1].soff = 1;
                         }
 
                 /* Build the fake entry. */
-                TMAP[1].lno = TMAP[0].lno + 1;
+                TMAP[1].lno  = TMAP[0].lno + 1;
                 TMAP[1].soff = 1;
                 TMAP[1].coff = 0;
                 SMAP_FLUSH(&TMAP[1]);
@@ -172,7 +172,7 @@ txt_map_end(SCR *sp)
         vip = VIP(sp);
         if (!IS_ONELINE(sp)) {
                 /* Restore the screen information. */
-                sp->t_rows = vip->sv_t_rows;
+                sp->t_rows    = vip->sv_t_rows;
                 sp->t_minrows = vip->sv_t_minrows;
                 sp->t_maxrows = vip->sv_t_maxrows;
 
@@ -510,7 +510,7 @@ next:   if (v_event_get(sp, evp, 0, ec_flags))
                  * !!!
                  * Historically, <interrupt> exited the user from text input
                  * mode or cancelled a colon command, and returned to command
-                 * mode.  It also beeped the terminal, but that seems a bit
+                 * mode.  It also beeped the terminal, but that seemed a bit
                  * excessive.
                  */
 
@@ -772,7 +772,7 @@ k_cr:           if (LF_ISSET(TXT_CR)) {
                 /* Set up bookkeeping for the new line. */
                 ntp->insert = insert;
                 ntp->owrite = owrite;
-                ntp->lno = tp->lno + 1;
+                ntp->lno    = tp->lno + 1;
 
                 /*
                  * Reset the autoindent line value.  0^D keeps the autoindent
@@ -807,8 +807,8 @@ k_cr:           if (LF_ISSET(TXT_CR)) {
                                 BINC_GOTO(sp, ntp->lb,
                                     ntp->lb_len, ntp->len + WMTSPACE + 32);
                                 memmove(ntp->lb + ntp->cno, wmt.lb, WMTSPACE);
-                                ntp->len += WMTSPACE;
-                                ntp->cno += wmt.offset;
+                                ntp->len   += WMTSPACE;
+                                ntp->cno   += wmt.offset;
                                 ntp->owrite = wmt.owrite;
                                 ntp->insert = wmt.insert;
                         }
@@ -948,7 +948,7 @@ k_escape:       LINE_RESOLVE;
                                 goto ins_ch;
 
                         /* Save the ai string for later. */
-                        ait.lb = NULL;
+                        ait.lb     = NULL;
                         ait.lb_len = 0;
                         BINC_GOTO(sp, ait.lb, ait.lb_len, tp->ai);
                         memmove(ait.lb, tp->lb, tp->ai);
@@ -1118,7 +1118,7 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
                                 tmp = inword(tp->lb[tp->cno - 1]);
                         while (tp->cno > max) {
                                 if (tmp != inword(tp->lb[tp->cno - 1])
-                                    || isblank(tp->lb[tp->cno - 1]))
+                                       || isblank(tp->lb[tp->cno - 1]))
                                         break;
                                 --tp->cno;
                                 ++tp->owrite;
@@ -1129,7 +1129,7 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
 
                 /* Reset if we deleted an incremental search character. */
                 if (FL_ISSET(is_flags, IS_RUNNING))
-                        FL_SET(is_flags, IS_RESTART);
+                      FL_SET(is_flags, IS_RESTART);
                 break;
         case K_VKILL:                   /* Restart this line. */
                 /*
@@ -1519,7 +1519,8 @@ txt_abbrev(SCR *sp, TEXT *tp, CHAR_T *pushcp, int isinfoline, int *didsubp,
          * unabbreviate "foo"!
          *
          * Anyway, people neglected to first ask my opinion before they wrote
-         * macros that depend on this stuff, so, we make this work as follows.
+         * macros that depend on this stuff, so, we make this work as follows:
+         *
          * When checking for an abbreviation on the command line, if we get a
          * string which is <blank> terminated and which starts at the beginning
          * of the line, we check to see it is the abbreviate or unabbreviate
@@ -1628,7 +1629,7 @@ txt_unmap(SCR *sp, TEXT *tp, u_int32_t *ec_flagsp)
          * txt_abbrev() routine for an explanation of the problems inherent
          * in this.
          *
-         * We make this work as follows.  If we get a string which is <blank>
+         * We make this work as follows:  If we get a string which is <blank>
          * terminated and which starts at the beginning of the line, we check
          * to see it is the unmap command.  If it is, we return that the input
          * mapping should be turned off.  Note also, minor trickiness, so that
