@@ -792,9 +792,12 @@ vs_modeline(SCR *sp)
                 return;
 
         len = 0;
+        (void)len;
         midpoint = 0;
+        (void)midpoint;
 
         gp = sp->gp;
+        (void)gp;
 
         /*
          * We put down the file name, the ruler, the mode and the dirty flag.

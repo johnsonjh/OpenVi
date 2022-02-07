@@ -858,7 +858,7 @@ opts_dump(SCR *sp, enum optdisp type)
 
         if (s_num > 0) {
                 /* Figure out the number of rows. */
-                if (s_num > numcols) {
+                if ((s_num > 0) && (numcols > 0) && (s_num > numcols)) {
                         numrows = s_num / numcols;
                         if (s_num % numcols)
                                 ++numrows;

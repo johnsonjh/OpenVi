@@ -39,8 +39,8 @@
 # include <sys/types.h>
 # include <stdint.h>
 
-extern char *__progname;
-const char      *bsd_getprogname(void);
+extern char  *__progname;
+const  char  *bsd_getprogname(void);
 
 uint32_t arc4random(void);
 uint32_t arc4random_uniform(uint32_t);

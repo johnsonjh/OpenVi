@@ -222,6 +222,7 @@ sscr_getprompt(SCR *sp)
 
         endp = buf;
         len = sizeof(buf);
+        (void)len;
 
         /* Wait up to a second for characters to read. */
         sc = sp->script;
@@ -262,6 +263,8 @@ more:   len = sizeof(buf) - (endp - buf);
                         t = p + 1;
                 }
         }
+        if (buf == NULL)
+                goto prompterr;
         if (p > buf) {
                 memmove(buf, t, endp - t);
                 endp = buf + (endp - t);
@@ -309,6 +312,8 @@ sscr_exec(SCR *sp, recno_t lno)
         char *bp, *p;
 
         /* If there's a prompt on the last line, append the command. */
+        if (sp == NULL)
+                return (1);
         if (db_last(sp, &last_lno))
                 return (1);
         if (db_get(sp, last_lno, DBG_FATAL, &p, &last_len))
@@ -316,7 +321,8 @@ sscr_exec(SCR *sp, recno_t lno)
         if (sscr_matchprompt(sp, p, last_len, &tlen) && tlen == 0) {
                 matchprompt = 1;
                 GET_SPACE_RET(sp, bp, blen, last_len + 128);
-                memmove(bp, p, last_len);
+                if (bp != NULL)
+                    memmove(bp, p, last_len);
         } else
                 matchprompt = 0;
 
@@ -355,9 +361,11 @@ err2:           if (nw == 0)
 
         if (matchprompt) {
                 ADD_SPACE_RET(sp, bp, blen, last_len + len);
-                memmove(bp + last_len, p, len);
-                if (db_set(sp, last_lno, bp, last_len + len))
-err1:                   rval = 1;
+                if (bp != NULL) {
+                    memmove(bp + last_len, p, len);
+                    if (db_set(sp, last_lno, bp, last_len + len))
+err1:                       rval = 1;
+                }
         }
         if (matchprompt)
                 FREE_SPACE(sp, bp, blen);

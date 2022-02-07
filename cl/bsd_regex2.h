@@ -104,19 +104,20 @@ typedef long sopno;
  * vectors at run time.
  */
 typedef struct {
-        uch *ptr;               /* -> uch [csetsize] */
-        uch mask;               /* bit within array */
-        uch hash;               /* hash code */
+        uch   *ptr;             /* -> uch [csetsize] */
+        uch    mask;            /* bit within array */
+        uch    hash;            /* hash code */
         size_t smultis;
-        char *multis;           /* -> char[smulti]  ab\0cd\0ef\0\0 */
+        char   *multis;         /* -> char[smulti]  ab\0cd\0ef\0\0 */
 } cset;
+
 /* note that CHadd and CHsub are unsafe, and CHIN doesn't yield 0/1 */
-#define CHadd(cs, c)    ((cs)->ptr[(uch)(c)] |= (cs)->mask, (cs)->hash += (c))
-#define CHsub(cs, c)    ((cs)->ptr[(uch)(c)] &= ~(cs)->mask, (cs)->hash -= (c))
-#define CHIN(cs, c)     ((cs)->ptr[(uch)(c)] & (cs)->mask)
-#define MCadd(p, cs, cp)        mcadd(p, cs, cp)        /* regcomp() internal fns */
-#define MCsub(p, cs, cp)        mcsub(p, cs, cp)
-#define MCin(p, cs, cp) mcin(p, cs, cp)
+#define CHadd(cs, c)     ((cs)->ptr[(uch)(c)] |=  (cs)->mask, (cs)->hash += (c))
+#define CHsub(cs, c)     ((cs)->ptr[(uch)(c)] &= ~(cs)->mask, (cs)->hash -= (c))
+#define CHIN(cs, c)      ((cs)->ptr[(uch)(c)] &   (cs)->mask)
+#define MCadd(p, cs, cp) mcadd(p, cs, cp)    /* regcomp() internal fns */
+#define MCsub(p, cs, cp) mcsub(p, cs, cp)
+#define MCin(p, cs, cp)   mcin(p, cs, cp)
 
 /* stuff for character categories */
 typedef unsigned char cat_t;
@@ -125,34 +126,34 @@ typedef unsigned char cat_t;
  * main compiled-expression structure
  */
 struct re_guts {
-        int magic;
-#define MAGIC2  ((('R'^0200)<<8)|'E')
-        sop *strip;             /* malloced area for strip */
-        int csetsize;           /* number of bits in a cset vector */
-        int ncsets;             /* number of csets in use */
-        cset *sets;             /* -> cset [ncsets] */
-        uch *setbits;           /* -> uch[csetsize][ncsets/CHAR_BIT] */
-        int cflags;             /* copy of regcomp() cflags argument */
-        sopno nstates;          /* = number of sops */
-        sopno firststate;       /* the initial OEND (normally 0) */
-        sopno laststate;        /* the final OEND */
-        int iflags;             /* internal flags */
-#define USEBOL  01              /* used ^ */
-#define USEEOL  02              /* used $ */
-#define BAD     04              /* something wrong */
-        int nbol;               /* number of ^ used */
-        int neol;               /* number of $ used */
-        int ncategories;        /* how many character categories */
+        int    magic;
+#define MAGIC2 ((('R'^0200)<<8)|'E')
+        sop   *strip;           /* malloced area for strip */
+        int    csetsize;        /* number of bits in a cset vector */
+        int    ncsets;          /* number of csets in use */
+        cset  *sets;            /* -> cset [ncsets] */
+        uch   *setbits;         /* -> uch[csetsize][ncsets/CHAR_BIT] */
+        int    cflags;          /* copy of regcomp() cflags argument */
+        sopno  nstates;         /* = number of sops */
+        sopno  firststate;      /* the initial OEND (normally 0) */
+        sopno  laststate;       /* the final OEND */
+        int    iflags;          /* internal flags */
+#define USEBOL 01               /* used ^ */
+#define USEEOL 02               /* used $ */
+#define BAD    04               /* something wrong */
+        int    nbol;            /* number of ^ used */
+        int    neol;            /* number of $ used */
+        int    ncategories;     /* how many character categories */
         cat_t *categories;      /* ->catspace[-CHAR_MIN] */
-        char *must;             /* match must contain this string */
-        int mlen;               /* length of must */
+        char  *must;            /* match must contain this string */
+        int    mlen;            /* length of must */
         size_t nsub;            /* copy of re_nsub */
-        int backrefs;           /* does it use back references? */
-        sopno nplus;            /* how deep does it nest +s? */
-        /* catspace must be last */
-        cat_t catspace[NC];     /* actually [NC] */
+        int    backrefs;        /* does it use back references? */
+        sopno  nplus;           /* how deep does it nest +s? */
+                                /* catspace must be last */
+        cat_t  catspace[NC];    /* actually [NC] */
 };
 
 /* misc utilities */
-#define OUT     (CHAR_MAX+1)    /* a non-character value */
-#define ISWORD(c)       (isalnum(c) || (c) == '_')
+#define OUT       (CHAR_MAX+1)  /* a non-character value */
+#define ISWORD(c) (isalnum(c) || (c) == '_')

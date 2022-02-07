@@ -113,6 +113,10 @@ retry:          FREE_SPACE(sp, bp, blen);
 #define REM     (blen - mlen)
         mp = bp;
         mlen = 0;
+
+        if (mp == NULL)
+                return;
+
         if (mt == M_SYSERR) {
                 p = "Error: ";
                 len = strlen(p);
@@ -351,6 +355,9 @@ msgq_status(SCR *sp, recno_t lno, u_int flags)
         GET_SPACE_GOTO(sp, bp, blen, len * MAX_CHARACTER_COLUMNS + 128);
         p = bp;
         ep = bp + blen;
+
+        if (p == NULL)
+                return;
 
         /* Copy in the filename. */
         for (t = sp->frp->name; *t != '\0'; ++t) {

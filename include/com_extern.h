@@ -125,7 +125,7 @@ int f_search(SCR *, MARK *, MARK *, char *, size_t, char **, u_int);
 int b_search(SCR *, MARK *, MARK *, char *, size_t, char **, u_int);
 void search_busy(SCR *, busy_t);
 int seq_set(SCR *, CHAR_T *,
-   size_t, CHAR_T *, size_t, CHAR_T *, size_t, seq_t, int);
+size_t, CHAR_T *, size_t, CHAR_T *, size_t, seq_t, int);
 int seq_delete(SCR *, CHAR_T *, size_t, seq_t);
 int seq_mdel(SEQ *);
 SEQ *seq_find

@@ -234,6 +234,7 @@ nonum:                  msgq(sp, M_ERR, "Cursor not in a number");
         len = beg + nlen + (len - beg - (end - beg));
 
         nret = NUM_OK;
+        (void)nret;
         rval = db_set(sp, vp->m_start.lno, bp, len);
 
         if (0) {

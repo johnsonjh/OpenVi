@@ -46,10 +46,13 @@ typedef enum { B_NONE, B_OFF, B_READ, B_RECOVER, B_SEARCH, B_WRITE } bmsg_t;
  * NADD_USLONG: test for addition of two unsigned longs
  */
 enum nresult { NUM_ERR, NUM_OK, NUM_OVER, NUM_UNDER };
+
 # define NNFITS(min, cur, add)                                          \
         (((long)(min)) - (cur) <= (add))
+
 # define NPFITS(max, cur, add)                                          \
         (((unsigned long)(max)) - (cur) >= (add))
+
 # define NADD_SLONG(v1, v2)                                             \
         ((v1) < 0 ?                                                     \
             ((v2) < 0 &&                                                \

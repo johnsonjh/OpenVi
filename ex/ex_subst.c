@@ -522,6 +522,7 @@ noargs: if (F_ISSET(sp, SC_VI) && sp->c_suffix && (lflag || nflag || pflag)) {
                  * line if change is refused -- keep track of substitutions.
                  */
                 didsub = linechanged = 0;
+                (void)didsub;
 
                 /* New line, do an EOL match. */
                 do_eol_match = 1;

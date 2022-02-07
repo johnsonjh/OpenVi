@@ -46,11 +46,11 @@ size_t   openbsd_strlcpy(char *, const char *, size_t);
 void     explicit_bzero(void *, size_t);
 void     strmode(int, char *);
 
-int     timingsafe_bcmp(const void *, const void *, size_t);
-int     timingsafe_memcmp(const void *, const void *, size_t);
+int      timingsafe_bcmp(const void *, const void *, size_t);
+int      timingsafe_memcmp(const void *, const void *, size_t);
 
-char *strcasestr(const char *, const char *);
-void *memrchr(const void *, int, size_t);
+char    *strcasestr(const char *, const char *);
+void    *memrchr(const void *, int, size_t);
 
 # endif /* ifndef __OpenBSD__ */
 

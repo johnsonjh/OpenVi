@@ -469,6 +469,7 @@ cl_refresh(SCR *sp, int repaint)
         CL_PRIVATE *clp;
 
         clp = CLP(sp);
+        (void)clp;
 
         /*
          * If we received a killer signal, we're done, there's no point

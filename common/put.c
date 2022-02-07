@@ -116,12 +116,18 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
         GET_SPACE_RET(sp, bp, blen, tp->len + len + 1);
         t = bp;
 
+        if (bp == NULL)
+                return (1);
+
         /* Original line, left of the split. */
         if (len > 0 && (clen = cp->cno + (append ? 1 : 0)) > 0) {
                 memcpy(bp, p, clen);
                 p += clen;
                 t += clen;
         }
+
+        if (t == NULL)
+                return (1);
 
         /* First line from the CB. */
         if (tp->len != 0) {

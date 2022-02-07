@@ -462,6 +462,7 @@ vs_resize(SCR *sp, long count, adj_t adj)
         size_t g_off, s_off;
 
         gp = sp->gp;
+        (void)gp;
 
         /*
          * Figure out which screens will grow, which will shrink, and

@@ -483,6 +483,7 @@ flush_meta(HTAB *hashp)
 
         fp = hashp->fp;
         whdrp = &hashp->hdr;
+        (void)whdrp;
 #if BYTE_ORDER == LITTLE_ENDIAN
         whdrp = &whdr;
         swap_header_copy(&hashp->hdr, whdrp);

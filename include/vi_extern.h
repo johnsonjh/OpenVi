@@ -116,7 +116,7 @@ int v_sentenceb(SCR *, VICMD *);
 int v_status(SCR *, VICMD *);
 int v_tcmd(SCR *, VICMD *, CHAR_T, u_int);
 int v_txt(SCR *, VICMD *, MARK *,
-   const char *, size_t, CHAR_T, recno_t, u_long, u_int32_t);
+const char *, size_t, CHAR_T, recno_t, u_long, u_int32_t);
 int v_txt_auto(SCR *, recno_t, TEXT *, size_t, TEXT *);
 int v_ulcase(SCR *, VICMD *);
 int v_mulcase(SCR *, VICMD *);

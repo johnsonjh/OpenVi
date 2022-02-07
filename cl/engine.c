@@ -213,6 +213,7 @@ matcher(struct re_guts *g, char *string, size_t nmatch, regmatch_t pmatch[],
                 if (!g->backrefs && !(m->eflags&REG_BACKR)) {
                         NOTE("dissecting");
                         dp = dissect(m, m->coldp, endp, gf, gl);
+                        (void)dp;
                 } else {
                         if (g->nplus > 0 && m->lastpos == NULL)
                                 m->lastpos = openbsd_reallocarray(NULL,
@@ -359,10 +360,12 @@ dissect(struct match *m, char *start, char *stop, sopno startst, sopno stopst)
                         /* did innards match? */
                         if (slow(m, sp, rest, ssub, esub) != NULL) {
                                 dp = dissect(m, sp, rest, ssub, esub);
+                                (void)dp;
                                 assert(dp == rest);
                         } else          /* no */
                                 assert(sp == rest);
                         sp = rest;
+                        (void)sp;
                         break;
                 case OPLUS_:
                         stp = stop;
@@ -432,6 +435,7 @@ dissect(struct match *m, char *start, char *stop, sopno startst, sopno stopst)
                                         assert(OP(m->g->strip[esub]) == O_CH);
                         }
                         dp = dissect(m, sp, rest, ssub, esub);
+                        (void)dp;
                         assert(dp == rest);
                         sp = rest;
                         break;

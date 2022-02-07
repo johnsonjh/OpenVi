@@ -31,7 +31,7 @@
 int
 v_delete(SCR *sp, VICMD *vp)
 {
-        recno_t nlines;
+        recno_t nlines = 0;
         size_t len;
         int lmode;
 

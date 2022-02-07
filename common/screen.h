@@ -20,9 +20,6 @@
  * not to mention guaranteeing that tabstop and shiftwidth values are smaller
  * than the current column value.  It's simpler to have a fixed value and not
  * worry about it.
- *
- * XXX
- * MINIMUM_SCREEN_COLS is almost certainly wrong.
  */
 #define MINIMUM_SCREEN_ROWS      1
 #define MINIMUM_SCREEN_COLS     20

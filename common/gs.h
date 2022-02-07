@@ -113,10 +113,12 @@ struct _gs {
         bitstr_t bit_decl(seqb, MAX_BIT_SEQ);
 
 #define MAX_FAST_KEY    254             /* Max fast check character.*/
+
 #define KEY_LEN(sp, ch)                                                 \
         ((unsigned char)(ch) <= MAX_FAST_KEY ?                          \
             (sp)->gp->cname[(unsigned char)(ch)].len :                  \
             v_key_len((sp), (ch)))
+
 #define KEY_NAME(sp, ch)                                                \
         ((unsigned char)(ch) <= MAX_FAST_KEY ?                          \
             (sp)->gp->cname[(unsigned char)(ch)].name :                 \
@@ -169,7 +171,7 @@ struct _gs {
                                         /* Ex: screen adjustment routine. */
         int     (*scr_ex_adjust)(SCR *, exadj_t);
         int     (*scr_fmap)             /* Set a function key. */
-(SCR *, seq_t, CHAR_T *, size_t, CHAR_T *, size_t);
+                           (SCR *, seq_t, CHAR_T *, size_t, CHAR_T *, size_t);
                                         /* Get terminal key value. */
         int     (*scr_keyval)(SCR *, scr_keyval_t, CHAR_T *, int *);
                                         /* Control the state of input method. */

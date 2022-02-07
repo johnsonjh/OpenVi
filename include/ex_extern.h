@@ -36,8 +36,7 @@ int ex_cmd(SCR *);
 int ex_range(SCR *, EXCMD *, int *);
 int ex_is_abbrev(char *, size_t);
 int ex_is_unmap(char *, size_t);
-void ex_badaddr
-(SCR *, EXCMDLIST const *, enum badaddr, enum nresult);
+void ex_badaddr(SCR *, EXCMDLIST const *, enum badaddr, enum nresult);
 int ex_abbr(SCR *, EXCMD *);
 int ex_unabbr(SCR *, EXCMD *);
 int ex_append(SCR *, EXCMD *);

@@ -30,6 +30,7 @@ typedef struct _vicmd {
 
 #define ISCMD(p, key)   ((p) == &vikeys[(key)])
         VIKEYS const *kp;               /* Command/Motion VIKEYS entry. */
+
 #define ISMOTION(vp)    ((vp)->rkp != NULL && F_ISSET((vp)->rkp, V_MOTION))
         VIKEYS const *rkp;              /* Related C/M VIKEYS entry. */
 
@@ -321,7 +322,9 @@ typedef struct _vi_private {
 
 #define O_NUMBER_FMT    "%6lu "                 /* O_NUMBER format, length. */
 #define O_NUMBER_LENGTH 7
-#define SCREEN_COLS(sp)                         /* Screen columns. */   \
+
+/* Screen columns. */
+#define SCREEN_COLS(sp) \
         ((O_ISSET((sp), O_NUMBER) ? (sp)->cols - O_NUMBER_LENGTH : (sp)->cols))
 
 /*
@@ -339,10 +342,11 @@ typedef struct _vi_private {
 #define IS_SMALL(sp)    ((sp)->t_minrows != (sp)->t_maxrows)
 #define IS_ONELINE(sp)  ((sp)->rows == 1)
 
-#define HALFTEXT(sp)                            /* Half text. */        \
-        ((sp)->t_rows == 1 ? 1 : (sp)->t_rows / 2)
-#define HALFSCREEN(sp)                          /* Half text screen. */ \
-        ((sp)->t_maxrows == 1 ? 1 : (sp)->t_maxrows / 2)
+/* Half text. */
+#define HALFTEXT(sp) ((sp)->t_rows == 1 ? 1 : (sp)->t_rows / 2)
+
+/* Half text screen. */
+#define HALFSCREEN(sp) ((sp)->t_maxrows == 1 ? 1 : (sp)->t_maxrows / 2)
 
 /*
  * Next tab offset.

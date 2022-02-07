@@ -241,7 +241,9 @@ editor(GS *gp, int argc, char *argv[])
                         return (1);
                 }
         argc -= optind;
+        (void)argc;
         argv += optind;
+        (void)argv;
 
         if (secure)
                 if (pledge(

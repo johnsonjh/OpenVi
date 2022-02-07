@@ -39,7 +39,7 @@
 # undef basename
 # define basename       openbsd_basename
 # undef dirname
-# define dirname                openbsd_dirname
+# define dirname        openbsd_dirname
 
 char    *basename(const char *);
 char    *dirname(const char *);

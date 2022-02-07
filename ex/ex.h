@@ -69,7 +69,7 @@ extern EXCMDLIST const cmds[];          /* Table of ex commands. */
 /* Range structures for global and @ commands. */
 typedef struct _range RANGE;
 struct _range {                         /* Global command range. */
-        TAILQ_ENTRY(_range) q;  /* Linked list of ranges. */
+        TAILQ_ENTRY(_range) q;          /* Linked list of ranges. */
         recno_t start, stop;            /* Start/stop of the range. */
 };
 

@@ -52,7 +52,7 @@
 typedef u_int32_t       pgno_t;
 # define MAX_PAGE_OFFSET        65535           /* >= # of bytes in a page */
 typedef u_int16_t       indx_t;
-# define MAX_REC_NUMBER 0xffffffff      /* >= # of records in a tree */
+# define MAX_REC_NUMBER         0xffffffff      /* >= # of records in a tree */
 typedef u_int32_t       recno_t;
 
 /* Key/data structure -- a Data-Base Thang. */
@@ -64,7 +64,7 @@ typedef struct {
 /* Routine flags. */
 # define R_CURSOR       1               /* del, put, seq */
 # define __R_UNUSED     2               /* UNUSED */
-# define R_FIRST                3               /* seq */
+# define R_FIRST        3               /* seq */
 # define R_IAFTER       4               /* put (RECNO) */
 # define R_IBEFORE      5               /* put (RECNO) */
 # define R_LAST         6               /* seq (BTREE, RECNO) */
@@ -91,11 +91,11 @@ typedef enum { DB_BTREE, DB_HASH, DB_RECNO } DBTYPE;
  */
 # if UINT_MAX > 65535
 #  define DB_LOCK               0x20000000      /* Do locking. */
-#  define DB_SHMEM      0x40000000      /* Use shared memory. */
+#  define DB_SHMEM              0x40000000      /* Use shared memory. */
 #  define DB_TXN                0x80000000      /* Do transactions. */
 # else
 #  define DB_LOCK                   0x2000      /* Do locking. */
-#  define DB_SHMEM          0x4000      /* Use shared memory. */
+#  define DB_SHMEM                  0x4000      /* Use shared memory. */
 #  define DB_TXN                    0x8000      /* Do transactions. */
 # endif /* if UINT_MAX > 65535 */
 
@@ -147,7 +147,7 @@ typedef struct {
 /* Structure used to pass parameters to the record routines. */
 typedef struct {
 # define R_FIXEDLEN             0x01    /* fixed-length records */
-# define R_NOKEY                        0x02    /* key not required */
+# define R_NOKEY                0x02    /* key not required */
 # define R_SNAPSHOT             0x04    /* snapshot the input */
         unsigned long   flags;
         unsigned int    cachesize;      /* bytes to cache */
@@ -160,7 +160,5 @@ typedef struct {
         char    *bfname;                /* btree file name */
 } RECNOINFO;
 
-__BEGIN_DECLS
 DB *dbopen(const char *, int, int, DBTYPE, const void *);
-__END_DECLS
 #endif /* !_DB_H_ */

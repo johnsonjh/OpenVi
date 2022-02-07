@@ -88,16 +88,14 @@ typedef struct MPOOL {
 # endif /* ifdef STATISTICS */
 } MPOOL;
 
-# define MPOOL_IGNOREPIN        0x01            /* Ignore if the page is pinned. */
-# define MPOOL_PAGE_REQUEST     0x01    /* Allocate a new page with a
-                                           specific page number. */
-# define MPOOL_PAGE_NEXT                0x02    /* Allocate a new page with the next
-                                          page number. */
+# define MPOOL_IGNOREPIN     0x01       /* Ignore if the page is pinned. */
+# define MPOOL_PAGE_REQUEST  0x01       /* New page w/ specific page number */
+# define MPOOL_PAGE_NEXT     0x02       /* New page w/ the next page number */
 
 __BEGIN_HIDDEN_DECLS
 MPOOL   *mpool_open(void *, int, pgno_t, pgno_t);
 void     mpool_filter(MPOOL *, void (*)(void *, pgno_t, void *),
-            void (*)(void *, pgno_t, void *), void *);
+void     (*)(void *, pgno_t, void *), void *);
 void    *mpool_new(MPOOL *, pgno_t *, unsigned int);
 void    *mpool_get(MPOOL *, pgno_t, unsigned int);
 int      mpool_delete(MPOOL *, void *);

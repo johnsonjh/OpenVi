@@ -19,6 +19,6 @@ struct _script {
         char    *sh_prompt;             /* Prompt. */
         size_t   sh_prompt_len;         /* Prompt length. */
         char     sh_name[64];           /* Pty name */
-        struct winsize sh_win;          /* Window size. */
-        struct termios sh_term;         /* Terminal information. */
+        struct   winsize sh_win;        /* Window size. */
+        struct   termios sh_term;       /* Terminal information. */
 };

@@ -367,7 +367,8 @@ cl_ssize(SCR *sp, int sigwinch, size_t *rowp, size_t *colp, int *changedp)
          * let it go, at least ex can run.
          */
         if (row == 0 || col == 0) {
-                if ((p = getenv("TERM")) == NULL)
+                p = getenv("TERM");
+                if (p == NULL)
                         goto noterm;
                 if (row == 0) {
                         if ((rval = tigetnum("lines")) < 0)

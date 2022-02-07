@@ -128,8 +128,8 @@ extern KEYLIST keylist[];
 
                                         /* Return if more keys in queue. */
 #define KEYS_WAITING(sp)        ((sp)->gp->i_cnt != 0)
-#define MAPPED_KEYS_WAITING(sp)                                         \
-        (KEYS_WAITING(sp) &&                                            \
+#define MAPPED_KEYS_WAITING(sp)                                            \
+        (KEYS_WAITING(sp) &&                                               \
             F_ISSET(&(sp)->gp->i_event[(sp)->gp->i_next].e_ch, CH_MAPPED))
 
 /* The "standard" tab width, for displaying things to users. */
@@ -157,11 +157,13 @@ extern KEYLIST keylist[];
  * interrupts.
  */
 #define INTERRUPT_CHECK 100
-#define INTERRUPTED(sp)                                                 \
-        (F_ISSET((sp)->gp, G_INTERRUPTED) ||                            \
-        (!v_event_get((sp), NULL, 0, EC_INTERRUPT) &&                   \
+
+#define INTERRUPTED(sp)                                                    \
+        (F_ISSET((sp)->gp, G_INTERRUPTED) ||                               \
+        (!v_event_get((sp), NULL, 0, EC_INTERRUPT) &&                      \
         F_ISSET((sp)->gp, G_INTERRUPTED)))
-#define CLR_INTERRUPT(sp)                                               \
+
+#define CLR_INTERRUPT(sp)                                                  \
         F_CLR((sp)->gp, G_INTERRUPTED)
 
 /* Flags describing types of characters being requested. */
