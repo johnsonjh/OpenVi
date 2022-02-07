@@ -1,4 +1,5 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Fri Feb 4 16:34:56 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Mon Feb 7 16:41:13 2022
+        + Silence some warnings and general style clean-up
         + Clarify text of some visual mode messages; use the POSIX thousands
           numeric seperator for displaying most line and character counts.
         + Use `/var/tmp` for the `vi.recover` directory; on most Linux
