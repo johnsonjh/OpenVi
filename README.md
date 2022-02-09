@@ -68,7 +68,7 @@ Kirkendall*'s **`Elvis`** editor.
   - **FreeBSD**
   - **OpenBSD**
   - **Darwin** / **macOS** / **Mac OS X** (*PowerPC*, *Intel*, *ARM64*)
-  - *Microsoft* **Windows** (*WSL*)
+  - *Microsoft* **Windows** (*WSL*, *Midipix*)
 
 - The following compilers are fully supported and regularly tested:
   - **Clang** V6+
@@ -86,7 +86,7 @@ Kirkendall*'s **`Elvis`** editor.
   - **Haiku** Walter
   - *Oracle* **Solaris** 10/11+
   - *illumos* **OpenIndiana** Hipster
-  - *Microsoft* **Windows** (*Cygwin*, *MSYS2*, *Midipix*)
+  - *Microsoft* **Windows** (*Cygwin*, *MSYS2*)
 
 User contributions to enhance platform support are welcomed.
 
