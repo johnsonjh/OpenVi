@@ -2126,7 +2126,7 @@ txt_fc_col(SCR *sp, int argc, ARGS **argv)
         CHAR_T *p;
         GS *gp;
         size_t base, cnt, col, colwidth, numrows, numcols, prefix, row;
-		int nf = 0;
+        int nf = 0;
         int ac, reset;
 
         gp = sp->gp;
