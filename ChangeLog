@@ -1,7 +1,7 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 9 16:34:07 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10: Wed Feb 9 16:36:25 2022
         + Silence some warnings and general style clean-up
         + Clarify text of some visual mode messages; use the POSIX thousands
-          numeric seperator for displaying most line and character counts.
+          numeric seperator for displaying most line and character counts
         + Use `/var/tmp` for the `vi.recover` directory; on most Linux
           systems, this persists across reboots and gives a higher chance
           of recovery than `/tmp` which is often a memory-backed filesystem
