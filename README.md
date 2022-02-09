@@ -68,7 +68,7 @@ Kirkendall*'s **`Elvis`** editor.
   - **FreeBSD**
   - **OpenBSD**
   - **Darwin** / **macOS** / **Mac OS X** (*PowerPC*, *Intel*, *ARM64*)
-  - *Microsoft* **Windows** (*WSL2*)
+  - *Microsoft* **Windows** (*WSL*)
 
 - The following compilers are fully supported and regularly tested:
   - **Clang** V6+
