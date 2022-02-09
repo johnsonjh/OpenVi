@@ -285,7 +285,9 @@ more:   len = sizeof(buf) - (endp - buf);
 
         /* Timed out, so theoretically we have a prompt. */
         llen = endp - buf;
+        (void)llen;
         endp = buf;
+        (void)endp;
 
         /* Append the line into the file. */
         if (db_last(sp, &lline) || db_append(sp, 0, lline, buf, llen)) {

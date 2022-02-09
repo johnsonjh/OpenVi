@@ -345,6 +345,8 @@ v_event_push(SCR *sp, EVENT *p_evp, CHAR_T *p_s, size_t nitems, u_int flags)
         total = gp->i_cnt + gp->i_next + nitems + TERM_PUSH_SHIFT;
         if (total >= gp->i_nelem && v_event_grow(sp, MAXIMUM(total, 64)))
                 return (1);
+		if (gp == NULL)
+				return (1);
         if (gp->i_cnt)
                 MEMMOVE(gp->i_event + TERM_PUSH_SHIFT + nitems,
                     gp->i_event + gp->i_next, gp->i_cnt);
@@ -356,6 +358,8 @@ copy:   gp->i_cnt += nitems;
                 if (p_evp != NULL)
                         *evp = *p_evp++;
                 else {
+                        if (evp == NULL)
+                            return (1);
                         evp->e_event = E_CHARACTER;
                         evp->e_c = *p_s++;
                         evp->e_value = KEY_VAL(sp, evp->e_c);
@@ -387,6 +391,8 @@ v_event_append(SCR *sp, EVENT *argp)
         gp->i_cnt += nevents;
 
         /* Transform strings of characters into single events. */
+		if (argp == NULL || evp == NULL)
+				return (1);
         if (argp->e_event == E_STRING)
                 for (s = argp->e_csp; nevents--; ++evp) {
                         evp->e_event = E_CHARACTER;

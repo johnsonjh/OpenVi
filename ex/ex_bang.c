@@ -146,6 +146,7 @@ ex_bang(SCR *sp, EXCMD *cmdp)
                 }
                 rval = ex_filter(sp, cmdp,
                     &cmdp->addr1, &cmdp->addr2, &rm, ap->bp, ftype);
+                (void)rval;
 
                 /*
                  * If in vi mode, move to the first nonblank.

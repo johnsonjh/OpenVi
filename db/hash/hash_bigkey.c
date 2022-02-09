@@ -202,6 +202,7 @@ __big_delete(HTAB *hashp, BUFHEAD *bufp)
         last_bfp = NULL;
         bp = (u_int16_t *)bufp->page;
         pageno = 0;
+        (void)pageno;
         key_done = 0;
 
         while (!key_done || (bp[2] != FULL_KEY_DATA)) {
@@ -396,6 +397,7 @@ __big_return(HTAB *hashp, BUFHEAD *bufp, int ndx, DBT *val, int set_current)
                         if (!bufp)
                                 return (-1);
                         bp = (u_int16_t *)bufp->page;
+                        (void)bp;
                 } else {
                         /* The data is all on one page. */
                         tp = (char *)bp;

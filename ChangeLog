@@ -1,4 +1,4 @@
-OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Mon Feb 7 16:41:13 2022
+OpenVi 7.0.9 -> OpenVi 7.0.10-dev (Unreleased): Wed Feb 9 16:34:07 2022
         + Silence some warnings and general style clean-up
         + Clarify text of some visual mode messages; use the POSIX thousands
           numeric seperator for displaying most line and character counts.

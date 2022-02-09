@@ -171,6 +171,8 @@ nonum:                  msgq(sp, M_ERR, "Cursor not in a number");
          * allocate once.
          */
         GET_SPACE_RET(sp, bp, blen, len + 50);
+        if (bp == NULL)
+                goto err;
         if (end == len) {
                 memmove(bp, &p[beg], wlen);
                 bp[wlen] = '\0';
@@ -228,6 +230,11 @@ nonum:                  msgq(sp, M_ERR, "Cursor not in a number");
         }
 
         /* Build the new line. */
+        if (bp == NULL)
+        {
+            nret = NUM_UNDER;
+            goto err;
+        }
         memmove(bp, p, beg);
         memmove(bp + beg, nbuf, nlen);
         memmove(bp + beg + nlen, p + end, len - beg - (end - beg));

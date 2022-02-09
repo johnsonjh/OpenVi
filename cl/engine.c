@@ -400,6 +400,7 @@ dissect(struct match *m, char *start, char *stop, sopno startst, sopno stopst)
                         assert(sep == rest);    /* must exhaust substring */
                         assert(slow(m, ssp, sep, ssub, esub) == rest);
                         dp = dissect(m, ssp, sep, ssub, esub);
+                        (void)dp;
                         assert(dp == sep);
                         sp = rest;
                         break;

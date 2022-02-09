@@ -39,7 +39,9 @@ ex_join(SCR *sp, EXCMD *cmdp)
         NEEDFILE(sp, cmdp);
 
         from = cmdp->addr1.lno;
+        (void)from;
         to = cmdp->addr2.lno;
+        (void)to;
 
         /* Check for no lines to join. */
         if (!db_exist(sp, from + 1)) {

@@ -146,6 +146,7 @@ usage:          ex_emsg(sp, cmdp->cmd->usage, EXM_USAGE);
                 sp->searchdir = FORWARD;
         }
         re = &sp->re_c;
+        (void)re;
 
         /* The global commands always set the previous context mark. */
         abs_mark.lno = sp->lno;
@@ -302,6 +303,7 @@ ex_g_insdel(SCR *sp, lnop_t op, recno_t lno)
                                 rp->stop = lno - 1;
                                 TAILQ_INSERT_AFTER(&ecp->rq, rp, nrp, q);
                                 rp = nrp;
+                                (void)rp;
                         }
                 }
 

@@ -621,6 +621,7 @@ hash_access(HTAB *hashp, ACTION action, DBT *key, DBT *val)
                                 if (!(pageno =
                                     __find_last_page(hashp, &bufp))) {
                                         ndx = 0;
+                                        (void)ndx;
                                         rbufp = bufp;
                                         break;  /* FOR */
                                 }

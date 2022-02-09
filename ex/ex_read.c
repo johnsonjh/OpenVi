@@ -51,7 +51,7 @@ ex_read(SCR *sp, EXCMD *cmdp)
         FREF *frp;
         GS *gp;
         MARK rm;
-        recno_t nlines;
+        recno_t nlines = 0;
         size_t arglen;
         int argc, rval;
         char *p;

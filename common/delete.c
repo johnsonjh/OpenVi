@@ -75,6 +75,8 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
                         if (db_get(sp, fm->lno, DBG_FATAL, &p, &len))
                                 return (1);
                         GET_SPACE_RET(sp, bp, blen, fm->cno);
+                        if (bp == NULL)
+                                return (1);
                         memcpy(bp, p, fm->cno);
                         if (db_set(sp, fm->lno, bp, fm->cno))
                                 return (1);
@@ -88,6 +90,8 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
                         return (1);
                 if (len != 0) {
                         GET_SPACE_RET(sp, bp, blen, len);
+                        if (bp == NULL)
+                                goto err;
                         if (fm->cno != 0)
                                 memcpy(bp, p, fm->cno);
                         memcpy(bp + fm->cno, p + (tm->cno + 1), len - (tm->cno + 1));
@@ -107,6 +111,8 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
                 if (db_get(sp, fm->lno, DBG_FATAL, &p, NULL))
                         return (1);
                 GET_SPACE_RET(sp, bp, blen, tlen + 256);
+                if (bp == NULL)
+                        return (1);
                 memcpy(bp, p, tlen);
         }
 
@@ -124,6 +130,8 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
                 } else
                         ADD_SPACE_RET(sp, bp, blen, nlen);
 
+                if (bp == NULL)
+                        goto err;
                 memcpy(bp + tlen, p + (tm->cno + 1), len - (tm->cno + 1));
                 tlen += len - (tm->cno + 1);
         }

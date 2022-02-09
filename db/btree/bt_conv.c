@@ -207,4 +207,5 @@ mswap(PAGE *pg)
         p += sizeof(u_int32_t);
         P_32_SWAP(p);           /* flags */
         p += sizeof(u_int32_t);
+        (void)p;
 }

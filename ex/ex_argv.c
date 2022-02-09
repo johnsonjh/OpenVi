@@ -518,6 +518,8 @@ argv_lexp(SCR *sp, EXCMD *excp, char *path)
                 /* Directory + name + slash + NULL. */
                 argv_alloc(sp, dlen + nlen + 2);
                 p = exp->args[exp->argsoff]->bp;
+                if (p == NULL)
+                        return (1);
                 if (dlen != 0) {
                         memcpy(p, dname, dlen);
                         p += dlen;

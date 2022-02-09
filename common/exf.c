@@ -652,6 +652,8 @@ file_end(SCR *sp, EXF *ep, int force)
          * ex or vi knows that we're changing files it's already happened.
          */
         frp = sp->frp;
+        if (frp == NULL)
+                return (1);
         frp->lno = sp->lno;
         frp->cno = sp->cno;
         F_SET(frp, FR_CURSORSET);
@@ -985,6 +987,7 @@ file_backup(SCR *sp, char *name, char *bname)
         char *bp, *estr, *p, *pct, *slash, *t, *wfname, buf[8192];
 
         rfd = wfd = -1;
+        (void)rfd;
         bp = estr = wfname = NULL;
 
         /*
@@ -1044,6 +1047,8 @@ file_backup(SCR *sp, char *name, char *bname)
          */
         if (version) {
                 GET_SPACE_GOTO(sp, bp, blen, cmd.argv[0]->len * 2 + 50);
+                if (bp == NULL)
+                        goto err;
                 for (t = bp, slash = NULL,
                     p = cmd.argv[0]->bp; p[0] != '\0'; *t++ = *p++)
                         if (p[0] == '%') {

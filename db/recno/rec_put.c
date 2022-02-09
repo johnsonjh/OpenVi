@@ -260,6 +260,8 @@ __rec_iput(BTREE *t, recno_t nrec, const DBT *data, u_int flags)
 
         h->linp[idx] = h->upper -= nbytes;
         dest = (char *)h + h->upper;
+        if (data == NULL)
+                return (RET_ERROR);
         WR_RLEAF(dest, data, dflags);
 
         ++t->bt_nrecs;

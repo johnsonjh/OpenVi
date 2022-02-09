@@ -336,6 +336,7 @@ ugly_split(HTAB *hashp,
 
                         ino = (u_int16_t *)bufp->page;
                         n = 1;
+                        (void)n;
                         scopyto = hashp->BSIZE;
                         moved = 0;
 
