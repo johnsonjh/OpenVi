@@ -387,14 +387,17 @@ hdestroy(HTAB *hashp)
         save_errno = 0;
 
 #ifdef HASH_STATISTICS
-        (void)fprintf(stderr, "hdestroy: accesses %ld collisions %ld\n",
-            hash_accesses, hash_collisions);
-        (void)fprintf(stderr, "hdestroy: expansions %ld\n",
-            hash_expansions);
-        (void)fprintf(stderr, "hdestroy: overflows %ld\n",
-            hash_overflows);
-        (void)fprintf(stderr, "keys %ld maxp %d segmentcount %d\n",
-            hashp->NKEYS, hashp->MAX_BUCKET, hashp->nsegs);
+        (void)fprintf(stderr, "hdestroy: accesses %lu collisions %lu\n",
+            (unsigned long)hash_accesses,
+            (unsigned long)hash_collisions);
+        (void)fprintf(stderr, "hdestroy: expansions %lu\n",
+            (unsigned long)hash_expansions);
+        (void)fprintf(stderr, "hdestroy: overflows %lu\n",
+            (unsigned long)hash_overflows);
+        (void)fprintf(stderr, "keys %lu maxp %lu segmentcount %lu\n",
+            (unsigned long)hashp->NKEYS,
+            (unsigned long)hashp->MAX_BUCKET,
+            (unsigned long)hashp->nsegs);
 
         for (i = 0; i < NCACHED; i++)
                 (void)fprintf(stderr,

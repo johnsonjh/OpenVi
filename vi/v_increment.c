@@ -171,8 +171,10 @@ nonum:                  msgq(sp, M_ERR, "Cursor not in a number");
          * allocate once.
          */
         GET_SPACE_RET(sp, bp, blen, len + 50);
-        if (bp == NULL)
+        if (bp == NULL) {
+                nret = NUM_UNDER;
                 goto err;
+        }
         if (end == len) {
                 memmove(bp, &p[beg], wlen);
                 bp[wlen] = '\0';

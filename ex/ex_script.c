@@ -263,8 +263,6 @@ more:   len = sizeof(buf) - (endp - buf);
                         t = p + 1;
                 }
         }
-        if (buf == NULL)
-                goto prompterr;
         if (p > buf) {
                 memmove(buf, t, endp - t);
                 endp = buf + (endp - t);

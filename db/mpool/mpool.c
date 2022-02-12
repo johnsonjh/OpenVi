@@ -453,10 +453,13 @@ mpool_stat(MPOOL *mp)
         int cnt;
         char *sep;
 
-        (void)fprintf(stderr, "%lu pages in the file\n", mp->npages);
+        (void)fprintf(stderr, "%lu pages in the file\n",
+            (unsigned long)mp->npages);
         (void)fprintf(stderr,
             "page size %lu, cacheing %lu pages of %lu page max cache\n",
-            mp->pagesize, mp->curcache, mp->maxcache);
+            (unsigned long)mp->pagesize,
+            (unsigned long)mp->curcache,
+            (unsigned long)mp->maxcache);
         (void)fprintf(stderr, "%lu page puts, %lu page gets, %lu page new\n",
             mp->pageput, mp->pageget, mp->pagenew);
         (void)fprintf(stderr, "%lu page allocs, %lu page flushes\n",

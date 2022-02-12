@@ -125,8 +125,7 @@ cl_attr(SCR *sp, scr_attr_t attribute, int on)
                                 (void)tputs(clp->rmcup, 1, cl_putchar);
                         (void)fflush(stdout);
                 }
-                (void)fflush(stdout);
-                break;
+        break;
         case SA_INVERSE:
                 if (F_ISSET(sp, SC_EX | SC_SCR_EXWROTE)) {
                         if (clp->smso == NULL)
@@ -144,8 +143,10 @@ cl_attr(SCR *sp, scr_attr_t attribute, int on)
                 }
                 break;
         default:
+                (void)fflush(stdout);
                 abort();
         }
+        (void)fflush(stdout);
         return (0);
 }
 

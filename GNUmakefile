@@ -53,7 +53,10 @@ IUSGR        = root:bin
 ###############################################################################
 
 ifdef DEBUG
-   CFLAGS   += $(DBGFLAGS) -Wall -Wextra -DDEBUG -DSTATISTICS -DHASH_STATISTICS
+   CFLAGS   += -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare \
+               -Wno-unused-variable -Wno-unused-but-set-variable \
+               -Wno-implicit-fallthrough
+   CFLAGS   += $(DBGFLAGS) -DDEBUG -DSTATISTICS -DHASH_STATISTICS
 else
    CFLAGS   += $(OPTLEVEL)
 endif # DEBUG

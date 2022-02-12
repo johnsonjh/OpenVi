@@ -88,7 +88,7 @@ ex_print(SCR *sp, EXCMD *cmdp, MARK *fp, MARK *tp, u_int32_t flags)
 {
         recno_t from, to;
         size_t col, len;
-        char *p, buf[10];
+        char *p, buf[16];
 
         NEEDFILE(sp, cmdp);
 
