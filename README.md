@@ -72,7 +72,7 @@ Kirkendall*'s **`Elvis`** editor.
 
 - The following compilers are fully supported and regularly tested:
   - **Clang** V6+
-  - *GNU* **GCC** V7.5+
+  - *GNU* **GCC** V4.6+
   - *IBM* **XL C/C++ Compiler** V16.1+
   - *Intel* **C Compiler Classic** V19.1+
   - *Intel* **oneAPI DPC++/C++ Compiler** V2021+
