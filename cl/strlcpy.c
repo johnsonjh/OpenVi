@@ -17,8 +17,12 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <bsd_string.h>
+
+#undef open
 
 /*
  * Copy string src to buffer dst of size dsize.  At most dsize-1
