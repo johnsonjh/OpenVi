@@ -1,4 +1,4 @@
-/*      $OpenBSD: reallocarray.c,v 1.2 2014/12/08 03:45:00 bcook Exp $  */
+/*      $OpenBSD: reallocarray.c,v 1.3 2015/09/13 08:31:47 guenther Exp $       */
 
 /*
  * Copyright (c) 2008 Otto Moerbeek <otto@drijf.net>
@@ -20,17 +20,31 @@
 #include "../include/compat.h"
 
 #include <sys/types.h>
-#include <bsd_stdlib.h>
 #include <errno.h>
+#include <stdint.h>
+#include <bsd_stdlib.h>
 
-#ifndef MUL_NO_OVERFLOW
-# define MUL_NO_OVERFLOW ((size_t)1 << (sizeof(size_t) * 4))
-#endif /* ifndef MUL_NO_OVERFLOW */
-void *openbsd_reallocarray(void *optr, size_t nmemb, size_t size) {
-        if ((nmemb >= MUL_NO_OVERFLOW || size >= MUL_NO_OVERFLOW) &&
-                nmemb > 0 && SIZE_MAX / nmemb < size) {
-                        errno = ENOMEM;
-                return NULL;
-        }
-        return realloc(optr, size * nmemb);
+#undef open
+
+/*
+ * This is sqrt(SIZE_MAX+1), as s1*s2 <= SIZE_MAX
+ * if both s1 < MUL_NO_OVERFLOW and s2 < MUL_NO_OVERFLOW
+ */
+
+#ifdef MUL_NO_OVERFLOW
+# undef MUL_NO_OVERFLOW
+#endif /* ifdef MUL_NO_OVERFLOW */
+#define MUL_NO_OVERFLOW ((size_t)1 << ( sizeof ( size_t ) * 4 ))
+
+void *
+openbsd_reallocarray(void *optr, size_t nmemb, size_t size)
+{
+  if (( nmemb >= MUL_NO_OVERFLOW || size >= MUL_NO_OVERFLOW ) && nmemb > 0
+      && SIZE_MAX / nmemb < size)
+    {
+      errno = ENOMEM;
+      return NULL;
+    }
+
+  return realloc(optr, size * nmemb);
 }
