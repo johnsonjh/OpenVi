@@ -1,4 +1,5 @@
-OpenVi 7.0.10 -> OpenVi 7.0.11-dev (Unreleased): Sat Feb 12 11:09:39 2022
+OpenVi 7.0.10 -> OpenVi 7.0.11-dev (Unreleased): Sat Feb 12 11:23:57 2022
+        + Update bundled OpenBSD getopt_long to 1.32 2020/05/27 22:25:09
         + Update bundled basename to 1.17 2020/10/20 19:30:14
         + Add initial Midipix support
 
