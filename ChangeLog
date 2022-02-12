@@ -1,4 +1,4 @@
-OpenVi 7.0.10 -> OpenVi 7.0.11-dev (Unreleased): Sat Feb 12 19:17:47 2022
+OpenVi 7.0.10 -> OpenVi 7.0.11: Sat Feb 12 19:42:28 2022
         + Silence a few more warnings; adjust default debugging `CFLAGS`
         + Add an initial regex man page (which is not yet installed),
           `docs/USD.doc/re_format/vi_regex.7`
