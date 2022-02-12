@@ -1,4 +1,5 @@
-OpenVi 7.0.10 -> OpenVi 7.0.11-dev (Unreleased): Wed Feb 9 21:38:05 2022
+OpenVi 7.0.10 -> OpenVi 7.0.11-dev (Unreleased): Sat Feb 12 11:09:39 2022
+        + Update bundled basename to 1.17 2020/10/20 19:30:14
         + Add initial Midipix support
 
 OpenVi 7.0.9 -> OpenVi 7.0.10: Wed Feb 9 16:36:25 2022

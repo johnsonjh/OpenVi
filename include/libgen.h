@@ -38,10 +38,7 @@
 
 # undef basename
 # define basename       openbsd_basename
-# undef dirname
-# define dirname        openbsd_dirname
 
-char    *basename(const char *);
-char    *dirname(const char *);
+char    *basename(char *);
 
 #endif /* _COMPAT_LIBGEN_H_ */
