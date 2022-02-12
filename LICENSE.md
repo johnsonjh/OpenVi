@@ -6,6 +6,7 @@ Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
         Keith Bostic
 Copyright (c) 1992, 1993, 1994 Henry Spencer
 Copyright (c) 1994, 1996 Rob Mayoff
+Copyright (c) 1997 Phillip F. Knaack
 Copyright (c) 1997, 1998, 2002, 2004, 2015
         Todd C. Miller <Todd.Miller@courtesan.com>
 Copyright (c) 1999, 2000 Sven Verdoolaege
