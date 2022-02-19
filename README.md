@@ -250,4 +250,4 @@ Changes **not** derived from *OpenBSD* commits do not advance this date.
   editor, with a focus on extensibility and new features.
 - [**`Nvi1`**](https://repo.or.cz/nvi.git) (*version* *1.8+*) is the
   currently maintained *traditional branch* of the new (**4BSD**) version of
-  the **`nvi`** / **`nex`** editor, developed by *Sven Verdoolaege*.
+  the **`nvi`** / **`nex`** editor, now developed by *Sven Verdoolaege*.
