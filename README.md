@@ -86,9 +86,8 @@ view.
 - No support for syntax highlighting, context-aware code completion, code
   folding, or "*language server*" integrations
 - No interactive macro recording and debugging functionality
-- No advanced scripting support (no *BASIC* / *VBA*, *COBOL*, *JavaScript*,
-  *Lua*, *Perl*, *PHP*, *Python*, *REXX*, *Ruby*, *S-Lang*, *Tcl*, or
-  anything else)
+- No advanced scripting support (no *BASIC* *COBOL*, *JavaScript*, *Lua*,
+  *Perl*, *PHP*, *Python*, *REXX*, *Ruby*, *S-Lang*, *Tcl*, or anything else)
 - Only curses-based visual-mode and line-based `ex`-mode interfaces available
   - No support for X11/Wayland, OpenGL/Vulkan, Neuralink, augmented / virtual
     reality, or any other graphical user interfaces
