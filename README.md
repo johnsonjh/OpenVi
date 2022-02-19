@@ -241,10 +241,13 @@ Changes **not** derived from *OpenBSD* commits do not advance this date.
 
 ## See Also
 
-- [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/) is
-  the currently maintained fork of the original (**2BSD**) branch of the
+- [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/)
+  is the currently maintained fork of the original (**2BSD**) branch of the
   **`vi`** / **`ex`** editor, derived from *Gunnar Ritter*'s enhanced version
   of the [**traditional** **`vi`**](http://ex-vi.sourceforge.net/) editor.
 - [**`Nvi2`**](https://github.com/lichray/nvi2) is the currently maintained
   *feature branch* of the new (**4BSD**) version of the **`nvi`** / **`nex`**
   editor, with a focus on extensibility and new features.
+- [**`Nvi1`**](https://repo.or.cz/nvi.git) (*version* *1.8+*) is the
+  currently maintained *traditional branch* of the new (**4BSD**) version of
+  the **`nvi`** / **`nex`** editor, developed by *Sven Verdoolaege*.
