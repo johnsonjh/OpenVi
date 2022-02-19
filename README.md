@@ -65,10 +65,10 @@ Why would you want to use ***OpenVi*** instead of **AnotherVi**?
   (also adopted by *LLVM*, *Tcl*, etc.) on all supported systems
 - Single, compact, self-contained binary
   - No external data files required at run-time
-  - No external library dependencies required (beyond `curses`)
-    - Suitable for static linking and "rescue" usage
-- Various tweaks, fixes, improvements, and clean-ups that have accumulated
-  over the past 25 years of development as part of the *OpenBSD* base system
+  - No external library dependencies (other than curses)
+    - Suitable for static linking and emergency "rescue" usage
+- All the various tweaks, fixes, improvements, and clean-ups accumulated
+  over 25+ years of development as part of the *OpenBSD* base system
 
 #### Why not?
 
