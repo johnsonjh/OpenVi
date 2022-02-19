@@ -59,7 +59,7 @@ Why would you want to use ***OpenVi*** instead of **AnotherVi**?
   - Single standard build configuration with no incompatible variants
   - No configuration-specific bugs resulting from untested combinations or
     rarely exercised code paths
-  - Concise and understandable documentation no subtle platform variations
+  - Concise and understandable documentation; no subtle platform variations
 - Consistent user interface, script, and map behavior across all platforms
 - Utilizes *OpenBSD*'s extended *Spencer*-based regular expression engine
   (also adopted by *LLVM*, *Tcl*, etc.) on all supported systems
