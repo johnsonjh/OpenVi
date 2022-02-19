@@ -7,6 +7,8 @@
 <!-- toc -->
 
 - [Overview](#overview)
+  * [Why?](#why)
+    + [Why not?](#why-not)
 - [Building](#building)
   * [Prerequisites](#prerequisites)
     + [Required prerequisites](#required-prerequisites)
