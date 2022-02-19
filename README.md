@@ -38,6 +38,57 @@ Research Group* (**CSRG**) at the *University of California, Berkeley*, *Sven
 Verdoolaege*, and other contributors. **`Nvi`** itself was derived from *Steve
 Kirkendall*'s **`Elvis`** editor.
 
+### Why?
+
+Why would you want to use ***OpenVi*** instead of **AnotherVi**?
+
+- Derived from the (extensively audited) *OpenBSD* base system code
+  - Focus on readability, simplicity, and correctness of implementation
+  - Reduced cyclomatic complexity, correlated with fewer program defects
+- Clean and permissive 3-clause BSD license
+- Mostly conforming to relevant standards (*POSIX*, *SUS*) where applicable
+  - Enhancements, non-standard behaviors, and new features are conservatively
+    and sanely implemented with care taken to sanely balance user
+    expectations, complexity, and historical accuracy
+- Build requires only *GNU Make* and standard POSIX utilities
+  - Easy integration with embedded, minimal, or iteratively bootstrapped
+    environments and distributions (such as *Linux From Scratch* builds)
+- No compile-time or build-time configuration options
+  - Single standard build configuration with no incompatible variants
+  - No configuration-specific bugs resulting from untested combinations or
+    rarely exercised code paths
+  - Concise and understandable documentation no subtle platform variations
+- Consistent user interface, script, and map behavior across all platforms
+- Utilizes *OpenBSD*'s extended *Spencer*-based regular expression engine
+  (also adopted by *LLVM*, *Tcl*, etc.) on all supported systems
+- Single, compact, self-contained binary
+  - No external data files required at run-time
+  - No external library dependencies required (beyond `curses`)
+    - Suitable for static linking and "rescue" usage
+
+#### Why not?
+
+So, why might you **not** want to use ***OpenVi***, then?
+
+Some of these points might be desirable features, depending on your point of
+view.
+
+- Internationalization support is currently lacking
+  - No support for Unicode / UTF-8 / wide character display
+    - Multi-byte characters are shown as individual bytes, rather than glyphs
+  - No support for bidirectional text 
+  - No support for regional localization or message translation
+- Inefficient handling of extremely large (e.g. multi-GB) files
+- No support for syntax highlighting, context-aware code completion, code
+  folding, or "*language server*" integrations
+- No interactive macro recording and debugging functionality
+- No advanced scripting support (no *BASIC* / *VBA*, *COBOL*, *JavaScript*,
+  *Lua*, *Perl*, *PHP*, *Python*, *REXX*, *Ruby*, *S-Lang*, *Tcl*, or
+  anything else)
+- Only curses-based visual-mode and line-based `ex`-mode interfaces available
+  - No support for X11/Wayland, OpenGL/Vulkan, Neuralink, augmented / virtual
+    reality, or any other graphical user interfaces
+
 ## Building
 
 ### Prerequisites
