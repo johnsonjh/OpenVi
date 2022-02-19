@@ -50,8 +50,8 @@ Why would you want to use ***OpenVi*** instead of **AnotherVi**?
 - Clean and permissive 3-clause BSD license
 - Mostly conforming to relevant standards (*POSIX*, *SUS*) where applicable
   - Enhancements, non-standard behaviors, and new features are conservatively
-    and sanely implemented with care taken to sanely balance user
-    expectations, complexity, and historical accuracy
+    and sanely implemented with care taken to balance user expectations,
+    complexity, and historical accuracy
 - Build requires only *GNU Make* and standard POSIX utilities
   - Easy integration with embedded, minimal, or iteratively bootstrapped
     environments and distributions (such as *Linux From Scratch* builds)
