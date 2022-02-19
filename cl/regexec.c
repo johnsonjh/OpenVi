@@ -120,7 +120,8 @@
 
 #define STATESETUP(m, nv)                                                     \
   {                                                                           \
-    ( m )->space = reallocarray(NULL, ( m )->g->nstates, ( nv ));             \
+    ( m )->space = openbsd_reallocarray(                                      \
+      NULL, ( m )->g->nstates, ( nv ) );                                      \
     if (( m )->space == NULL)                                                 \
     return REG_ESPACE;                                                        \
     ( m )->vn = 0;                                                            \

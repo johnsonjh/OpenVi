@@ -195,7 +195,7 @@ regcomp(regex_t *preg, const char *pattern, int cflags)
     }
 
   p->ssize = len / (size_t)2 * (size_t)3 + (size_t)1; /* ugh */
-  p->strip = reallocarray(NULL, p->ssize, sizeof ( sop ));
+  p->strip = openbsd_reallocarray(NULL, p->ssize, sizeof ( sop ));
   p->slen = 0;
   if (p->strip == NULL)
     {
@@ -1299,7 +1299,7 @@ allocset(struct parse *p)
       nc = p->ncsalloc;
       assert(nc % CHAR_BIT == 0);
 
-      ptr = reallocarray(p->g->sets, nc, sizeof ( cset ));
+      ptr = openbsd_reallocarray(p->g->sets, nc, sizeof ( cset ));
       if (ptr == NULL)
         {
           goto nomem;
@@ -1307,7 +1307,7 @@ allocset(struct parse *p)
 
       p->g->sets = ptr;
 
-      ptr = reallocarray(p->g->setbits, nc / CHAR_BIT, css);
+      ptr = openbsd_reallocarray(p->g->setbits, nc / CHAR_BIT, css);
       if (ptr == NULL)
         {
           goto nomem;
@@ -1589,7 +1589,7 @@ enlarge(struct parse *p, sopno size)
       return 1;
     }
 
-  sp = reallocarray(p->strip, size, sizeof ( sop ));
+  sp = openbsd_reallocarray(p->strip, size, sizeof ( sop ));
   if (sp == NULL)
     {
       SETERROR(REG_ESPACE);
@@ -1608,7 +1608,7 @@ static void
 stripsnug(struct parse *p, struct re_guts *g)
 {
   g->nstates = p->slen;
-  g->strip = reallocarray(p->strip, p->slen, sizeof ( sop ));
+  g->strip = openbsd_reallocarray(p->strip, p->slen, sizeof ( sop ));
   if (g->strip == NULL)
     {
       SETERROR(REG_ESPACE);
