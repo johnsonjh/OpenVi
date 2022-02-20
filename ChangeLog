@@ -1,4 +1,4 @@
-OpenVi 7.0.11 -> OpenVi 7.0.12: Sat Feb 19 21:48:45 2022
+OpenVi 7.0.11 -> OpenVi 7.0.12: Sun Feb 20 12:57:42 2022
         + Update `README.md` with some background info and rationale
         + Always use internal reallocarray; closes GitHub Issue #5
 
