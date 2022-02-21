@@ -30,7 +30,11 @@ LTOC         = -flto
 ###############################################################################
 
 # Default libraries to link
-LINKLIBS    ?= -lutil -lncurses
+ifndef LIBS
+   LINKLIBS ?= -lutil -lncurses
+else
+   LINKLIBS  = $(LIBS)
+endif
 LINKLIBS    += $(EXTRA_LIBS)
 
 ###############################################################################
@@ -73,8 +77,6 @@ ifndef DEBUG
         LDFLAGS += $(LTGL)
     endif # LGC
 endif # DEBUG
-
-LDFLAGS     += $(LINKLIBS)
 
 ###############################################################################
 
@@ -357,7 +359,7 @@ bin/vi: $(OBJS)
 ifndef DEBUG
 	-@$(PRINTF) '\r\t$(LD):\t%42s\n' "$@"
 endif # DEBUG
-	@$(VERBOSE); $(CC) -o "$@" $^ $(LDFLAGS)
+	@$(VERBOSE); $(CC) -o "$@" $^ $(LDFLAGS) $(LINKLIBS)
 
 .PHONY: vi
 vi: bin/vi
