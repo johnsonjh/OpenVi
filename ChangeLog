@@ -1,4 +1,6 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 21:45:31 PM UTC 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 21:53:15 PM UTC 2022
+        + Update `README.md` to reflect that the traditional `vi` was
+          originally part of the *first* Berkeley Software Distribution
         + Respect `LIBS` to set/override the default libraries for linking
         + Make failure to strip non-fatal; fixes `install-strip` and `strip`
           in the case where `./bin/vi` is unstrippable (i.e. *upx* compressed
