@@ -111,3 +111,6 @@ distclean
 *.gcno
 *.profdata
 *.profout
+
+# Tidy
+compile_commands.json
