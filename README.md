@@ -48,7 +48,7 @@ Why would you want to use ***OpenVi*** instead of **AnotherVi**?
   - Focus on readability, simplicity, and correctness of implementation
   - Reduced complexity for hopefully fewer program defects
 - Clean and permissive 3-clause BSD license
-- Mostly conforming to relevant standards (*POSIX*, *SUS*) where applicable
+- Mostly conforming to relevant standards (*POSIX*, *SUS*), where applicable
   - Enhancements, non-standard behaviors, and new features are conservatively
     and sanely implemented with care taken to balance user expectations,
     complexity, and historical accuracy
@@ -80,6 +80,16 @@ view.
 - Internationalization support is currently lacking
   - No support for Unicode / UTF-8 / wide character display
     - Multi-byte characters are shown as individual bytes, rather than glyphs
+    - Multi-byte support is planned, but is unfortunately non-trivial, see:
+      - Schwarze, I. (2016, September 25). *Keep multibyte character support
+        simple* [Conference presentation]. EuroBSDCon 2016 Convention,
+        Belgrade, Serbia. https://openbsd.org/papers/eurobsdcon2016-utf8.pdf
+      - Jun-ichiro itojun Hagino [*KAME Project*] and Yoshitaka Tokugawa
+        [*WIDE Project*]. (1999, 6 June). *Multilingual vi clones: past, now
+        and the future* [Conference presentation]. In Proceedings of the
+        annual conference on USENIX, Annual Technical Conference (*ATEC '99*).
+        USENIX Association, USA, Page 45.
+        https://dl.acm.org/doi/10.5555/1268708.1268753
   - No support for bidirectional text 
   - No support for regional localization or message translation
 - Inefficient handling of extremely large (e.g. multi-GB) files

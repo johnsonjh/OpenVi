@@ -1,10 +1,11 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 21:53:15 PM UTC 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 22:11:13 2022
+        + Update `README.md` with citations regarding past multi-byte efforts
         + Update `README.md` to reflect that the traditional `vi` was
           originally part of the *first* Berkeley Software Distribution
         + Respect `LIBS` to set/override the default libraries for linking
         + Make failure to strip non-fatal; fixes `install-strip` and `strip`
-          in the case where `./bin/vi` is unstrippable (i.e. *upx* compressed
-          or missing section headers from *sstrip*'ing)
+          in the case where `./bin/vi` is un-strippable (i.e. `bin/vi` is
+          `upx` compressed or missing section headers from `sstrip`ing)
         + Fixes for `vi` recovery mode. From `trondd@`, tested by various,
           ok `afresh1@`
         + Use fancy quotes in `README.md`
