@@ -42,7 +42,7 @@ Kirkendall*'s **`Elvis`** editor.
 
 ### Why?
 
-Why would you want to use ***OpenVi*** instead of **AnotherVi**?
+Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
 
 - Derived from the (extensively audited) *OpenBSD* base system code
   - Focus on readability, simplicity, and correctness of implementation
@@ -93,6 +93,7 @@ view.
         [[doi:10.5555/1268708.1268753]](https://dl.acm.org/doi/10.5555/1268708.1268753),
         [[@USENIX (*abstract*)]](https://www.usenix.org/conference/1999-usenix-annual-technical-conference/multilingual-vi-clones-past-now-and-future),
 		[[@USENIX (*PDF*)]](https://www.usenix.org/legacy/publications/library/proceedings/usenix99/full_papers/hagino/hagino.pdf)
+        (*historical*)
   - No support for bidirectional text 
   - No support for regional localization or message translation
 - Inefficient handling of extremely large (e.g. multi-GB) files
@@ -204,10 +205,11 @@ Version 7.0.1 (OpenVi) 10/25/2021.
 
 This message indicates the editor in use is ***OpenVi***, release **1**,
 derived from *OpenBSD* version **7.0**, and is fully synchronized with the
-*OpenBSD* versions of ***`vi`***, ***`ex`***, and ***`db`*** as of
-**10/25/2021** (*October 25th 2021*).
+*OpenBSD* versions of ***`vi`***, ***`ex`***, ***`db`***, and ***`regex`***
+as of **10/25/2021** (*October 25th 2021*).
 
 Changes **not** derived from *OpenBSD* commits do not advance this date.
+New *OpenBSD* releases do not reset the ***OpenVi*** release number.
 
 ## History
 
@@ -215,10 +217,14 @@ Changes **not** derived from *OpenBSD* commits do not advance this date.
   - [`ChangeLog`](/ChangeLog)
   - [Release history](http://github.com/johnsonjh/OpenVi/releases/)
   - [Commit history](https://github.com/johnsonjh/OpenVi/commits/master)
-- *OpenBSD* ***`vi`*** / ***`ex`***
-  - [Commit history](https://github.com/openbsd/src/commits/master/usr.bin/vi)
-- *OpenBSD* ***`db`***
-  - [Commit history](https://github.com/openbsd/src/commits/master/lib/libc/db)
+
+- *OpenBSD* ***`vi`***
+  - *OpenBSD* ***`vi`*** / ***`ex`***
+    - [Commit history](https://github.com/openbsd/src/commits/master/usr.bin/vi)
+  - *OpenBSD* ***`db`***
+    - [Commit history](https://github.com/openbsd/src/commits/master/lib/libc/db)
+  - *OpenBSD* ***`regex`***
+    - [Commit history](https://github.com/openbsd/src/commits/master/lib/libc/regex)
 
 ## License
 
