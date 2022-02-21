@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 08:30:26 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 08:55:29 2022
         + Make failure to strip non-fatal; fixes `install-strip` and `strip`
           in the case where `./bin/vi` is unstrippable (i.e. *upx* compressed
           or missing section headers from *sstrip*'ing)
