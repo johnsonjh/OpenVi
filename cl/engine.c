@@ -468,6 +468,7 @@ dissect(struct match *m, const char *start, const char *stop, sopno startst,
           if (slow(m, sp, rest, ssub, esub) != NULL)
             {
               dp = dissect(m, sp, rest, ssub, esub);
+              (void)dp;
               assert(dp == rest);
             }
           else /* no */
@@ -523,6 +524,7 @@ dissect(struct match *m, const char *start, const char *stop, sopno startst,
           assert(sep == rest); /* must exhaust substring */
           assert(slow(m, ssp, sep, ssub, esub) == rest);
           dp = dissect(m, ssp, sep, ssub, esub);
+          (void)dp;
           assert(dp == sep);
           sp = rest;
           break;

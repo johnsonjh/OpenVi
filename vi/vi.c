@@ -1155,6 +1155,7 @@ v_count(SCR *sp, CHAR_T fkey, u_long *countp)
 
         ev.e_c = fkey;
         count = tc = 0;
+        (void)tc;
         do {
                 /*
                  * XXX

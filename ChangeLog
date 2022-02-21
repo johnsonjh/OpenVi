@@ -1,4 +1,5 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Sun Feb 20 17:52:49 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 05:41:35 2022
+        + Suppress a few possible warnings
         + Since HiDPI screens are more common, allow terminal dimensions of
           3640x2048; this might need to be further extended for 4K displays
 
