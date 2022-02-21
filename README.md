@@ -66,7 +66,7 @@ Why would you want to use ***OpenVi*** instead of **AnotherVi**?
 - Single, compact, self-contained binary
   - No external data files required at run-time
   - No external library dependencies (other than curses)
-    - Suitable for static linking and emergency "rescue" usage
+    - Suitable for static linking and emergency “rescue” usage
 - All the various tweaks, fixes, improvements, and clean-ups accumulated
   over 25+ years of development as part of the *OpenBSD* base system
 
@@ -84,7 +84,7 @@ view.
   - No support for regional localization or message translation
 - Inefficient handling of extremely large (e.g. multi-GB) files
 - No support for syntax highlighting, context-aware code completion, code
-  folding, or "*language server*" integrations
+  folding, or “*language server*” integrations
 - No interactive macro recording and debugging functionality
 - No advanced scripting support (no *BASIC*, *COBOL*, *JavaScript*, *Lua*,
   *Perl*, *PHP*, *Python*, *REXX*, *Ruby*, *S-Lang*, *Tcl*, or anything else)

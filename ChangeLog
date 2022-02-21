@@ -1,4 +1,5 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 05:44:15 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 06:06:42 2022
+        + Use fancy quotes in `README.md`
         + Update `.gitignore` to add `compile_commands.json`
         + Suppress a few possible warnings
         + Since HiDPI screens are more common, allow terminal dimensions of
