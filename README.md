@@ -167,10 +167,12 @@ User contributions to enhance platform support are welcomed.
 - The following environment variables influence compilation and installation:
   - `CC` - C compiler to use
     - (e.g. `CC=gcc`)
-  - `OPTFLAGS` - Optimization flags
-    - (e.g. `OPTFLAGS=-O2`)
+  - `OPTLEVEL` - Optimization flags
+    - (e.g. `OPTLEVEL=-O2`)
   - `CFLAGS` - Flags to pass to the C compiler
     - (e.g. `CFLAGS="-Wall -pipe"`)
+  - `LIBS` - Libraries (overriding defaults) to pass to the linker
+    - (e.g. `LIBS="-lpdcurses -lflock"`)
   - `LDFLAGS` - Flags to pass to the linker
     - (e.g. `LDFLAGS="-L/lib/path -static"`)
   - `V` - Set to enable verbose compilation output
