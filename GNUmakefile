@@ -473,7 +473,8 @@ install-strip: install
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 endif # DEBUG
-	@$(VERBOSE); $(STRIP) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
+	-@$(VERBOSE); $(STRIP) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" || \
+            $(TRUE)
 
 ###############################################################################
 
@@ -485,7 +486,7 @@ strip: bin/vi
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
-	@$(VERBOSE); $(STRIP) "./bin/vi"
+	-@$(VERBOSE); $(STRIP) "./bin/vi" || $(TRUE)
 
 ###############################################################################
 
