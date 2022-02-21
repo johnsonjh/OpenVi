@@ -1,4 +1,4 @@
-/*      $OpenBSD: exf.c,v 1.48 2021/10/25 14:17:24 dv Exp $     */
+/*      $OpenBSD: exf.c,v 1.48 2021/10/25 14:17:24 dv Exp $    */
 
 /*-
  * Copyright (c) 1992, 1993, 1994
