@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 22:11:13 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Mon Feb 21 21:19:45 2022
         + Update `README.md` with citations regarding past multi-byte efforts
         + Update `README.md` to reflect that the traditional `vi` was
           originally part of the *first* Berkeley Software Distribution
