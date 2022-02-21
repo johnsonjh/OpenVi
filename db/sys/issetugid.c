@@ -51,7 +51,7 @@
 
 # ifdef __linux__
 #  include <elf.h>
-# endif
+# endif /* ifdef __linux__ */
 
 int
 issetugid(void)
