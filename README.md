@@ -155,6 +155,7 @@ view.
   planned** for a future release.
   - *IBM* **AIX** 7.2+
   - **Haiku** Walter
+  - **NetBSD** 7+
   - *Oracle* **Solaris** 10/11+
   - *illumos* **OpenIndiana** Hipster
 

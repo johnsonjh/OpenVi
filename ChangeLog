@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 07:48:01 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 08:09:14 2022
         + Actually use `pledge()` when compiled for OpenBSD 5.9 or later
         + Add `superstrip` (aka `sstrip`) `GNUmakefile` target to
           aggressively strip the compiled binary using `sstrip` if available
