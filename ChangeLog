@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 12:57:36 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 01:00:14 2022
         + Add support for Cygwin, tested with Cygwin64 on Windows 11 (x86_64)
         + Update `README.md` to document usage for `LIBS` variable, correct
           `OPTFLAGS` to `OPTLEVEL`, expand external links and information,
