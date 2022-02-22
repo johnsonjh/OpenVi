@@ -202,10 +202,10 @@ env CC=gcc OPTLEVEL=-Os LGC=1 LTO=1 gmake sstrip
 ```
 or, to verbosely compile a debugging build, explicitly using *Clang*:
 ```sh
-env CC=clang DEBUG=1 V=1 gmake install
+env CC=clang DEBUG=1 V=1 gmake
 ```
-For systems with *GNU Make* as `make` (e.g. Linux), compilation should succeed
-without any options or additional configuration needed:
+For systems with *GNU Make* as `make` (e.g. Linux), basic compilation should
+succeed without any options or additional configuration needed:
 ```sh
 make
 ```
