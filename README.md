@@ -200,8 +200,8 @@ or, to verbosely compile and install a debugging build, using *Clang*:
 ```sh
 $ env CC=clang DEBUG=1 V=1 gmake install
 ```
-For most systems using *GNU Make*, compilation should succeed without special
-options or configuration.  If `make` is *GNU Make*, try:
+For systems with *GNU Make* as `make` (e.g. Linux), compilation should succeed
+without any options or additional configuration needed:
 ```sh
 $ make
 ```
