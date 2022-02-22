@@ -135,7 +135,7 @@ view.
   - **FreeBSD**
   - **OpenBSD**
   - **Darwin** / **macOS** / **Mac OS X** (*PowerPC*, *Intel*, *ARM64*)
-  - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *WSL*)
+  - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
 
 - The following compilers are fully supported and regularly tested:
   - **Clang** V6+
@@ -153,7 +153,6 @@ view.
   - **Haiku** Walter
   - *Oracle* **Solaris** 10/11+
   - *illumos* **OpenIndiana** Hipster
-  - *Microsoft* **Windows** (*MSYS2*)
 
 User contributions to enhance platform support are welcomed.
 
