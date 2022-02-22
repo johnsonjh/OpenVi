@@ -96,8 +96,17 @@ SLEEP       ?= sleep
 STRIP       ?= strip
 SSTRIP      ?= sstrip
 TEST        ?= test
+TR          ?= tr
 TRUE        ?= true
+UNAME       ?= uname
 UPX         ?= upx
+
+###############################################################################
+
+ifndef $(OS)
+    OS=$(shell $(UNAME) -s 2> /dev/null | \
+        $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
+endif
 
 ###############################################################################
 
@@ -503,6 +512,11 @@ endif # DEBUG
 ifneq (,$(findstring strip,$(MAKECMDGOALS)))
 .NOTPARALLEL: superstrip sstrip
 endif # (,$(findstring strip,$(MAKECMDGOALS)))
+ifeq ($(OS),freebsd)
+    STRIP_VERS=-R '.gnu.version'
+else
+    STRIP_VERS=
+endif # ifeq ($(OS),freebsd)
 superstrip sstrip: bin/vi
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
@@ -513,7 +527,6 @@ endif # DEBUG
         -R '.got'                       \
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
-        -R '.gnu.version'               \
         -R '.comment'                   \
         -R '.comment.*'                 \
             "./bin/vi" || $(TRUE)
