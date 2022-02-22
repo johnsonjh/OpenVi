@@ -72,7 +72,8 @@ editor(GS *gp, int argc, char *argv[])
 #endif /* ifdef DEBUG */
         };
 
-        if (pledge("stdio rpath wpath cpath fattr flock getpw tty proc exec",
+        if (openbsd_pledge(
+            "stdio rpath wpath cpath fattr flock getpw tty proc exec",
             NULL) == -1) {
                 perror("pledge");
                 goto err;
@@ -246,8 +247,9 @@ editor(GS *gp, int argc, char *argv[])
         (void)argv;
 
         if (secure)
-                if (pledge(
-                    "stdio rpath wpath cpath fattr flock getpw tty", NULL) == -1) {
+                if (openbsd_pledge(
+                    "stdio rpath wpath cpath fattr flock getpw tty",
+                    NULL) == -1) {
                         perror("pledge");
                         goto err;
                 }

@@ -10,6 +10,8 @@
  * See the LICENSE.md file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -24,6 +26,8 @@
 #include <bsd_unistd.h>
 
 #include "common.h"
+
+#undef open
 
 /*
  * PUBLIC: int f_altwerase(SCR *, OPTION *, char *, u_long *);
@@ -211,7 +215,8 @@ f_section(SCR *sp, OPTION *op, char *str, u_long *valp)
 int
 f_secure(SCR *sp, OPTION *op, char *str, u_long *valp)
 {
-        if (pledge("stdio rpath wpath cpath fattr flock getpw tty", NULL) == -1) {
+        if (openbsd_pledge(
+            "stdio rpath wpath cpath fattr flock getpw tty", NULL) == -1) {
                 msgq(sp, M_ERR, "pledge failed");
                 return (1);
         }

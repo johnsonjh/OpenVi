@@ -149,14 +149,6 @@
 int execvpe(const char *, char *const *, char *const *);
 #  endif /* !HAVE_EXECVPE */
 
-#  ifndef HAVE_SETRESUID
-/* int setresuid(uid_t, uid_t, uid_t); */
-#  endif /* !HAVE_SETRESUID */
-
-#  ifndef HAVE_PLEDGE
-int pledge(const char *, const char *[]);
-#  endif /* !HAVE_PLEDGE */
-
 #  ifndef HAVE_SETPROGNAME
 const char *getprogname(void);
 void setprogname(const char *progname);
@@ -252,5 +244,8 @@ int issetugid(void);
 #  endif /* ifndef OPEN_MAX */
 
 # endif /* ifndef __OpenBSD__ */
+
+/* pledge */
+int openbsd_pledge(const char *, const char *);
 
 #endif /* ifndef _COMPAT_H_ */

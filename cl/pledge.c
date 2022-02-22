@@ -31,8 +31,26 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "../include/compat.h"
+
+#include <bsd_unistd.h>
+
+#undef open
+
+#ifdef __OpenBSD__
+# include <sys/param.h>
+#endif /* ifdef __OpenBSD__ */
+
 int
-pledge(const char *promises, const char *paths[])
+openbsd_pledge(const char *promises, const char *execpromises)
 {
+#if defined(__OpenBSD__)
+# if ( defined(OpenBSD) && OpenBSD >= 201605 ) \
+    || defined(OpenBSD5_9)
+        return(pledge(promises, execpromises));
+# endif /* if ( defined(OpenBSD) && OpenBSD >= 201605 )
+             || defined(OpenBSD5_9) */
+#else
         return 0;
+#endif /* if defined(__OpenBSD__) */
 }

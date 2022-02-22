@@ -1,4 +1,9 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 02:09:24 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 03:30:14 2022
+        + Actually use `pledge()` when compiled for OpenBSD 5.9 or later
+        + Add `superstrip` (aka `sstrip`) `GNUmakefile` target to
+          aggressively strip the compiled binary using `sstrip` if available
+        + Add `upx` `GNUmakefile` target to compress the compiled binary
+          using `upx` if available
         + Cosmetic clean-up of `GNUmakefile` and normalize to 79-columns
         + MSYS2 is also supported, tested with MSYS2 on Windows 11 (x86_64)
         + Add support for Cygwin, tested with Cygwin64 on Windows 11 (x86_64)

@@ -94,8 +94,10 @@ RM          ?= rm
 RMF          = $(RM) -f
 SLEEP       ?= sleep
 STRIP       ?= strip
+SSTRIP      ?= sstrip
 TEST        ?= test
 TRUE        ?= true
+UPX         ?= upx
 
 ###############################################################################
 
@@ -494,6 +496,47 @@ ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
 	-@$(VERBOSE); $(STRIP) "./bin/vi" || $(TRUE)
+
+###############################################################################
+
+.PHONY: superstrip sstrip
+ifneq (,$(findstring strip,$(MAKECMDGOALS)))
+.NOTPARALLEL: superstrip sstrip
+endif # (,$(findstring strip,$(MAKECMDGOALS)))
+superstrip sstrip: bin/vi
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
+endif # DEBUG
+	-@$(VERBOSE); $(STRIP) --strip-all  \
+        -R '.gnu.build.attributes'      \
+        -R '.note.*'                    \
+        -R '.got'                       \
+        -R '.eh_frame'                  \
+        -R '.eh_frame*'                 \
+        -R '.gnu.version'               \
+        -R '.comment'                   \
+        -R '.comment.*'                 \
+            "./bin/vi" || $(TRUE)
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(SSTRIP):\t%42s\n" "bin/vi"
+endif # DEBUG
+	-@$(VERBOSE); $(SSTRIP) -z "./bin/vi" 2> /dev/null || $(TRUE)
+
+###############################################################################
+
+.PHONY: upx
+ifneq (,$(findstring upx,$(MAKECMDGOALS)))
+.NOTPARALLEL: upx
+endif # (,$(findstring upx,$(MAKECMDGOALS)))
+upx: sstrip
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(UPX):\t%42s\n" "bin/vi"
+endif # DEBUG
+	-@$(VERBOSE); $(UPX) -qqq9 --exact "./bin/vi" 2> /dev/null || $(TRUE)
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(SSTRIP):\t%42s\n" "bin/vi"
+endif # DEBUG
+	-@$(VERBOSE); $(SSTRIP) -z "./bin/vi" 2> /dev/null || $(TRUE)
 
 ###############################################################################
 
