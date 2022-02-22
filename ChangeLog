@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 08:15:48 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 08:19:41 2022
         + Actually use `pledge()` when compiled for OpenBSD 5.9 or later
         + Add `superstrip` (aka `sstrip`) `GNUmakefile` target to
           aggressively strip the compiled binary using `sstrip` if available
@@ -9,7 +9,7 @@ OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 08:15:48 2022
         + Add support for Cygwin, tested with Cygwin64 on Windows 11 (x86_64)
         + Update `README.md` to document usage for `LIBS` variable, correct
           `OPTFLAGS` to `OPTLEVEL`, expand external links and information,
-          add citations regarding past multi-byte efforts, use fancy quotes,
+          add citations regarding past multibyte efforts, use fancy quotes,
           and correctly state that the traditional `ex` / `vi` was part of
           the *first* Berkeley Software Distribution, mention OpenBSD's
           standard secure coding practices, safe(r) functions, and ISC license

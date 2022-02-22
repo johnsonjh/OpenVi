@@ -82,8 +82,8 @@ view.
 
 - Internationalization support is currently lacking
   - No support for Unicode / UTF-8 / wide character display
-    - Multi-byte characters are shown as individual bytes, rather than glyphs
-    - Multi-byte support is planned, but is unfortunately non-trivial, see:
+    - Multibyte characters are shown as individual bytes, rather than glyphs
+    - Multibyte support is planned, but is unfortunately non-trivial, see:
       - Schwarze, I. (2016, September 25). *Keep multibyte character support
         simple* [Conference presentation]. EuroBSDCon 2016 Convention,
         Belgrade, Serbia.
