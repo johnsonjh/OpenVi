@@ -512,11 +512,11 @@ endif # DEBUG
 ifneq (,$(findstring strip,$(MAKECMDGOALS)))
 .NOTPARALLEL: superstrip sstrip
 endif # (,$(findstring strip,$(MAKECMDGOALS)))
-ifeq ($(OS),freebsd)
+ifneq ($(OS),freebsd)
     STRIP_VERS=-R '.gnu.version'
 else
     STRIP_VERS=
-endif # ifeq ($(OS),freebsd)
+endif # ifneq ($(OS),freebsd)
 superstrip sstrip: bin/vi
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
@@ -528,7 +528,7 @@ endif # DEBUG
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
         -R '.comment'                   \
-        -R '.comment.*'                 \
+        -R '.comment.*' $(STRIP_VERS)   \
             "./bin/vi" || $(TRUE)
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(SSTRIP):\t%42s\n" "bin/vi"
