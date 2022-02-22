@@ -49,7 +49,8 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
   - Adherence to *OpenBSD*'s standard secure coding practices
     - Uses secure functions (e.g. `strlcpy`, `snprintf`, `mkstemp`, `pledge`)
   - Reduced complexity for hopefully fewer program defects
-- Clean and permissive 3-clause BSD licensed
+- Clean source code, distributed under a permissive 3-clause BSD license
+  - Some support code is distributed under the (more permissive) ISC license
 - Mostly conforming to relevant standards (*POSIX*, *SUS*), where applicable
   - Enhancements, non-standard behaviors, and new features are conservatively
     and sanely implemented with care taken to balance user expectations,
