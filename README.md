@@ -210,8 +210,8 @@ should succeed without any options or additional configuration needed:
 make
 ```
 With the appropriate privileges to manipulate files within the chosen `PREFIX`
-(using `doas`, `sudo`, `su`, etc.), the compiled executable may be installed,
-(as-is or stripped), using an invocation such as:
+(using `doas`, `sudo`, `su`, etc.), the compiled executable may be installed -
+as-is or stripped - using an invocation such as:
 ```sh
 doas gmake install-strip
 ```
