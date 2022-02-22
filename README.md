@@ -47,7 +47,7 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
 - Derived from the (extensively audited) *OpenBSD* base system code
   - Focus on readability, simplicity, and correctness of implementation
   - Reduced complexity for hopefully fewer program defects
-- Clean and permissive 3-clause BSD license
+- Clean and permissive 3-clause BSD licensed
 - Mostly conforming to relevant standards (*POSIX*, *SUS*), where applicable
   - Enhancements, non-standard behaviors, and new features are conservatively
     and sanely implemented with care taken to balance user expectations,
