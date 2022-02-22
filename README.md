@@ -198,26 +198,26 @@ For example, to compile an aggressively size-optimized build, enabling
 link-time optimization and link-time garbage collection, explicitly using
 *GCC*:
 ```sh
- env CC=gcc OPTLEVEL=-Os LGC=1 LTO=1 gmake superstrip
+env CC=gcc OPTLEVEL=-Os LGC=1 LTO=1 gmake sstrip
 ```
 or, to verbosely compile a debugging build, explicitly using *Clang*:
 ```sh
- env CC=clang DEBUG=1 V=1 gmake install
+env CC=clang DEBUG=1 V=1 gmake install
 ```
 For systems with *GNU Make* as `make` (e.g. Linux), compilation should succeed
 without any options or additional configuration needed:
 ```sh
- make
+make
 ```
 With the appropriate privileges to manipulate files within the chosen `PREFIX`
 (using `doas`, `sudo`, `su`, etc.), the compiled executable may be installed,
 (as-is or stripped), using an invocation such as:
 ```sh
- doas gmake install-strip
+doas gmake install-strip
 ```
 or
 ```sh
- sudo env PREFIX=/usr/local make install
+sudo env PREFIX=/usr/local make install
 ```
 
 ## Availability
