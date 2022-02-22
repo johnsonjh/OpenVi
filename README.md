@@ -135,7 +135,7 @@ view.
 
 - The following operating systems are fully supported and regularly tested
   using ix86/AMD64, ARM/AArch64, m68k, MIPS, POWER, and RISC-V processors:
-  - **Linux** (*glibc* and *musl*)
+  - **GNU**/**Linux** (*glibc* and *musl*)
   - **FreeBSD**
   - **OpenBSD**
   - **Darwin** / **macOS** / **Mac OS X** (*PowerPC*, *Intel*, *ARM64*)
@@ -204,8 +204,8 @@ or, to verbosely compile a debugging build, explicitly using *Clang*:
 ```sh
 env CC=clang DEBUG=1 V=1 gmake
 ```
-For systems with *GNU Make* as `make` (e.g. Linux), basic compilation should
-succeed without any options or additional configuration needed:
+For systems with *GNU Make* as `make` (e.g. *GNU/Linux*), basic compilation
+should succeed without any options or additional configuration needed:
 ```sh
 make
 ```
