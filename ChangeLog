@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 05:23:40 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 05:25:47 2022
         + Actually use `pledge()` when compiled for OpenBSD 5.9 or later
         + Add `superstrip` (aka `sstrip`) `GNUmakefile` target to
           aggressively strip the compiled binary using `sstrip` if available
@@ -18,7 +18,7 @@ OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 05:23:40 2022
           in the case where `./bin/vi` is un-strippable (i.e. `bin/vi` is
           `upx` compressed or missing section headers from `sstrip`ing)
         + Fixes for `vi` recovery mode. From `trondd@`, tested by various,
-          ok `afresh1@`
+          ok `afresh1@`; this advances OpenBSD release date to 02/20/2022
         + Update `.gitignore` to add `compile_commands.json`
         + Suppress a few possible warnings
         + Since HiDPI screens are more common, allow terminal dimensions of
