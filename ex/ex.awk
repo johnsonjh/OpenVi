@@ -6,7 +6,7 @@ BEGIN {
         printf("enum {");
         first = 1;
 }
-/^\/\* C_[0-9A-Z_]* \*\/$/ {
+/^\/\* C_[0-9A-Z_]* \*\// {
         printf("%s\n\t%s%s", first ? "" : ",", $2, first ? " = 0" : "");
         first = 0;
         next;

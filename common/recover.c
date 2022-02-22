@@ -38,6 +38,7 @@
 #include <bsd_unistd.h>
 
 #include "common.h"
+#include "pathnames.h"
 
 #undef open
 

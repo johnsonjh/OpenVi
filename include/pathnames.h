@@ -64,4 +64,8 @@
 
 # define _PATH_TAGS "tags"
 
+# ifndef _PATH_SENDMAIL
+#  define _PATH_SENDMAIL "/usr/sbin/sendmail"
+# endif /* ifndef _PATH_SENDMAIL */
+
 #endif /* ifndef _PATHNAMES_H */

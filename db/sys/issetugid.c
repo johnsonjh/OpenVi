@@ -45,7 +45,8 @@
                   || defined(__linux__) || defined(__midipix__) */
 
 #if defined(__FreeBSD__) || defined(__OpenBSD__) \
-       || ( defined(__APPLE__ ) && defined(__MACH__) )
+       || ( defined(__APPLE__ ) && defined(__MACH__) ) \
+       || ( defined(__CYGWIN__) )
 # include <unistd.h>
 #else
 
@@ -69,4 +70,5 @@ issetugid(void)
   return rv;
 }
 #endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
-                || ( defined(__APPLE__) && defined(__MACH__) ) */
+                || ( defined(__APPLE__) && defined(__MACH__) )
+                || ( defined(__CYGWIN__) ) */
