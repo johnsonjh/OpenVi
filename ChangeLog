@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 03:49:08 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 04:14:42 2022
         + Actually use `pledge()` when compiled for OpenBSD 5.9 or later
         + Add `superstrip` (aka `sstrip`) `GNUmakefile` target to
           aggressively strip the compiled binary using `sstrip` if available
@@ -11,7 +11,8 @@ OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 03:49:08 2022
           `OPTFLAGS` to `OPTLEVEL`, expand external links and information,
           add citations regarding past multi-byte efforts, use fancy quotes,
           and correctly state that the traditional `ex` / `vi` was part of
-          the *first* Berkeley Software Distribution
+          the *first* Berkeley Software Distribution, and mention OpenBSD's
+          standard secure coding practices and safe(r) functions
         + Respect `LIBS` to set/override the default libraries for linking
         + Make failure to strip non-fatal; fixes `install-strip` and `strip`
           in the case where `./bin/vi` is un-strippable (i.e. `bin/vi` is
