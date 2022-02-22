@@ -81,19 +81,18 @@ view.
   - No support for Unicode / UTF-8 / wide character display
     - Multi-byte characters are shown as individual bytes, rather than glyphs
     - Multi-byte support is planned, but is unfortunately non-trivial, see:
-      - ⟪Schwarze, I.⟫ (2016, September 25). *Keep multibyte character support
+      - Schwarze, I. (2016, September 25). *Keep multibyte character support
         simple* [Conference presentation]. EuroBSDCon 2016 Convention,
         Belgrade, Serbia.
-        [[@OpenBSD]](https://openbsd.org/papers/eurobsdcon2016-utf8.pdf)
-      - ⟪Jun-ichiro itojun Hagino [*KAME Project*] and Yoshitaka Tokugawa
-        [*WIDE Project*].⟫ (1999, 6 June). *Multilingual vi clones: past, now
+        [[OpenBSD](https://openbsd.org/papers/eurobsdcon2016-utf8.pdf)]
+      - Jun-ichiro itojun Hagino [*KAME Project*] and Yoshitaka Tokugawa
+        [*WIDE Project*]. (1999, 6 June). *Multilingual vi clones: past, now
         and the future* [Conference presentation]. In Proceedings of the
         annual conference on USENIX, Annual Technical Conference
         (*USENIX ATEC '99*). USENIX Association, Monterey, CA, USA, Page 45.
-        [[doi:10.5555/1268708.1268753]](https://dl.acm.org/doi/10.5555/1268708.1268753),
-        [[@USENIX (*abstract*)]](https://www.usenix.org/conference/1999-usenix-annual-technical-conference/multilingual-vi-clones-past-now-and-future),
-		[[@USENIX (*PDF*)]](https://www.usenix.org/legacy/publications/library/proceedings/usenix99/full_papers/hagino/hagino.pdf)
-        (*historical*)
+        [[doi:10.5555/1268708.1268753]](https://dl.acm.org/doi/10.5555/1268708.1268753)],
+        [[USENIX](https://www.usenix.org/conference/1999-usenix-annual-technical-conference/multilingual-vi-clones-past-now-and-future)],
+        (*legacy*)
   - No support for bidirectional text 
   - No support for regional localization or message translation
 - Inefficient handling of extremely large (e.g. multi-GB) files

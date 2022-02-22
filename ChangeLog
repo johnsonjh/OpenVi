@@ -1,18 +1,16 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 12:52:12 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Tue Feb 22 12:57:36 2022
         + Add support for Cygwin, tested with Cygwin64 on Windows 11 (x86_64)
-        + Update `README.md` to document usage for `LIBS` variable; also
-          correct `OPTFLAGS` to `OPTLEVEL`
-        + Update `README.md` to expand external links and information
-        + Update `README.md` with citations regarding past multi-byte efforts
-        + Update `README.md` to reflect that the traditional `vi` was
-          originally part of the *first* Berkeley Software Distribution
+        + Update `README.md` to document usage for `LIBS` variable, correct
+          `OPTFLAGS` to `OPTLEVEL`, expand external links and information,
+          add citations regarding past multi-byte efforts, use fancy quotes,
+          and correctly state that the traditional `ex` / `vi` was part of
+          the *first* Berkeley Software Distribution
         + Respect `LIBS` to set/override the default libraries for linking
         + Make failure to strip non-fatal; fixes `install-strip` and `strip`
           in the case where `./bin/vi` is un-strippable (i.e. `bin/vi` is
           `upx` compressed or missing section headers from `sstrip`ing)
         + Fixes for `vi` recovery mode. From `trondd@`, tested by various,
           ok `afresh1@`
-        + Use fancy quotes in `README.md`
         + Update `.gitignore` to add `compile_commands.json`
         + Suppress a few possible warnings
         + Since HiDPI screens are more common, allow terminal dimensions of
