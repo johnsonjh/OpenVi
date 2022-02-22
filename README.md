@@ -191,14 +191,19 @@ User contributions to enhance platform support are welcomed.
 - The usual targets (`all`, `clean`, `install`, `uninstall`) are available;
   review the `GNUmakefile` to see all the available targets and options.
 
-For example, to build and install a size-optimized build, enabling link-time
-optimization and link-time garbage collection:
+For example, to compile and install a size-optimized build, enabling link-time
+optimization and link-time garbage collection, using *GCC*:
 ```sh
 $ env CC=gcc OPTLEVEL=-Os LGC=1 LTO=1 gmake install-strip
 ```
-or to (verbosely) build and install a debugging build, using *Clang*:
+or, to verbosely compile and install a debugging build, using *Clang*:
 ```sh
 $ env CC=clang DEBUG=1 V=1 gmake install
+```
+For most systems using *GNU Make*, compilation should succeed without special
+options or configuration.  If `make` is *GNU Make*, try:
+```sh
+$ make
 ```
 
 ## Availability
