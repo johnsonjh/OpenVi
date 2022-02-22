@@ -188,22 +188,34 @@ User contributions to enhance platform support are welcomed.
     - (e.g. `EXTRA_LIBS=-lmtmalloc`)
   - `PREFIX` - Directory prefix for use with install and uninstall targets
     - (e.g. `PREFIX=/opt/OpenVi`)
-- The usual targets (`all`, `clean`, `install`, `uninstall`) are available;
-  review the `GNUmakefile` to see all the available targets and options.
+- The usual targets (`all`, `strip`, `superstrip`, `clean`, `distclean`,
+  `install`, `install-strip`, `uninstall`, `upx`, etc.) are available; review
+  the `GNUmakefile` to see all the available targets and options.
 
-For example, to compile and install a size-optimized build, enabling link-time
-optimization and link-time garbage collection, using *GCC*:
+For example, to compile an aggressively size-optimized build, enabling
+link-time optimization and link-time garbage collection, explicitly using
+*GCC*:
 ```sh
-$ env CC=gcc OPTLEVEL=-Os LGC=1 LTO=1 gmake install-strip
+ env CC=gcc OPTLEVEL=-Os LGC=1 LTO=1 gmake superstrip
 ```
-or, to verbosely compile and install a debugging build, using *Clang*:
+or, to verbosely compile a debugging build, explicitly using *Clang*:
 ```sh
-$ env CC=clang DEBUG=1 V=1 gmake install
+ env CC=clang DEBUG=1 V=1 gmake install
 ```
 For systems with *GNU Make* as `make` (e.g. Linux), compilation should succeed
 without any options or additional configuration needed:
 ```sh
-$ make
+ make
+```
+With the appropriate privileges to manipulate files within the chosen `PREFIX`
+(using `doas`, `sudo`, `su`, etc.), the compiled executable may be installed,
+(as-is or stripped), using an invocation such as:
+```sh
+ doas gmake install-strip
+```
+or
+```sh
+ sudo env PREFIX=/usr/local make install
 ```
 
 ## Availability
