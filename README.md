@@ -114,8 +114,8 @@ view.
 
 #### Required prerequisites
 
-- **POSIX** environment: POSIX shell (`sh`) and utilities, **Awk** (`mawk`,
-  `nawk`), etc.
+- **POSIX**-2008 environment: POSIX shell (`sh`) and utilities, **Awk**
+  (`mawk`, `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
 - **Curses** (*BSD curses*, `ncurses`, `PDCurses`, `PDCursesMod`, etc.)
@@ -129,8 +129,9 @@ view.
 #### Supported platforms
 
 - **OpenVi** is easily portable to most platforms with *UNIX*-like operating
-  systems that are mostly conforming to the programming interface and user
-  environment described by *IEEE Std 1003.1*, also known as *POSIX.1*.
+  systems that are mostly conforming to the programming interface described by
+  *IEEE Std 1003.1-2008* and user environment described by *IEEE Std
+  1003.2-2008*, also known as *POSIX.1-2008* and *POSIX.2-2008*, respectively.
 
 - The following operating systems are fully supported and regularly tested
   using ix86/AMD64, ARM/AArch64, m68k, MIPS, POWER, and RISC-V processors:
