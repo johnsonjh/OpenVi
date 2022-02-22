@@ -34,7 +34,7 @@ ifndef LIBS
    LINKLIBS ?= -lutil -lncurses
 else
    LINKLIBS  = $(LIBS)
-endif
+endif # LIBS
 LINKLIBS    += $(EXTRA_LIBS)
 
 ###############################################################################
@@ -423,19 +423,22 @@ endif # DEBUG
 	@$(VERBOSE); $(TEST) -d "$(PREFIX)/share/man/man8" || \
         $(MKDIR) "$(PREFIX)/share/man/man8"
 ifndef DEBUG
-	-@$(PRINTF) "\r\t%s\t%42s\n" "cp:" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
+	-@$(PRINTF) "\r\t%s\t%42s\n" \
+        "cp:" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 endif # DEBUG
 	@$(VERBOSE); $(CP) ./bin/vi "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
         $(CHOWN) "$(IUSGR)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
             $(CHMOD) "$(IPERM)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 ifndef DEBUG
-	-@$(PRINTF) "\r\t%s\t%42s\n" "ln:" "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
+	-@$(PRINTF) "\r\t%s\t%42s\n" \
+        "ln:" "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
         $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
             "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
 ifndef DEBUG
-	-@$(PRINTF) "\r\t%s\t%42s\n" "ln:" "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
+	-@$(PRINTF) "\r\t%s\t%42s\n" \
+        "ln:" "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
         $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
@@ -456,7 +459,8 @@ endif # DEBUG
         "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" && \
             $(LNS) "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
                 "$(PREFIX)/share/man/man1/$(BINPREFIX)view$(BINSUFFIX).1" && \
-                    $(LNS) "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
+                    $(LNS) \
+                      "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
                         "$(PREFIX)/share/man/man1/$(BINPREFIX)ex$(BINSUFFIX).1"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
@@ -473,7 +477,8 @@ ifneq (,$(findstring install-strip,$(MAKECMDGOALS)))
 endif # (,$(findstring install-strip,$(MAKECMDGOALS)))
 install-strip: install
 ifndef DEBUG
-	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
+	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" \
+        "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 endif # DEBUG
 	-@$(VERBOSE); $(STRIP) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" || \
             $(TRUE)
