@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Wed Feb 23 18:50:10 2022
+OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Wed Feb 23 18:56:16 2022
         + Remove deprecated interpreter internals documentation
         + Actually use `pledge()` when compiled for OpenBSD 5.9 or later
         + Add `superstrip` (aka `sstrip`) `GNUmakefile` target to

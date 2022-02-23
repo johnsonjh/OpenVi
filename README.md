@@ -55,6 +55,8 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
   - Enhancements, non-standard behaviors, and new features are conservatively
     and sanely implemented with care taken to balance user expectations,
     complexity, and historical accuracy
+- Extensions such as `bserase`, `expandtab`, `imctrl`, `ruler`, `visibletab`,
+  extended `ruler` and `verbose` modes, etc.
 - Build requires only *GNU Make* and standard POSIX utilities
   - Easy integration with embedded, minimal, or iteratively bootstrapped
     environments and distributions (such as *Linux From Scratch* builds)
