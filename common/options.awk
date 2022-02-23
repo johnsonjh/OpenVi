@@ -3,7 +3,7 @@
 #       @(#)options.awk 10.1 (Berkeley) 6/8/95
 
 BEGIN {
-        printf("#undef O_PATH\n\nenum {\n");
+        printf("enum {\n");
         first = 1;
 }
 /^\/\* O_[0-9A-Z_]*/ {
