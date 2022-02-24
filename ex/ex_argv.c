@@ -38,7 +38,7 @@ static int argv_sexp(SCR *, char **, size_t *, size_t *);
 
 /*
  * argv_init --
- *      Build  a prototype arguments list.
+ *      Build a prototype arguments list.
  *
  * PUBLIC: int argv_init(SCR *, EXCMD *);
  */
@@ -575,7 +575,7 @@ argv_sexp(SCR *sp, char **bpp, size_t *blenp, size_t *lenp)
         /* Secure means no shell access. */
         if (O_ISSET(sp, O_SECURE)) {
                 msgq(sp, M_ERR,
-"Shell expansions not supported when the secure edit option is set");
+         "Shell expansions not supported when the secure edit option is set");
                 return (1);
         }
 

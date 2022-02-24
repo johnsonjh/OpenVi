@@ -133,10 +133,13 @@ v_z(SCR *sp, VICMD *vp)
 int
 vs_crel(SCR *sp, long count)
 {
+        if (sp == NULL)
+                return (0);
         sp->t_minrows = sp->t_rows = count;
         if (sp->t_rows > sp->rows - 1)
                 sp->t_minrows = sp->t_rows = sp->rows - 1;
-        TMAP = HMAP + (sp->t_rows - 1);
+        if (HMAP != NULL)
+                TMAP = HMAP + (sp->t_rows - 1);
         F_SET(sp, SC_SCR_REDRAW);
         return (0);
 }

@@ -1,3 +1,7 @@
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 03:23:37 2022
+        + Raise the maximum file size limit for `mmap` to 64 MiB
+        + Avoid undefined behavior in `vs_crel()`
+
 OpenVi 7.0.12 -> OpenVi 7.0.15: Thu Feb 24 12:18:33 2022
         + Avoid O_PATH clash in source proper (rather than in awk script)
         + Remove deprecated interpreter internals documentation
