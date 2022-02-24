@@ -697,7 +697,7 @@ overflow_page(HTAB *hashp)
 #define OVMSG   "HASH: Out of overflow pages.  Increase page size\n"
         if (offset > SPLITMASK) {
                 if (++splitnum >= NCACHED) {
-                        (void)write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);
+                        (void)!write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);
                         errno = EFBIG;
                         return (0);
                 }
@@ -711,7 +711,7 @@ overflow_page(HTAB *hashp)
         if (free_bit == (hashp->BSIZE << BYTE_SHIFT) - 1) {
                 free_page++;
                 if (free_page >= NCACHED) {
-                        (void)write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);
+                        (void)!write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);
                         errno = EFBIG;
                         return (0);
                 }
@@ -736,7 +736,7 @@ overflow_page(HTAB *hashp)
                 offset++;
                 if (offset > SPLITMASK) {
                         if (++splitnum >= NCACHED) {
-                                (void)write(STDERR_FILENO, OVMSG,
+                                (void)!write(STDERR_FILENO, OVMSG,
                                     sizeof(OVMSG) - 1);
                                 errno = EFBIG;
                                 return (0);
@@ -783,7 +783,7 @@ found:
         for (i = 0; (i < splitnum) && (bit > hashp->SPARES[i]); i++);
         offset = (i ? bit - hashp->SPARES[i - 1] : bit);
         if (offset >= SPLITMASK) {
-                (void)write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);
+                (void)!write(STDERR_FILENO, OVMSG, sizeof(OVMSG) - 1);
                 errno = EFBIG;
                 return (0);     /* Out of overflow pages */
         }

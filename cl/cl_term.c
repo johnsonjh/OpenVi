@@ -257,7 +257,7 @@ cl_omesg(SCR *sp, CL_PRIVATE *clp, int on)
 
         /* Find the tty, get the current permissions. */
         if ((tty = ttyname(STDERR_FILENO)) == NULL) {
-                if (sp != NULL)
+                if (sp != NULL && isatty(STDERR_FILENO))
                         msgq(sp, M_SYSERR, "stderr");
                 return (1);
         }

@@ -1,4 +1,6 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 05:24:23 2022
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 06:53:03 2022
+        + Do not warn about `ttyname` or `ioctl` failures for `stderr` unless
+          `stderr` is a tty according to `isatty()`
         + Fix out of bounds access in file completion
         + Raise the maximum ex-script mmap size limit
         + `DEBUG=1` now defaults to `-O0` rather than `-Og`

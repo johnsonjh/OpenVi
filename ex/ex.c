@@ -475,7 +475,8 @@ loop:   ecp = LIST_FIRST(&gp->ecq);
                         default:
 unknown:                        if (newscreen)
                                         p[0] = toupper(p[0]);
-                                ex_unknown(sp, p, namelen);
+                                if (sp != NULL && p != NULL && namelen > 1)
+                                        ex_unknown(sp, p, namelen);
                                 goto err;
                         }
 

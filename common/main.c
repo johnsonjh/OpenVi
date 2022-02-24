@@ -432,8 +432,8 @@ editor(GS *gp, int argc, char *argv[])
          */
         if (F_ISSET(sp, SC_SCR_EX)) {
                 p = msg_cmsg(sp, CMSG_CONT_R, &len);
-                (void)write(STDOUT_FILENO, p, len);
-                for (;;) {
+                (void)!write(STDOUT_FILENO, p, len);
+                    for (;;) {
                         if (v_event_get(sp, &ev, 0, 0))
                                 goto err;
                         if (ev.e_event  == E_INTERRUPT ||
