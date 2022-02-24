@@ -12,7 +12,7 @@ CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon -Wno-pointer-sign
 
 # Set DEBUG to enable debugging build
 #DEBUG       = 1
-DBGFLAGS    ?= -ggdb -g3 -Og
+DBGFLAGS    ?= -ggdb -g3 -O0
 
 ###############################################################################
 

@@ -56,7 +56,7 @@ ex_sourcefd(SCR *sp, EXCMD *cmdp, int fd)
          * I don't want to be dropping core here.
          */
 #define MEGABYTE        1048576
-        if (sb.st_size > (64 * MEGABYTE)) {
+        if (sb.st_size > (8 * MEGABYTE)) {
                 errno = ENOMEM;
                 goto err;
         }

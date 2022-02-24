@@ -500,7 +500,7 @@ argv_lexp(SCR *sp, EXCMD *excp, char *path)
                 }
                 name = p + 1;
         }
-        nlen = strlen(name) + 32767;
+        nlen = strlen(name) + 2;
 
         if ((dirp = opendir(dname)) == NULL) {
                 msgq_str(sp, M_SYSERR, dname, "%s");
