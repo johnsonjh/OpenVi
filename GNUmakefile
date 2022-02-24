@@ -4,7 +4,7 @@
 
 # Default compiler settings
 CC          ?= cc
-OPTLEVEL    ?= -O2
+OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
 CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon -Wno-pointer-sign
 
@@ -62,7 +62,7 @@ ifdef DEBUG
                -Wno-implicit-fallthrough
    CFLAGS   += $(DBGFLAGS) -DDEBUG -DSTATISTICS -DHASH_STATISTICS
 else
-   CFLAGS   += $(OPTLEVEL)
+   CFLAGS   += $(OPTLEVEL) -D_FORTIFY_SOURCE=2
 endif # DEBUG
 
 ###############################################################################
