@@ -44,13 +44,15 @@
 int
 openbsd_pledge(const char *promises, const char *execpromises)
 {
-#if defined(__OpenBSD__)
+#if defined(__OpenBSD__) || defined(__serenity__)
 # if ( defined(OpenBSD) && OpenBSD >= 201605 ) \
-    || defined(OpenBSD5_9)
+    || defined(OpenBSD5_9) || defined(__serenity__)
         return(pledge(promises, execpromises));
+# else
+        return 0;
 # endif /* if ( defined(OpenBSD) && OpenBSD >= 201605 )
-             || defined(OpenBSD5_9) */
+             || defined(OpenBSD5_9) || defined(__serenity__) */
 #else
         return 0;
-#endif /* if defined(__OpenBSD__) */
+#endif /* if defined(__OpenBSD__) || defined(__serenity__) */
 }
