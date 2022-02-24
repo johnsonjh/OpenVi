@@ -1,4 +1,4 @@
-OpenVi 7.0.12 -> OpenVi 7.0.13-dev: Thu Feb 24 12:16:16 2022
+OpenVi 7.0.12 -> OpenVi 7.0.15: Thu Feb 24 12:18:33 2022
         + Avoid O_PATH clash in source proper (rather than in awk script)
         + Remove deprecated interpreter internals documentation
         + Actually use `pledge()` for SerenityOS and OpenBSD 5.9 or later
