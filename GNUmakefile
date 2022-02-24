@@ -6,7 +6,7 @@
 CC          ?= cc
 OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
-CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon -Wno-pointer-sign
+CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon -Wall -Wno-pointer-sign
 
 ###############################################################################
 
@@ -57,9 +57,6 @@ IUSGR        = root:bin
 ###############################################################################
 
 ifdef DEBUG
-   CFLAGS   += -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare \
-               -Wno-unused-variable -Wno-unused-but-set-variable \
-               -Wno-implicit-fallthrough
    CFLAGS   += $(DBGFLAGS) -DDEBUG -DSTATISTICS -DHASH_STATISTICS
 else
    CFLAGS   += $(OPTLEVEL) -D_FORTIFY_SOURCE=2
@@ -524,7 +521,6 @@ endif # DEBUG
 	-@$(VERBOSE); $(STRIP) --strip-all  \
         -R '.gnu.build.attributes'      \
         -R '.note.*'                    \
-        -R '.got'                       \
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
         -R '.comment'                   \

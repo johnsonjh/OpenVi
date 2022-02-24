@@ -198,7 +198,7 @@ OPTLIST const optlist[] = {
         {"wrapscan",    NULL,           OPT_1BOOL,      0},
 /* O_WRITEANY       4BSD */
         {"writeany",    NULL,           OPT_0BOOL,      0},
-        {NULL},
+        {NULL,          NULL,           255,            0},
 };
 
 typedef struct abbrev {
@@ -242,7 +242,7 @@ static OABBREV const abbrev[] = {
         {"wl",          O_WRAPLEN},             /*   4.4BSD */
         {"wm",          O_WRAPMARGIN},          /*     4BSD */
         {"ws",          O_WRAPSCAN},            /*     4BSD */
-        {NULL},
+        {NULL,          255},
 };
 
 /*

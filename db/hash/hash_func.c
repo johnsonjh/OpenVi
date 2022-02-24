@@ -60,20 +60,28 @@ __default_hash(const void *key, size_t len)
                 case 0:
                         do {    /* All fall throughs */
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 7:
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 6:
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 5:
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 4:
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 3:
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 2:
                                 HASH4;
+                                /* FALLTHROUGH */
                 case 1:
                                 HASH4;
+                                /* FALLTHROUGH */
                         } while (--loop);
                 }
 

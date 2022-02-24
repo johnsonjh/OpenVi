@@ -427,5 +427,5 @@ EXCMDLIST const cmds[] = {
             "s",
             "[line [,line]] ~ [cgr] [count] [#lp]",
             "replace previous RE with previous replacement string"},
-        {NULL},
+        {NULL, NULL, 0, NULL, NULL, NULL},
 };

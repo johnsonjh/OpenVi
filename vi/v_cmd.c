@@ -27,7 +27,7 @@
  */
 VIKEYS const vikeys [MAXVIKEY + 1] = {
 /* 000 NUL -- The code in vi.c expects key 0 to be undefined. */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 001  ^A */
         {v_searchw,     V_ABS|V_CNT|V_MOVE|V_KEYW|VM_CUTREQ|VM_RCM_SET,
             "[count]^A",
@@ -61,13 +61,13 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count]^H",
             "^H move left by characters"},
 /* 011  ^I */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 012  ^J */
         {v_down,        V_CNT|V_MOVE|VM_LMODE|VM_RCM,
             "[count]^J",
             "^J move down by lines"},
 /* 013  ^K */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 014  ^L */
         {v_redraw,      0,
             "^L",
@@ -81,19 +81,19 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count]^N",
             "^N move down by lines"},
 /* 017  ^O */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 020  ^P */
         {v_up,          V_CNT|V_MOVE|VM_LMODE|VM_RCM,
             "[count]^P",
             "^P move up by lines"},
 /* 021  ^Q -- same as ^V if not used for hardware flow control. */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 022  ^R */
         {v_redraw,      0,
             "^R",
             "^R redraw screen"},
 /* 023  ^S -- not available, used for hardware flow control. */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 024  ^T */
         {v_tagpop,      V_ABS|VM_RCM_SET,
             "^T",
@@ -111,7 +111,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "^W",
             "^W move to next screen"},
 /* 030  ^X */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 031  ^Y */
         {v_lineup,      V_CNT,
             "[count]^Y",
@@ -137,7 +137,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "^^",
             "^^ switch to previous file"},
 /* 037  ^_ */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 040 ' ' */
         {v_right,       V_CNT|V_MOVE|VM_RCM_SET,
             "[count]' '",
@@ -147,7 +147,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count]![count]motion command(s)",
             " ! filter through command(s) to motion"},
 /* 042   " */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 043   # */
         {v_increment,   V_CHAR|V_CNT|V_DOT|VM_RCM_SET,
             "[count]# +|-|#",
@@ -177,7 +177,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count])",
             " ) move forward sentence"},
 /* 052   * */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 053   + */
         {v_down,        V_CNT|V_MOVE|VM_LMODE|VM_RCM_SETFNB,
             "[count]+",
@@ -203,23 +203,23 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "0",
             " 0 move to first character"},
 /* 061   1 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 062   2 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 063   3 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 064   4 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 065   5 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 066   6 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 067   7 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 070   8 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 071   9 */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 072   : */
         {v_ex,          0,
             ":command [| command] ...",
@@ -233,7 +233,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count]<[count]motion",
             " < shift lines left to motion"},
 /* 075   = */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 076   > */
         {v_shiftr,      V_CNT|V_DOT|V_MOTION|VM_RCM_SET,
             "[count]>[count]motion",
@@ -287,7 +287,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count]J",
             " J join lines"},
 /* 113   K */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 114   L */
         {v_bottom,      V_ABS_L|V_CNT|V_MOVE|VM_LMODE|VM_RCM_SETNNB,
             "[count]L",
@@ -329,7 +329,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "U",
             " U restore the current line"},
 /* 126   V */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 127   W */
         {v_wordW,       V_CNT|V_MOVE|VM_RCM_SET,
             "[count]W",
@@ -351,7 +351,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[[",
             "[[ move back section"},
 /* 134   \ */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 135   ] */
         {v_sectionf,    V_ABS|V_CNT|V_MOVE|VM_RCM_SET,
             "]]",
@@ -402,7 +402,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[count]f character",
             " f character in line forward search"},
 /* 147   g */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 150   h */
         {v_left,        V_CNT|V_MOVE|VM_RCM_SET,
             "[count]h",
@@ -440,7 +440,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "[buffer]p",
             " p insert after cursor from buffer"},
 /* 161   q */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 162   r */
         {v_replace,     V_CNT|V_DOT|VM_RCM_SET,
             "[count]r character",
@@ -462,7 +462,7 @@ VIKEYS const vikeys [MAXVIKEY + 1] = {
             "u",
             " u undo last change"},
 /* 166   v */
-        {NULL},
+        {NULL, 0, NULL, NULL},
 /* 167   w */
         {v_wordw,       V_CNT|V_MOVE|VM_RCM_SET,
             "[count]w",

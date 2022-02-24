@@ -1,4 +1,5 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 06:58:54 2022
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 08:01:03 2022
+        + Use `-Wall` by default for all builds and drop `-Wextra`
         + Switch default optimization level to `-Os` for release builds; use
           `-D_FORTIFY_SOURCE=2` for non-debugging builds by default as well
         + Do not warn about `ttyname` or `ioctl` failures for `stderr` unless
@@ -7,7 +8,7 @@ OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 06:58:54 2022
         + Raise the maximum ex-script mmap size limit
         + `DEBUG=1` now defaults to `-O0` rather than `-Og`
         + Avoid undefined behavior in `vs_crel()` and `ex_is_abbrev()`
-        + Suppress some potential warnings
+        + Suppress more warnings and potential warnings
 
 OpenVi 7.0.12 -> OpenVi 7.0.15: Thu Feb 24 12:18:33 2022
         + Avoid O_PATH clash in source proper (rather than in awk script)

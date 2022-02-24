@@ -44,6 +44,9 @@ cl_addstr(SCR *sp, const char *str, size_t len)
         size_t oldy, oldx;
         int iv;
 
+        (void)oldx;
+        (void)oldy;
+
         /*
          * If ex isn't in control, it's the last line of the screen and
          * it's a split screen, use inverse video.

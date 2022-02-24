@@ -59,7 +59,7 @@ v_searchf(SCR *sp, VICMD *vp)
 static int
 v_exaddr(SCR *sp, VICMD *vp, dir_t dir)
 {
-        static EXCMDLIST fake = { "search" };
+        static EXCMDLIST fake = { "search", NULL, 0, NULL, NULL, NULL };
         EXCMD *cmdp;
         GS *gp;
         TEXT *tp;
