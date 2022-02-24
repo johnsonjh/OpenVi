@@ -7,7 +7,7 @@ CC          ?= cc
 OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
 CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon
-CFLAGS      += -Wall -Wno-pointer-sign -Wno-maybe-uninitialized
+CFLAGS      += -Wall -Wno-pointer-sign -Wno-uninitialized
 
 ###############################################################################
 
