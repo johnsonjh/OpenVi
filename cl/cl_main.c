@@ -77,7 +77,8 @@ main(int argc, char *argv[])
          * We have to know what terminal it is from the start, since we may
          * have to use termcap/terminfo to find out how big the screen is.
          */
-        if ((ttype = getenv("TERM")) == NULL)
+        ttype = getenv("TERM");
+        if (ttype == NULL)
                 ttype = "unknown";
         term_init(ttype);
         ttype = getenv("TERM");

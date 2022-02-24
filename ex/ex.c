@@ -2215,7 +2215,7 @@ ex_is_unmap(char *name, size_t len)
          * The command the vi input routines are really interested in
          * is "unmap!", not just unmap.
          */
-        if (name[len - 1] != '!')
+        if (len > 0 && name[len - 1] != '!')
                 return (0);
         --len;
         return ((cp = ex_comm_search(name, len)) != NULL &&

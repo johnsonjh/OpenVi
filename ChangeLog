@@ -1,8 +1,9 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 04:14:39 2022
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 05:24:23 2022
         + Fix out of bounds access in file completion
         + Raise the maximum ex-script mmap size limit
         + `DEBUG=1` now defaults to `-O0` rather than `-Og`
-        + Avoid undefined behavior in `vs_crel()`
+        + Avoid undefined behavior in `vs_crel()` and `ex_is_abbrev()`
+        + Suppress some potential warnings
 
 OpenVi 7.0.12 -> OpenVi 7.0.15: Thu Feb 24 12:18:33 2022
         + Avoid O_PATH clash in source proper (rather than in awk script)
