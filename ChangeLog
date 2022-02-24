@@ -1,5 +1,5 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 08:01:03 2022
-        + Use `-Wall` by default for all builds and drop `-Wextra`
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Thu Feb 24 08:08:08 2022
+        + Use `-Wall` by default for all builds; drop `-Wextra` for release
         + Switch default optimization level to `-Os` for release builds; use
           `-D_FORTIFY_SOURCE=2` for non-debugging builds by default as well
         + Do not warn about `ttyname` or `ioctl` failures for `stderr` unless

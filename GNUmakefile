@@ -6,13 +6,14 @@
 CC          ?= cc
 OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
-CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon -Wall -Wno-pointer-sign
+CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon
+CFLAGS      += -Wall -Wno-pointer-sign -Wno-maybe-uninitialized
 
 ###############################################################################
 
 # Set DEBUG to enable debugging build
 #DEBUG       = 1
-DBGFLAGS    ?= -ggdb -g3 -O0
+DBGFLAGS    ?= -Wextra -ggdb -g3 -O0
 
 ###############################################################################
 
