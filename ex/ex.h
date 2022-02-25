@@ -138,7 +138,7 @@ struct _excmd {
 #define E_C_PRINT       0x01000         /*  p flag. */
         u_int16_t iflags;               /* User input information. */
 
-#define __INUSE2        0x000004ff      /* Same name space as EXCMDLIST. */
+#define __INUSE2        0x000007ff      /* Same name space as EXCMDLIST. */
 #define E_BLIGNORE      0x00000800      /* Ignore blank lines. */
 #define E_NAMEDISCARD   0x00001000      /* Free/discard the name. */
 #define E_NOAUTO        0x00002000      /* Don't do autoprint output. */

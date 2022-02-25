@@ -1,4 +1,5 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 06:28:19 2022
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 06:43:41 2022
+        + Make `taglength` work correctly; fix from nvi 1.8x
         + Make `join` work as specified in the POSIX standard; nvi 1.8x
         + Fix problem with autoindenting and ^^D input; patch from nvi 1.8x
         + Fix to reset screen offset of top line exceeding number of screens

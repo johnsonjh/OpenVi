@@ -43,7 +43,7 @@ static void      ctag_file(SCR *, TAGF *, char *, char **, size_t *);
 static int       ctag_search(SCR *, char *, size_t, char *);
 static int       ctag_sfile(SCR *, TAGF *, TAGQ *, char *);
 static TAGQ     *ctag_slist(SCR *, char *);
-static char     *linear_search(char *, char *, char *);
+static char     *linear_search(char *, char *, char *, long);
 static int       tag_copy(SCR *, TAG *, TAG **);
 static int       tag_pop(SCR *, TAGQ *, int);
 static int       tagf_copy(SCR *, TAGF *, TAGF **);
@@ -993,6 +993,7 @@ ctag_sfile(SCR *sp, TAGF *tfp, TAGQ *tqp, char *tname)
         size_t dlen, nlen, slen;
         int fd, i, nf1, nf2;
         char *back, *cname, *dname, *front, *map, *name, *p, *search, *t;
+        long tl;
 
         if ((fd = open(tfp->name, O_RDONLY)) < 0) {
                 tfp->errnum = errno;
@@ -1015,10 +1016,11 @@ ctag_sfile(SCR *sp, TAGF *tfp, TAGQ *tqp, char *tname)
                 return (1);
         }
 
+        tl = O_VAL(sp, O_TAGLENGTH);
         front = map;
         back = front + sb.st_size;
         front = binary_search(tname, front, back);
-        front = linear_search(tname, front, back);
+        front = linear_search(tname, front, back, tl);
         if (front == NULL)
                 goto done;
 
@@ -1081,7 +1083,7 @@ corrupt:                p = msg_print(sp, tname, &nf1);
                 }
 
                 /* Check for passing the last entry. */
-                if (strcmp(tname, cname))
+                if (tl ? strncmp(tname, cname, tl) : strcmp(tname, cname))
                         break;
 
                 /* Resolve the file name. */
@@ -1216,10 +1218,13 @@ binary_search(char *string, char *front, char *back)
  *      o front is before or at the first line to be printed.
  */
 static char *
-linear_search(char *string, char *front, char *back)
+linear_search(char *string, char *front, char *back, long tl)
 {
+        char *end;
+
         while (front < back) {
-                switch (compare(string, front, back)) {
+                end = tl && back-front > tl ? front+tl : back;
+                switch (compare(string, front, end)) {
                 case EQUAL:             /* Found it. */
                         return (front);
                 case LESS:              /* No such string. */
