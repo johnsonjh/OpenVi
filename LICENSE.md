@@ -9,13 +9,14 @@ Copyright (c) 1994, 1996 Rob Mayoff
 Copyright (c) 1997 Phillip F. Knaack
 Copyright (c) 1997, 1998, 2002, 2004, 2015
         Todd C. Miller <millert@openbsd.org>
-Copyright (c) 1999, 2000 Sven Verdoolaege
+Copyright (c) 1999, 2000, 2004, 2009, 2011 Sven Verdoolaege <skimo@kotnet.org>
 Copyright (c) 2000, 2006, 2013, 2020 The NetBSD Foundation, Inc.
 Copyright (c) 2002 Niels Provos <provos@citi.umich.edu>
 Copyright (c) 2004 Ted Unangst
 Copyright (c) 2008 Otto Moerbeek <otto@drijf.net>
 Copyright (c) 2012, 2013 Christian Neukirchen <chneukirchen@gmail.com>
 Copyright (c) 2013 Antoine Jacoutot <ajacoutot@openbsd.org>
+Copyright (c) 2014 Al Viro <viro@ZenIV.linux.org.uk>
 Copyright (c) 2015 Philip Guenther <guenther@openbsd.org>
 Copyright (c) 2015 The DragonFly Project
 Copyright (c) 2018 Duncan Overbruck
@@ -69,7 +70,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
-
 ```text
 In the following disclosure, the phrase "this text" refers to portions of the
 bundled documentation.

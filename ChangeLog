@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 09:49:59 2022
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 10:10:10 2022
         + Provide a more helpful message when ex-mode has background screens
         + Fully redraw screen on refresh with ^L / ^R
         + Make `taglength` work correctly; fix from nvi 1.8x
