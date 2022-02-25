@@ -1,4 +1,5 @@
-OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 10:10:10 2022
+OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 18:14:22 2022
+        + Minor updates to documentation and `README.md`
         + Provide a more helpful message when ex-mode has background screens
         + Fully redraw screen on refresh with ^L / ^R
         + Make `taglength` work correctly; fix from nvi 1.8x
