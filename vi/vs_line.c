@@ -382,7 +382,7 @@ display:
                                 *xp += O_NUMBER_LENGTH;
 
                         /* If the line is on the screen, quit. */
-                        if (is_cached)
+                        if (is_cached || no_draw)
                                 goto ret1;
                 }
 

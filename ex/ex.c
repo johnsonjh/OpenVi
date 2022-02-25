@@ -158,6 +158,10 @@ ex(SCR **spp)
                         if (file_end(sp, NULL, F_ISSET(sp, SC_EXIT_FORCE)))
                                 return (1);
                         *spp = screen_next(sp);
+                        if (*spp) {
+                                F_CLR(*spp, SC_SCR_VI);
+                                F_SET(*spp, SC_SCR_EX);
+                        }
                         return (screen_end(sp));
                 }
         }

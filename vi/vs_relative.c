@@ -133,6 +133,7 @@ done:           if (diffp != NULL)              /* XXX */
          * Initialize the pointer into the buffer.
          */
         p = lp;
+        curoff = 0;
 
         /* Macro to return the display length of any signal character. */
 #define CHLEN(val) (ch = *(u_char *)p++) == '\t' &&                     \
