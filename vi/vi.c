@@ -1050,15 +1050,14 @@ v_dtoh(SCR *sp)
         TAILQ_REMOVE(&gp->hq, sp, q);
         TAILQ_INSERT_TAIL(&gp->dq, sp, q);
 
-        /*
-         * XXX
-         * Don't bother internationalizing this message, it's going to
-         * go away as soon as we have one-line screens.  --TK
-         */
-        if (hidden > 1)
+        if (hidden > 2)
                 msgq(sp, M_INFO,
-                    "%d screens backgrounded; use :display to list them",
+                    "%d screens backgrounded; use `:di s' to display details",
                     hidden - 1);
+
+        if (hidden == 2)
+                msgq(sp, M_INFO,
+                    "Screen backgrounded; use `:di s' to display details");
 }
 
 /*
