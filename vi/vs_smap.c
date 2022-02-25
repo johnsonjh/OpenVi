@@ -216,6 +216,16 @@ vs_sm_fill(SCR *sp, recno_t lno, pos_t pos)
 top:                    HMAP->lno = lno;
                         HMAP->coff = 0;
                         HMAP->soff = 1;
+                } else {
+                        /*
+                         * If number of lines HMAP->lno (top line) spans
+                         * changed due to, say reformatting, and now is
+                         * fewer than HMAP->soff, reset so the line is
+                         * redrawn at the top of the screen.
+                         */
+                        cnt = vs_screens(sp, HMAP->lno, NULL);
+                        if (cnt < HMAP->soff)
+                                HMAP->soff = 1;
                 }
                 /* If we fail, just punt. */
                 for (p = HMAP, cnt = sp->t_rows; --cnt; ++p)

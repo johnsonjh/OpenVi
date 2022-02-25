@@ -1,4 +1,6 @@
 OpenVi 7.0.15 -> OpenVi 7.0.16-dev: Fri Feb 25 05:30:55 2022
+        + Fix to reset screen offset of top line exceeding number of screens
+          adapted from Sven Verdoolaege's nvi 1.8x patch
         + Fix tty from ex-mode on `q` when there are multiple screens; patch
           from Al Viro via nvi 1.8x; also minor redraw adjustments
         + Use `-Wall` by default for all builds; drop `-Wextra` for release
