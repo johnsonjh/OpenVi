@@ -42,7 +42,7 @@ typedef struct _tagq            TAGQ;
 typedef struct _text            TEXT;
 
 /* Autoindent state. */
-typedef enum { C_NOTSET, C_CARATSET, C_NOCHANGE, C_ZEROSET } carat_t;
+typedef enum { C_NOTSET, C_CARATSET, C_ZEROSET } carat_t;
 
 /* Busy message types. */
 typedef enum { BUSY_ON = 1, BUSY_OFF, BUSY_UPDATE } busy_t;

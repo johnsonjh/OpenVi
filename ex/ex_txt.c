@@ -58,6 +58,7 @@ ex_txt(SCR *sp, TEXTH *tiqh, CHAR_T prompt, u_int32_t flags)
         carat_t carat_st;
         size_t cnt;
         int rval;
+        int nochange;
 
         rval = 0;
 
@@ -106,7 +107,7 @@ newtp:          if ((tp = text_init(sp, NULL, 0, 32)) == NULL)
                 txt_prompt(sp, tp, prompt, flags);
         }
 
-        for (carat_st = C_NOTSET;;) {
+        for (carat_st = C_NOTSET, nochange = 0;;) {
                 if (v_event_get(sp, &ev, 0, 0))
                         goto err;
 
@@ -202,7 +203,8 @@ notlast:                        TAILQ_REMOVE(tiqh, tp, q);
                          * erased.
                          */
                         if (LF_ISSET(TXT_AUTOINDENT)) {
-                                if (carat_st == C_NOCHANGE) {
+                                if (nochange) {
+                                        nochange = 0;
                                         if (v_txt_auto(sp,
                                             OOBLNO, &ait, ait.ai, ntp))
                                                 goto err;
@@ -289,7 +291,8 @@ notlast:                        TAILQ_REMOVE(tiqh, tp, q);
                                 memcpy(ait.lb, tp->lb, tp->ai);
                                 ait.ai = ait.len = tp->ai;
 
-                                carat_st = C_NOCHANGE;
+                                carat_st = C_NOTSET;
+                                nochange = 1;
                                 goto leftmargin;
                         case C_ZEROSET:                 /* 0^D */
                                 if (tp->len > tp->ai + 1)
