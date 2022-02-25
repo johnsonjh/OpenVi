@@ -385,9 +385,9 @@ rcv_mailfile(SCR *sp, int issync, char *cp_path)
             VI_FHEADER, t,                      /* Non-standard. */
             VI_PHEADER, cp_path,                /* Non-standard. */
             "Reply-To: root",
-            "From: root (OpenBSD vi recovery program)",
+            "From: root (OpenVi recovery program)",
             "To: ", pw->pw_name,
-            "Subject: OpenBSD vi saved the file ", p,
+            "Subject: OpenVi saved the file ", p,
             "Precedence: bulk",                 /* For vacation(1). */
             "Auto-Submitted: auto-generated");
         if (len > sizeof(buf) - 1)
