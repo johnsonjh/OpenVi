@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Sun Feb 27 06:29:11 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Sun Feb 27 07:00:00 2022
         + Apply `expandtab` to lines filtered with the `!` command, via `nvi2`
         + OpenBSD 7.1 enters beta; bumping OpenBSD version to 7.1
         + Modify text `%s/OpenBSD vi/OpenVi/` in `common/recover.c`

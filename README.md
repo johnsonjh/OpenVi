@@ -72,7 +72,7 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
   - No external library dependencies (other than curses)
     - Suitable for static linking and emergency “rescue” usage
 - All the various tweaks, fixes, improvements, and clean-ups accumulated
-  over 25+ years of development as part of the *OpenBSD* base system
+  over 25+ years as part of the *OpenBSD* base system
 
 #### Why not?
 
