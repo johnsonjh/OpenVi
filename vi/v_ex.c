@@ -655,6 +655,7 @@ v_ecl_init(SCR *sp)
                 return (1);
         if (file_init(gp->ccl_sp, frp, NULL, 0)) {
                 (void)screen_end(gp->ccl_sp);
+                gp->ccl_sp = 0;
                 return (1);
         }
 
