@@ -2587,7 +2587,9 @@ command.
 .Cm window , w , wi
 .Bq "environment variable LINES \- 1"
 .Xc
-Set the window size for the screen.
+Set the window size for the screen. Note that POSIX 1003.2 requires
+honoring the environment variable value, even if the terminal has been
+resized.
 .It Cm windowname Bq off
 Change the icon/window name to the current file name even if it can't
 be restored on editor exit.
@@ -2624,7 +2626,9 @@ Turn off file-overwriting checks.
 .Bl -tag -width "COLUMNS"
 .It Ev COLUMNS
 The number of columns on the screen.
-This value overrides any system or terminal specific values.
+This value overrides any system or terminal specific values, as POSIX
+1003.2 requires honoring this environment variable value, even if the
+terminal is later resized.
 If the
 .Ev COLUMNS
 environment variable is not set when
@@ -2654,7 +2658,9 @@ This value is also used as the default directory for the
 command.
 .It Ev LINES
 The number of rows on the screen.
-This value overrides any system or terminal specific values.
+This value overrides any system or terminal specific values as POSIX 1003.2
+requires honoring the environment variable value, even if the terminal is
+later resized.
 If the
 .Ev LINES
 environment variable is not set when

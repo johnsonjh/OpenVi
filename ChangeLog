@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Sun Feb 27 06:18:28 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Sun Feb 27 06:48:13 2022
         + Clear pointer after ending screen for safety
         + Documentation / man page improvements and minor corrections
         + Apply `expandtab` to lines filtered with the `!` command, via `nvi2`
