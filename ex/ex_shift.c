@@ -20,7 +20,7 @@
 
 #include "../common/common.h"
 
-enum which {LEFT, RIGHT};
+enum which {RETAB, LEFT, RIGHT};
 static int shift(SCR *, EXCMD *, enum which);
 
 /*
@@ -44,6 +44,18 @@ int
 ex_shiftr(SCR *sp, EXCMD *cmdp)
 {
         return (shift(sp, cmdp, RIGHT));
+}
+
+/*
+ * ex_retab --
+ *      Re-expand tabs for expandtab
+ *
+ * PUBLIC: int ex_retab(SCR *sp, EXCMD *cmdp);
+ */
+int
+ex_retab(SCR *sp, EXCMD *cmdp)
+{
+        return (shift(sp, cmdp, RETAB));
 }
 
 /*
@@ -108,7 +120,9 @@ shift(SCR *sp, EXCMD *cmdp, enum which rl)
                                 break;
 
                 /* Calculate the new indent amount. */
-                if (rl == RIGHT)
+                if (rl == RETAB)
+                        newcol = oldcol;
+                else if (rl == RIGHT)
                         newcol = oldcol + sw;
                 else {
                         newcol = oldcol < sw ? 0 : oldcol - sw;

@@ -171,6 +171,10 @@ ex_bang(SCR *sp, EXCMD *cmdp)
         if (!F_ISSET(sp, SC_VI) && !F_ISSET(sp, SC_EX_SILENT))
                 (void)ex_puts(sp, "!\n");
 
+        /* Apply expandtab to the new text */
+        if (O_ISSET(sp, O_EXPANDTAB))
+                ex_retab(sp, cmdp); 
+
         /*
          * XXX
          * The ! commands never return an error, so that autoprint always

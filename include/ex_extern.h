@@ -45,6 +45,7 @@ int ex_insert(SCR *, EXCMD *);
 int ex_next(SCR *, EXCMD *);
 int ex_prev(SCR *, EXCMD *);
 int ex_rew(SCR *, EXCMD *);
+int ex_retab(SCR *sp, EXCMD *cmdp);
 int ex_args(SCR *, EXCMD *);
 char **ex_buildargv(SCR *, EXCMD *, char *);
 int argv_init(SCR *, EXCMD *);
