@@ -57,6 +57,7 @@ IUSGR        = root:bin
 
 ###############################################################################
 
+# Using _FORTIFY_SOURCE=2 grows the binary by about ~2-3 KiB (on AMD64 systems)
 ifdef DEBUG
    CFLAGS   += $(DBGFLAGS) -DDEBUG -DSTATISTICS -DHASH_STATISTICS
 else
