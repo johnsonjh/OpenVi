@@ -184,12 +184,6 @@ empty:                                  (void)gp->scr_addstr(sp,
                 return (0);
         }
 
-        /* If we shortened this line in another screen, the cursor
-         * position may have fallen off.
-         */
-        if (sp->cno >= len)
-            sp->cno = len - 1;
-
         /*
          * If we just wrote this or a previous line, we cached the starting
          * and ending positions of that line.  The way it works is we keep
