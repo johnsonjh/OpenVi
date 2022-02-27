@@ -58,12 +58,12 @@ option of
 .Nm vi .
 .Pp
 This manual page is the one provided with the
-.Nm nex Ns / Ns Nm nvi
+.Nm oex Ns / Ns Nm ovi
 versions of the
-.Nm ex Ns / Ns Nm vi
+.Nm oex Ns / Ns Nm vi
 text editors.
-.Nm nex Ns / Ns Nm nvi
-are intended as bug-for-bug compatible replacements for the original
+.Nm oex Ns / Ns Nm ovi
+are intended as enhanced but compatible replacements for the original
 Fourth Berkeley Software Distribution
 .Pq 4BSD
 .Nm ex
@@ -71,7 +71,7 @@ and
 .Nm vi
 programs.
 For the rest of this manual page,
-.Nm nex Ns / Ns Nm nvi
+.Nm oex Ns / Ns Nm ovi
 is used only when it's necessary to distinguish it from the historic
 implementations of
 .Nm ex Ns / Ns Nm vi .
@@ -98,7 +98,7 @@ is not limited to positioning commands.
 This is the POSIX 1003.2 interface for the historic
 .Dq +cmd
 syntax.
-.Nm nex Ns / Ns Nm nvi
+.Nm oex Ns / Ns Nm ovi
 supports both the old and new syntax.
 .It Fl e
 Start editing in ex mode, as if the command name were
@@ -136,7 +136,7 @@ and no startup files or environment variables are read.
 This is the POSIX 1003.2 interface for the historic
 .Dq -
 argument.
-.Nm nex Ns / Ns Nm nvi
+.Nm oex Ns / Ns Nm ovi
 supports both the old and new syntax.
 .It Fl t Ar tag
 Start editing at the specified
@@ -368,7 +368,7 @@ for example
 .Nm ex
 buffers are the same,
 but without the double quote.
-.Nm nex Ns / Ns Nm nvi
+.Nm oex Ns / Ns Nm ovi
 permits the use of any character without another meaning in the position where
 a buffer name is expected.
 .Pp
@@ -1805,7 +1805,8 @@ Display buffers, screens or tags.
 .Op Ar +cmd
 .Op Ar file
 .Xc
-Edit a different file.
+Edit a different file. The capitalized command opens a new screen below the
+current screen.
 .Pp
 .It Xo
 .Cm exu Ns Op Cm sage
@@ -1824,7 +1825,8 @@ Display and optionally change the file name.
 .It Cm fg Op Ar name
 .Nm vi
 only.
-Foreground the specified screen.
+Foreground the specified screen. The capitalized command opens a new screen
+below the current screen.
 .Pp
 .It Xo
 .Op Ar range
@@ -1911,7 +1913,8 @@ Write the abbreviations, editor options and maps to the specified
 .Op Cm !\&
 .Op Ar file ...
 .Xc
-Edit the next file from the argument list.
+Edit the next file from the argument list. The capitalized command opens a
+new screen below the current screen.
 .\" .Pp
 .\" .It Xo
 .\" .Op Ar line
@@ -1928,7 +1931,8 @@ Save the file in a form that can later be recovered using the
 option.
 .Pp
 .It Cm prev Ns Oo Cm ious Oc Ns Op Cm !\&
-Edit the previous file from the argument list.
+Edit the previous file from the argument list. The capitalized command opens
+a new screen below the current screen.
 .Pp
 .It Xo
 .Op Ar range
@@ -2129,7 +2133,8 @@ character is usually
 .Op Cm !\&
 .Ar tagstring
 .Xc
-Edit the file containing the specified tag.
+Edit the file containing the specified tag. The capitalized command opens a
+new screen below the current screen.
 .Pp
 .It Xo
 .Cm tagn Ns Op Cm ext Ns
@@ -2192,14 +2197,15 @@ Enter
 .Nm vi .
 .Pp
 .It Xo
-.Cm vi Ns Op Cm sual Ns
+.Cm vi Ns
+.Op Cm sual Ns
 .Op Cm !\&
 .Op Ar +cmd
 .Op Ar file
 .Xc
 .Nm vi
-only.
-Edit a new file.
+mode only. Edit a different file by opening a new screen below the current
+screen.
 .Pp
 .It Xo
 .Cm viu Ns Op Cm sage
@@ -2670,7 +2676,7 @@ option).
 .It Ev TERM
 The user's terminal type.
 The default is the type
-.Dq unknown .
+.Dq vt100 .
 If the
 .Ev TERM
 environment variable is not set when
