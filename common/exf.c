@@ -423,6 +423,9 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
         /* Redraw the screen from scratch, schedule a welcome message. */
         F_SET(sp, SC_SCR_REFORMAT | SC_STATUS);
 
+        if (frp->lno == OOBLNO)
+                F_SET(sp, SC_SCR_TOP);
+
         return (0);
 
 err:
