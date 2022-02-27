@@ -279,6 +279,8 @@ New *OpenBSD* releases do not reset the ***OpenVi*** release number.
     created the framework that users see in the present editor.
   - *Mark Horton* added macros and other features, and made the editor work on
     a large number of terminals and *UNIX* systems.
+  - The financial support of *UUNET Communications Services* is gratefully
+    acknowledged.
 
 ## Similar Projects
 
