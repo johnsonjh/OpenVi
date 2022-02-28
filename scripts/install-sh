@@ -89,6 +89,8 @@ unset group   2> /dev/null || true ; group=
 unset mkdirp  2> /dev/null || true ; mkdirp=
 unset mode    2> /dev/null || true ; mode=755
 unset name    2> /dev/null || true ; name=
+unset OPTARG  2> /dev/null || true ; OPTARG=
+unset OPTIND  2> /dev/null || true ; OPTIND=
 unset owner   2> /dev/null || true ; owner=
 unset reason  2> /dev/null || true ; reason=
 unset src     2> /dev/null || true ; src=
@@ -113,15 +115,16 @@ done
 
 shift "$(( ${OPTIND:?} - 1))"
 
-test "${#}" -eq 2    || usage
+test "${#}" -eq 2 || usage
+
 test -z "${strip:-}" || earlyfail "${strip:?}"
 test -z "${flush:-}" || earlyfail "${flush:?}"
 
 # shellcheck disable=SC2034
 src="${1:?}" ; dst="${2:?}"
 
-tmp="${dst:?}.${$}$(ps 2> /dev/null  | cksum     2> /dev/null | \
-  tr -cd '[[:print:]]  2> /dev/null' | tr -d ' ' 2> /dev/null).tmp" ||
+tmp="${dst:?}.${$}$( ps 2> /dev/null | cksum     2> /dev/null | \
+  tr -cd '[[:print:]] ' 2> /dev/null | tr -d ' ' 2> /dev/null).tmp" ||
     tmp="${dst:?}.tmp.${$}" || true
 
 test -z "${tmp:-}" &&
