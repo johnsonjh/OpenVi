@@ -83,14 +83,18 @@ usage()
     exit 1
   } # usage
 
+unset dst     2> /dev/null || true ; dst=
 unset flush   2> /dev/null || true ; flush="true"
 unset group   2> /dev/null || true ; group=
 unset mkdirp  2> /dev/null || true ; mkdirp=
 unset mode    2> /dev/null || true ; mode=755
+unset name    2> /dev/null || true ; name=
 unset owner   2> /dev/null || true ; owner=
 unset reason  2> /dev/null || true ; reason=
-unset symlink 2> /dev/null || true ; symlink=
+unset src     2> /dev/null || true : src=
 unset strip   2> /dev/null || true ; strip=
+unset symlink 2> /dev/null || true ; symlink=
+unset tmp     2> /dev/null || true ; tmp=
 
 while getopts "cDFlsSg:o:m:" "name" 2> /dev/null; do
   case "${name:?}" in
