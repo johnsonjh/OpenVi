@@ -1,0 +1,252 @@
+#!/usr/bin/env sh
+
+# Copyright (c) 2005-2020 Rich Felker, et al.
+# Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+#  * The above copyright notice and this permission notice shall be
+#    included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# This is a safe "install" command that moves files atomically (without
+# overwriting existing files) using a technique described by Rich Felker.
+# It should be portable to any reasonable system claiming POSIX conformance.
+
+# shellcheck disable=SC2006,SC2046,SC2065,SC2116
+test _`echo asdf 2>/dev/null` != _asdf >/dev/null      &&\
+  printf '%s\n' "FATAL: csh shell is not unsupported." &&\
+  exit 1
+
+unset me 2> /dev/null || true ; me="install-sh"
+
+set -euC > /dev/null 2>&1 ||
+  {
+    printf '%s: FATAL: Unable to setup shell.\n' "${0:-${me:?}}" 1>&1
+    exit 1
+  }
+
+PATH="$(command -p getconf PATH 2> /dev/null)" || true
+test -z "${PATH:-}" &&
+  {
+    printf '%s: FATAL: Unable to set standard PATH.\n' "${0:-${me:?}}" 1>&2
+    exit 1
+  }
+
+test "${ZSH_VERSION:-}" &&
+  {
+    # shellcheck disable=SC2015
+    (builtin emulate sh > /dev/null 2>&1) &&
+      builtin emulate sh > /dev/null 2>&1 || true
+  }
+
+earlyfail()
+  {
+    while test -n "${1:-}"; do
+      command -v "${1:?}" > /dev/null 2>&1 ||
+        {
+          printf "%s: FATAL: Required utility '%s' is unavailable.\n" \
+            "${0:-${me:?}}" "${1:?}" 1>&2
+          exit 1
+        }
+      shift
+    done 
+  }
+
+earlyfail cat chmod chown cksum dirname getopts ln mkdir mv ps rm sed tr true
+
+usage()
+  {
+    printf \
+      'USAGE: %s [-cDFlsS] [-m mode] [-o owner] [-g group] <src> <dest>\n' \
+        "${0:-${me:?}}" 1>&2
+    exit 1
+  }
+
+unset flush   2> /dev/null || true ; flush="true"
+unset group   2> /dev/null || true ; group=
+unset mkdirp  2> /dev/null || true ; mkdirp=
+unset mode    2> /dev/null || true ; mode=755
+unset owner   2> /dev/null || true ; owner=
+unset reason  2> /dev/null || true ; reason=
+unset symlink 2> /dev/null || true ; symlink=
+unset strip   2> /dev/null || true ; strip=
+
+while getopts "cDFlsSg:o:m:" "name" 2> /dev/null; do
+  case "${name:?}" in
+    c)                         ;;  # copy (default)
+    D) mkdirp='yes'            ;;  # create directories
+    F) flush='sync'            ;;  # flush (sync) to disk
+    g) group="${OPTARG:?}"     ;;  # set group
+    l) symlink='yes'           ;;  # create symlinks
+    m) mode="${OPTARG:?}"      ;;  # set permissions
+    o) owner="${OPTARG:?}"     ;;  # set owner
+    s) strip="${STRIP:-strip}" ;;  # strip binary
+    S)                         ;;  # safe copy (default)
+    *) usage                   ;;  # show usage
+  esac
+done
+
+shift "$(( ${OPTIND:?} - 1))"
+
+test "${#}" -eq 2 || usage
+
+test -z "${strip:-}" || earlyfail "${strip:?}"
+test -z "${flush:-}" || earlyfail "${flush:?}"
+
+# shellcheck disable=SC2034
+src="${1:?}" ; dst="${2:?}"
+
+tmp="${dst:?}.${$}$(ps 2> /dev/null | cksum 2> /dev/null | \
+  tr -cd '[[:print:]] 2> /dev/null' | tr -d ' ' 2> /dev/null).tmp" ||
+    tmp="${dst:?}.tmp.${$}" || true
+
+test -z "${tmp:-}" &&
+  {
+    printf "%s: FATAL: Unable to make tmpfile name.\n" "${0:-${me:?}}" 1>&2
+    exit 1
+  }
+
+case "${dst:?}" in
+  */) printf "%s: FATAL: Destination '%s' cannot end with slash character.\n" \
+        "${0:-${me:?}}" "${dst:?}" 1>&2
+      exit 1 ;;
+   *) ;;
+esac
+
+if test "${mkdirp:-}"; then
+  umask 022 > /dev/null 2>&1 ||
+    {
+      printf "%s: FATAL: Unable to set umask.\n" "${0:-${me:?}}" 1>&2
+      exit 1
+    }
+  case "${2:?}" in
+    */*) reason=$(mkdir -p "${dst%/*}" 2>&1) ||
+           {
+             printf "%s: FATAL: Unable to create directory '%s'.\n" \
+               "${0:-${me:?}}" "${dst%/*}" 1>&2
+             test "${reason:-}" &&
+               {
+                 printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+               }
+             exit 1
+           } ;;
+      *) ;;
+  esac
+fi
+
+trap 'rm -f "${tmp:?}" 2> /dev/null || true' EXIT INT QUIT TERM HUP
+
+umask 077 > /dev/null 2>&1 ||
+  {  
+    printf "%s: FATAL: Unable to set umask.\n" "${0:-${me:?}}" 1>&2
+    exit 1
+  }
+
+if test "${symlink:-}"; then
+  reason="$(ln -s "${1:?}" "${tmp:?}" 2>&1)" ||
+    {
+      printf "%s: FATAL: Unable to create symlink.\n" "${0:-${me:?}}" 1>&2
+      test "${reason:-}" &&
+        {
+          printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+        }
+    exit 1
+  }
+else
+  reason="$( (cat < "${1:?}" > "${tmp:?}") 2>&1 )" ||
+    {
+      rdirname="$(dirname "${tmp:?}" 2> /dev/null || true)"
+      # shellcheck disable=SC2015
+      test "${rdirname:-}" && test -d "${rdirname:?}" ||
+        {
+           printf "%s: FATAL: Destination directory '%s' does not exist.\n" \
+             "${0:-${me:?}}" "${rdirname:?}" 1>&2
+           test "${reason:-}" &&
+             {
+               printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+             }
+           exit 1
+        }
+      # shellcheck disable=SC2015
+      test "${1:?}" && test -f "${1:?}" ||
+        {
+           printf "%s: FATAL: Unable to read source file '%s'.\n" \
+             "${0:-${me:?}}" "${1:?}" 1>&2
+           test "${reason:-}" &&                                      
+             {                                                        
+               printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+             }                                          
+           exit 1
+        }
+      printf "%s: FATAL: Unable to write to '%s'.\n" \
+        "${0:-${me:?}}" "${tmp:?}" 1>&2
+      exit 1
+    }
+  test "${strip:-}" &&
+    {
+      reason=$("${strip:?}" "${tmp:?}" 2>&1) ||
+        {
+          printf "%s: FATAL: Unable to strip file.\n" \
+            "${0:-${me:?}}" 1>&2
+          test "${reason:-}" &&
+            {
+              printf "%s: ERROR: '%s'.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+            }
+          exit 1
+        }
+    }
+  reason=$(chown "${owner:-}:${group:-}" "${tmp:?}" 2>&1) ||
+    {
+      printf "%s: FATAL: Unable to set ownership to '%s'.\n" \
+        "${0:-${me:?}}" "${owner:-}:${group:-}" 1>&2
+      test "${reason:-}" &&
+        {
+          printf "%s: ERROR: '%s'.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+        }
+      exit 1
+    }
+  reason=$(chmod "${mode:?}" "${tmp:?}" 2>&1) ||
+    {
+      printf "%s: FATAL: Unable to set permissions.\n" "${0:-${me:?}}" 1>&2
+      test "${reason:-}" &&
+        {
+          printf "%s: ERROR: '%s'.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+        }
+      exit 1
+    }
+fi
+
+reason=$(mv -f "${tmp:?}" "${2:?}" 2>&1) ||
+  {
+    printf "%s: FATAL: Unable to write to '%s'.\n" \
+      "${0:-${me:?}}" "${2:?}" 1>&2
+    test "${reason:-}" &&
+      {
+        printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}"
+      }
+    exit 1
+  }
+
+test -d "${2:?}" && {
+  rm -f "${2:?}/${tmp:?}" > /dev/null 2>&1 || true
+  printf "%s: FATAL: '%s' is a directory.\n" "${0:-${me:?}}" "${dst:?}" 1>&2
+  exit 1
+}
+
+${flush:?} "${dst:?}" > /dev/null 2>&1 || ${flush:?} > /dev/null 2>&1 || true
+
+exit 0
