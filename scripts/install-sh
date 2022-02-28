@@ -184,8 +184,8 @@ if test "${symlink:-}"; then
             "$(basename "${0:-${me:?}}" 2> /dev/null || \
               printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
         }
-    exit 1
-  }
+      exit 1
+    }
 else
   reason="$( (cat < "${1:?}" > "${tmp:?}") 2>&1 )" ||
     {
@@ -281,14 +281,13 @@ reason=$(mv -f "${tmp:?}" "${2:?}" 2>&1) ||
     exit 1
   }
 
-test -d "${2:?}" && {
-  rm -f "${2:?}/${tmp:?}" > /dev/null 2>&1 || true
-  printf "%s: FATAL: '%s' is a directory.\n"                              \
-    "$(basename "${0:-${me:?}}" 2> /dev/null || printf "%s\n" "${me:?}")" \
-      "${dst:?}" 1>&2
-  exit 1
-}
+test -d "${2:?}" &&
+  {
+    rm -f "${2:?}/${tmp:?}" > /dev/null 2>&1 || true
+    printf "%s: FATAL: '%s' is a directory.\n"                              \
+      "$(basename "${0:-${me:?}}" 2> /dev/null || printf "%s\n" "${me:?}")" \
+        "${dst:?}" 1>&2
+    exit 1
+  }
 
 ${flush:?} "${dst:?}" > /dev/null 2>&1 || ${flush:?} > /dev/null 2>&1 || true
-
-exit 0
