@@ -35,21 +35,25 @@ unset me 2> /dev/null || true ; me="install-sh"
 
 set -euC > /dev/null 2>&1 ||
   {
-    printf '%s: FATAL: Unable to setup shell.\n' "${0:-${me:?}}" 1>&1
+    printf '%s: FATAL: Unable to setup shell.\n'  \
+      "$(basename "${0:-${me:?}}" 2> /dev/null || \
+        printf "%s\n" "${me:?}")" 1>&1
     exit 1
   }
 
 PATH="$(command -p getconf PATH 2> /dev/null)" || true
 test -z "${PATH:-}" &&
   {
-    printf '%s: FATAL: Unable to set standard PATH.\n' "${0:-${me:?}}" 1>&2
+    printf '%s: FATAL: Unable to set standard PATH.\n' \
+      "$(basename "${0:-${me:?}}" 2> /dev/null ||      \
+        printf "%s\n" "${me:?}")" 1>&2
     exit 1
   }
 
 test "${ZSH_VERSION:-}" &&
   {
     # shellcheck disable=SC2015
-    (builtin emulate sh > /dev/null 2>&1) &&
+    ( builtin emulate sh > /dev/null 2>&1 ) &&
       builtin emulate sh > /dev/null 2>&1 || true
   }
 
@@ -59,20 +63,23 @@ earlyfail()
       command -v "${1:?}" > /dev/null 2>&1 ||
         {
           printf "%s: FATAL: Required utility '%s' is unavailable.\n" \
-            "${0:-${me:?}}" "${1:?}" 1>&2
+            "$(basename "${0:-${me:?}}" 2> /dev/null ||               \
+              printf "%s\n" "${me:?}")" "${1:?}" 1>&2
           exit 1
         }
       shift
     done 
   }
 
-earlyfail cat chmod chown cksum dirname getopts ln mkdir mv ps rm sed tr true
+earlyfail basename cat chmod chown cksum dirname \
+          getopts ln mkdir mv ps rm sed tr true
 
 usage()
   {
     printf \
       'USAGE: %s [-cDFlsS] [-m mode] [-o owner] [-g group] <src> <dest>\n' \
-        "${0:-${me:?}}" 1>&2
+        "$(basename "${0:-${me:?}}" 2> /dev/null ||                        \
+          printf "%s\n" "${me:?}")" 1>&2
     exit 1
   }
 
@@ -102,27 +109,29 @@ done
 
 shift "$(( ${OPTIND:?} - 1))"
 
-test "${#}" -eq 2 || usage
-
+test "${#}" -eq 2    || usage
 test -z "${strip:-}" || earlyfail "${strip:?}"
 test -z "${flush:-}" || earlyfail "${flush:?}"
 
 # shellcheck disable=SC2034
 src="${1:?}" ; dst="${2:?}"
 
-tmp="${dst:?}.${$}$(ps 2> /dev/null | cksum 2> /dev/null | \
-  tr -cd '[[:print:]] 2> /dev/null' | tr -d ' ' 2> /dev/null).tmp" ||
+tmp="${dst:?}.${$}$(ps 2> /dev/null  | cksum     2> /dev/null | \
+  tr -cd '[[:print:]]  2> /dev/null' | tr -d ' ' 2> /dev/null).tmp" ||
     tmp="${dst:?}.tmp.${$}" || true
 
 test -z "${tmp:-}" &&
   {
-    printf "%s: FATAL: Unable to make tmpfile name.\n" "${0:-${me:?}}" 1>&2
+    printf "%s: FATAL: Unable to make tmpfile name.\n" \
+      "$(basename "${0:-${me:?}}" 2> /dev/null ||      \
+        printf "%s\n" "${me:?}")" 1>&2
     exit 1
   }
 
 case "${dst:?}" in
   */) printf "%s: FATAL: Destination '%s' cannot end with slash character.\n" \
-        "${0:-${me:?}}" "${dst:?}" 1>&2
+        "$(basename "${0:-${me:?}}" 2> /dev/null ||                           \
+          printf "%s\n" "${me:?}")" "${dst:?}" 1>&2
       exit 1 ;;
    *) ;;
 esac
@@ -130,17 +139,22 @@ esac
 if test "${mkdirp:-}"; then
   umask 022 > /dev/null 2>&1 ||
     {
-      printf "%s: FATAL: Unable to set umask.\n" "${0:-${me:?}}" 1>&2
+      printf "%s: FATAL: Unable to set umask.\n"    \
+        "$(basename "${0:-${me:?}}" 2> /dev/null || \
+          printf "%s\n" "${me:?}")" 1>&2
       exit 1
     }
   case "${2:?}" in
     */*) reason=$(mkdir -p "${dst%/*}" 2>&1) ||
            {
              printf "%s: FATAL: Unable to create directory '%s'.\n" \
-               "${0:-${me:?}}" "${dst%/*}" 1>&2
+               "$(basename "${0:-${me:?}}" 2> /dev/null ||          \
+                 printf "%s\n" "${me:?}")" "${dst%/*}" 1>&2
              test "${reason:-}" &&
                {
-                 printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+                 printf "%s: ERROR: %s.\n"                     \
+                   "$(basename "${0:-${me:?}}" 2> /dev/null || \
+                     printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
                }
              exit 1
            } ;;
@@ -152,17 +166,23 @@ trap 'rm -f "${tmp:?}" 2> /dev/null || true' EXIT INT QUIT TERM HUP
 
 umask 077 > /dev/null 2>&1 ||
   {  
-    printf "%s: FATAL: Unable to set umask.\n" "${0:-${me:?}}" 1>&2
+    printf "%s: FATAL: Unable to set umask.\n"    \
+      "$(basename "${0:-${me:?}}" 2> /dev/null || \
+        printf "%s\n" "${me:?}")" 1>&2
     exit 1
   }
 
 if test "${symlink:-}"; then
   reason="$(ln -s "${1:?}" "${tmp:?}" 2>&1)" ||
     {
-      printf "%s: FATAL: Unable to create symlink.\n" "${0:-${me:?}}" 1>&2
+      printf "%s: FATAL: Unable to create symlink.\n" \
+        "$(basename "${0:-${me:?}}" 2> /dev/null ||   \
+          printf "%s\n" "${me:?}")" 1>&2
       test "${reason:-}" &&
         {
-          printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+          printf "%s: ERROR: %s.\n"                     \
+            "$(basename "${0:-${me:?}}" 2> /dev/null || \
+              printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
         }
     exit 1
   }
@@ -174,10 +194,13 @@ else
       test "${rdirname:-}" && test -d "${rdirname:?}" ||
         {
            printf "%s: FATAL: Destination directory '%s' does not exist.\n" \
-             "${0:-${me:?}}" "${rdirname:?}" 1>&2
+             "$(basename "${0:-${me:?}}" 2> /dev/null ||                    \
+               printf "%s\n" "${me:?}")" "${rdirname:?}" 1>&2
            test "${reason:-}" &&
              {
-               printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+               printf "%s: ERROR: %s.\n"                     \
+                 "$(basename "${0:-${me:?}}" 2> /dev/null || \
+                   printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
              }
            exit 1
         }
@@ -185,26 +208,33 @@ else
       test "${1:?}" && test -f "${1:?}" ||
         {
            printf "%s: FATAL: Unable to read source file '%s'.\n" \
-             "${0:-${me:?}}" "${1:?}" 1>&2
+             "$(basename "${0:-${me:?}}" 2> /dev/null ||          \
+               printf "%s\n" "${me:?}")" "${1:?}" 1>&2
            test "${reason:-}" &&                                      
              {                                                        
-               printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+               printf "%s: ERROR: %s.\n"                     \
+                 "$(basename "${0:-${me:?}}" 2> /dev/null || \
+                   printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
              }                                          
            exit 1
         }
       printf "%s: FATAL: Unable to write to '%s'.\n" \
-        "${0:-${me:?}}" "${tmp:?}" 1>&2
+        "$(basename "${0:-${me:?}}" 2> /dev/null ||  \
+          printf "%s\n" "${me:?}")" "${tmp:?}" 1>&2
       exit 1
     }
   test "${strip:-}" &&
     {
       reason=$("${strip:?}" "${tmp:?}" 2>&1) ||
         {
-          printf "%s: FATAL: Unable to strip file.\n" \
-            "${0:-${me:?}}" 1>&2
+          printf "%s: FATAL: Unable to strip file.\n"   \
+            "$(basename "${0:-${me:?}}" 2> /dev/null || \
+              printf "%s\n" "${me:?}")" 1>&2
           test "${reason:-}" &&
             {
-              printf "%s: ERROR: '%s'.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+              printf "%s: ERROR: '%s'.\n"                   \
+                "$(basename "${0:-${me:?}}" 2> /dev/null || \
+                  printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
             }
           exit 1
         }
@@ -212,19 +242,26 @@ else
   reason=$(chown "${owner:-}:${group:-}" "${tmp:?}" 2>&1) ||
     {
       printf "%s: FATAL: Unable to set ownership to '%s'.\n" \
-        "${0:-${me:?}}" "${owner:-}:${group:-}" 1>&2
+        "$(basename "${0:-${me:?}}" 2> /dev/null ||          \
+          printf "%s\n" "${me:?}")" "${owner:-}:${group:-}" 1>&2
       test "${reason:-}" &&
         {
-          printf "%s: ERROR: '%s'.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+          printf "%s: ERROR: '%s'.\n"                   \
+            "$(basename "${0:-${me:?}}" 2> /dev/null || \
+              printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
         }
       exit 1
     }
   reason=$(chmod "${mode:?}" "${tmp:?}" 2>&1) ||
     {
-      printf "%s: FATAL: Unable to set permissions.\n" "${0:-${me:?}}" 1>&2
+      printf "%s: FATAL: Unable to set permissions.\n" \
+        "$(basename "${0:-${me:?}}" 2> /dev/null ||    \
+          printf "%s\n" "${me:?}")" 1>&2
       test "${reason:-}" &&
         {
-          printf "%s: ERROR: '%s'.\n" "${0:-${me:?}}" "${reason:-}" 1>&2
+          printf "%s: ERROR: '%s'.\n"                   \
+            "$(basename "${0:-${me:?}}" 2> /dev/null || \
+              printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
         }
       exit 1
     }
@@ -233,17 +270,22 @@ fi
 reason=$(mv -f "${tmp:?}" "${2:?}" 2>&1) ||
   {
     printf "%s: FATAL: Unable to write to '%s'.\n" \
-      "${0:-${me:?}}" "${2:?}" 1>&2
+      "$(basename "${0:-${me:?}}" 2> /dev/null ||  \
+        printf "%s\n" "${me:?}")" "${2:?}" 1>&2
     test "${reason:-}" &&
       {
-        printf "%s: ERROR: %s.\n" "${0:-${me:?}}" "${reason:-}"
+        printf "%s: ERROR: %s.\n"                     \
+          "$(basename "${0:-${me:?}}" 2> /dev/null || \
+            printf "%s\n" "${me:?}")" "${reason:-}"
       }
     exit 1
   }
 
 test -d "${2:?}" && {
   rm -f "${2:?}/${tmp:?}" > /dev/null 2>&1 || true
-  printf "%s: FATAL: '%s' is a directory.\n" "${0:-${me:?}}" "${dst:?}" 1>&2
+  printf "%s: FATAL: '%s' is a directory.\n"                              \
+    "$(basename "${0:-${me:?}}" 2> /dev/null || printf "%s\n" "${me:?}")" \
+      "${dst:?}" 1>&2
   exit 1
 }
 
