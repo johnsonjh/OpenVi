@@ -91,23 +91,23 @@ unset mode    2> /dev/null || true ; mode=755
 unset name    2> /dev/null || true ; name=
 unset owner   2> /dev/null || true ; owner=
 unset reason  2> /dev/null || true ; reason=
-unset src     2> /dev/null || true : src=
+unset src     2> /dev/null || true ; src=
 unset strip   2> /dev/null || true ; strip=
 unset symlink 2> /dev/null || true ; symlink=
 unset tmp     2> /dev/null || true ; tmp=
 
 while getopts "cDFlsSg:o:m:" "name" 2> /dev/null; do
   case "${name:?}" in
-    c)                         ;;  # copy (default)
-    D) mkdirp='yes'            ;;  # create directories
-    F) flush='sync'            ;;  # flush (sync) to disk
-    g) group="${OPTARG:?}"     ;;  # set group
-    l) symlink='yes'           ;;  # create symlinks
-    m) mode="${OPTARG:?}"      ;;  # set permissions
-    o) owner="${OPTARG:?}"     ;;  # set owner
-    s) strip="${STRIP:-strip}" ;;  # strip binary
-    S)                         ;;  # safe copy (default)
-    *) usage                   ;;  # show usage
+    c)                          ;;  # Copy (default)
+    D) mkdirp='yes'             ;;  # Create directories
+    F) flush='sync'             ;;  # Flush (sync) to disk
+    g) group="${OPTARG:?}"      ;;  # Set group
+    l) symlink='yes'            ;;  # Create symlinks
+    m) mode="${OPTARG:?}"       ;;  # Set permissions
+    o) owner="${OPTARG:?}"      ;;  # Set owner
+    s) strip="${STRIP:-strip}"  ;;  # Strip binary
+    S)                          ;;  # Safe copy (default)
+    *) usage                    ;;  # Show usage
   esac
 done
 
