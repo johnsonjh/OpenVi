@@ -125,7 +125,7 @@ src="${1:?}" ; dst="${2:?}"
 
 tmp="${dst:?}.${$}$( ps 2> /dev/null | cksum     2> /dev/null | \
   tr -cd '[[:print:]] ' 2> /dev/null | tr -d ' ' 2> /dev/null).tmp" ||
-    tmp="${dst:?}.tmp.${$}" || true
+    tmp="${dst:?}.${$}.tmp" || true
 
 test -z "${tmp:-}" &&
   { # !tmp
