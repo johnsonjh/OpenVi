@@ -27,7 +27,7 @@
 # It should be portable to any reasonable system claiming POSIX conformance.
 
 # shellcheck disable=SC2006,SC2046,SC2065,SC2116
-test _`echo asdf 2>/dev/null` != _asdf >/dev/null      &&\
+test _`echo asdf 2>/dev/null` != _asdf >/dev/null    &&\
   printf '%s\n' "FATAL: csh shell is not supported." &&\
   exit 1
 

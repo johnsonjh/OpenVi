@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Mon Feb 28 10:09:58 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Mon Feb 28 10:11:31 2022
         + Add `scripts/install-sh`, portable BSD `install(1)` using POSIX `sh`
         + Clear pointer after ending screen for safety
         + Documentation / man page improvements and minor corrections
