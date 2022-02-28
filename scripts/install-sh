@@ -33,6 +33,8 @@ test _`echo asdf 2>/dev/null` != _asdf >/dev/null    &&\
 
 unset me 2> /dev/null || true ; me="install-sh"
 
+(set -o pipefail > /dev/null 2>&1) && set -o pipefail > /dev/null 2>&1 || true
+
 set -euC > /dev/null 2>&1 ||
   { # !set
     printf '%s: FATAL: Unable to setup shell.\n'  \
@@ -90,7 +92,6 @@ unset mkdirp  2> /dev/null || true ; mkdirp=
 unset mode    2> /dev/null || true ; mode=755
 unset name    2> /dev/null || true ; name=
 unset OPTARG  2> /dev/null || true ; OPTARG=
-unset OPTIND  2> /dev/null || true ; OPTIND=
 unset owner   2> /dev/null || true ; owner=
 unset reason  2> /dev/null || true ; reason=
 unset src     2> /dev/null || true ; src=
