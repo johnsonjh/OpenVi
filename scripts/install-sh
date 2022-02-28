@@ -28,7 +28,7 @@
 
 # shellcheck disable=SC2006,SC2046,SC2065,SC2116
 test _`echo asdf 2>/dev/null` != _asdf >/dev/null      &&\
-  printf '%s\n' "FATAL: csh shell is not unsupported." &&\
+  printf '%s\n' "FATAL: csh shell is not supported." &&\
   exit 1
 
 unset me 2> /dev/null || true ; me="install-sh"
