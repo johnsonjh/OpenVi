@@ -77,7 +77,7 @@ earlyfail cat chmod chown cksum dirname tr \
 usage()
   {
     printf \
-      'USAGE: %s [-cDFlsS] [-m mode] [-o owner] [-g group] <src> <dest>\n' \
+      'Usage: %s [-cDFlsS] [-m mode] [-o owner] [-g group] <src> <dest>\n' \
         "$(basename "${0:-${me:?}}" 2> /dev/null ||                        \
           printf "%s\n" "${me:?}")" 1>&2
     exit 1
