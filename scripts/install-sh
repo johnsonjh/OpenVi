@@ -71,8 +71,8 @@ earlyfail()
     done 
   }
 
-earlyfail basename cat chmod chown cksum dirname \
-          getopts ln mkdir mv ps rm sed tr true
+earlyfail cat chmod chown cksum dirname tr \
+	      getopts ln mkdir mv ps rm sed true
 
 usage()
   {
