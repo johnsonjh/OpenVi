@@ -108,17 +108,9 @@ ex_exec_proc(SCR *sp, EXCMD *cmdp, char *cmd, const char *msg,
         }
         (void)ex_fflush(sp);
 
-#if defined(__APPLE__) && defined(__MACH__)
         switch (pid = fork()) {
-#else
-        switch (pid = vfork()) {
-#endif /* if defined(__APPLE__) && defined(__MACH__) */
         case -1:                        /* Error. */
-#if defined(__apple__) && defined(__mach__)
                 msgq(sp, M_SYSERR, "fork");
-#else
-                msgq(sp, M_SYSERR, "vfork");
-#endif /* if defined(__APPLE__) && defined(__MACH__) */
                 return (1);
         case 0:                         /* Utility. */
                 if ((name = strrchr(O_STR(sp, O_SHELL), '/')) == NULL)

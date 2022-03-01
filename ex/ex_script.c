@@ -147,11 +147,6 @@ sscr_init(SCR *sp)
                 goto err;
         }
 
-        /*
-         * __TK__ huh?
-         * Don't use vfork() here, because the signal semantics differ from
-         * implementation to implementation.
-         */
         switch (sc->sh_pid = fork()) {
         case -1:                        /* Error. */
                 msgq(sp, M_SYSERR, "fork");
