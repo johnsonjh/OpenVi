@@ -31,45 +31,32 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _PATHNAMES_H
-# define _PATHNAMES_H
+#ifndef _XINSTALL_H
+# define _XINSTALL_H
 
-# ifdef _PATH_EXRC
-#  undef _PATH_EXRC
-# endif /* ifdef _PATH_EXRC */
+# include "../include/compat.h"
 
-# define _PATH_EXRC ".exrc"
+# include <sys/stat.h>
+# include <sys/types.h>
 
-# ifdef _PATH_NEXRC
-#  undef _PATH_NEXRC
-# endif /* ifdef _PATH_NEXRC */
+# include <grp.h>
+# include <stdarg.h>
+# include <stddef.h>
 
-# define _PATH_NEXRC ".nexrc"
-
-# ifdef _PATH_PRESERVE
-#  undef _PATH_PRESERVE
-# endif /* ifdef _PATH_PRESERVE */
-
-# define _PATH_PRESERVE "/var/tmp/vi.recover"
-
-# ifdef _PATH_SYSEXRC
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_SYSEXRC */
-
-# define _PATH_SYSEXRC "/etc/vi.exrc"
-
-# ifdef _PATH_TAGS
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_TAGS */
-
-# define _PATH_TAGS "tags"
-
-# ifndef _PATH_SENDMAIL
-#  define _PATH_SENDMAIL "/usr/sbin/sendmail"
-# endif /* ifndef _PATH_SENDMAIL */
+# undef open
 
 # ifndef _PATH_STRIP
 #  define _PATH_STRIP "/usr/bin/strip"
 # endif /* ifndef _PATH_STRIP */
 
-#endif /* ifndef _PATHNAMES_H */
+void   *openbsd_setmode(const char *p);
+mode_t  openbsd_getmode(const void *bbox, mode_t omode);
+int     gid_from_group(const char *name, gid_t *gid);
+int     uid_from_user(const char *name, uid_t *uid);
+void    openbsd_errc(int eval, int code, const char *fmt, ...);
+void    openbsd_verrc(int eval, int code, const char *fmt, va_list ap);
+void    openbsd_warnc(int code, const char *fmt, ...);
+void    openbsd_vwarnc(int code, const char *fmt, va_list ap);
+size_t  openbsd_strlcat(char *dst, const char *src, size_t dsize);
+
+#endif /* ifndef _XINSTALL_H */

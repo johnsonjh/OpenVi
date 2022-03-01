@@ -123,6 +123,22 @@ endif # DEBUG
 
 ###############################################################################
 
+XSRC =	cl/getopt_long.c        \
+		cl/getprogname.c        \
+		cl/reallocarray.c       \
+		cl/strlcpy.c            \
+		cl/strtonum.c           \
+		cl/strtonum.c           \
+		db/sys/issetugid.c      \
+		xinstall/errc.c         \
+		xinstall/minpwcache.c   \
+		xinstall/setmode.c      \
+		xinstall/strlcat.c      \
+		xinstall/verrc.c        \
+		xinstall/vwarnc.c       \
+		xinstall/warnc.c        \
+		xinstall/xinstall.c
+
 SRCS = 	common/cut.c            \
 		common/delete.c         \
 		common/exf.c            \
@@ -278,12 +294,19 @@ SRCS = 	common/cut.c            \
 
 VPATH = build:cl:common:db:ex:include:vi:bin
 OBJS := ${SRCS:.c=.o}
+XOBJ := ${XSRC:.c=.o}
 DEPS := ${OBJS:.o=.d}
+XDEP := ${XOBJ:.o=.d}
 
 ###############################################################################
 
 .PHONY: all
-all: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1 scripts/virecover.8
+all: bin/vi \
+     bin/ex \
+     bin/view \
+     docs/USD.doc/vi.man/vi.1 \
+     scripts/virecover.8 \
+     bin/xinstall
 
 ###############################################################################
 
@@ -327,11 +350,11 @@ endif # DEBUG
 ifndef DEBUG
 	-@$(PRINTF) '\r\t%s\t%42s\n' "rm:" "objects"
 endif # DEBUG
-	@$(VERBOSE); $(RMF) $(OBJS)
+	@$(VERBOSE); $(RMF) $(OBJS) $(XOBJ)
 ifndef DEBUG
 	-@$(PRINTF) '\r\t%s\t%42s\n' "rm:" "dependencies"
 endif # DEBUG
-	@$(VERBOSE); $(RMF) $(DEPS)
+	@$(VERBOSE); $(RMF) $(DEPS) $(XDEP)
 ifndef DEBUG
 	-@$(PRINTF) '\r\t%s\t%42s\n' "rm:" "bin/vi"
 endif # DEBUG
@@ -347,6 +370,11 @@ endif # DEBUG
 	@$(VERBOSE); $(TEST) -e "./bin/view" && $(RMF)   "./bin/view" || $(TRUE)
 	@$(VERBOSE); $(TEST) -h "./bin/view" && $(RMF)   "./bin/view" || $(TRUE)
 ifndef DEBUG
+	-@$(PRINTF) '\r\t%s\t%42s\n' "rm:" "bin/xinstall"
+endif # DEBUG
+	@$(VERBOSE); $(TEST) -f "./bin/xinstall" && \
+      $(RMF) "./bin/xinstall" || $(TRUE)
+ifndef DEBUG
 	-@$(PRINTF) '\r\t%s\t%42s\n' "$(RMDIR):" "bin"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -d "./bin"      && $(RMDIR)   "./bin"      || $(TRUE)
@@ -361,6 +389,20 @@ ifndef DEBUG
 endif # DEBUG
 	@$(VERBOSE); $(CC) $(CFLAGS) $(DEPFLAGS) -c -o "$@" "$<"
 -include $(wildcard $(DEPS))
+-include $(wildcaed $(XDEP))
+
+###############################################################################
+
+bin/xinstall: $(XOBJ)
+	@$(TEST) -d "./bin" || $(MKDIR) "./bin"
+ifndef DEBUG
+	-@$(PRINTF) '\r\t$(LD):\t%42s\n' "$@"
+endif # DEBUG
+	@$(VERBOSE); $(CC) -o "$@" $^ $(LDFLAGS) $(LINKLIBS)
+
+.PHONY: xinstall
+xinstall: bin/xinstall
+	-@$(TRUE)
 
 ###############################################################################
 

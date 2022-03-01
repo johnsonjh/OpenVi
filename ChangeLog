@@ -1,4 +1,5 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Tue Mar 1 16:11:32 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Tue Mar 1 16:15:23 2022
+        + Add `xinstall`, a BSD install utility based on OpenBSD `install(1)`
         + Switch `vfork` to `fork` as `vfork` is now gone from POSIX.1-2008
         + Clear pointer after ending screen for safety
         + Documentation / man page improvements and minor corrections
