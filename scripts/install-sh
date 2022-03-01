@@ -1,60 +1,62 @@
 #!/usr/bin/env sh
+# shellcheck disable=SC2015
+# vi: tabstop=2:softtabstop=4:shiftwidth=2:expandtab
 
 # Copyright (c) 2005-2020 Rich Felker, et al.
-# Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+# Copyright (c) 2020-2022 Jeffrey H. Johnson <trnsz@pobox.com>
 #
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
-# "Software"), to deal in the Software without restriction, including
-# without limitation the rights to use, copy, modify, merge, publish,
-# distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to
-# the following conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
 #
 #  * The above copyright notice and this permission notice shall be
 #    included in all copies or substantial portions of the Software.
 #
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
-# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 
-# This is a safe "install" command that moves files atomically (without
-# overwriting existing files) using a technique described by Rich Felker.
-# It should be portable to any reasonable system claiming POSIX conformance.
+# "install-sh" is a portable POSIX shell version of the BSD install(1) utility.
+
+# It is intended to operate without modifications on any UNIX system conforming
+# to IEEE Std 1003.1-2008, commonly referred to as POSIX.1-2008, UNIX V7, XPG7,
+# or SUSv4 (Single UNIX Specification, Version 4), as well as mostly conforming
+# systems including Darwin, FreeBSD, OpenBSD, and most GNU/Linux distributions.
 
 # shellcheck disable=SC2006,SC2046,SC2065,SC2116
 test _`echo asdf 2>/dev/null` != _asdf >/dev/null    &&\
   printf '%s\n' "FATAL: csh shell is not supported." &&\
   exit 1
 
-unset me 2> /dev/null || true ; me="install-sh"
+xme="install-sh"
 
+me="$(basename "${0:-${xme:?}}" 2> /dev/null || printf '%s\n' "${xme:?}")" 1>&1
+
+# shellcheck disable=SC3040
 (set -o pipefail > /dev/null 2>&1) && set -o pipefail > /dev/null 2>&1 || true
 
 set -euC > /dev/null 2>&1 ||
   { # !set
-    printf '%s: FATAL: Unable to setup shell.\n'  \
-      "$(basename "${0:-${me:?}}" 2> /dev/null || \
-        printf "%s\n" "${me:?}")" 1>&1
+    printf '%s: FATAL: Unable to setup shell.\n' "${me:?}" 1>&2
     exit 1
   } # !set
 
 PATH="$(command -p getconf PATH 2> /dev/null)" || true
 test -z "${PATH:-}" &&
   { # !PATH
-    printf '%s: FATAL: Unable to set standard PATH.\n' \
-      "$(basename "${0:-${me:?}}" 2> /dev/null ||      \
-        printf "%s\n" "${me:?}")" 1>&2
+    printf '%s: FATAL: Unable to set standard PATH.\n' "${me:?}" 1>&2
     exit 1
   } # !PATH
 
 test "${ZSH_VERSION:-}" &&
   { # ZSH_VERSION
-    # shellcheck disable=SC2015
     ( builtin emulate sh > /dev/null 2>&1 ) &&
       builtin emulate sh > /dev/null 2>&1 || true
   } # ZSH_VERSION
@@ -65,8 +67,7 @@ earlyfail()
       command -v "${1:?}" > /dev/null 2>&1 ||
         { # !utility
           printf "%s: FATAL: Required utility '%s' is unavailable.\n" \
-            "$(basename "${0:-${me:?}}" 2> /dev/null ||               \
-              printf "%s\n" "${me:?}")" "${1:?}" 1>&2
+            "${me:?}" "${1:?}" 1>&2
           exit 1
         } # !utility
       shift
@@ -80,8 +81,7 @@ usage()
   { # usage
     printf \
       'Usage: %s [-cDFlsS] [-m mode] [-o owner] [-g group] <src> <dest>\n' \
-        "$(basename "${0:-${me:?}}" 2> /dev/null ||                        \
-          printf "%s\n" "${me:?}")" 1>&2
+        "${me:?}" 1>&2
     exit 1
   } # usage
 
@@ -116,7 +116,7 @@ done
 
 shift "$(( ${OPTIND:?} - 1))"
 
-test "${#}" -eq 2 || usage
+test "${#}" -ne 2 && usage
 
 test -z "${strip:-}" || earlyfail "${strip:?}"
 test -z "${flush:-}" || earlyfail "${flush:?}"
@@ -124,22 +124,19 @@ test -z "${flush:-}" || earlyfail "${flush:?}"
 # shellcheck disable=SC2034
 src="${1:?}" ; dst="${2:?}"
 
-tmp="${dst:?}.${$}$( ps 2> /dev/null | cksum     2> /dev/null | \
+tmp="${dst:?}.${$}$( ps 2> /dev/null | cksum 2> /dev/null |
   tr -cd '[[:print:]] ' 2> /dev/null | tr -d ' ' 2> /dev/null).tmp" ||
     tmp="${dst:?}.${$}.tmp" || true
 
 test -z "${tmp:-}" &&
   { # !tmp
-    printf "%s: FATAL: Unable to make tmpfile name.\n" \
-      "$(basename "${0:-${me:?}}" 2> /dev/null ||      \
-        printf "%s\n" "${me:?}")" 1>&2
+    printf "%s: FATAL: Unable to create temporary file name.\n" "${me:?}" 1>&2
     exit 1
   } # !tmp
 
 case "${dst:?}" in
   */) printf "%s: FATAL: Destination '%s' cannot end with slash character.\n" \
-        "$(basename "${0:-${me:?}}" 2> /dev/null ||                           \
-          printf "%s\n" "${me:?}")" "${dst:?}" 1>&2
+        "${me:?}" "${dst:?}" 1>&2
       exit 1 ;;
    *) ;;
 esac
@@ -147,23 +144,16 @@ esac
 if test "${mkdirp:-}"; then
   umask 022 > /dev/null 2>&1 ||
     { # !umask
-      printf "%s: FATAL: Unable to set umask.\n"    \
-        "$(basename "${0:-${me:?}}" 2> /dev/null || \
-          printf "%s\n" "${me:?}")" 1>&2
+      printf "%s: FATAL: Unable to set umask.\n" "${me:?}" 1>&2
       exit 1
     } # !umask
   case "${2:?}" in
     */*) reason=$(mkdir -p "${dst%/*}" 2>&1) ||
            { # !mkdir
              printf "%s: FATAL: Unable to create directory '%s'.\n" \
-               "$(basename "${0:-${me:?}}" 2> /dev/null ||          \
-                 printf "%s\n" "${me:?}")" "${dst%/*}" 1>&2
+               "${me:?}" "${dst%/*}" 1>&2
              test "${reason:-}" &&
-               { # reason
-                 printf "%s: ERROR: %s.\n"                     \
-                   "$(basename "${0:-${me:?}}" 2> /dev/null || \
-                     printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-               } # reason
+               printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}" 1>&2
              exit 1
            } ;; # !mkdir
       *) ;;
@@ -174,128 +164,90 @@ trap 'rm -f "${tmp:?}" 2> /dev/null || true' EXIT INT QUIT TERM HUP
 
 umask 077 > /dev/null 2>&1 ||
   { # !umask
-    printf "%s: FATAL: Unable to set umask.\n"    \
-      "$(basename "${0:-${me:?}}" 2> /dev/null || \
-        printf "%s\n" "${me:?}")" 1>&2
+    printf "%s: FATAL: Unable to set umask.\n" "${me:?}" 1>&2
     exit 1
   } # !umask
 
 if test "${symlink:-}"; then
   reason="$(ln -s "${1:?}" "${tmp:?}" 2>&1)" ||
     { # symlink
-      printf "%s: FATAL: Unable to create symlink.\n" \
-        "$(basename "${0:-${me:?}}" 2> /dev/null ||   \
-          printf "%s\n" "${me:?}")" 1>&2
+      printf "%s: FATAL: Unable to create symlink.\n" "${me:?}" 1>&2
       test "${reason:-}" &&
-        { # reason
-          printf "%s: ERROR: %s.\n"                     \
-            "$(basename "${0:-${me:?}}" 2> /dev/null || \
-              printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-        } # reason
+        printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}" 1>&2
       exit 1
     } # symlink
 else
   reason="$( (cat < "${1:?}" > "${tmp:?}") 2>&1 )" ||
     { # !cat
       rdirname="$(dirname "${tmp:?}" 2> /dev/null || true)"
-      # shellcheck disable=SC2015
       test "${rdirname:-}" && test -d "${rdirname:?}" ||
         { # !rdirname
            printf "%s: FATAL: Destination directory '%s' does not exist.\n" \
-             "$(basename "${0:-${me:?}}" 2> /dev/null ||                    \
-               printf "%s\n" "${me:?}")" "${rdirname:?}" 1>&2
+             "${me:?}" "${rdirname:?}" 1>&2
            test "${reason:-}" &&
-             { # reason
-               printf "%s: ERROR: %s.\n"                     \
-                 "$(basename "${0:-${me:?}}" 2> /dev/null || \
-                   printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-             } # reason
+             printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}" 1>&2
            exit 1
         } # !rdirname
-      # shellcheck disable=SC2015
       test "${1:?}" && test -f "${1:?}" ||
         { # !file
            printf "%s: FATAL: Unable to read source file '%s'.\n" \
-             "$(basename "${0:-${me:?}}" 2> /dev/null ||          \
-               printf "%s\n" "${me:?}")" "${1:?}" 1>&2
+             "${me:?}" "${1:?}" 1>&2
            test "${reason:-}" &&
-             { # reason
-               printf "%s: ERROR: %s.\n"                     \
-                 "$(basename "${0:-${me:?}}" 2> /dev/null || \
-                   printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-             } # reason
+             printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}" 1>&2
            exit 1
         } # !file
-      printf "%s: FATAL: Unable to write to '%s'.\n" \
-        "$(basename "${0:-${me:?}}" 2> /dev/null ||  \
-          printf "%s\n" "${me:?}")" "${tmp:?}" 1>&2
+      printf "%s: FATAL: Unable to write to '%s'.\n" "${me:?}" "${tmp:?}" 1>&2
       exit 1
     } # !cat
   test "${strip:-}" &&
     { # strip
       reason=$("${strip:?}" "${tmp:?}" 2>&1) ||
         { # !stripped
-          printf "%s: FATAL: Unable to strip file.\n"   \
-            "$(basename "${0:-${me:?}}" 2> /dev/null || \
-              printf "%s\n" "${me:?}")" 1>&2
+          printf "%s: FATAL: Unable to strip file.\n" "${me:?}" 1>&2
           test "${reason:-}" &&
-            { # reason
-              printf "%s: ERROR: '%s'.\n"                   \
-                "$(basename "${0:-${me:?}}" 2> /dev/null || \
-                  printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-            } # reason
+            printf "%s: ERROR: '%s'.\n" "${me:?}" "${reason:?}" 1>&2
           exit 1
         } # !stripped
     } # strip
   reason=$(chown "${owner:-}:${group:-}" "${tmp:?}" 2>&1) ||
     { # !chown
       printf "%s: FATAL: Unable to set ownership to '%s'.\n" \
-        "$(basename "${0:-${me:?}}" 2> /dev/null ||          \
-          printf "%s\n" "${me:?}")" "${owner:-}:${group:-}" 1>&2
+        "${me:?}" "${owner:-}:${group:-}" 1>&2
       test "${reason:-}" &&
-        { # reason
-          printf "%s: ERROR: '%s'.\n"                   \
-            "$(basename "${0:-${me:?}}" 2> /dev/null || \
-              printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-        } # reason
+        printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}" 1>&2
       exit 1
     } # !chown
   reason=$(chmod "${mode:?}" "${tmp:?}" 2>&1) ||
     { # !chmod
-      printf "%s: FATAL: Unable to set permissions.\n" \
-        "$(basename "${0:-${me:?}}" 2> /dev/null ||    \
-          printf "%s\n" "${me:?}")" 1>&2
+      printf "%s: FATAL: Unable to set permissions to '%s'.\n" \
+        "${me:?}" "${mode:?}" 1>&2
       test "${reason:-}" &&
-        { # reason
-          printf "%s: ERROR: '%s'.\n"                   \
-            "$(basename "${0:-${me:?}}" 2> /dev/null || \
-              printf "%s\n" "${me:?}")" "${reason:-}" 1>&2
-        } # reason
+        printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}" 1>&2
       exit 1
     } # !chmod
 fi
 
 reason=$(mv -f "${tmp:?}" "${2:?}" 2>&1) ||
   { # !mv
-    printf "%s: FATAL: Unable to write to '%s'.\n" \
-      "$(basename "${0:-${me:?}}" 2> /dev/null ||  \
-        printf "%s\n" "${me:?}")" "${2:?}" 1>&2
+    printf "%s: FATAL: Unable to write to '%s'.\n" "${me:?}" "${2:?}" 1>&2
     test "${reason:-}" &&
-      { # reason
-        printf "%s: ERROR: %s.\n"                     \
-          "$(basename "${0:-${me:?}}" 2> /dev/null || \
-            printf "%s\n" "${me:?}")" "${reason:-}"
-      } # reason
+      printf "%s: ERROR: %s.\n" "${me:?}" "${reason:?}"
     exit 1
   } # !mv
 
 test -d "${2:?}" &&
   { # dir
     rm -f "${2:?}/${tmp:?}" > /dev/null 2>&1 || true
-    printf "%s: FATAL: '%s' is a directory.\n"                              \
-      "$(basename "${0:-${me:?}}" 2> /dev/null || printf "%s\n" "${me:?}")" \
-        "${dst:?}" 1>&2
+    printf "%s: FATAL: '%s' is a directory.\n" "${me:?}" "${dst:?}" 1>&2
     exit 1
   } # dir
 
 ${flush:?} "${dst:?}" > /dev/null 2>&1 || ${flush:?} > /dev/null 2>&1 || true
+
+# Local Variables:
+# mode: sh
+# sh-shell: sh
+# sh-indentation: 2
+# sh-basic-offset: 2
+# tab-width: 2
+# End:
