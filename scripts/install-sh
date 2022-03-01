@@ -37,7 +37,7 @@ test _`echo asdf 2>/dev/null` != _asdf >/dev/null    &&\
 
 xme="install-sh"
 
-me="$(basename "${0:-${xme:?}}" 2> /dev/null || printf '%s\n' "${xme:?}")" 1>&1
+me="$(basename "${0:-${xme:?}}" 2> /dev/null || printf '%s' "${xme:?}")" 1>&2
 
 # shellcheck disable=SC3040
 (set -o pipefail > /dev/null 2>&1) && set -o pipefail > /dev/null 2>&1 || true
