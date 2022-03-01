@@ -1,9 +1,10 @@
 ```text
-Copyright (c) 1980, 1986, 1988, 1989, 1990, 1991, 1992, 1993, 1994
+Copyright (c) 1980, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994
         The Regents of the University of California
 Copyright (c) 1989, 1990, 1991, 1992, 1993 UNIX System Laboratories, Inc.
 Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
         Keith Bostic
+Copyright (c) 1992 Keith Muller
 Copyright (c) 1992, 1993, 1994 Henry Spencer
 Copyright (c) 1994, 1996 Rob Mayoff
 Copyright (c) 1997 Phillip F. Knaack
@@ -31,6 +32,7 @@ of California, Berkeley by Steve Kirkendall, the author of the "Elvis" editor.
 This program contains code derived from software contributed to Berkeley by:
   * Margo Seltzer    * Mike Olson    * Henry Spencer, University of Totonto
   * Brian Hirt       * Paul Vixie    * David Hitz, Auspex Systems, Inc.
+  * Dave Borman, Cray Research, Inc. * Keith Muller, UCSD
 
 This program contains code derived from software contributed to The NetBSD
 Foundation, Inc. by Dieter Baron, Thomas Klausner, and Jeremy C. Reed.
