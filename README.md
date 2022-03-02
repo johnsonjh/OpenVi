@@ -115,7 +115,7 @@ view.
 
 #### Required prerequisites
 
-- **POSIX**-2008 environment: POSIX shell (`sh`) and utilities, **Awk**
+- **POSIX.1**-**2008** environment: POSIX shell (`sh`) and utilities, **Awk**
   (`mawk`, `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
