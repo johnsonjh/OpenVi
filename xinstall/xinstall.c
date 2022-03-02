@@ -712,7 +712,7 @@ strip(char *to_name)
   char *volatile path_strip;
   pid_t pid;
 
-  if ( ( path_strip = getenv("STRIP")) == NULL )
+  if ( issetugid() || ( path_strip = getenv("STRIP")) == NULL )
     if ( issetugid() || ( path_strip = getenv("STRIPBIN")) == NULL )
       {
         path_strip = _PATH_STRIP;
