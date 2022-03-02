@@ -156,7 +156,8 @@ main(int argc, char *argv[])
           break;
 
         case 's':
-          dostrip = 1;
+          if (getenv("DONTSTRIP") == NULL)
+            dostrip = 1;
           break;
 
         case 'U':
@@ -711,10 +712,11 @@ strip(char *to_name)
   char *volatile path_strip;
   pid_t pid;
 
-  if (issetugid() || ( path_strip = getenv("STRIP")) == NULL)
-    {
-      path_strip = _PATH_STRIP;
-    }
+  if ( ( path_strip = getenv("STRIP")) == NULL )
+    if ( issetugid() || ( path_strip = getenv("STRIPBIN")) == NULL )
+      {
+        path_strip = _PATH_STRIP;
+      }
 
   switch (( pid = fork()))
     {

@@ -90,23 +90,42 @@ See
 .Fl B
 for specifying a different backup suffix.
 .It Fl C
-Copy the file.
+Compare and copy the file.
 If the target file already exists and the files are the same,
-then don't change the modification time of the target.
+then installation does not change the modification time of the
+target.
 .It Fl c
 Copy the file.
-This is actually the default.
+This is the default.
 The
 .Fl c
 option is only included for backwards compatibility.
 .It Fl D
 Create all leading components of the target before installing into it.
+When the
+.Fl D
+option is specified, any new or existing directory components will have
+the default (0755) permissions applied.  If the
+.Fl D
+option is specified in conjunction with
+.Fl m ,
+the requested mode will be set for the target file.
+If more restrictive directory permissions are required,
+.Nm
+.Fl d
+.Fl m
+should be used first to create the directories, followed by
+.Nm
+.Fl c
+to install the files.
 .It Fl d
-Create directories.
-Missing parent directories are created as required.
-This option cannot be used with the
+Create directories, without installing files.
+Missing parent directories are created as required. If a directory
+already exists, the owner, group, and mode is set according to the
+values specified on the command line. This option cannot be used with
+the
 .Fl B , b , C , c ,
-.Fl f , p ,
+.Fl p ,
 or
 .Fl s
 options.
@@ -136,37 +155,36 @@ Preserve the modification time.
 Copy the file, as if the
 .Fl C
 (compare and copy) option is specified,
-except if the target file doesn't already exist or is different,
-then preserve the modification time of the file.
+except if the target file does not exist or is different, then
+preserve the modification time of the source file.
 .It Fl S
 Safe copy.
-This option has no effect and is supported only for compatibility.
-When installing a file, a temporary file is created and written first
-in the destination directory, then atomically renamed.
-This avoids both race conditions and the destruction of existing
-files in case of write failures.
+This is the default.  Using this option has no effect, and is
+supported only for compatibility. When installing a file, a
+temporary file is safely created and written first in the
+destination directory, then atomically renamed. This avoids
+both race conditions and the destruction of existing
+files in case of disk or system failures.
 .It Fl s
-.Nm
-exec's the command
+Strip the file. The external command
 .Pa /usr/bin/strip
-to strip binaries so that
+is called to actually strip the file, so
 .Nm
-can be portable over a large number of systems and binary types.
-If the environment variable
-.Ev STRIP
-is set, it is used instead.
+can be portable to a large number of systems and binary types.
+See below for how
+.Nm
+can be instructed to use a different program for stripping binaries.
 .It Fl U
 Indicate that
 .Nm
-is running unprivileged, causing any errors while setting the owner
-or group of the target to be non-fatal to the
-.Nm
+is running unprivileged. Any errors while setting the owner, group,
+or mode of the target will be non-fatal to the installation
 process.
 .It Fl v
 Cause
 .Nm
-to be verbose, printing progress information to standard output as
-directories are created and files are installed or backed up.
+to be verbose. Progress information will be printed to standard output
+as directories are created and files are installed or backed up.
 .El
 .Pp
 The
@@ -177,14 +195,28 @@ Installing
 .Pa /dev/null
 creates an empty file.
 .Sh ENVIRONMENT
-.Bl -tag -width "STRIP"
-.It Ev STRIP
-For an alternate
+The
+.Nm
+utility checks for the presence of the
+STRIPBIN
+and
+STRIP
+environment variables. If defined, the assigned value will be
+used as the
 .Xr strip 1
-program to run.
-Default is
+program to run. If both variables are set,
+STRIP
+is overriding.
+The default strip(1) program is
 .Pa /usr/bin/strip .
-.El
+.Pp
+If the
+DONTSTRIP
+environment variable is present,
+.Nm
+will not strip files, ignoring any specification of the
+.Fl s
+option.
 .Sh FILES
 .Bl -tag -width INS@XXXXXX -compact
 .It Pa INS@XXXXXX
@@ -196,14 +228,17 @@ Temporary files created in the target directory by
 .Sh SEE ALSO
 .Xr chgrp 1 ,
 .Xr chmod 1 ,
+.Xr cmp 1 ,
 .Xr cp 1 ,
+.Xr ln 1 ,
 .Xr mv 1 ,
 .Xr strip 1 ,
+.Xr mmap 2 ,
 .Xr chown 8
 .Sh HISTORY
 The
 .Nm
-utility appeared in
+utility first appeared in
 .Bx 4.2 .
 .Sh CAVEATS
 The
