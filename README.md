@@ -297,11 +297,11 @@ New *OpenBSD* releases do not reset the ***OpenVi*** release number.
 ## See Also
 
 - [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/)
-  is the currently maintained fork of the original (**1BSD**/**2BSD**) branch
+  is a currently maintained fork of the original (**1BSD**/**2BSD**) branch
   of the **`vi`** / **`ex`** editor, derived from *Gunnar Ritter*'s enhanced
   version of the [**traditional** **`vi`**](http://ex-vi.sourceforge.net/)
   editor.
-- [**`Nvi2`**](https://github.com/lichray/nvi2) is the currently maintained
+- [**`Nvi2`**](https://github.com/lichray/nvi2) is a currently maintained
   *feature branch* of the new (**4BSD**) version of the **`nvi`** / **`nex`**
   editor, with a focus on extensibility and new features.
 - [**`Nvi1`**](https://repo.or.cz/nvi.git) (*version* *1.8+*) is the
