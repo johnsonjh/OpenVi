@@ -241,7 +241,12 @@ The
 utility first appeared in
 .Bx 4.2 .
 .Sh CAVEATS
-The
+.Nm
+is not standardized by POSIX.  Furthermore, there there is no fully
+compatible subset of options available across all systems which
+implement the
+.Nm
+utility. Even amongst the BSD-derived systems, the
 .Fl C ,
 .Fl D ,
 .Fl F ,
@@ -250,7 +255,7 @@ The
 .Fl U ,
 and
 .Fl v
-flags are non-standard and should not be relied upon for portability.
+flags are non-standard, and cannot be relied upon for portability.
 .Pp
 Errors when stripping files are not fatal to the
 .Nm
@@ -259,3 +264,16 @@ process.
 Temporary files may be left in the target directory if
 .Nm
 exits abnormally.
+.Pp
+.Nm
+options should be specified before any sources or the target, to
+avoid ambiguities between filenames, directories, and options
+when
+.Nm
+parses the command line.
+.Pp
+The exact behavior of
+.Nm
+varies depending on the operating system and filesystem.
+.Pp
+Error messages, warnings, and verbose feedback could be improved.

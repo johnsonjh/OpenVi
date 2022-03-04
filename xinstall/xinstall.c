@@ -265,7 +265,7 @@ main(int argc, char *argv[])
   /* can't do file1 file2 directory/file */
   if (argc != 2)
     {
-      errx(1, "Target: %s", argv[argc - 1]);
+      errx(1, "Invalid arguments for target '%s'; verify specified options.", argv[argc - 1]);
     }
 
   if (!no_target)
