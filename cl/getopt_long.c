@@ -51,6 +51,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "../include/compat.h"
+
 #include "libgen.h"
 
 #include <bsd_err.h>

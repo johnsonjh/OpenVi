@@ -58,6 +58,12 @@ int      setresgid(gid_t, gid_t, gid_t);
 int      setresuid(uid_t, uid_t, uid_t);
 int      openbsd_pledge(const char *, const char *);
 
+#  if ( defined(__MSYS__) || defined(__CYGWIN__) )
+#   ifndef _GETOPT_DEFINED_
+#    define _GETOPT_DEFINED_
+#   endif /* ifndef _GETOPT_DEFINED_ */
+#  endif /* if ( defined(__MSYS__) || defined(__CYGWIN__) ) */
+
 #  ifndef _GETOPT_DEFINED_
 #   define _GETOPT_DEFINED_
 #   define getopt(argc, argv, optstr) \
