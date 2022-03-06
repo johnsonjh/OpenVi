@@ -109,7 +109,7 @@ main(int argc, char *argv[])
   const char *errstr;
 
   iflags = 0;
-  while (( ch = getopt(argc, argv, "B:bCcDdFg:m:o:pSsUv")) != -1)
+  while (( ch = openbsd_getopt(argc, argv, "B:bCcDdFg:m:o:pSsUv")) != -1)
     {
       switch (ch)
         {

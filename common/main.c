@@ -155,7 +155,7 @@ editor(GS *gp, int argc, char *argv[])
                  !strcmp(bsd_getprogname(), "openview"))
                     pmode = MODE_VIEW;
 
-        while ((ch = getopt(argc, argv, optstr[pmode])) != -1)
+        while ((ch = openbsd_getopt(argc, argv, optstr[pmode])) != -1)
                 switch (ch) {
                 case 'c':               /* Run the command. */
                         /*
@@ -548,7 +548,8 @@ v_end(GS *gp)
 
 /*
  * v_obsolete --
- *      Convert historic arguments into something getopt(3) will like.
+ *      Convert historic arguments into something
+ *      openbsd_getopt(3) will like.
  */
 static int
 v_obsolete(char *argv[])
@@ -557,9 +558,9 @@ v_obsolete(char *argv[])
         char *p;
 
         /*
-         * Translate old style arguments into something getopt will like.
-         * Make sure it's not text space memory, because ex modifies the
-         * strings.
+         * Translate old style arguments into something openbsd_getopt
+		 * will like. Make sure it's not text space memory, because
+		 * ex modifies the strings.
          *      Change "+" into "-c$".
          *      Change "+<anything else>" into "-c<anything else>".
          *      Change "-" into "-s"

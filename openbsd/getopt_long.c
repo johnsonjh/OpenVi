@@ -62,6 +62,8 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
+
 #undef open
 
 int   opterr = 1;    /* if error message should be printed */
@@ -83,16 +85,15 @@ char *optarg;        /* argument associated with option */
 
 #define EMSG ""
 
-static int getopt_internal(int, char *const *, const char *,
-                           const struct option *, int *, int);
-static int parse_long_options(char *const *, const char *,
-                              const struct option *, int *, int, int);
+static int openbsd_getopt_internal(int, char *const *, const char *,
+                                   const struct option *, int *, int);
+static int openbsd_parse_long_options(char *const *, const char *,
+                                      const struct option *, int *, int, int);
 static int gcd(int, int);
 static void permute_args(int, int, int, char *const *);
 
 static char *place = EMSG; /* option letter processing */
 
-/* XXX(OpenBSD): set optreset to 1 rather than these two */
 static int nonopt_start = -1; /* first non option argument (for permute) */
 static int nonopt_end = -1; /* first option after non options (for permute) */
 
@@ -166,14 +167,14 @@ permute_args(int panonopt_start, int panonopt_end, int opt_end,
 }
 
 /*
- * parse_long_options --
+ * openbsd_parse_long_options --
  *      Parse long options in argc/argv argument vector.
  * Returns -1 if short_too is set and the option does not match long_options.
  */
 static int
-parse_long_options(char *const *nargv, const char *options,
-                   const struct option *long_options, int *idx, int short_too,
-                   int flags)
+openbsd_parse_long_options(char *const *nargv, const char *options,
+                           const struct option *long_options, int *idx,
+                           int short_too, int flags)
 {
   char *current_argv, *has_equal;
   size_t current_argv_len;
@@ -240,7 +241,7 @@ parse_long_options(char *const *nargv, const char *options,
       /* ambiguous abbreviation */
       if (PRINT_ERROR)
         {
-          warnx(ambig, (int)current_argv_len, current_argv);
+          openbsd_warnx(ambig, (int)current_argv_len, current_argv);
         }
 
       optopt = 0;
@@ -253,7 +254,7 @@ parse_long_options(char *const *nargv, const char *options,
         {
           if (PRINT_ERROR)
             {
-              warnx(noarg, (int)current_argv_len, current_argv);
+              openbsd_warnx(noarg, (int)current_argv_len, current_argv);
             }
 
           /*
@@ -295,7 +296,7 @@ parse_long_options(char *const *nargv, const char *options,
            */
           if (PRINT_ERROR)
             {
-              warnx(recargstring, current_argv);
+              openbsd_warnx(recargstring, current_argv);
             }
 
           /*
@@ -324,7 +325,7 @@ parse_long_options(char *const *nargv, const char *options,
 
       if (PRINT_ERROR)
         {
-          warnx(illoptstring, current_argv);
+          openbsd_warnx(illoptstring, current_argv);
         }
 
       optopt = 0;
@@ -348,12 +349,12 @@ parse_long_options(char *const *nargv, const char *options,
 }
 
 /*
- * getopt_internal --
+ * openbsd_getopt_internal --
  *      Parse argc/argv argument vector.  Called by user level routines.
  */
 static int
-getopt_internal(int nargc, char *const *nargv, const char *options,
-                const struct option *long_options, int *idx, int flags)
+openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
+                        const struct option *long_options, int *idx, int flags)
 {
   char *oli; /* option letter list index */
   int optchar, short_too;
@@ -499,7 +500,7 @@ start:
    * Check long options if:
    *  1) we were passed some
    *  2) the arg is not just "-"
-   *  3) either the arg starts with -- we are getopt_long_only()
+   *  3) either the arg starts with -- we are openbsd_getopt_long_only()
    */
   if (long_options != NULL && place != nargv[optind]
       && ( *place == '-' || ( flags & FLAG_LONGONLY )))
@@ -514,7 +515,7 @@ start:
           short_too = 1; /* could be short option too */
         }
 
-      optchar = parse_long_options(
+      optchar = openbsd_parse_long_options(
         nargv,
         options,
         long_options,
@@ -538,7 +539,7 @@ start:
 
       if (PRINT_ERROR)
         {
-          warnx(illoptchar, optchar);
+          openbsd_warnx(illoptchar, optchar);
         }
 
       optopt = optchar;
@@ -557,7 +558,7 @@ start:
           place = EMSG;
           if (PRINT_ERROR)
             {
-              warnx(recargchar, optchar);
+              openbsd_warnx(recargchar, optchar);
             }
 
           optopt = optchar;
@@ -568,7 +569,8 @@ start:
           place = nargv[optind];
         }
 
-      optchar = parse_long_options(nargv, options, long_options, idx, 0, flags);
+      optchar = openbsd_parse_long_options(nargv, options, long_options,
+                                           idx, 0, flags);
       place = EMSG;
       return optchar;
     }
@@ -594,7 +596,7 @@ start:
               place = EMSG;
               if (PRINT_ERROR)
                 {
-                  warnx(recargchar, optchar);
+                  openbsd_warnx(recargchar, optchar);
                 }
 
               optopt = optchar;
@@ -615,32 +617,32 @@ start:
 }
 
 /*
- * getopt --
+ * opembsd_getopt --
  *      Parse argc/argv argument vector.
  */
 int
-getopt(int nargc, char *const *nargv, const char *options)
+openbsd_getopt(int nargc, char *const *nargv, const char *options)
 {
   /*
-   * We don't pass FLAG_PERMUTE to getopt_internal() since
+   * We don't pass FLAG_PERMUTE to openbsd_getopt_internal() since
    * the BSD getopt(3) (unlike GNU) has never done this.
    *
-   * Furthermore, since many privileged programs call getopt()
+   * Furthermore, since many privileged programs call openbsd_getopt()
    * before dropping privileges it makes sense to keep things
    * as simple (and bug-free) as possible.
    */
-  return getopt_internal(nargc, nargv, options, NULL, NULL, 0);
+  return openbsd_getopt_internal(nargc, nargv, options, NULL, NULL, 0);
 }
 
 /*
- * getopt_long --
+ * openbsd_getopt_long --
  *      Parse argc/argv argument vector.
  */
 int
-getopt_long(int nargc, char *const *nargv, const char *options,
-            const struct option *long_options, int *idx)
+openbsd_getopt_long(int nargc, char *const *nargv, const char *options,
+                    const struct option *long_options, int *idx)
 {
-  return getopt_internal(
+  return openbsd_getopt_internal(
     nargc,
     nargv,
     options,
@@ -654,10 +656,10 @@ getopt_long(int nargc, char *const *nargv, const char *options,
  *      Parse argc/argv argument vector.
  */
 int
-getopt_long_only(int nargc, char *const *nargv, const char *options,
-                 const struct option *long_options, int *idx)
+openbsd_getopt_long_only(int nargc, char *const *nargv, const char *options,
+                         const struct option *long_options, int *idx)
 {
-  return getopt_internal(
+  return openbsd_getopt_internal(
     nargc,
     nargv,
     options,
