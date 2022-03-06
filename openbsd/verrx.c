@@ -49,7 +49,7 @@
 void
 openbsd_verrx(int eval, const char *fmt, va_list ap)
 {
-  (void)fprintf(stderr, "%s: ", __progname);
+  (void)fprintf(stderr, "%s: ", bsd_getprogname());
   if (fmt != NULL)
     (void)vfprintf(stderr, fmt, ap);
   (void)fprintf(stderr, "\n");
