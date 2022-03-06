@@ -38,7 +38,7 @@
 
 #include "errc.h"
 
-#include <err.h>
+#include <bsd_err.h>
 #include <stdarg.h>
 
 #undef open
