@@ -58,6 +58,7 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
 #include "setmode.h"
 #include "minpwcache.h"
 #include "pathnames.h"
