@@ -70,13 +70,8 @@
 #endif /* ifdef DEBUG */
 
 #if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) )
-# if ( defined(_AIX) && \
-     ( defined(_POWER)  || defined(__powerpc__) || \
-       defined(__PPC__) || defined(_ARCH_PPC) ) )
-#  define BIG_ENDIAN 4321 /* Assume AIX/PPC is always big-endian */
-# endif /* if ( defined(_AIX) &&
-              ( defined(_POWER)  || defined(__powerpc__) ||
-                defined(__PPC__) || defined(_ARCH_PPC) ) ) */
+# define BIG_ENDIAN     4321
+# define LITTLE_ENDIAN  1234
 #endif /* if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) ) */
 
 static int byteorder(void);
