@@ -48,7 +48,7 @@
 
 #if defined(__FreeBSD__) || defined(__OpenBSD__) \
        || ( defined(__APPLE__ ) && defined(__MACH__) ) \
-       || ( defined(__CYGWIN__) || defined(_AIX) )
+       || ( defined(__CYGWIN__) ) || defined(_AIX)
 # include <unistd.h>
 #else
 
@@ -62,7 +62,9 @@ issetugid(void)
   int rv = 0;
 
   errno = 0;
+#ifndef _AIX
   rv = getauxval(AT_SECURE) != 0;
+#endif /* ifndef _AIX */
   if (errno)
     {
       errno = 0;
@@ -73,4 +75,4 @@ issetugid(void)
 }
 #endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
                 || ( defined(__APPLE__) && defined(__MACH__) )
-                || ( defined(__CYGWIN__) || defined(_AIX) ) */
+                || ( defined(__CYGWIN__) ) || defined(_AIX) */
