@@ -13,13 +13,6 @@
 #include "../include/compat.h"
 
 #include <sys/queue.h>
-
-#ifdef _AIX
-# define _POSIX_SOURCE
-# define _XOPEN_SOURCE 700
-# undef _ALL_SOURCE
-#endif /* ifdef _AIX */
-
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/wait.h>
@@ -31,6 +24,8 @@
  */
 #include <sys/file.h>
 
+#include <stddef.h>
+#include <stdint.h>
 #include <bitstring.h>
 #include <dirent.h>
 #include <errno.h>
