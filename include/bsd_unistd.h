@@ -57,6 +57,7 @@ void    *setmode(const char *);
 int      setresgid(gid_t, gid_t, gid_t);
 int      setresuid(uid_t, uid_t, uid_t);
 int      openbsd_pledge(const char *, const char *);
+int      ooenbsd_getopt(int, char * const *, const char *);
 
 #  if ( defined(__MSYS__) || defined(__CYGWIN__) )
 #   ifndef _GETOPT_DEFINED_

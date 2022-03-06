@@ -36,6 +36,8 @@
 
 #include "../include/compat.h"
 
+#include "errc.h"
+
 #include <bsd_err.h>
 #include <stdarg.h>
 
