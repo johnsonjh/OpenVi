@@ -10,6 +10,8 @@
  * See the LICENSE.md file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
@@ -21,13 +23,17 @@
 #include <limits.h>
 #include <paths.h>
 #include <stdio.h>
+#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
 #include "common.h"
 #include "../vi/vi.h"
 #include "pathnames.h"
+
+#undef open
 
 static int               opts_abbcmp(const void *, const void *);
 static int               opts_cmp(const void *, const void *);

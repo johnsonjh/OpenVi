@@ -45,13 +45,17 @@
 
 # undef open
 
-void openbsd_err(int eval, const char *fmt, ...);
-void openbsd_verr(int eval, const char *fmt, va_list ap);
-void openbsd_errx(int eval, const char *fmt, ...);
-void openbsd_verrx(int eval, const char *fmt, va_list ap);
 void openbsd_errc(int eval, int code, const char *fmt, ...);
+void openbsd_err(int eval, const char *fmt, ...);
+void openbsd_errx(int eval, const char *fmt, ...);
 void openbsd_verrc(int eval, int code, const char *fmt, va_list ap);
-void openbsd_warnc(int code, const char *fmt, ...);
+void openbsd_verr(int eval, const char *fmt, va_list ap);
+void openbsd_verrx(int eval, const char *fmt, va_list ap);
 void openbsd_vwarnc(int code, const char *fmt, va_list ap);
+void openbsd_vwarn(const char *fmt, va_list ap);
+void openbsd_vwarnx(const char *fmt, va_list ap);
+void openbsd_warnc(int code, const char *fmt, ...);
+void openbsd_warn(const char *fmt, ...);
+void openbsd_warnx(const char *fmt, ...);
 
 #endif /* ifndef _ERRC_H */

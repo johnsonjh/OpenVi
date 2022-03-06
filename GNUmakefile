@@ -138,8 +138,12 @@ XSRC =	openbsd/err.c           \
 		openbsd/verr.c          \
 		openbsd/verrc.c         \
 		openbsd/verrx.c         \
+		openbsd/vwarn.c         \
 		openbsd/vwarnc.c        \
+		openbsd/vwarnx.c        \
+		openbsd/warn.c          \
 		openbsd/warnc.c         \
+		openbsd/warnx.c         \
 		xinstall/xinstall.c
 
 SRCS =	cl/cl_funcs.c           \
@@ -253,6 +257,10 @@ SRCS =	cl/cl_funcs.c           \
 		openbsd/strtonum.c      \
 		openbsd/verr.c          \
 		openbsd/verrx.c         \
+		openbsd/vwarn.c         \
+		openbsd/vwarnx.c        \
+		openbsd/warn.c          \
+		openbsd/warnx.c         \
 		regex/regcomp.c         \
 		regex/regerror.c        \
 		regex/regexec.c         \

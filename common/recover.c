@@ -32,11 +32,13 @@
 #include <paths.h>
 #include <pwd.h>
 #include <stdio.h>
+#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <time.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
 #include "common.h"
 #include "pathnames.h"
 

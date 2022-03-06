@@ -54,6 +54,7 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
@@ -732,7 +733,7 @@ strip(char *to_name)
 
     case 0:
       execl(path_strip, "strip", "--", to_name, (char *)NULL);
-      warn("%s", path_strip);
+      openbsd_warn("%s", path_strip);
       _exit(1);
 
     default:
@@ -795,7 +796,7 @@ install_dir(char *path, int mode)
   if ((( gid != (gid_t)-1 || uid != (uid_t)-1 ) && chown(path, uid, gid))
       || chmod(path, mode))
     {
-      warn("%s", path);
+      openbsd_warn("%s", path);
     }
   else
     {
@@ -947,7 +948,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
                */
               if (lseek(fd, (off_t)wcnt, SEEK_CUR) == -1)
                 {
-                  warn("lseek");
+                  openbsd_warn("lseek");
                   return -1;
                 }
 
@@ -966,7 +967,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
        */
       if (write(fd, st, wcnt) != wcnt)
         {
-          warn("write");
+          openbsd_warn("write");
           return -1;
         }
 
@@ -1000,13 +1001,13 @@ file_flush(int fd, int isempt)
    */
   if (lseek(fd, (off_t)-1, SEEK_CUR) == -1)
     {
-      warn("Failed seek on file");
+      openbsd_warn("Failed seek on file");
       return;
     }
 
   if (write(fd, blnk, 1) == -1)
     {
-      warn("Failed write to file");
+      openbsd_warn("Failed write to file");
     }
 
   return;

@@ -28,6 +28,8 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
+
 #include "common.h"
 #include "../vi/vi.h"
 
@@ -161,7 +163,7 @@ editor(GS *gp, int argc, char *argv[])
                          * We should support multiple -c options.
                          */
                         if (gp->c_option != NULL) {
-                                warnx("only one -c command may be specified.");
+                                openbsd_warnx("only one -c command may be specified.");
                                 return (1);
                         }
                         gp->c_option = optarg;
@@ -176,7 +178,7 @@ editor(GS *gp, int argc, char *argv[])
                                 attach(gp);
                                 break;
                         default:
-                                warnx("-D requires s or w argument.");
+                                openbsd_warnx("-D requires s or w argument.");
                                 return (1);
                         }
                         break;
@@ -193,7 +195,7 @@ editor(GS *gp, int argc, char *argv[])
                         break;
                 case 'r':               /* Recover. */
                         if (flagchk == 't') {
-                                warnx(
+                                openbsd_warnx(
                                     "only one of -r and -t may be specified.");
                                 return (1);
                         }
@@ -208,7 +210,7 @@ editor(GS *gp, int argc, char *argv[])
 #ifdef DEBUG
                 case 'T':               /* Trace. */
                         if ((gp->tracefp = fopen(optarg, "w")) == NULL) {
-                                warn("%s", optarg);
+                                openbsd_warn("%s", optarg);
                                 goto err;
                         }
                         (void)fprintf(gp->tracefp,
@@ -218,12 +220,12 @@ editor(GS *gp, int argc, char *argv[])
 #endif /* ifdef DEBUG */
                 case 't':               /* Tag. */
                         if (flagchk == 'r') {
-                                warnx(
+                                openbsd_warnx(
                                     "only one of -r and -t may be specified.");
                                 return (1);
                         }
                         if (flagchk == 't') {
-                                warnx("only one tag file may be specified.");
+                                openbsd_warnx("only one tag file may be specified.");
                                 return (1);
                         }
                         flagchk = 't';
@@ -260,7 +262,7 @@ editor(GS *gp, int argc, char *argv[])
          * If not reading from a terminal, it's like -s was specified.
          */
         if (silent && !LF_ISSET(SC_EX)) {
-                warnx("-s option is only applicable to ex.");
+                openbsd_warnx("-s option is only applicable to ex.");
                 goto err;
         }
         if (LF_ISSET(SC_EX) && F_ISSET(gp, G_SCRIPTED))
@@ -382,7 +384,7 @@ editor(GS *gp, int argc, char *argv[])
                         /* Cheat -- we know we have an extra argv slot. */
                         l = strlen(sp->frp->name) + 1;
                         if ((*--argv = malloc(l)) == NULL) {
-                                warn(NULL);
+                                openbsd_warn(NULL);
                                 goto err;
                         }
                         (void)openbsd_strlcpy(*argv, sp->frp->name, l);
@@ -586,7 +588,7 @@ v_obsolete(char *argv[])
                         if (argv[0][1] == '\0') {
                                 argv[0] = strdup("-s");
                                 if (argv[0] == NULL) {
-nomem:                                  warn(NULL);
+nomem:                                  openbsd_warn(NULL);
                                         return (1);
                                 }
                         } else
@@ -606,7 +608,7 @@ attach(GS *gp)
         char ch;
 
         if ((fd = open(_PATH_TTY, O_RDONLY)) < 0) {
-                warn("%s", _PATH_TTY);
+                openbsd_warn("%s", _PATH_TTY);
                 return;
         }
 
