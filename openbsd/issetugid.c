@@ -75,4 +75,4 @@ issetugid(void)
 }
 #endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
                 || ( defined(__APPLE__) && defined(__MACH__) )
-                || ( defined(__CYGWIN__) )
+                || ( defined(__CYGWIN__) ) */
