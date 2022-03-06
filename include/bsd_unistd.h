@@ -33,14 +33,15 @@
  *      @(#)unistd.h    5.13 (Berkeley) 6/17/91
  */
 
-#ifdef __OpenBSD__
-# include <sys/types.h>
-int      openbsd_pledge(const char *, const char *);
-int      ooenbsd_getopt(int, char * const *, const char *);
-#else
+#ifndef _COMPAT_UNISTD_H_
+# define _COMPAT_UNISTD_H_
 
-# ifndef _COMPAT_UNISTD_H_
-#  define _COMPAT_UNISTD_H_
+int      openbsd_pledge(const char *, const char *);
+int      openbsd_getopt(int, char * const *, const char *);
+
+# ifdef __OpenBSD__
+#  include <sys/types.h>
+# else
 
 #  include <sys/types.h>
 

@@ -62,9 +62,9 @@ issetugid(void)
   int rv = 0;
 
   errno = 0;
-#ifndef _AIX
+# ifndef _AIX
   rv = getauxval(AT_SECURE) != 0;
-#endif /* ifndef _AIX */
+# endif /* ifndef _AIX */
   if (errno)
     {
       errno = 0;
