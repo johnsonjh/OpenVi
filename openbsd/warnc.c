@@ -35,11 +35,9 @@
  */
 
 #include "../include/compat.h"
-#include "bsd_err.h"
 
+#include <bsd_err.h>
 #include <stdarg.h>
-
-#include "xinstall.h"
 
 #undef open
 

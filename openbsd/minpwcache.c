@@ -178,7 +178,7 @@ grptb_start(void)
  *      0 if the user name is found (filling in uid), -1 otherwise
  */
 int
-uid_from_user(const char *name, uid_t *uid)
+openbsd_uid_from_user(const char *name, uid_t *uid)
 {
   struct passwd pwstore, *pw = NULL;
   char pwbuf[_PW_BUF_LEN];
@@ -254,7 +254,7 @@ uid_from_user(const char *name, uid_t *uid)
  *      0 if the group name is found (filling in gid), -1 otherwise
  */
 int
-gid_from_group(const char *name, gid_t *gid)
+openbsd_gid_from_group(const char *name, gid_t *gid)
 {
   struct group grstore, *gr = NULL;
   char grbuf[_GR_BUF_LEN];

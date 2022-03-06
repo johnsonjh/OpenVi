@@ -40,17 +40,18 @@
 
 #  include <stdarg.h> /* for va_list */
 
-void    errc(int, int, const char *, ...)
-                        __attribute__((__format__ (printf, 3, 4)));
-void    verrc(int, int, const char *, va_list)
-                        __attribute__((__format__ (printf, 3, 0)));
-
-void            warnc(int, const char *, ...)
-                        __attribute__((__format__ (printf, 2, 3)));
-void            vwarnc(int, const char *, va_list)
-                        __attribute__((__format__ (printf, 2, 0)));
+void openbsd_errc(int, int, const char *, ...)
+                  __attribute__((__format__ (printf, 3, 4)));
+void openbsd_verrc(int, int, const char *, va_list)
+                   __attribute__((__format__ (printf, 3, 0)));
+void openbsd_warnc(int, const char *, ...)
+                   __attribute__((__format__ (printf, 2, 3)));
+void openbsd_vwarnc(int, const char *, va_list)
+                    __attribute__((__format__ (printf, 2, 0)));
 # endif /* !_COMPAT_ERR_H_ */
 
 #endif /* ifndef __OpenBSD__ */
 
-#include_next <err.h>
+#ifndef _AIX
+# include_next <err.h>
+#endif /* ifndef _AIX */

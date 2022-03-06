@@ -52,12 +52,16 @@
 #include <limits.h>
 #include <paths.h>
 #include <pwd.h>
+#include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
-#include "xinstall.h"
+#include "setmode.h"
+#include "minpwcache.h"
+#include "pathnames.h"
 
 #ifndef EFTYPE
 # define EFTYPE EINVAL
@@ -197,7 +201,7 @@ main(int argc, char *argv[])
     }
 
   /* get group and owner id's */
-  if (group != NULL && gid_from_group(group, &gid) == -1)
+  if (group != NULL && openbsd_gid_from_group(group, &gid) == -1)
     {
       gid = strtonum(group, 0, GID_MAX, &errstr);
       if (errstr != NULL)
@@ -206,7 +210,7 @@ main(int argc, char *argv[])
         }
     }
 
-  if (owner != NULL && uid_from_user(owner, &uid) == -1)
+  if (owner != NULL && openbsd_uid_from_user(owner, &uid) == -1)
     {
       uid = strtonum(owner, 0, UID_MAX, &errstr);
       if (errstr != NULL)
