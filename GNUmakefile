@@ -33,7 +33,7 @@ LTOC         = -flto
 # Default libraries to link
 UNAME_S := $(shell $(UNAME) -s 2> /dev/null)
 ifndef LIBS
-   ifeq ($(UNAME_S),AIX)
+   ifneq ($(UNAME_S),AIX)
       LINKLIBS ?= -lncurses
    else
       LINKLIBS ?= -lutil -lncurses
