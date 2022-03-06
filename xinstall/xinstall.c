@@ -38,6 +38,13 @@
 #include "../include/compat.h"
 
 #include <sys/mman.h>
+
+#ifdef _AIX
+# define _POSIX_SOURCE
+# define _XOPEN_SOURCE 700
+# undef _ALL_SOURCE
+#endif /* ifdef _AIX */
+
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
