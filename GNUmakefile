@@ -30,6 +30,16 @@ LTOC         = -flto
 
 ###############################################################################
 
+TR          ?= tr
+UNAME       ?= uname
+
+ifndef $(OS)
+    OS=$(shell $(UNAME) -s 2> /dev/null | \
+        $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
+endif
+
+###############################################################################
+
 # Default libraries to link
 ifndef LIBS
    ifneq ($(OS),AIX)
@@ -99,17 +109,8 @@ SLEEP       ?= sleep
 STRIP       ?= strip
 SSTRIP      ?= sstrip
 TEST        ?= test
-TR          ?= tr
 TRUE        ?= true
-UNAME       ?= uname
 UPX         ?= upx
-
-###############################################################################
-
-ifndef $(OS)
-    OS=$(shell $(UNAME) -s 2> /dev/null | \
-        $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
-endif
 
 ###############################################################################
 
