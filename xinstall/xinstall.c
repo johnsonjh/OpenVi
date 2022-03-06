@@ -290,7 +290,7 @@ main(int argc, char *argv[])
 
       if (to_sb.st_dev == from_sb.st_dev && to_sb.st_ino == from_sb.st_ino)
         {
-          errx(1, "'%s' and '%s' are the same file", *argv, to_name);
+          openbsd_errx(1, "'%s' and '%s' are the same file", *argv, to_name);
         }
     }
 
@@ -320,7 +320,7 @@ install(char *from_name, char *to_name, u_int flags)
     {
       if (stat(from_name, &from_sb))
         {
-          err(1, "%s", from_name);
+          openbsd_err(1, "%s", from_name);
         }
 
       if (!S_ISREG(from_sb.st_mode))
@@ -362,14 +362,14 @@ install(char *from_name, char *to_name, u_int flags)
     {
       if (( from_fd = open(from_name, O_RDONLY)) == -1)
         {
-          err(1, "%s", from_name);
+          openbsd_err(1, "%s", from_name);
         }
     }
 
   to_fd = create_tempfile(to_name, tempfile, sizeof ( tempfile ));
   if (to_fd < 0)
     {
-      err(1, "%s", tempfile);
+      openbsd_err(1, "%s", tempfile);
     }
 
   if (!devnull)
@@ -389,7 +389,7 @@ install(char *from_name, char *to_name, u_int flags)
       close(to_fd);
       if (( to_fd = open(tempfile, O_RDONLY)) == -1)
         {
-          err(1, "stripping %s", to_name);
+          openbsd_err(1, "stripping %s", to_name);
         }
     }
 
@@ -404,7 +404,7 @@ install(char *from_name, char *to_name, u_int flags)
       /* Re-open to_fd using the real target name. */
       if (( to_fd = open(to_name, O_RDONLY)) == -1)
         {
-          err(1, "%s", to_name);
+          openbsd_err(1, "%s", to_name);
         }
 
       if (fstat(temp_fd, &temp_sb))
@@ -466,7 +466,7 @@ install(char *from_name, char *to_name, u_int flags)
           (void)unlink(target_name);
         }
 
-      errx(1, "%s: chown/chgrp: %s", target_name, strerror(serrno));
+      openbsd_errx(1, "%s: chown/chgrp: %s", target_name, strerror(serrno));
     }
 
   if (!dounpriv && fchmod(to_fd, mode))
@@ -477,7 +477,7 @@ install(char *from_name, char *to_name, u_int flags)
           (void)unlink(target_name);
         }
 
-      errx(1, "%s: chmod: %s", target_name, strerror(serrno));
+      openbsd_errx(1, "%s: chmod: %s", target_name, strerror(serrno));
     }
 
   if (flags & USEFSYNC)
@@ -512,7 +512,8 @@ install(char *from_name, char *to_name, u_int flags)
             {
               serrno = errno;
               unlink(tempfile);
-              errx(1, "rename: '%s' to '%s': %s", to_name, backup, strerror(serrno));
+              openbsd_errx(1, "rename: '%s' to '%s': %s",
+                           to_name, backup, strerror(serrno));
             }
           if (berr != ENOENT && doverbose && (!bdir && !S_ISDIR(bdst.st_mode)))
             fprintf(stdout, "%s: created backup '%s' -> '%s'\n",
@@ -523,7 +524,8 @@ install(char *from_name, char *to_name, u_int flags)
         {
           serrno = errno;
           unlink(tempfile);
-          errx(1, "rename: '%s' to '%s': %s", tempfile, to_name, strerror(serrno));
+          openbsd_errx(1, "rename: '%s' to '%s': %s",
+                       tempfile, to_name, strerror(serrno));
         }
     }
   if (doverbose)
@@ -552,12 +554,12 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
   /* Rewind file descriptors. */
   if (lseek(from_fd, (off_t)0, SEEK_SET) == (off_t)-1)
     {
-      err(1, "lseek: %s", from_name);
+      openbsd_err(1, "lseek: %s", from_name);
     }
 
   if (lseek(to_fd, (off_t)0, SEEK_SET) == (off_t)-1)
     {
-      err(1, "lseek: %s", to_name);
+      openbsd_err(1, "lseek: %s", to_name);
     }
 
   /*
@@ -585,7 +587,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
         {
           serrno = errno;
           (void)unlink(to_name);
-          errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
+          openbsd_errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
         }
 
       (void)munmap(p, (size_t)size);
@@ -625,7 +627,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
             {
               serrno = errno;
               (void)unlink(to_name);
-              errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
+              openbsd_errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
             }
         }
       if (sparse)
@@ -679,13 +681,13 @@ compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
       if (( p1 = mmap(NULL, length, PROT_READ, MAP_PRIVATE, from_fd, from_off))
           == MAP_FAILED)
         {
-          err(1, "%s", from_name);
+          openbsd_err(1, "%s", from_name);
         }
 
       if (( p2 = mmap(NULL, length, PROT_READ, MAP_PRIVATE, to_fd, to_off))
           == MAP_FAILED)
         {
-          err(1, "%s", to_name);
+          openbsd_err(1, "%s", to_name);
         }
 
 #ifdef MADV_SEQUENTIAL
