@@ -35,6 +35,8 @@
 
 #ifdef __OpenBSD__
 # include <sys/types.h>
+int      openbsd_pledge(const char *, const char *);
+int      ooenbsd_getopt(int, char * const *, const char *);
 #else
 
 # ifndef _COMPAT_UNISTD_H_
@@ -56,8 +58,6 @@ int      getresuid(uid_t *, uid_t *, uid_t *);
 void    *setmode(const char *);
 int      setresgid(gid_t, gid_t, gid_t);
 int      setresuid(uid_t, uid_t, uid_t);
-int      openbsd_pledge(const char *, const char *);
-int      ooenbsd_getopt(int, char * const *, const char *);
 
 #  if ( defined(__MSYS__) || defined(__CYGWIN__) )
 #   ifndef _GETOPT_DEFINED_
