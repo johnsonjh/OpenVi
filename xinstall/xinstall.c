@@ -140,7 +140,7 @@ main(int argc, char *argv[])
         case 'm':
           if (!( set = openbsd_setmode(optarg)))
             {
-              errx(1, "%s: invalid file mode", optarg);
+              openbsd_errx(1, "%s: invalid file mode", optarg);
             }
 
           mode = openbsd_getmode(set, 0);
@@ -276,7 +276,7 @@ main(int argc, char *argv[])
     {
       if (stat(*argv, &from_sb))
         {
-          err(1, "%s", *argv);
+          openbsd_err(1, "%s", *argv);
         }
 
       if (!S_ISREG(to_sb.st_mode))

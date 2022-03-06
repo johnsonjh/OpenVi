@@ -123,7 +123,9 @@ endif # DEBUG
 
 ###############################################################################
 
-XSRC =	openbsd/errc.c          \
+XSRC =	openbsd/err.c           \
+		openbsd/errc.c          \
+		openbsd/errx.c          \
 		openbsd/getopt_long.c   \
 		openbsd/getprogname.c   \
 		openbsd/issetugid.c     \
@@ -133,7 +135,9 @@ XSRC =	openbsd/errc.c          \
 		openbsd/strlcat.c       \
 		openbsd/strlcpy.c       \
 		openbsd/strtonum.c      \
+		openbsd/verr.c          \
 		openbsd/verrc.c         \
+		openbsd/verrx.c         \
 		openbsd/vwarnc.c        \
 		openbsd/warnc.c         \
 		xinstall/xinstall.c
@@ -237,6 +241,8 @@ SRCS =	cl/cl_funcs.c           \
 		ex/ex_yank.c            \
 		ex/ex_z.c               \
 		openbsd/basename.c      \
+		openbsd/err.c           \
+		openbsd/errx.c          \
 		openbsd/getopt_long.c   \
 		openbsd/getprogname.c   \
 		openbsd/issetugid.c     \
@@ -245,6 +251,8 @@ SRCS =	cl/cl_funcs.c           \
 		openbsd/reallocarray.c  \
 		openbsd/strlcpy.c       \
 		openbsd/strtonum.c      \
+		openbsd/verr.c          \
+		openbsd/verrx.c         \
 		regex/regcomp.c         \
 		regex/regerror.c        \
 		regex/regexec.c         \

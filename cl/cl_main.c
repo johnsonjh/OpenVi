@@ -32,6 +32,8 @@
 #endif /* #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #include <bsd_unistd.h>
 
+#include "errc.h"
+
 #include "../common/common.h"
 #include "cl.h"
 
@@ -228,9 +230,9 @@ term_init(char *ttype)
         }
         switch (err) {
         case -1:
-                errx(1, "No terminal database found");
+                openbsd_errx(1, "No terminal database found");
         case 0:
-                errx(1, "%s: unknown terminal type", ttype);
+                openbsd_errx(1, "%s: unknown terminal type", ttype);
         }
 }
 
