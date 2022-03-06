@@ -88,7 +88,7 @@ main(int argc, char *argv[])
         /* Add the terminal type to the global structure. */
         if ((OG_D_STR(gp, GO_TERM) =
             OG_STR(gp, GO_TERM) = strdup(ttype)) == NULL)
-                err(1, NULL);
+                openbsd_err(1, NULL);
 
         /* Figure out how big the screen is. */
         if (cl_ssize(NULL, 0, &rows, &cols, NULL))
@@ -157,7 +157,7 @@ gs_init(void)
 
         /* Allocate the global structure. */
         if ((gp = calloc(1, sizeof(GS))) == NULL)
-                err(1, NULL);
+                openbsd_err(1, NULL);
 
         return (gp);
 }
@@ -174,7 +174,7 @@ cl_init(GS *gp)
 
         /* Allocate the CL private structure. */
         if ((clp = calloc(1, sizeof(CL_PRIVATE))) == NULL)
-                err(1, NULL);
+                openbsd_err(1, NULL);
         gp->cl_private = clp;
 
         /*
@@ -197,7 +197,7 @@ cl_init(GS *gp)
                         goto tcfail;
         } else if ((fd = open(_PATH_TTY, O_RDONLY)) != -1) {
                 if (tcgetattr(fd, &clp->orig) == -1)
-tcfail:                 err(1, "tcgetattr");
+tcfail:                 openbsd_err(1, "tcgetattr");
                 (void)close(fd);
         }
 
@@ -278,7 +278,7 @@ sig_init(GS *gp, SCR *sp)
                     setsig(SIGTERM,  &clp->oact[INDX_TERM],  h_term) ||
                     setsig(SIGWINCH, &clp->oact[INDX_WINCH], h_winch)
                     )
-                        err(1, NULL);
+                        openbsd_err(1, NULL);
         } else
                 if (setsig(SIGHUP,   NULL, h_term) ||
                     setsig(SIGINT,   NULL, h_int)  ||
