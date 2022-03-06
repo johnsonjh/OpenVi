@@ -257,8 +257,10 @@ main(int argc, char *argv[])
        * the target file. If more restrictive permissions are required then
        * '-d -m' ought to be used instead.
        */
+#ifndef _AIX
       if (dest == odst)
         if (strcmp(dest, "."))
+#endif /* ifndef _AIX */
           install_dir(dest, 0755);
     }
 
