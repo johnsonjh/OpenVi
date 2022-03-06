@@ -1,8 +1,8 @@
-/*	$OpenBSD: warnx.c,v 1.10 2015/08/31 02:53:57 guenther Exp $ */
+/*         $OpenBSD: warnx.c,v 1.10 2015/08/31 02:53:57 guenther Exp $       */
 
 /*-
  * Copyright (c) 1993
- *	The Regents of the University of California.
+ *         The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
@@ -47,9 +47,9 @@
 void
 openbsd_warnx(const char *fmt, ...)
 {
-	va_list ap;
+  va_list ap;
 
-	va_start(ap, fmt);
-	openbsd_vwarnx(fmt, ap);
-	va_end(ap);
+  va_start(ap, fmt);
+  openbsd_vwarnx(fmt, ap);
+  va_end(ap);
 }

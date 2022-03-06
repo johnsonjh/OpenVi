@@ -207,7 +207,7 @@ main(int argc, char *argv[])
       gid = strtonum(group, 0, GID_MAX, &errstr);
       if (errstr != NULL)
         {
-          errx(1, "unknown group '%s'", group);
+          openbsd_errx(1, "unknown group '%s'", group);
         }
     }
 
@@ -216,7 +216,7 @@ main(int argc, char *argv[])
       uid = strtonum(owner, 0, UID_MAX, &errstr);
       if (errstr != NULL)
         {
-          errx(1, "unknown user '%s'", owner);
+          openbsd_errx(1, "unknown user '%s'", owner);
         }
     }
 
@@ -242,7 +242,7 @@ main(int argc, char *argv[])
       char *dest = dirname(odst);
       if (dest == NULL)
         {
-          errx(1, "cannot determine dirname");
+          openbsd_errx(1, "cannot determine dirname");
         }
 
       /*
@@ -270,7 +270,10 @@ main(int argc, char *argv[])
   /* can't do file1 file2 directory/file */
   if (argc != 2)
     {
-      errx(1, "Invalid arguments for target '%s'; verify specified options.", argv[argc - 1]);
+      openbsd_errx(
+        1,
+        "Invalid arguments for target '%s'; verify specified options.",
+        argv[argc - 1]);
     }
 
   if (!no_target)

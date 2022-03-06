@@ -1,4 +1,4 @@
-/*	$OpenBSD: err.c,v 1.12 2015/08/31 02:53:57 guenther Exp $ */
+/*        $OpenBSD: err.c,v 1.12 2015/08/31 02:53:57 guenther Exp $          */
 
 /*-
  * Copyright (c) 1993 The Regents of the University of California.
@@ -46,9 +46,9 @@
 void
 openbsd_err(int eval, const char *fmt, ...)
 {
-	va_list ap;
+  va_list ap;
 
-	va_start(ap, fmt);
-	openbsd_verr(eval, fmt, ap);
-	va_end(ap);
+  va_start(ap, fmt);
+  openbsd_verr(eval, fmt, ap);
+  va_end(ap);
 }

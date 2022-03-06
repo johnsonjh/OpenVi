@@ -1,4 +1,4 @@
-/*	$OpenBSD: errx.c,v 1.11 2015/08/31 02:53:57 guenther Exp $ */
+/*         $OpenBSD: errx.c,v 1.11 2015/08/31 02:53:57 guenther Exp $ */
 
 /*-
  * Copyright (c) 1993 The Regents of the University of California.
@@ -46,9 +46,9 @@
 void
 openbsd_errx(int eval, const char *fmt, ...)
 {
-	va_list ap;
+  va_list ap;
 
-	va_start(ap, fmt);
-	openbsd_verrx(eval, fmt, ap);
-	va_end(ap);
+  va_start(ap, fmt);
+  openbsd_verrx(eval, fmt, ap);
+  va_end(ap);
 }

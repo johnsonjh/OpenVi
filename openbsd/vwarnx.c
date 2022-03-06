@@ -1,8 +1,8 @@
-/*	$OpenBSD: vwarnx.c,v 1.11 2016/03/13 18:34:20 guenther Exp $ */
+/*         $OpenBSD: vwarnx.c,v 1.11 2016/03/13 18:34:20 guenther Exp $      */
 
 /*-
  * Copyright (c) 1993
- *	The Regents of the University of California.
+ *         The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
@@ -49,8 +49,8 @@
 void
 openbsd_vwarnx(const char *fmt, va_list ap)
 {
-	(void)fprintf(stderr, "%s: ", __progname);
-	if (fmt != NULL)
-		(void)vfprintf(stderr, fmt, ap);
-	(void)fprintf(stderr, "\n");
+  (void)fprintf(stderr, "%s: ", __progname);
+  if (fmt != NULL)
+    (void)vfprintf(stderr, fmt, ap);
+  (void)fprintf(stderr, "\n");
 }

@@ -559,8 +559,8 @@ v_obsolete(char *argv[])
 
         /*
          * Translate old style arguments into something openbsd_getopt
-		 * will like. Make sure it's not text space memory, because
-		 * ex modifies the strings.
+         * will like. Make sure it's not text space memory, because
+         * ex modifies the strings.
          *      Change "+" into "-c$".
          *      Change "+<anything else>" into "-c<anything else>".
          *      Change "-" into "-s"
