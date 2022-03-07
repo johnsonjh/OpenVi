@@ -44,7 +44,7 @@ endif
 CURSESLIB ?= -lncurses
 ifndef LIBS
    ifeq ($(OS),aix)
-      LINKLIBS ?= $(CURSESLIB)
+      LINKLIBS ?= -lbsd $(CURSESLIB)
    else
       LINKLIBS ?= -lutil $(CURSESLIB)
    endif # aix

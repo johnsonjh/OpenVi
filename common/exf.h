@@ -11,7 +11,16 @@
  *
  *      @(#)exf.h       10.7 (Berkeley) 7/9/96
  */
-                                        /* Undo direction. */
+
+#ifdef _AIX
+# include "../include/compat.h"
+# include <sys/queue.h>
+# include <sys/stat.h>
+# include <sys/time.h>
+# include <sys/wait.h>
+# undef open
+#endif /* ifdef _AIX */
+
 /*
  * exf --
  *      The file structure.
