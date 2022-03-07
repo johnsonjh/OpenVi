@@ -746,7 +746,7 @@ strip(char *to_name)
       /* FALLTHROUGH */
 
     case 0:
-      execl(path_strip, "strip", "--", to_name, (char *)NULL);
+      execl(path_strip, "strip", to_name, (char *)NULL);
       openbsd_warn("%s", path_strip);
       _exit(1);
 
