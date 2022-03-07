@@ -734,8 +734,8 @@ sscr_check(SCR *sp)
 /*
  * System V pty support
  */
-static int ptys_open_P((int, char *));
-static int ptym_open_P((char *));
+static int ptys_open _P((int, char *));
+static int ptym_open _P((char *));
 
 static int
 sscr_pty(int *amaster, int *aslave, char *name, struct termios *termp, void *winp)
