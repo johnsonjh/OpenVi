@@ -136,21 +136,21 @@ view.
 
 - The following operating systems are fully supported and regularly tested
   using ix86/AMD64, ARM/AArch64, m68k, MIPS, POWER, and RISC-V processors:
-  - **GNU**/**Linux** distributions (*glibc*, *musl*)
   - *IBM* **AIX** 7.2+
+  - *Apple* **Darwin** (**macOS** / **Mac OS X**) (*ARM64*, *Intel*, *PowerPC*)
   - **FreeBSD** 12.3+
+  - **GNU**/**Linux** distributions (*glibc*, *musl*)
   - **OpenBSD** 6.9+
-  - *Apple* **Darwin** (**macOS** / **Mac OS X**) (*PowerPC*, *Intel*, *ARM64*)
   - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
 
 - The following compilers are fully supported and regularly tested:
-  - *LLVM* **Clang** (*BSD*, *Linux*, *Darwin*, *Windows*) V6+
-  - *GNU* **GCC** (*AIX*, *BSD*, *Linux*, *Darwin*, *Windows*) V4.6+
+  - *LLVM* **Clang** (*BSD*, *Darwin*, *Linux*, *Windows*) V6+
+  - *GNU* **GCC** (*AIX*, *BSD*, *Darwin*, *Linux*, *Windows*) V4.6+
   - *IBM* **Advance Toolchain** (*Linux on POWER*) V14.0+
-  - *IBM* **XL C**/**C++ Compiler** (*AIX*, *Linux*) V16.1+
   - *IBM* **Open XL C**/**C++ Compiler** (*AIX*) V17.1+ 
-  - *Intel* **C Compiler Classic** (*Linux*, *Darwin*) V19.1+
+  - *IBM* **XL C**/**C++ Compiler** (*AIX*, *Linux*) V16.1+
   - *Intel* **oneAPI DPC++**/**C++ Compiler** (*Linux*) V2021+
+  - *Intel* **C Compiler Classic** (*Darwin*, *Linux*) V19.1+
   - *Oracle* **Developer Studio** (*Linux*) V12.6+
 
 ##### Unsupported platforms
@@ -159,8 +159,8 @@ view.
   planned** for a future release.
   - **Haiku** Walter
   - **NetBSD** 7+
-  - *Oracle* **Solaris** 10/11+
   - *illumos* **OpenIndiana** Hipster
+  - *Oracle* **Solaris** 10/11+
 
 User contributions to enhance platform support are welcomed.
 
