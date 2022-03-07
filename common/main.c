@@ -51,8 +51,8 @@ enum pmode pmode;
 int
 editor(GS *gp, int argc, char *argv[])
 {
-        extern int optind;
-        extern char *optarg;
+        extern int openbsd_optind;
+        extern char *openbsd_optarg;
         const char *p;
         EVENT ev;
         FREF *frp;
@@ -166,11 +166,11 @@ editor(GS *gp, int argc, char *argv[])
                                 openbsd_warnx("only one -c command may be specified.");
                                 return (1);
                         }
-                        gp->c_option = optarg;
+                        gp->c_option = openbsd_optarg;
                         break;
 #ifdef DEBUG
                 case 'D':
-                        switch (optarg[0]) {
+                        switch (openbsd_optarg[0]) {
                         case 's':
                                 startup = 0;
                                 break;
@@ -209,12 +209,12 @@ editor(GS *gp, int argc, char *argv[])
                         break;
 #ifdef DEBUG
                 case 'T':               /* Trace. */
-                        if ((gp->tracefp = fopen(optarg, "w")) == NULL) {
-                                openbsd_warn("%s", optarg);
+                        if ((gp->tracefp = fopen(openbsd_optarg, "w")) == NULL) {
+                                openbsd_warn("%s", openbsd_optarg);
                                 goto err;
                         }
                         (void)fprintf(gp->tracefp,
-                            "\n===\ntrace: open %s\n", optarg);
+                            "\n===\ntrace: open %s\n", openbsd_optarg);
                         fflush(gp->tracefp);
                         break;
 #endif /* ifdef DEBUG */
@@ -229,23 +229,23 @@ editor(GS *gp, int argc, char *argv[])
                                 return (1);
                         }
                         flagchk = 't';
-                        tag_f = optarg;
+                        tag_f = openbsd_optarg;
                         break;
                 case 'v':               /* Vi mode. */
                         LF_CLR(SC_EX);
                         LF_SET(SC_VI);
                         break;
                 case 'w':
-                        wsizearg = optarg;
+                        wsizearg = openbsd_optarg;
                         break;
                 case '?':
                 default:
                         (void)gp->scr_usage();
                         return (1);
                 }
-        argc -= optind;
+        argc -= openbsd_optind;
         (void)argc;
-        argv += optind;
+        argv += openbsd_optind;
         (void)argv;
 
         if (secure)

@@ -125,7 +125,7 @@ main(int argc, char *argv[])
           break;
 
         case 'B':
-          suffix = optarg;
+          suffix = openbsd_optarg;
         /* FALLTHROUGH */
 
         /* fall through; -B implies -b */
@@ -142,13 +142,13 @@ main(int argc, char *argv[])
           break;
 
         case 'g':
-          group = optarg;
+          group = openbsd_optarg;
           break;
 
         case 'm':
-          if (!( set = openbsd_setmode(optarg)))
+          if (!( set = openbsd_setmode(openbsd_optarg)))
             {
-              openbsd_errx(1, "%s: invalid file mode", optarg);
+              openbsd_errx(1, "%s: invalid file mode", openbsd_optarg);
             }
 
           mode = openbsd_getmode(set, 0);
@@ -156,7 +156,7 @@ main(int argc, char *argv[])
           break;
 
         case 'o':
-          owner = optarg;
+          owner = openbsd_optarg;
           break;
 
         case 'p':
@@ -193,8 +193,8 @@ main(int argc, char *argv[])
           usage();
         }
     }
-  argc -= optind;
-  argv += optind;
+  argc -= openbsd_optind;
+  argv += openbsd_optind;
 
   /* some options make no sense when creating directories */
   if (( docompare || dostrip ) && dodir)
