@@ -43,11 +43,11 @@ endif
 # Default libraries to link
 CURSESLIB ?= -lncurses
 ifndef LIBS
-   ifeq ($(OS),AIX)
+   ifeq ($(OS),aix)
       LINKLIBS ?= $(CURSESLIB)
    else
       LINKLIBS ?= -lutil $(CURSESLIB)
-   endif # AIX
+   endif # aix
 else
    LINKLIBS  = $(LIBS)
 endif # LIBS
