@@ -72,7 +72,11 @@ int openpty(int *, int *, char *, struct termios *, struct winsize *);
 
 #ifdef HAVE_SYS5_PTY
 # include <sys/stropts.h>
-#endif
+static int ptys_open(int fdm, char *pts_name);
+static int ptym_open(char *pts_name);
+static int sscr_pty(int *amaster, int *aslave, char *name,
+                    struct termios *termp, void *winp);
+#endif /* ifdef HAVE_SYS5_PTY */
 
 static void     sscr_check(SCR *);
 static int      sscr_getprompt(SCR *);
@@ -731,11 +735,6 @@ sscr_check(SCR *sp)
 }
 
 #ifdef HAVE_SYS5_PTY
-static int ptys_open(int fdm, char *pts_name);
-static int ptym_open(char *pts_name);
-static int sscr_pty(int *amaster, int *aslave, char *name,
-                    struct termios *termp, void *winp);
-
 static int
 sscr_pty(int *amaster, int *aslave, char *name,
          struct termios *termp, void *winp)
