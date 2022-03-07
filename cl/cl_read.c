@@ -10,6 +10,8 @@
  * See the LICENSE.md file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/time.h>
@@ -33,6 +35,8 @@
 #include "../common/common.h"
 #include "../ex/script.h"
 #include "cl.h"
+
+#undef open
 
 static input_t  cl_read(SCR *,
                     u_int32_t, CHAR_T *, size_t, int *, struct timeval *);
