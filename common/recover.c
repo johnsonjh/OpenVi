@@ -613,7 +613,11 @@ rcv_read(SCR *sp, FREF *frp)
         struct stat sb;
         DIR *dirp;
         EXF *ep;
+#ifdef _AIX
+        struct st_timespec rec_mtim;
+#else
         struct timespec rec_mtim;
+#endif /* ifdef _AIX */
         int fd, found, lck, requested, sv_fd;
         char *name, *p, *t, *rp, *recp, *pathp;
         char file[PATH_MAX], path[PATH_MAX], recpath[PATH_MAX];
