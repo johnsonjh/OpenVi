@@ -147,9 +147,9 @@ view.
   - *LLVM* **Clang** (*BSD*, *Darwin*, *Linux*, *Windows*) V6+
   - *GNU* **GCC** (*AIX*, *BSD*, *Darwin*, *Linux*, *Windows*) V4.6+
   - *IBM* **Advance Toolchain** (*Linux on POWER*) V14.0+
-  - *IBM* **Open XL C**/**C++ Compiler** (*AIX*) V17.1+ 
-  - *IBM* **XL C**/**C++ Compiler** (*AIX*, *Linux*) V16.1+
-  - *Intel* **oneAPI DPC++**/**C++ Compiler** (*Linux*) V2021+
+  - *IBM* **Open XL C**/**C++** (*AIX*) V17.1+ 
+  - *IBM* **XL C**/**C++** (*AIX*, *Linux*) V16.1+
+  - *Intel* **oneAPI DPC++**/**C++** (*Linux*) V2021+
   - *Intel* **C Compiler Classic** (*Darwin*, *Linux*) V19.1+
   - *Oracle* **Developer Studio** (*Linux*) V12.6+
 
