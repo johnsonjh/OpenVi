@@ -66,13 +66,13 @@
 
 #undef open
 
-int   opterr = 1;    /* if error message should be printed */
-int   optind = 1;    /* index into parent argv vector */
-int   optopt = '?';  /* character checked for validity */
-int   optreset;      /* reset getopt */
-char *optarg;        /* argument associated with option */
+int   openbsd_opterr = 1;    /* if error message should be printed */
+int   openbsd_optind = 1;    /* index into parent argv vector */
+int   openbsd_optopt = '?';  /* character checked for validity */
+int   openbsd_optreset;      /* reset getopt */
+char *openbsd_optarg;        /* argument associated with option */
 
-#define PRINT_ERROR (( opterr ) && ( *options != ':' ))
+#define PRINT_ERROR (( openbsd_opterr ) && ( *options != ':' ))
 
 #define FLAG_PERMUTE  0x01  /* permute non-options to the end of argv */
 #define FLAG_ALLARGS  0x02  /* treat non-options as args to option "-1" */
@@ -89,27 +89,27 @@ static int openbsd_getopt_internal(int, char *const *, const char *,
                                    const struct option *, int *, int);
 static int openbsd_parse_long_options(char *const *, const char *,
                                       const struct option *, int *, int, int);
-static int gcd(int, int);
-static void permute_args(int, int, int, char *const *);
+static int openbsd_gcd(int, int);
+static void openbsd_permute_args(int, int, int, char *const *);
 
 static char *place = EMSG; /* option letter processing */
 
-static int nonopt_start = -1; /* first non option argument (for permute) */
-static int nonopt_end = -1; /* first option after non options (for permute) */
+static int openbsd_nonopt_start = -1; /* first non option argument (for permute) */
+static int openbsd_nonopt_end   = -1; /* first option after non options (for permute) */
 
 /* Error messages */
-static const char recargchar[]   = "option requires an argument -- %c";
-static const char recargstring[] = "option requires an argument -- %s";
-static const char ambig[]        = "ambiguous option -- %.*s";
-static const char noarg[]        = "option doesn't take an argument -- %.*s";
-static const char illoptchar[]   = "unknown option -- %c";
-static const char illoptstring[] = "unknown option -- %s";
+static const char openbsd_recargchar[]   = "option requires an argument -- %c";
+static const char openbsd_recargstring[] = "option requires an argument -- %s";
+static const char openbsd_ambig[]        = "ambiguous option -- %.*s";
+static const char openbsd_noarg[]        = "option doesn't take an argument -- %.*s";
+static const char openbsd_illoptchar[]   = "unknown option -- %c";
+static const char openbsd_illoptstring[] = "unknown option -- %s";
 
 /*
  * Compute the greatest common divisor of a and b.
  */
 static int
-gcd(int a, int b)
+openbsd_gcd(int a, int b)
 {
   int c;
 
@@ -130,8 +130,8 @@ gcd(int a, int b)
  * in each block).
  */
 static void
-permute_args(int panonopt_start, int panonopt_end, int opt_end,
-             char *const *nargv)
+openbsd_permute_args(int panonopt_start, int panonopt_end, int opt_end,
+                     char *const *nargv)
 {
   int cstart, cyclelen, i, j, ncycle, nnonopts, nopts, pos;
   char *swap;
@@ -141,7 +141,7 @@ permute_args(int panonopt_start, int panonopt_end, int opt_end,
    */
   nnonopts = panonopt_end - panonopt_start;
   nopts = opt_end - panonopt_end;
-  ncycle = gcd(nnonopts, nopts);
+  ncycle = openbsd_gcd(nnonopts, nopts);
   cyclelen = ( opt_end - panonopt_start ) / ncycle;
 
   for (i = 0; i < ncycle; i++)
@@ -185,7 +185,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
   exact_match = 0;
   second_partial_match = 0;
 
-  optind++;
+  openbsd_optind++;
 
   if (( has_equal = strchr(current_argv, '=')) != NULL)
     {
@@ -241,10 +241,10 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
       /* ambiguous abbreviation */
       if (PRINT_ERROR)
         {
-          openbsd_warnx(ambig, (int)current_argv_len, current_argv);
+          openbsd_warnx(openbsd_ambig, (int)current_argv_len, current_argv);
         }
 
-      optopt = 0;
+      openbsd_optopt = 0;
       return BADCH;
     }
 
@@ -254,7 +254,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
         {
           if (PRINT_ERROR)
             {
-              openbsd_warnx(noarg, (int)current_argv_len, current_argv);
+              openbsd_warnx(openbsd_noarg, (int)current_argv_len, current_argv);
             }
 
           /*
@@ -262,11 +262,11 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
            */
           if (long_options[match].flag == NULL)
             {
-              optopt = long_options[match].val;
+              openbsd_optopt = long_options[match].val;
             }
           else
             {
-              optopt = 0;
+              openbsd_optopt = 0;
             }
 
           return BADARG;
@@ -277,18 +277,18 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
         {
           if (has_equal)
             {
-              optarg = has_equal;
+              openbsd_optarg = has_equal;
             }
           else if (long_options[match].has_arg == required_argument)
             {
               /*
                * optional argument doesn't use next nargv
                */
-              optarg = nargv[optind++];
+              openbsd_optarg = nargv[openbsd_optind++];
             }
         }
 
-      if (( long_options[match].has_arg == required_argument ) && ( optarg == NULL ))
+      if (( long_options[match].has_arg == required_argument ) && ( openbsd_optarg == NULL ))
         {
           /*
            * Missing argument; leading ':' indicates no error
@@ -296,7 +296,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
            */
           if (PRINT_ERROR)
             {
-              openbsd_warnx(recargstring, current_argv);
+              openbsd_warnx(openbsd_recargstring, current_argv);
             }
 
           /*
@@ -304,14 +304,14 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
            */
           if (long_options[match].flag == NULL)
             {
-              optopt = long_options[match].val;
+              openbsd_optopt = long_options[match].val;
             }
           else
             {
-              optopt = 0;
+              openbsd_optopt = 0;
             }
 
-          --optind;
+          --openbsd_optind;
           return BADARG;
         }
     }
@@ -319,16 +319,16 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
     { /* unknown option */
       if (short_too)
         {
-          --optind;
+          --openbsd_optind;
           return -1;
         }
 
       if (PRINT_ERROR)
         {
-          openbsd_warnx(illoptstring, current_argv);
+          openbsd_warnx(openbsd_illoptstring, current_argv);
         }
 
-      optopt = 0;
+      openbsd_optopt = 0;
       return BADCH;
     }
 
@@ -357,7 +357,7 @@ openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
                         const struct option *long_options, int *idx, int flags)
 {
   char *oli; /* option letter list index */
-  int optchar, short_too;
+  int openbsd_optchar, short_too;
   static int posixly_correct = -1;
 
   if (options == NULL)
@@ -366,21 +366,26 @@ openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
     }
 
   /*
-   * XXX(OpenBSD): Some GNU programs (like cvs) set optind to 0 instead of
-   * XXX(OpenBSD): using optreset.  Work around this braindamage.
+   * Some GNU programs (like cvs) set optind to 0 instead of
+   * using optreset.  Work around this braindamage.
    */
-  if (optind == 0)
+  if (openbsd_optind == 0)
     {
-      optind = optreset = 1;
+      openbsd_optind = openbsd_optreset = 1;
     }
 
   /*
-   * Disable GNU extensions if POSIXLY_CORRECT is set or options
-   * string begins with a '+'.
+   * Disable GNU extensions if POSIXLY_CORRECT or POSIX_ME_HARDER
+   * is set, or if the options string begins with a '+'.
    */
-  if (posixly_correct == -1 || optreset)
+  if (posixly_correct == -1 || openbsd_optreset)
     {
       posixly_correct = ( getenv("POSIXLY_CORRECT") != NULL );
+    }
+
+  if (posixly_correct == -1 || openbsd_optreset)
+    {
+      posixly_correct = ( getenv("POSIX_ME_HARDER") != NULL );
     }
 
   if (*options == '-')
@@ -397,39 +402,39 @@ openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
       options++;
     }
 
-  optarg = NULL;
-  if (optreset)
+  openbsd_optarg = NULL;
+  if (openbsd_optreset)
     {
-      nonopt_start = nonopt_end = -1;
+      openbsd_nonopt_start = openbsd_nonopt_end = -1;
     }
 
 start:
-  if (optreset || !*place)
+  if (openbsd_optreset || !*place)
     { /* update scanning pointer */
-      optreset = 0;
-      if (optind >= nargc)
+      openbsd_optreset = 0;
+      if (openbsd_optind >= nargc)
         { /* end of argument vector */
           place = EMSG;
-          if (nonopt_end != -1)
+          if (openbsd_nonopt_end != -1)
             {
               /* do permutation, if we have to */
-              permute_args(nonopt_start, nonopt_end, optind, nargv);
-              optind -= nonopt_end - nonopt_start;
+              openbsd_permute_args(openbsd_nonopt_start, openbsd_nonopt_end, openbsd_optind, nargv);
+              openbsd_optind -= openbsd_nonopt_end - openbsd_nonopt_start;
             }
-          else if (nonopt_start != -1)
+          else if (openbsd_nonopt_start != -1)
             {
               /*
                * If we skipped non-options, set optind
                * to the first of them.
                */
-              optind = nonopt_start;
+              openbsd_optind = openbsd_nonopt_start;
             }
 
-          nonopt_start = nonopt_end = -1;
+          openbsd_nonopt_start = openbsd_nonopt_end = -1;
           return -1;
         }
 
-      if (*( place = nargv[optind] ) != '-'
+      if (*( place = nargv[openbsd_optind] ) != '-'
           || ( place[1] == '\0' && strchr(options, '-') == NULL ))
         {
           place = EMSG; /* found non-option */
@@ -439,7 +444,7 @@ start:
                * GNU extension:
                * return non-option as argument to option 1
                */
-              optarg = nargv[optind++];
+              openbsd_optarg = nargv[openbsd_optind++];
               return INORDER;
             }
 
@@ -453,25 +458,25 @@ start:
             }
 
           /* do permutation */
-          if (nonopt_start == -1)
+          if (openbsd_nonopt_start == -1)
             {
-              nonopt_start = optind;
+              openbsd_nonopt_start = openbsd_optind;
             }
-          else if (nonopt_end != -1)
+          else if (openbsd_nonopt_end != -1)
             {
-              permute_args(nonopt_start, nonopt_end, optind, nargv);
-              nonopt_start = optind - ( nonopt_end - nonopt_start );
-              nonopt_end = -1;
+              openbsd_permute_args(openbsd_nonopt_start, openbsd_nonopt_end, openbsd_optind, nargv);
+              openbsd_nonopt_start = openbsd_optind - ( openbsd_nonopt_end - openbsd_nonopt_start );
+              openbsd_nonopt_end = -1;
             }
 
-          optind++;
+          openbsd_optind++;
           /* process next argument */
           goto start;
         }
 
-      if (nonopt_start != -1 && nonopt_end == -1)
+      if (openbsd_nonopt_start != -1 && openbsd_nonopt_end == -1)
         {
-          nonopt_end = optind;
+          openbsd_nonopt_end = openbsd_optind;
         }
 
       /*
@@ -479,19 +484,19 @@ start:
        */
       if (place[1] != '\0' && *++place == '-' && place[1] == '\0')
         {
-          optind++;
+          openbsd_optind++;
           place = EMSG;
           /*
            * We found an option (--), so if we skipped
            * non-options, we have to permute.
            */
-          if (nonopt_end != -1)
+          if (openbsd_nonopt_end != -1)
             {
-              permute_args(nonopt_start, nonopt_end, optind, nargv);
-              optind -= nonopt_end - nonopt_start;
+              openbsd_permute_args(openbsd_nonopt_start, openbsd_nonopt_end, openbsd_optind, nargv);
+              openbsd_optind -= openbsd_nonopt_end - openbsd_nonopt_start;
             }
 
-          nonopt_start = nonopt_end = -1;
+          openbsd_nonopt_start = openbsd_nonopt_end = -1;
           return -1;
         }
     }
@@ -502,7 +507,7 @@ start:
    *  2) the arg is not just "-"
    *  3) either the arg starts with -- we are openbsd_getopt_long_only()
    */
-  if (long_options != NULL && place != nargv[optind]
+  if (long_options != NULL && place != nargv[openbsd_optind]
       && ( *place == '-' || ( flags & FLAG_LONGONLY )))
     {
       short_too = 0;
@@ -515,105 +520,105 @@ start:
           short_too = 1; /* could be short option too */
         }
 
-      optchar = openbsd_parse_long_options(
+      openbsd_optchar = openbsd_parse_long_options(
         nargv,
         options,
         long_options,
         idx,
         short_too,
         flags);
-      if (optchar != -1)
+      if (openbsd_optchar != -1)
         {
           place = EMSG;
-          return optchar;
+          return openbsd_optchar;
         }
     }
 
-  if (( optchar = (int)*place++ ) == (int)':'
-      || ( oli = strchr(options, optchar)) == NULL)
+  if (( openbsd_optchar = (int)*place++ ) == (int)':'
+      || ( oli = strchr(options, openbsd_optchar)) == NULL)
     {
       if (!*place)
         {
-          ++optind;
+          ++openbsd_optind;
         }
 
       if (PRINT_ERROR)
         {
-          openbsd_warnx(illoptchar, optchar);
+          openbsd_warnx(openbsd_illoptchar, openbsd_optchar);
         }
 
-      optopt = optchar;
+      openbsd_optopt = openbsd_optchar;
       return BADCH;
     }
 
-  if (long_options != NULL && optchar == 'W' && oli[1] == ';')
+  if (long_options != NULL && openbsd_optchar == 'W' && oli[1] == ';')
     {
       /* -W long-option */
       if (*place) /* no space */
       /* NOTHING */ {
           ;
         }
-      else if (++optind >= nargc)
+      else if (++openbsd_optind >= nargc)
         { /* no arg */
           place = EMSG;
           if (PRINT_ERROR)
             {
-              openbsd_warnx(recargchar, optchar);
+              openbsd_warnx(openbsd_recargchar, openbsd_optchar);
             }
 
-          optopt = optchar;
+          openbsd_optopt = openbsd_optchar;
           return BADARG;
         }
       else /* white space */
         {
-          place = nargv[optind];
+          place = nargv[openbsd_optind];
         }
 
-      optchar = openbsd_parse_long_options(nargv, options, long_options,
+      openbsd_optchar = openbsd_parse_long_options(nargv, options, long_options,
                                            idx, 0, flags);
       place = EMSG;
-      return optchar;
+      return openbsd_optchar;
     }
 
   if (*++oli != ':')
     { /* doesn't take argument */
       if (!*place)
         {
-          ++optind;
+          ++openbsd_optind;
         }
     }
   else
     { /* takes (optional) argument */
-      optarg = NULL;
+      openbsd_optarg = NULL;
       if (*place) /* no white space */
         {
-          optarg = place;
+          openbsd_optarg = place;
         }
       else if (oli[1] != ':')
         { /* arg not optional */
-          if (++optind >= nargc)
+          if (++openbsd_optind >= nargc)
             { /* no arg */
               place = EMSG;
               if (PRINT_ERROR)
                 {
-                  openbsd_warnx(recargchar, optchar);
+                  openbsd_warnx(openbsd_recargchar, openbsd_optchar);
                 }
 
-              optopt = optchar;
+              openbsd_optopt = openbsd_optchar;
               return BADARG;
             }
           else
             {
-              optarg = nargv[optind];
+              openbsd_optarg = nargv[openbsd_optind];
             }
         }
 
       place = EMSG;
-      ++optind;
+      ++openbsd_optind;
     }
 
   /* dump back option letter */
-  return optchar;
+  return openbsd_optchar;
 }
 
 /*
