@@ -46,7 +46,7 @@ ifndef LIBS
    ifeq ($(OS),aix)
       LDFLAGS  += -L/opt/freeware/lib
       CFLAGS   += -I/opt/freeware/include
-      LINKLIBS ?= -lbsd $(CURSESLIB)
+      LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
    else
       LINKLIBS ?= -lutil $(CURSESLIB)
    endif # aix
