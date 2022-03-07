@@ -1,7 +1,10 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Mon Mar 7 12:26:39 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Mon Mar 7 17:55:53 2022
         + Add support for IBM AIX 7+; tested on IBM AIX 7.2 and IBM AIX 7.3
           with GNU GCC (8, 9, 10, 11), IBM XL C/C++ V16.1+ (gxlc, xlclang),
-          and IBM Open XL C/C++ V17.1+ using ncurses from IBM's AIX Toolbox
+          and IBM Open XL C/C++ V17.1+ using ncurses from IBM's AIX Toolbox;
+          AIX builds default to 64-bit (on 64-bit systems) when using a
+          supported compiler; the environment variable `MAIXBITS` can be set
+          to `32` or `64` to force compilation of a 32-bit or 64-bit binary
         + Various portability improvements (portable BSD getopt, warn, etc.)
         + Reorganize source tree to better separate logical components
         + `WCOREDUMP` is not in POSIX.1-2008, so don't require it to build
