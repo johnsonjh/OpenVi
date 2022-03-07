@@ -145,6 +145,7 @@ view.
 
 - The following compilers are fully supported and regularly tested:
   - *LLVM* **Clang** (*BSD*, *Darwin*, *Linux*, *Windows*) V6+
+  - *AMD* **Optimizing C**/**C++** (*Linux*) V3+
   - *GNU* **GCC** (*AIX*, *BSD*, *Darwin*, *Linux*, *Windows*) V4.6+
   - *IBM* **Advance Toolchain** (*Linux on POWER*) V14.0+
   - *IBM* **Open XL C**/**C++** (*AIX*) V17.1+ 
