@@ -127,6 +127,11 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
         EXF *ep;
         RECNOINFO oinfo;
         struct stat sb;
+#ifdef _AIX
+        struct st_timespec sbm;
+#else
+        struct timespec sbm;
+#endif /* ifdef _AIX */
         size_t psize;
         int fd, exists, open_err, readonly;
         char *oname, tname[] = "/tmp/vi.XXXXXX";
@@ -244,7 +249,7 @@ file_init(SCR *sp, FREF *frp, char *rcv_name, int flags)
         ep->mdev = sb.st_dev;
         ep->minode = sb.st_ino;
 
-        ep->mtim = sb.st_mtim;
+        ep->mtim = sbm.st_mtim;
 
         /* Set up recovery. */
         memset(&oinfo, 0, sizeof(RECNOINFO));
@@ -881,7 +886,7 @@ file_write(SCR *sp, MARK *fm, MARK *tm, char *name, int flags)
                         ep->mdev = sb.st_dev;
                         ep->minode = sb.st_ino;
 
-                        ep->mtim = sb.st_mtim;
+                        ep->mtim = sbm.st_mtim;
                 }
         }
 
