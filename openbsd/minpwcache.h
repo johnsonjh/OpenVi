@@ -31,8 +31,8 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _XINSTALL_H
-# define _XINSTALL_H
+#ifndef _MINPWCAC_H
+# define _MINPWCAC_H
 
 # include "../include/compat.h"
 
@@ -45,18 +45,7 @@
 
 # undef open
 
-# ifndef _PATH_STRIP
-#  define _PATH_STRIP "/usr/bin/strip"
-# endif /* ifndef _PATH_STRIP */
+int openbsd_gid_from_group(const char *name, gid_t *gid);
+int openbsd_uid_from_user(const char *name, uid_t *uid);
 
-void   *openbsd_setmode(const char *p);
-mode_t  openbsd_getmode(const void *bbox, mode_t omode);
-int     gid_from_group(const char *name, gid_t *gid);
-int     uid_from_user(const char *name, uid_t *uid);
-void    openbsd_errc(int eval, int code, const char *fmt, ...);
-void    openbsd_verrc(int eval, int code, const char *fmt, va_list ap);
-void    openbsd_warnc(int code, const char *fmt, ...);
-void    openbsd_vwarnc(int code, const char *fmt, va_list ap);
-size_t  openbsd_strlcat(char *dst, const char *src, size_t dsize);
-
-#endif /* ifndef _XINSTALL_H */
+#endif /* ifndef _MINPWCAC_H */

@@ -73,6 +73,21 @@
 #include "page.h"
 #include "extern.h"
 
+#if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) )
+# define BIG_ENDIAN     4321
+# define LITTLE_ENDIAN  1234
+#endif /* if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) ) */
+
+#if ( !defined(BYTE_ORDER) && defined(_AIX) )
+# if ( defined(__powerpc__) || defined(__PPC__) \
+    || defined(_ARCH_PPC) )
+#  define BYTE_ORDER BIG_ENDIAN /* Assume AIX/PPC is big-endian */
+# endif /* if ( defined(__powerpc__) || defined(__PPC__)
+             || defined(_ARCH_PPC) ) */
+#endif /* if ( !defined(BYTE_ORDER) && defined(_AIX) ) */
+
+#undef open
+
 static u_int32_t *fetch_bitmap(HTAB *, int);
 static u_int32_t  first_free(u_int32_t);
 static int        open_temp(HTAB *);
@@ -864,7 +879,11 @@ open_temp(HTAB *hashp)
         /* Block signals; make sure file goes away at process exit. */
         (void)sigfillset(&set);
         (void)sigprocmask(SIG_BLOCK, &set, &oset);
+#ifdef _AIX
+        if ((hashp->fp = mkstemp(path)) != -1) {
+#else
         if ((hashp->fp = mkostemp(path, O_CLOEXEC)) != -1) {
+#endif /* ifdef _AIX */
                 (void)unlink(path);
         }
         (void)sigprocmask(SIG_SETMASK, &oset, (sigset_t *)NULL);

@@ -10,6 +10,8 @@
  * See the LICENSE.md file for redistribution information.
  */
 
+#include "../include/compat.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/time.h>
@@ -34,9 +36,16 @@
 #include "../ex/script.h"
 #include "cl.h"
 
+#undef open
+
+#ifdef _AIX
+# undef lines
+# undef columns
+#endif /* ifdef _AIX */
+
 static input_t  cl_read(SCR *,
                     u_int32_t, CHAR_T *, size_t, int *, struct timeval *);
-static int      cl_resize(SCR *, size_t, size_t);
+static int      cl_resize(SCR *sp, size_t lines, size_t columns);
 
 /*
  * cl_event --

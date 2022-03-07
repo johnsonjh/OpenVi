@@ -61,6 +61,19 @@
 
 #define MAXIMUM(a, b)   (((a) > (b)) ? (a) : (b))
 
+#if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) )
+# define BIG_ENDIAN     4321
+# define LITTLE_ENDIAN  1234
+#endif /* if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) ) */
+
+#if ( !defined(BYTE_ORDER) && defined(_AIX) )
+# if ( defined(__powerpc__) || defined(__PPC__) \
+    || defined(_ARCH_PPC) )
+#  define BYTE_ORDER BIG_ENDIAN /* Assume AIX/PPC is big-endian */
+# endif /* if ( defined(__powerpc__) || defined(__PPC__)
+             || defined(_ARCH_PPC) ) */
+#endif /* if ( !defined(BYTE_ORDER) && defined(_AIX) ) */
+
 static int   alloc_segs(HTAB *, int);
 static int   flush_meta(HTAB *);
 static int   hash_access(HTAB *, ACTION, DBT *, DBT *);

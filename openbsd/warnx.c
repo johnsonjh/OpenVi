@@ -1,19 +1,23 @@
-/*      $OpenBSD: string.h,v 1.31 2016/09/09 18:12:37 millert Exp $     */
-/*      $NetBSD: string.h,v 1.6 1994/10/26 00:56:30 cgd Exp $   */
+/*         $OpenBSD: warnx.c,v 1.10 2015/08/31 02:53:57 guenther Exp $       */
 
 /*-
- * Copyright (c) 1990 The Regents of the University of California.
+ * Copyright (c) 1993
+ *         The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -29,29 +33,23 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- *
- *      @(#)string.h    5.10 (Berkeley) 3/9/91
  */
 
+#include "../include/compat.h"
 
-#ifndef _COMPAT_STRING_H_
-# define _COMPAT_STRING_H_
+#include "errc.h"
 
-size_t openbsd_strlcpy(char *, const char *, size_t);
-size_t openbsd_strlcat(char *dst, const char *src, size_t dsize);
+#include <bsd_err.h>
+#include <stdarg.h>
 
-# ifndef __OpenBSD__
+#undef open
 
-#  include <sys/types.h>
+void
+openbsd_warnx(const char *fmt, ...)
+{
+  va_list ap;
 
-void explicit_bzero(void *, size_t);
-void strmode(int, char *);
-
-char *strcasestr(const char *, const char *);
-void *memrchr(const void *, int, size_t);
-
-# endif /* ifndef __OpenBSD__ */
-
-#endif /* _COMPAT_STRING_H_ */
-
-#include_next <string.h>
+  va_start(ap, fmt);
+  openbsd_vwarnx(fmt, ap);
+  va_end(ap);
+}

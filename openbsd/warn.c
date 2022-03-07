@@ -1,7 +1,8 @@
-/*      $OpenBSD: warnc.c,v 1.2 2015/08/31 02:53:57 guenther Exp $           */
+/*         $OpenBSD: warn.c,v 1.11 2015/08/31 02:53:57 guenther Exp $        */
 
 /*-
- * Copyright (c) 1993 The Regents of the University of California.
+ * Copyright (c) 1993
+ *         The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
@@ -35,20 +36,20 @@
  */
 
 #include "../include/compat.h"
-#include "bsd_err.h"
 
+#include "errc.h"
+
+#include <bsd_err.h>
 #include <stdarg.h>
-
-#include "xinstall.h"
 
 #undef open
 
 void
-openbsd_warnc(int code, const char *fmt, ...)
+openbsd_warn(const char *fmt, ...)
 {
   va_list ap;
 
   va_start(ap, fmt);
-  openbsd_vwarnc(code, fmt, ap);
+  openbsd_vwarn(fmt, ap);
   va_end(ap);
 }

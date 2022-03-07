@@ -1,4 +1,4 @@
-/*      $OpenBSD: errc.c,v 1.2 2015/08/31 02:53:57 guenther Exp $            */
+/*      $OpenBSD: verrc.c,v 1.3 2016/03/13 18:34:20 guenther Exp $           */
 
 /*-
  * Copyright (c) 1993 The Regents of the University of California.
@@ -35,20 +35,25 @@
  */
 
 #include "../include/compat.h"
-#include "../include/err.h"
+#include "bsd_err.h"
 
 #include <stdarg.h>
-
-#include "xinstall.h"
+#include <stdio.h>
+#include <bsd_stdlib.h>
+#include <bsd_string.h>
 
 #undef open
 
 void
-openbsd_errc(int eval, int code, const char *fmt, ...)
+openbsd_verrc(int eval, int code, const char *fmt, va_list ap)
 {
-  va_list ap;
+  (void)fprintf(stderr, "%s: ", bsd_getprogname());
+  if (fmt != NULL)
+    {
+      (void)vfprintf(stderr, fmt, ap);
+      (void)fprintf(stderr, ": ");
+    }
 
-  va_start(ap, fmt);
-  openbsd_verrc(eval, code, fmt, ap);
-  va_end(ap);
+  (void)fprintf(stderr, "%s\n", strerror(code));
+  exit(eval);
 }

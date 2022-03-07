@@ -37,8 +37,14 @@
 
 #include "../include/compat.h"
 
-#include <sys/errno.h>
 #include <sys/mman.h>
+
+#ifdef _AIX
+# define _POSIX_SOURCE
+# define _XOPEN_SOURCE 700
+# undef _ALL_SOURCE
+#endif /* ifdef _AIX */
+
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -52,12 +58,18 @@
 #include <limits.h>
 #include <paths.h>
 #include <pwd.h>
+#include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
+#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
-#include "xinstall.h"
+#include "errc.h"
+#include "setmode.h"
+#include "minpwcache.h"
+#include "pathnames.h"
 
 #ifndef EFTYPE
 # define EFTYPE EINVAL
@@ -104,7 +116,7 @@ main(int argc, char *argv[])
   const char *errstr;
 
   iflags = 0;
-  while (( ch = getopt(argc, argv, "B:bCcDdFg:m:o:pSsUv")) != -1)
+  while (( ch = openbsd_getopt(argc, argv, "B:bCcDdFg:m:o:pSsUv")) != -1)
     {
       switch (ch)
         {
@@ -113,7 +125,7 @@ main(int argc, char *argv[])
           break;
 
         case 'B':
-          suffix = optarg;
+          suffix = openbsd_optarg;
         /* FALLTHROUGH */
 
         /* fall through; -B implies -b */
@@ -130,13 +142,13 @@ main(int argc, char *argv[])
           break;
 
         case 'g':
-          group = optarg;
+          group = openbsd_optarg;
           break;
 
         case 'm':
-          if (!( set = openbsd_setmode(optarg)))
+          if (!( set = openbsd_setmode(openbsd_optarg)))
             {
-              errx(1, "%s: invalid file mode", optarg);
+              openbsd_errx(1, "%s: invalid file mode", openbsd_optarg);
             }
 
           mode = openbsd_getmode(set, 0);
@@ -144,7 +156,7 @@ main(int argc, char *argv[])
           break;
 
         case 'o':
-          owner = optarg;
+          owner = openbsd_optarg;
           break;
 
         case 'p':
@@ -181,8 +193,8 @@ main(int argc, char *argv[])
           usage();
         }
     }
-  argc -= optind;
-  argv += optind;
+  argc -= openbsd_optind;
+  argv += openbsd_optind;
 
   /* some options make no sense when creating directories */
   if (( docompare || dostrip ) && dodir)
@@ -197,21 +209,21 @@ main(int argc, char *argv[])
     }
 
   /* get group and owner id's */
-  if (group != NULL && gid_from_group(group, &gid) == -1)
+  if (group != NULL && openbsd_gid_from_group(group, &gid) == -1)
     {
       gid = strtonum(group, 0, GID_MAX, &errstr);
       if (errstr != NULL)
         {
-          errx(1, "unknown group '%s'", group);
+          openbsd_errx(1, "unknown group '%s'", group);
         }
     }
 
-  if (owner != NULL && uid_from_user(owner, &uid) == -1)
+  if (owner != NULL && openbsd_uid_from_user(owner, &uid) == -1)
     {
       uid = strtonum(owner, 0, UID_MAX, &errstr);
       if (errstr != NULL)
         {
-          errx(1, "unknown user '%s'", owner);
+          openbsd_errx(1, "unknown user '%s'", owner);
         }
     }
 
@@ -237,7 +249,7 @@ main(int argc, char *argv[])
       char *dest = dirname(odst);
       if (dest == NULL)
         {
-          errx(1, "cannot determine dirname");
+          openbsd_errx(1, "cannot determine dirname");
         }
 
       /*
@@ -245,7 +257,9 @@ main(int argc, char *argv[])
        * the target file. If more restrictive permissions are required then
        * '-d -m' ought to be used instead.
        */
+#if ( !defined(__APPLE__) && !defined(_AIX) && !defined(__OpenBSD__) )
       if (dest == odst)
+#endif /* if ( !defined(__APPLE__) && !defined(_AIX) && !defined(__OpenBSD__) ) */
         if (strcmp(dest, "."))
           install_dir(dest, 0755);
     }
@@ -265,14 +279,17 @@ main(int argc, char *argv[])
   /* can't do file1 file2 directory/file */
   if (argc != 2)
     {
-      errx(1, "Invalid arguments for target '%s'; verify specified options.", argv[argc - 1]);
+      openbsd_errx(
+        1,
+        "Invalid arguments for target '%s'; verify specified options.",
+        argv[argc - 1]);
     }
 
   if (!no_target)
     {
       if (stat(*argv, &from_sb))
         {
-          err(1, "%s", *argv);
+          openbsd_err(1, "%s", *argv);
         }
 
       if (!S_ISREG(to_sb.st_mode))
@@ -282,7 +299,7 @@ main(int argc, char *argv[])
 
       if (to_sb.st_dev == from_sb.st_dev && to_sb.st_ino == from_sb.st_ino)
         {
-          errx(1, "'%s' and '%s' are the same file", *argv, to_name);
+          openbsd_errx(1, "'%s' and '%s' are the same file", *argv, to_name);
         }
     }
 
@@ -312,7 +329,7 @@ install(char *from_name, char *to_name, u_int flags)
     {
       if (stat(from_name, &from_sb))
         {
-          err(1, "%s", from_name);
+          openbsd_err(1, "%s", from_name);
         }
 
       if (!S_ISREG(from_sb.st_mode))
@@ -354,14 +371,14 @@ install(char *from_name, char *to_name, u_int flags)
     {
       if (( from_fd = open(from_name, O_RDONLY)) == -1)
         {
-          err(1, "%s", from_name);
+          openbsd_err(1, "%s", from_name);
         }
     }
 
   to_fd = create_tempfile(to_name, tempfile, sizeof ( tempfile ));
   if (to_fd < 0)
     {
-      err(1, "%s", tempfile);
+      openbsd_err(1, "%s", tempfile);
     }
 
   if (!devnull)
@@ -381,7 +398,7 @@ install(char *from_name, char *to_name, u_int flags)
       close(to_fd);
       if (( to_fd = open(tempfile, O_RDONLY)) == -1)
         {
-          err(1, "stripping %s", to_name);
+          openbsd_err(1, "stripping %s", to_name);
         }
     }
 
@@ -396,7 +413,7 @@ install(char *from_name, char *to_name, u_int flags)
       /* Re-open to_fd using the real target name. */
       if (( to_fd = open(to_name, O_RDONLY)) == -1)
         {
-          err(1, "%s", to_name);
+          openbsd_err(1, "%s", to_name);
         }
 
       if (fstat(temp_fd, &temp_sb))
@@ -458,7 +475,7 @@ install(char *from_name, char *to_name, u_int flags)
           (void)unlink(target_name);
         }
 
-      errx(1, "%s: chown/chgrp: %s", target_name, strerror(serrno));
+      openbsd_errx(1, "%s: chown/chgrp: %s", target_name, strerror(serrno));
     }
 
   if (!dounpriv && fchmod(to_fd, mode))
@@ -469,7 +486,7 @@ install(char *from_name, char *to_name, u_int flags)
           (void)unlink(target_name);
         }
 
-      errx(1, "%s: chmod: %s", target_name, strerror(serrno));
+      openbsd_errx(1, "%s: chmod: %s", target_name, strerror(serrno));
     }
 
   if (flags & USEFSYNC)
@@ -504,7 +521,8 @@ install(char *from_name, char *to_name, u_int flags)
             {
               serrno = errno;
               unlink(tempfile);
-              errx(1, "rename: '%s' to '%s': %s", to_name, backup, strerror(serrno));
+              openbsd_errx(1, "rename: '%s' to '%s': %s",
+                           to_name, backup, strerror(serrno));
             }
           if (berr != ENOENT && doverbose && (!bdir && !S_ISDIR(bdst.st_mode)))
             fprintf(stdout, "%s: created backup '%s' -> '%s'\n",
@@ -515,7 +533,8 @@ install(char *from_name, char *to_name, u_int flags)
         {
           serrno = errno;
           unlink(tempfile);
-          errx(1, "rename: '%s' to '%s': %s", tempfile, to_name, strerror(serrno));
+          openbsd_errx(1, "rename: '%s' to '%s': %s",
+                       tempfile, to_name, strerror(serrno));
         }
     }
   if (doverbose)
@@ -544,12 +563,12 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
   /* Rewind file descriptors. */
   if (lseek(from_fd, (off_t)0, SEEK_SET) == (off_t)-1)
     {
-      err(1, "lseek: %s", from_name);
+      openbsd_err(1, "lseek: %s", from_name);
     }
 
   if (lseek(to_fd, (off_t)0, SEEK_SET) == (off_t)-1)
     {
-      err(1, "lseek: %s", to_name);
+      openbsd_err(1, "lseek: %s", to_name);
     }
 
   /*
@@ -577,7 +596,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
         {
           serrno = errno;
           (void)unlink(to_name);
-          errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
+          openbsd_errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
         }
 
       (void)munmap(p, (size_t)size);
@@ -617,7 +636,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
             {
               serrno = errno;
               (void)unlink(to_name);
-              errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
+              openbsd_errx(1, "%s: %s", to_name, strerror(nw > 0 ? EIO : serrno));
             }
         }
       if (sparse)
@@ -671,13 +690,13 @@ compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
       if (( p1 = mmap(NULL, length, PROT_READ, MAP_PRIVATE, from_fd, from_off))
           == MAP_FAILED)
         {
-          err(1, "%s", from_name);
+          openbsd_err(1, "%s", from_name);
         }
 
       if (( p2 = mmap(NULL, length, PROT_READ, MAP_PRIVATE, to_fd, to_off))
           == MAP_FAILED)
         {
-          err(1, "%s", to_name);
+          openbsd_err(1, "%s", to_name);
         }
 
 #ifdef MADV_SEQUENTIAL
@@ -727,8 +746,8 @@ strip(char *to_name)
       /* FALLTHROUGH */
 
     case 0:
-      execl(path_strip, "strip", "--", to_name, (char *)NULL);
-      warn("%s", path_strip);
+      execl(path_strip, "strip", to_name, (char *)NULL);
+      openbsd_warn("%s", path_strip);
       _exit(1);
 
     default:
@@ -791,7 +810,7 @@ install_dir(char *path, int mode)
   if ((( gid != (gid_t)-1 || uid != (uid_t)-1 ) && chown(path, uid, gid))
       || chmod(path, mode))
     {
-      warn("%s", path);
+      openbsd_warn("%s", path);
     }
   else
     {
@@ -943,7 +962,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
                */
               if (lseek(fd, (off_t)wcnt, SEEK_CUR) == -1)
                 {
-                  warn("lseek");
+                  openbsd_warn("lseek");
                   return -1;
                 }
 
@@ -962,7 +981,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
        */
       if (write(fd, st, wcnt) != wcnt)
         {
-          warn("write");
+          openbsd_warn("write");
           return -1;
         }
 
@@ -996,13 +1015,13 @@ file_flush(int fd, int isempt)
    */
   if (lseek(fd, (off_t)-1, SEEK_CUR) == -1)
     {
-      warn("Failed seek on file");
+      openbsd_warn("Failed seek on file");
       return;
     }
 
   if (write(fd, blnk, 1) == -1)
     {
-      warn("Failed write to file");
+      openbsd_warn("Failed write to file");
     }
 
   return;

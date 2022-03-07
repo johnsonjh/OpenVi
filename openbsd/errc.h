@@ -31,49 +31,31 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _PATHNAMES_H
-# define _PATHNAMES_H
+#ifndef _ERRC_H
+# define _ERRC_H
 
-# ifdef _PATH_EXRC
-#  undef _PATH_EXRC
-# endif /* ifdef _PATH_EXRC */
+# include "../include/compat.h"
 
-# define _PATH_EXRC ".exrc"
+# include <sys/stat.h>
+# include <sys/types.h>
 
-# ifdef _PATH_NEXRC
-#  undef _PATH_NEXRC
-# endif /* ifdef _PATH_NEXRC */
+# include <grp.h>
+# include <stdarg.h>
+# include <stddef.h>
 
-# define _PATH_NEXRC ".nexrc"
+# undef open
 
-# ifdef _PATH_PRESERVE
-#  undef _PATH_PRESERVE
-# endif /* ifdef _PATH_PRESERVE */
+void openbsd_errc(int eval, int code, const char *fmt, ...);
+void openbsd_err(int eval, const char *fmt, ...);
+void openbsd_errx(int eval, const char *fmt, ...);
+void openbsd_verrc(int eval, int code, const char *fmt, va_list ap);
+void openbsd_verr(int eval, const char *fmt, va_list ap);
+void openbsd_verrx(int eval, const char *fmt, va_list ap);
+void openbsd_vwarnc(int code, const char *fmt, va_list ap);
+void openbsd_vwarn(const char *fmt, va_list ap);
+void openbsd_vwarnx(const char *fmt, va_list ap);
+void openbsd_warnc(int code, const char *fmt, ...);
+void openbsd_warn(const char *fmt, ...);
+void openbsd_warnx(const char *fmt, ...);
 
-# define _PATH_PRESERVE "/var/tmp/vi.recover"
-
-# ifdef _PATH_SYSEXRC
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_SYSEXRC */
-
-# define _PATH_SYSEXRC "/etc/vi.exrc"
-
-# ifdef _PATH_TAGS
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_TAGS */
-
-# define _PATH_TAGS "tags"
-
-# ifndef _PATH_SENDMAIL
-#  define _PATH_SENDMAIL "/usr/sbin/sendmail"
-# endif /* ifndef _PATH_SENDMAIL */
-
-# ifndef _PATH_STRIP
-#  define _PATH_STRIP "/usr/bin/strip"
-# endif /* ifndef _PATH_STRIP */
-
-# ifndef _PATH_SYSV_PTY
-#  define _PATH_SYSV_PTY "/dev/ptmx"
-# endif
-
-#endif /* ifndef _PATHNAMES_H */
+#endif /* ifndef _ERRC_H */

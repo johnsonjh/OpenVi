@@ -1,7 +1,8 @@
-/*      $OpenBSD: vwarnc.c,v 1.3 2016/03/13 18:34:20 guenther Exp $          */
+/*         $OpenBSD: vwarnx.c,v 1.11 2016/03/13 18:34:20 guenther Exp $      */
 
 /*-
- * Copyright (c) 1993 The Regents of the University of California.
+ * Copyright (c) 1993
+ *         The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
@@ -36,23 +37,20 @@
 
 #include "../include/compat.h"
 
+#include "errc.h"
+
 #include <bsd_err.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
-#include <bsd_string.h>
+#include <stdarg.h>
 
 #undef open
 
 void
-openbsd_vwarnc(int code, const char *fmt, va_list ap)
+openbsd_vwarnx(const char *fmt, va_list ap)
 {
-  (void)fprintf(stderr, "%s: ", __progname);
+  (void)fprintf(stderr, "%s: ", bsd_getprogname());
   if (fmt != NULL)
-    {
-      (void)vfprintf(stderr, fmt, ap);
-      (void)fprintf(stderr, ": ");
-    }
-
-  (void)fprintf(stderr, "%s\n", strerror(code));
+    (void)vfprintf(stderr, fmt, ap);
+  (void)fprintf(stderr, "\n");
 }

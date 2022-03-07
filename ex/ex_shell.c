@@ -167,9 +167,15 @@ proc_wait(SCR *sp, pid_t pid, const char *cmd, int silent, int okpipe)
                 p = msg_print(sp, cmd, &nf);
                 len = strlen(p);
                 msgq(sp, M_ERR, "%.*s%s: received signal: %s%s",
-                    MINIMUM(len, 20), p, len > 20 ? " ..." : "",
-                    strsignal(WTERMSIG(pstat)),
-                    WCOREDUMP(pstat) ? "; core dumped" : "");
+                     MINIMUM(len, 20),
+                     p,
+                     len > 20 ? " ..." : "",
+                     strsignal(WTERMSIG(pstat)),
+#ifdef WCOREDUMP
+                     WCOREDUMP(pstat) ? "; core dumped" : "");
+#else
+                     "");
+#endif /* ifdef WCOREDUMP */
                 if (nf)
                         FREE_SPACE(sp, p, 0);
                 return (1);

@@ -28,6 +28,8 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
+
 #include "common.h"
 #include "../vi/vi.h"
 
@@ -49,8 +51,8 @@ enum pmode pmode;
 int
 editor(GS *gp, int argc, char *argv[])
 {
-        extern int optind;
-        extern char *optarg;
+        extern int openbsd_optind;
+        extern char *openbsd_optarg;
         const char *p;
         EVENT ev;
         FREF *frp;
@@ -153,7 +155,7 @@ editor(GS *gp, int argc, char *argv[])
                  !strcmp(bsd_getprogname(), "openview"))
                     pmode = MODE_VIEW;
 
-        while ((ch = getopt(argc, argv, optstr[pmode])) != -1)
+        while ((ch = openbsd_getopt(argc, argv, optstr[pmode])) != -1)
                 switch (ch) {
                 case 'c':               /* Run the command. */
                         /*
@@ -161,14 +163,14 @@ editor(GS *gp, int argc, char *argv[])
                          * We should support multiple -c options.
                          */
                         if (gp->c_option != NULL) {
-                                warnx("only one -c command may be specified.");
+                                openbsd_warnx("only one -c command may be specified.");
                                 return (1);
                         }
-                        gp->c_option = optarg;
+                        gp->c_option = openbsd_optarg;
                         break;
 #ifdef DEBUG
                 case 'D':
-                        switch (optarg[0]) {
+                        switch (openbsd_optarg[0]) {
                         case 's':
                                 startup = 0;
                                 break;
@@ -176,7 +178,7 @@ editor(GS *gp, int argc, char *argv[])
                                 attach(gp);
                                 break;
                         default:
-                                warnx("-D requires s or w argument.");
+                                openbsd_warnx("-D requires s or w argument.");
                                 return (1);
                         }
                         break;
@@ -193,7 +195,7 @@ editor(GS *gp, int argc, char *argv[])
                         break;
                 case 'r':               /* Recover. */
                         if (flagchk == 't') {
-                                warnx(
+                                openbsd_warnx(
                                     "only one of -r and -t may be specified.");
                                 return (1);
                         }
@@ -207,43 +209,43 @@ editor(GS *gp, int argc, char *argv[])
                         break;
 #ifdef DEBUG
                 case 'T':               /* Trace. */
-                        if ((gp->tracefp = fopen(optarg, "w")) == NULL) {
-                                warn("%s", optarg);
+                        if ((gp->tracefp = fopen(openbsd_optarg, "w")) == NULL) {
+                                openbsd_warn("%s", openbsd_optarg);
                                 goto err;
                         }
                         (void)fprintf(gp->tracefp,
-                            "\n===\ntrace: open %s\n", optarg);
+                            "\n===\ntrace: open %s\n", openbsd_optarg);
                         fflush(gp->tracefp);
                         break;
 #endif /* ifdef DEBUG */
                 case 't':               /* Tag. */
                         if (flagchk == 'r') {
-                                warnx(
+                                openbsd_warnx(
                                     "only one of -r and -t may be specified.");
                                 return (1);
                         }
                         if (flagchk == 't') {
-                                warnx("only one tag file may be specified.");
+                                openbsd_warnx("only one tag file may be specified.");
                                 return (1);
                         }
                         flagchk = 't';
-                        tag_f = optarg;
+                        tag_f = openbsd_optarg;
                         break;
                 case 'v':               /* Vi mode. */
                         LF_CLR(SC_EX);
                         LF_SET(SC_VI);
                         break;
                 case 'w':
-                        wsizearg = optarg;
+                        wsizearg = openbsd_optarg;
                         break;
                 case '?':
                 default:
                         (void)gp->scr_usage();
                         return (1);
                 }
-        argc -= optind;
+        argc -= openbsd_optind;
         (void)argc;
-        argv += optind;
+        argv += openbsd_optind;
         (void)argv;
 
         if (secure)
@@ -260,7 +262,7 @@ editor(GS *gp, int argc, char *argv[])
          * If not reading from a terminal, it's like -s was specified.
          */
         if (silent && !LF_ISSET(SC_EX)) {
-                warnx("-s option is only applicable to ex.");
+                openbsd_warnx("-s option is only applicable to ex.");
                 goto err;
         }
         if (LF_ISSET(SC_EX) && F_ISSET(gp, G_SCRIPTED))
@@ -382,7 +384,7 @@ editor(GS *gp, int argc, char *argv[])
                         /* Cheat -- we know we have an extra argv slot. */
                         l = strlen(sp->frp->name) + 1;
                         if ((*--argv = malloc(l)) == NULL) {
-                                warn(NULL);
+                                openbsd_warn(NULL);
                                 goto err;
                         }
                         (void)openbsd_strlcpy(*argv, sp->frp->name, l);
@@ -546,7 +548,8 @@ v_end(GS *gp)
 
 /*
  * v_obsolete --
- *      Convert historic arguments into something getopt(3) will like.
+ *      Convert historic arguments into something
+ *      openbsd_getopt(3) will like.
  */
 static int
 v_obsolete(char *argv[])
@@ -555,9 +558,9 @@ v_obsolete(char *argv[])
         char *p;
 
         /*
-         * Translate old style arguments into something getopt will like.
-         * Make sure it's not text space memory, because ex modifies the
-         * strings.
+         * Translate old style arguments into something openbsd_getopt
+         * will like. Make sure it's not text space memory, because
+         * ex modifies the strings.
          *      Change "+" into "-c$".
          *      Change "+<anything else>" into "-c<anything else>".
          *      Change "-" into "-s"
@@ -586,7 +589,7 @@ v_obsolete(char *argv[])
                         if (argv[0][1] == '\0') {
                                 argv[0] = strdup("-s");
                                 if (argv[0] == NULL) {
-nomem:                                  warn(NULL);
+nomem:                                  openbsd_warn(NULL);
                                         return (1);
                                 }
                         } else
@@ -606,7 +609,7 @@ attach(GS *gp)
         char ch;
 
         if ((fd = open(_PATH_TTY, O_RDONLY)) < 0) {
-                warn("%s", _PATH_TTY);
+                openbsd_warn("%s", _PATH_TTY);
                 return;
         }
 

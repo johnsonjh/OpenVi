@@ -10,6 +10,10 @@
  * See the LICENSE.md file for redistribution information.
  */
 
+#include "../include/compat.h"
+
+#include "errc.h"
+
 #include <sys/types.h>
 #include <sys/queue.h>
 #include <sys/time.h>
@@ -18,12 +22,15 @@
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
+#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
 #include "../common/common.h"
 #include "../vi/vi.h"
+
+#undef open
 
 /*
  * ex_bang -- :[line [,line]] ! command

@@ -69,6 +69,11 @@
 # define MINPSIZE       128
 #endif /* ifdef DEBUG */
 
+#if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) )
+# define BIG_ENDIAN     4321
+# define LITTLE_ENDIAN  1234
+#endif /* if ( !defined(BIG_ENDIAN) && !defined(LITTLE_ENDIAN) ) */
+
 static int byteorder(void);
 static int nroot(BTREE *);
 static int tmp(void);
@@ -405,7 +410,11 @@ tmp(void)
 
         (void)sigfillset(&set);
         (void)sigprocmask(SIG_BLOCK, &set, &oset);
+#ifdef _AIX
+        if ((fd = mkstemp(path)) != -1)
+#else
         if ((fd = mkostemp(path, O_CLOEXEC)) != -1)
+#endif /* ifdef _AIX */
                 (void)unlink(path);
         (void)sigprocmask(SIG_SETMASK, &oset, NULL);
         return(fd);

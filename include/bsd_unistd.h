@@ -33,12 +33,18 @@
  *      @(#)unistd.h    5.13 (Berkeley) 6/17/91
  */
 
-#ifdef __OpenBSD__
-# include <sys/types.h>
-#else
+#ifndef _COMPAT_UNISTD_H_
+# define _COMPAT_UNISTD_H_
 
-# ifndef _COMPAT_UNISTD_H_
-#  define _COMPAT_UNISTD_H_
+int      openbsd_pledge(const char *, const char *);
+int      openbsd_getopt(int, char * const *, const char *);
+int      openbsd_getopt(int, char * const *, const char *);
+extern   char *openbsd_optarg;
+extern   int openbsd_opterr, openbsd_optind, openbsd_optopt, openbsd_optreset;
+
+# ifdef __OpenBSD__
+#  include <sys/types.h>
+# else
 
 #  include <sys/types.h>
 
@@ -56,24 +62,6 @@ int      getresuid(uid_t *, uid_t *, uid_t *);
 void    *setmode(const char *);
 int      setresgid(gid_t, gid_t, gid_t);
 int      setresuid(uid_t, uid_t, uid_t);
-int      openbsd_pledge(const char *, const char *);
-
-#  if ( defined(__MSYS__) || defined(__CYGWIN__) )
-#   ifndef _GETOPT_DEFINED_
-#    define _GETOPT_DEFINED_
-#   endif /* ifndef _GETOPT_DEFINED_ */
-#  endif /* if ( defined(__MSYS__) || defined(__CYGWIN__) ) */
-
-#  ifndef _GETOPT_DEFINED_
-#   define _GETOPT_DEFINED_
-#   define getopt(argc, argv, optstr) \
-        openbsd_getopt(argc, argv, optstr)
-#   define opterr openbsd_opterr
-#   define optind openbsd_optind
-int      getopt(int, char * const *, const char *);
-extern   char *optarg;          /* getopt(3) external variables */
-extern   int opterr, optind, optopt, optreset;
-#  endif /* _GETOPT_DEFINED_ */
 
 # endif /* _COMPAT_UNISTD_H_ */
 

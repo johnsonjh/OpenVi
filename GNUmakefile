@@ -6,7 +6,7 @@
 CC          ?= cc
 OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
-CFLAGS      += -std=gnu99 -Iinclude -Icl -Icommon
+CFLAGS      += -std=gnu99 -Iinclude -Icommon -Iregex -Iopenbsd
 CFLAGS      += -Wall -Wno-pointer-sign -Wno-uninitialized
 
 ###############################################################################
@@ -30,9 +30,26 @@ LTOC         = -flto
 
 ###############################################################################
 
+TR          ?= tr
+UNAME       ?= uname
+
+ifndef $(OS)
+    OS=$(shell $(UNAME) -s 2> /dev/null | \
+        $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
+endif
+
+###############################################################################
+
 # Default libraries to link
+CURSESLIB ?= -lncurses
 ifndef LIBS
-   LINKLIBS ?= -lutil -lncurses
+   ifeq ($(OS),aix)
+      LDFLAGS  += -L/opt/freeware/lib
+      CFLAGS   += -I/opt/freeware/include
+      LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
+   else
+      LINKLIBS ?= -lutil $(CURSESLIB)
+   endif # aix
 else
    LINKLIBS  = $(LIBS)
 endif # LIBS
@@ -95,17 +112,8 @@ SLEEP       ?= sleep
 STRIP       ?= strip
 SSTRIP      ?= sstrip
 TEST        ?= test
-TR          ?= tr
 TRUE        ?= true
-UNAME       ?= uname
 UPX         ?= upx
-
-###############################################################################
-
-ifndef $(OS)
-    OS=$(shell $(UNAME) -s 2> /dev/null | \
-        $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
-endif
 
 ###############################################################################
 
@@ -123,23 +131,35 @@ endif # DEBUG
 
 ###############################################################################
 
-XSRC =	cl/getopt_long.c        \
-		cl/getprogname.c        \
-		cl/reallocarray.c       \
-		cl/strlcpy.c            \
-		cl/strtonum.c           \
-		cl/strtonum.c           \
-		db/sys/issetugid.c      \
-		xinstall/errc.c         \
-		xinstall/minpwcache.c   \
-		xinstall/setmode.c      \
-		xinstall/strlcat.c      \
-		xinstall/verrc.c        \
-		xinstall/vwarnc.c       \
-		xinstall/warnc.c        \
+XSRC =	openbsd/err.c           \
+		openbsd/errc.c          \
+		openbsd/errx.c          \
+		openbsd/getopt_long.c   \
+		openbsd/getprogname.c   \
+		openbsd/issetugid.c     \
+		openbsd/minpwcache.c    \
+		openbsd/reallocarray.c  \
+		openbsd/setmode.c       \
+		openbsd/strlcat.c       \
+		openbsd/strlcpy.c       \
+		openbsd/strtonum.c      \
+		openbsd/verr.c          \
+		openbsd/verrc.c         \
+		openbsd/verrx.c         \
+		openbsd/vwarn.c         \
+		openbsd/vwarnc.c        \
+		openbsd/vwarnx.c        \
+		openbsd/warn.c          \
+		openbsd/warnc.c         \
+		openbsd/warnx.c         \
 		xinstall/xinstall.c
 
-SRCS = 	common/cut.c            \
+SRCS =	cl/cl_funcs.c           \
+		cl/cl_main.c            \
+		cl/cl_read.c            \
+		cl/cl_screen.c          \
+		cl/cl_term.c            \
+		common/cut.c            \
 		common/delete.c         \
 		common/exf.c            \
 		common/key.c            \
@@ -156,7 +176,6 @@ SRCS = 	common/cut.c            \
 		common/search.c         \
 		common/seq.c            \
 		common/util.c           \
-		db/db/db.c              \
 		db/btree/bt_close.c     \
 		db/btree/bt_conv.c      \
 		db/btree/bt_debug.c     \
@@ -170,13 +189,14 @@ SRCS = 	common/cut.c            \
 		db/btree/bt_seq.c       \
 		db/btree/bt_split.c     \
 		db/btree/bt_utils.c     \
-		db/hash/ndbm.c          \
+		db/db/db.c              \
 		db/hash/hash_bigkey.c   \
 		db/hash/hash_buf.c      \
 		db/hash/hash.c          \
 		db/hash/hash_func.c     \
 		db/hash/hash_log2.c     \
 		db/hash/hash_page.c     \
+		db/hash/ndbm.c          \
 		db/mpool/mpool.c        \
 		db/recno/rec_close.c    \
 		db/recno/rec_delete.c   \
@@ -186,15 +206,13 @@ SRCS = 	common/cut.c            \
 		db/recno/rec_search.c   \
 		db/recno/rec_seq.c      \
 		db/recno/rec_utils.c    \
-		db/sys/issetugid.c      \
-		db/sys/open.c           \
-		ex/ex.c                 \
 		ex/ex_abbrev.c          \
 		ex/ex_append.c          \
 		ex/ex_args.c            \
 		ex/ex_argv.c            \
 		ex/ex_at.c              \
 		ex/ex_bang.c            \
+		ex/ex.c                 \
 		ex/ex_cd.c              \
 		ex/ex_cmd.c             \
 		ex/ex_delete.c          \
@@ -234,13 +252,34 @@ SRCS = 	common/cut.c            \
 		ex/ex_write.c           \
 		ex/ex_yank.c            \
 		ex/ex_z.c               \
-		vi/vi.c                 \
+		openbsd/basename.c      \
+		openbsd/err.c           \
+		openbsd/errx.c          \
+		openbsd/getopt_long.c   \
+		openbsd/getprogname.c   \
+		openbsd/issetugid.c     \
+		openbsd/open.c          \
+		openbsd/pledge.c        \
+		openbsd/reallocarray.c  \
+		openbsd/strlcpy.c       \
+		openbsd/strtonum.c      \
+		openbsd/verr.c          \
+		openbsd/verrx.c         \
+		openbsd/vwarn.c         \
+		openbsd/vwarnx.c        \
+		openbsd/warn.c          \
+		openbsd/warnx.c         \
+		regex/regcomp.c         \
+		regex/regerror.c        \
+		regex/regexec.c         \
+		regex/regfree.c         \
 		vi/getc.c               \
 		vi/v_at.c               \
 		vi/v_ch.c               \
 		vi/v_cmd.c              \
 		vi/v_delete.c           \
 		vi/v_ex.c               \
+		vi/vi.c                 \
 		vi/v_increment.c        \
 		vi/v_init.c             \
 		vi/v_itxt.c             \
@@ -257,6 +296,12 @@ SRCS = 	common/cut.c            \
 		vi/v_search.c           \
 		vi/v_section.c          \
 		vi/v_sentence.c         \
+		vi/vs_line.c            \
+		vi/vs_msg.c             \
+		vi/vs_refresh.c         \
+		vi/vs_relative.c        \
+		vi/vs_smap.c            \
+		vi/vs_split.c           \
 		vi/v_status.c           \
 		vi/v_txt.c              \
 		vi/v_ulcase.c           \
@@ -266,33 +311,11 @@ SRCS = 	common/cut.c            \
 		vi/v_xchar.c            \
 		vi/v_yank.c             \
 		vi/v_z.c                \
-		vi/v_zexit.c            \
-		vi/vs_line.c            \
-		vi/vs_msg.c             \
-		vi/vs_refresh.c         \
-		vi/vs_relative.c        \
-		vi/vs_smap.c            \
-		vi/vs_split.c           \
-		cl/cl_funcs.c           \
-		cl/cl_main.c            \
-		cl/cl_read.c            \
-		cl/cl_screen.c          \
-		cl/cl_term.c            \
-		cl/basename.c           \
-		cl/getopt_long.c        \
-		cl/getprogname.c        \
-		cl/pledge.c             \
-		cl/reallocarray.c       \
-		cl/strlcpy.c            \
-		cl/strtonum.c           \
-		cl/regcomp.c            \
-		cl/regerror.c           \
-		cl/regexec.c            \
-		cl/regfree.c
+		vi/v_zexit.c
 
 ###############################################################################
 
-VPATH = build:cl:common:db:ex:include:vi:bin
+VPATH = build:cl:common:db:ex:include:vi:regex:openbsd:bin
 OBJS := ${SRCS:.c=.o}
 XOBJ := ${XSRC:.c=.o}
 DEPS := ${OBJS:.o=.d}
@@ -301,12 +324,12 @@ XDEP := ${XOBJ:.o=.d}
 ###############################################################################
 
 .PHONY: all
-all: bin/vi \
-     bin/ex \
-     bin/view \
-     docs/USD.doc/vi.man/vi.1 \
-     scripts/virecover.8 \
-     bin/xinstall
+all: bin/vi                    \
+     bin/ex                    \
+     bin/view                  \
+     bin/xinstall              \
+     docs/USD.doc/vi.man/vi.1  \
+     scripts/virecover.8       \
 
 ###############################################################################
 
@@ -314,11 +337,12 @@ ex/ex_def.h: ex/ex.awk ex/ex_cmd.c
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(AWK):\t%42s\n" "ex/ex.awk"
 endif # DEBUG
-	@$(VERBOSE); $(RMF) "./ex/ex_def.h"; \
-        $(PAWK) -f \
-            "./ex/ex.awk" "./ex/ex_cmd.c" \
-                > "./ex/ex_def.h" && \
-                    $(TEST) -f "./ex/ex_def.h"
+	@$(VERBOSE); $(RMF) "./ex/ex_def.h";   \
+        $(PAWK) -f                         \
+            "./ex/ex.awk" "./ex/ex_cmd.c"  \
+                > "./ex/ex_def.h" &&       \
+                    $(TEST) -f             \
+                       "./ex/ex_def.h"
 
 ###############################################################################
 
@@ -326,10 +350,10 @@ common/options_def.h: common/options.awk common/options.c ex/ex_def.h
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(AWK):\t%42s\n" "command/options.awk"
 endif # DEBUG
-	@$(VERBOSE); $(RMF) "./common/options_def.h"; \
-        $(PAWK) -f \
-            "./common/options.awk" "./common/options.c" \
-                > "./common/options_def.h" && \
+	@$(VERBOSE); $(RMF) "./common/options_def.h";        \
+        $(PAWK) -f                                       \
+            "./common/options.awk" "./common/options.c"  \
+                > "./common/options_def.h" &&            \
                     $(TEST) -f "./common/options_def.h"
 
 ###############################################################################
@@ -447,14 +471,15 @@ view: bin/view
 ifneq (,$(findstring install,$(MAKECMDGOALS)))
 .NOTPARALLEL: install
 endif # (,$(findstring install,$(MAKECMDGOALS)))
-install: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1 \
-         scripts/virecover scripts/virecover.8
+install: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1  \
+         scripts/virecover scripts/virecover.8            \
+         bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "/var/tmp/vi.recover"
 endif # DEBUG
-	@$(VERBOSE); $(TEST) -d "/var/tmp/vi.recover" || { \
+	@$(VERBOSE); $(TEST) -d "/var/tmp/vi.recover" || {                        \
         $(MKDIR) "/var/tmp/vi.recover" && $(TEST) -d "/var/tmp/vi.recover" && \
-            $(CHOWN) "$(IUSGR)" "/var/tmp/vi.recover" && \
+            $(CHOWN) "$(IUSGR)" "/var/tmp/vi.recover" &&                      \
                 $(CHMOD) "1777" "/var/tmp/vi.recover"; }
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "$(PREFIX)/bin"
@@ -479,39 +504,39 @@ ifndef DEBUG
         "cp:" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 endif # DEBUG
 	@$(VERBOSE); $(CP) ./bin/vi "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
-        $(CHOWN) "$(IUSGR)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
+        $(CHOWN) "$(IUSGR)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&     \
             $(CHMOD) "$(IPERM)" "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
         "ln:" "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
 endif # DEBUG
-	@$(VERBOSE); $(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
-        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
+	@$(VERBOSE); $(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&  \
+        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"                  \
             "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
         "ln:" "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 endif # DEBUG
-	@$(VERBOSE); $(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
-        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" \
+	@$(VERBOSE); $(TEST) -x "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" &&  \
+        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"                  \
             "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
         "cp:" "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
 endif # DEBUG
-	@$(VERBOSE); $(CP) "./scripts/virecover" \
-        "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)" && \
-            $(CHMOD) "$(IPERM)" \
+	@$(VERBOSE); $(CP) "./scripts/virecover"                            \
+        "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)" &&       \
+            $(CHMOD) "$(IPERM)"                                         \
                 "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
         "cp:" "$(PREFIX)/share/man/man1/$(BINPREFIX){vi,ex,view}$(BINSUFFIX).1"
 endif # DEBUG
-	@$(VERBOSE); $(CP) "docs/USD.doc/vi.man/vi.1" \
-        "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" && \
-            $(LNS) "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
-                "$(PREFIX)/share/man/man1/$(BINPREFIX)view$(BINSUFFIX).1" && \
-                    $(LNS) \
+	@$(VERBOSE); $(CP) "docs/USD.doc/vi.man/vi.1"                             \
+        "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" &&            \
+            $(LNS) "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1"    \
+                "$(PREFIX)/share/man/man1/$(BINPREFIX)view$(BINSUFFIX).1" &&  \
+                    $(LNS)                                                    \
                       "$(PREFIX)/share/man/man1/$(BINPREFIX)vi$(BINSUFFIX).1" \
                         "$(PREFIX)/share/man/man1/$(BINPREFIX)ex$(BINSUFFIX).1"
 ifndef DEBUG
@@ -541,11 +566,15 @@ endif # DEBUG
 ifneq (,$(findstring strip,$(MAKECMDGOALS)))
 .NOTPARALLEL: strip
 endif # (,$(findstring strip,$(MAKECMDGOALS)))
-strip: bin/vi
+strip: bin/vi bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
 	-@$(VERBOSE); $(STRIP) "./bin/vi" || $(TRUE)
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/xinstall"
+endif # DEBUG
+	-@$(VERBOSE); $(STRIP) "./bin/xinstall" || $(TRUE)
 
 ###############################################################################
 
@@ -558,7 +587,7 @@ ifneq ($(OS),freebsd)
 else
     STRIP_VERS=
 endif # ifneq ($(OS),freebsd)
-superstrip sstrip: bin/vi
+superstrip sstrip: bin/vi bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
@@ -569,11 +598,30 @@ endif # DEBUG
         -R '.eh_frame*'                 \
         -R '.comment'                   \
         -R '.comment.*' $(STRIP_VERS)   \
-            "./bin/vi" || $(TRUE)
+            "./bin/vi"                  \
+              2> /dev/null || $(TRUE)
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(SSTRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
-	-@$(VERBOSE); $(SSTRIP) -z "./bin/vi" 2> /dev/null || $(TRUE)
+	-@$(VERBOSE); $(SSTRIP) -z "./bin/vi" \
+      2> /dev/null || $(TRUE)
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/xinstall"
+endif # DEBUG
+	-@$(VERBOSE); $(STRIP) --strip-all  \
+        -R '.gnu.build.attributes'      \
+        -R '.note.*'                    \
+        -R '.eh_frame'                  \
+        -R '.eh_frame*'                 \
+        -R '.comment'                   \
+        -R '.comment.*' $(STRIP_VERS)   \
+            "./bin/xinstall"            \
+              2> /dev/null || $(TRUE)
+ifndef DEBUG
+	-@$(PRINTF) "\r\t$(SSTRIP):\t%42s\n" "bin/xinstall"
+endif # DEBUG
+	-@$(VERBOSE); $(SSTRIP) -z "./bin/xinstall" \
+      2> /dev/null || $(TRUE)
 
 ###############################################################################
 

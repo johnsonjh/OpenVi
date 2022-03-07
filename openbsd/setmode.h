@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
- * Copyright (c) 2022 Ørjan Malde <red@foxi.me>
  *
  * All rights reserved.
  *
@@ -32,43 +31,21 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../include/compat.h"
+#ifndef _SETMODE_H
+# define _SETMODE_H
 
-#include <errno.h>
+# include "../include/compat.h"
 
-#if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) ) \
-         || defined(__linux__) || defined(__midipix__)
-# include <sys/auxv.h>
-#else
-# include <unistd.h>
-#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )
-                  || defined(__linux__) || defined(__midipix__) */
+# include <sys/stat.h>
+# include <sys/types.h>
 
-#if defined(__FreeBSD__) || defined(__OpenBSD__) \
-       || ( defined(__APPLE__ ) && defined(__MACH__) ) \
-       || ( defined(__CYGWIN__) )
-# include <unistd.h>
-#else
+# include <grp.h>
+# include <stdarg.h>
+# include <stddef.h>
 
-# ifdef __linux__
-#  include <elf.h>
-# endif /* ifdef __linux__ */
+# undef open
 
-int
-issetugid(void)
-{
-  int rv = 0;
+void   *openbsd_setmode(const char *p);
+mode_t  openbsd_getmode(const void *bbox, mode_t omode);
 
-  errno = 0;
-  rv = getauxval(AT_SECURE) != 0;
-  if (errno)
-    {
-      errno = 0;
-      rv = 1;
-    }
-
-  return rv;
-}
-#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
-                || ( defined(__APPLE__) && defined(__MACH__) )
-                || ( defined(__CYGWIN__) ) */
+#endif /* ifndef _SETMODE_H */

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022 Ørjan Malde <red@foxi.me>
  *
  * All rights reserved.
  *
@@ -31,49 +32,47 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _PATHNAMES_H
-# define _PATHNAMES_H
+#include "../include/compat.h"
 
-# ifdef _PATH_EXRC
-#  undef _PATH_EXRC
-# endif /* ifdef _PATH_EXRC */
+#include <errno.h>
 
-# define _PATH_EXRC ".exrc"
+#undef open
 
-# ifdef _PATH_NEXRC
-#  undef _PATH_NEXRC
-# endif /* ifdef _PATH_NEXRC */
+#if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) ) \
+         || defined(__linux__) || defined(__midipix__)
+# include <sys/auxv.h>
+#else
+# include <unistd.h>
+#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )
+                  || defined(__linux__) || defined(__midipix__) */
 
-# define _PATH_NEXRC ".nexrc"
+#if defined(__FreeBSD__) || defined(__OpenBSD__) \
+       || ( defined(__APPLE__ ) && defined(__MACH__) ) \
+       || ( defined(__CYGWIN__) )
+# include <unistd.h>
+#else
 
-# ifdef _PATH_PRESERVE
-#  undef _PATH_PRESERVE
-# endif /* ifdef _PATH_PRESERVE */
+# ifdef __linux__
+#  include <elf.h>
+# endif /* ifdef __linux__ */
 
-# define _PATH_PRESERVE "/var/tmp/vi.recover"
+int
+issetugid(void)
+{
+  int rv = 0;
 
-# ifdef _PATH_SYSEXRC
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_SYSEXRC */
+  errno = 0;
+# ifndef _AIX
+  rv = getauxval(AT_SECURE) != 0;
+# endif /* ifndef _AIX */
+  if (errno)
+    {
+      errno = 0;
+      rv = 1;
+    }
 
-# define _PATH_SYSEXRC "/etc/vi.exrc"
-
-# ifdef _PATH_TAGS
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_TAGS */
-
-# define _PATH_TAGS "tags"
-
-# ifndef _PATH_SENDMAIL
-#  define _PATH_SENDMAIL "/usr/sbin/sendmail"
-# endif /* ifndef _PATH_SENDMAIL */
-
-# ifndef _PATH_STRIP
-#  define _PATH_STRIP "/usr/bin/strip"
-# endif /* ifndef _PATH_STRIP */
-
-# ifndef _PATH_SYSV_PTY
-#  define _PATH_SYSV_PTY "/dev/ptmx"
-# endif
-
-#endif /* ifndef _PATHNAMES_H */
+  return rv;
+}
+#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
+                || ( defined(__APPLE__) && defined(__MACH__) )
+                || ( defined(__CYGWIN__) ) */

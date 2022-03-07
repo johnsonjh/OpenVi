@@ -24,6 +24,8 @@
  */
 #include <sys/file.h>
 
+#include <stddef.h>
+#include <stdint.h>
 #include <bitstring.h>
 #include <dirent.h>
 #include <errno.h>
@@ -32,11 +34,13 @@
 #include <paths.h>
 #include <pwd.h>
 #include <stdio.h>
+#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <time.h>
 #include <bsd_unistd.h>
 
+#include "errc.h"
 #include "common.h"
 #include "pathnames.h"
 
@@ -609,7 +613,11 @@ rcv_read(SCR *sp, FREF *frp)
         struct stat sb;
         DIR *dirp;
         EXF *ep;
+#ifdef _AIX
+        struct st_timespec rec_mtim;
+#else
         struct timespec rec_mtim;
+#endif /* ifdef _AIX */
         int fd, found, lck, requested, sv_fd;
         char *name, *p, *t, *rp, *recp, *pathp;
         char file[PATH_MAX], path[PATH_MAX], recpath[PATH_MAX];
