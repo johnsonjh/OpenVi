@@ -154,24 +154,24 @@ sscr_init(SCR *sp)
         }
 
 #ifdef HAVE_SYS5_PTY
-#ifdef TIOCGWINSZ
-    	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &sc->sh_win) == -1) {
-	        	msgq(sp, M_SYSERR, "tcgetattr");
-        		goto err;
-    	}
+# ifdef TIOCGWINSZ
+        if (ioctl(STDIN_FILENO, TIOCGWINSZ, &sc->sh_win) == -1) {
+                msgq(sp, M_SYSERR, "tcgetattr");
+                goto err;
+        }
 
-	    if (sscr_pty(&sc->sh_master,
-	            &sc->sh_slave, sc->sh_name, &sc->sh_term, &sc->sh_win) == -1) {
-        		msgq(sp, M_SYSERR, "pty");
-        		goto err;
-    	}
-#else
-	    if (sscr_pty(&sc->sh_master,
-	            &sc->sh_slave, sc->sh_name, &sc->sh_term, NULL) == -1) {
-        		msgq(sp, M_SYSERR, "pty");
-        		goto err;
-    	}
-#endif /* ifdef TIOCGWINSZ */
+        if (sscr_pty(&sc->sh_master,
+                &sc->sh_slave, sc->sh_name, &sc->sh_term, &sc->sh_win) == -1) {
+                msgq(sp, M_SYSERR, "pty");
+                goto err;
+        }
+# else
+        if (sscr_pty(&sc->sh_master,
+                &sc->sh_slave, sc->sh_name, &sc->sh_term, NULL) == -1) {
+                msgq(sp, M_SYSERR, "pty");
+                goto err;
+        }
+# endif /* ifdef TIOCGWINSZ */
 #else
         if (openpty(&sc->sh_master,
                 &sc->sh_slave, sc->sh_name, &sc->sh_term, &sc->sh_win) == -1) {
@@ -741,103 +741,103 @@ static int
 sscr_pty(int *amaster, int *aslave, char *name,
          struct termios *termp, void *winp)
 {
-	int master, slave;
+    int master, slave;
 
-	/* open master terminal */
-	if ((master = ptym_open(name)) < 0)  {
-		errno = ENOENT;	/* out of ptys */
-		return (-1);
-	}
+    /* open master terminal */
+    if ((master = ptym_open(name)) < 0)  {
+        errno = ENOENT;        /* out of ptys */
+        return (-1);
+    }
 
-	/* open slave terminal */
-	if ((slave = ptys_open(master, name)) >= 0) {
-		*amaster = master;
-		*aslave = slave;
-	} else {
-		errno = ENOENT;	/* out of ptys */
-		return (-1);
-	}
+    /* open slave terminal */
+    if ((slave = ptys_open(master, name)) >= 0) {
+        *amaster = master;
+        *aslave = slave;
+    } else {
+        errno = ENOENT;        /* out of ptys */
+        return (-1);
+    }
 
-	if (termp)
-		(void) tcsetattr(slave, TCSAFLUSH, termp);
-#ifdef TIOCSWINSZ
-	if (winp != NULL)
-		(void) ioctl(slave, TIOCSWINSZ, (struct winsize *)winp);
-#endif /* ifdef TIOCSWINSZ */
-	return (0);
+    if (termp)
+        (void) tcsetattr(slave, TCSAFLUSH, termp);
+# ifdef TIOCSWINSZ
+    if (winp != NULL)
+        (void) ioctl(slave, TIOCSWINSZ, (struct winsize *)winp);
+# endif /* ifdef TIOCSWINSZ */
+    return (0);
 }
 
 /*
  * ptym_open --
- *	This function opens a master pty and returns the file descriptor
- *	to it.  pts_name is also returned which is the name of the slave.
+ *    This function opens a master pty and returns the file descriptor
+ *    to it.  pts_name is also returned which is the name of the slave.
  */
 static int
 ptym_open(char *pts_name)
 {
-	int fdm;
-	char *ptr, *ptsname();
+    int fdm;
+    char *ptr, *ptsname();
 
-	strcpy(pts_name, _PATH_SYSV_PTY);
-	if ((fdm = open(pts_name, O_RDWR)) < 0 )
-		return (-1);
+    strcpy(pts_name, _PATH_SYSV_PTY);
+    if ((fdm = open(pts_name, O_RDWR)) < 0 )
+        return (-1);
 
-	if (grantpt(fdm) < 0) {
-		close(fdm);
-		return (-2);
-	}
+    if (grantpt(fdm) < 0) {
+        close(fdm);
+        return (-2);
+    }
 
-	if (unlockpt(fdm) < 0) {
-		close(fdm);
-		return (-3);
-	}
+    if (unlockpt(fdm) < 0) {
+        close(fdm);
+        return (-3);
+    }
 
-	if (unlockpt(fdm) < 0) {
-		close(fdm);
-		return (-3);
-	}
+    if (unlockpt(fdm) < 0) {
+        close(fdm);
+        return (-3);
+    }
 
-	/* get slave's name */
-	if ((ptr = ptsname(fdm)) == NULL) {
-		close(fdm);
-		return (-3);
-	}
-	strcpy(pts_name, ptr);
-	return (fdm);
+    /* get slave's name */
+    if ((ptr = ptsname(fdm)) == NULL) {
+        close(fdm);
+        return (-3);
+    }
+    strcpy(pts_name, ptr);
+    return (fdm);
 }
 
 /*
  * ptys_open --
- *	This function opens the slave pty.
+ *     This function opens the slave pty.
  */
 static int
 ptys_open(int fdm, char *pts_name)
 {
-	int fds;
+    int fds;
 
-	if ((fds = open(pts_name, O_RDWR)) < 0) {
-		close(fdm);
-		return (-5);
-	}
+    if ((fds = open(pts_name, O_RDWR)) < 0) {
+        close(fdm);
+        return (-5);
+    }
 
-	if (ioctl(fds, I_PUSH, "ptem") < 0) {
-		close(fds);
-		close(fdm);
-		return (-6);
-	}
+    if (ioctl(fds, I_PUSH, "ptem") < 0) {
+        close(fds);
+        close(fdm);
+        return (-6);
+    }
 
-	if (ioctl(fds, I_PUSH, "ldterm") < 0) {
-		close(fds);
-		close(fdm);
-		return (-7);
-	}
+    if (ioctl(fds, I_PUSH, "ldterm") < 0) {
+        close(fds);
+        close(fdm);
+        return (-7);
+    }
 
-	if (ioctl(fds, I_PUSH, "ttcompat") < 0) {
-		close(fds);
-		close(fdm);
-		return (-8);
-	}
+    if (ioctl(fds, I_PUSH, "ttcompat") < 0) {
+        close(fds);
+        close(fdm);
+        return (-8);
+    }
 
-	return (fds);
+    return (fds);
 }
 #endif /* HAVE_SYS5_PTY */
