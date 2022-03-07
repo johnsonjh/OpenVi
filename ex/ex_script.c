@@ -199,12 +199,14 @@ err:            if (sc->sh_master != -1)
                         _exit(126);
 
                 (void)setsid();
+#ifdef TIOCSCTTY
                 /*
                  * 4.4BSD allocates a controlling terminal using the TIOCSCTTY
                  * ioctl, not by opening a terminal device file.  POSIX 1003.1
                  * doesn't define a portable way to do this.
                  */
                 (void)ioctl(sc->sh_slave, TIOCSCTTY, 0);
+#endif /* ifdef TIOCSCTTY */
                 (void)close(sc->sh_master);
                 (void)dup2(sc->sh_slave, STDIN_FILENO);
                 (void)dup2(sc->sh_slave, STDOUT_FILENO);
