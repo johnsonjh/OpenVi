@@ -38,8 +38,11 @@ struct _exf {
 
         dev_t    mdev;                  /* Device. */
         ino_t    minode;                /* Inode. */
+#ifdef _AIX
+        struct st_timespec mtim;        /* Last modification time. (AIX 7+) */
+#else
         struct timespec mtim;           /* Last modification time. */
-
+#endif /* ifdef _AIX */
         int      fcntl_fd;              /* Fcntl locking fd; see exf.c. */
 
         /*
