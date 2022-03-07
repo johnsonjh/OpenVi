@@ -72,4 +72,8 @@
 #  define _PATH_STRIP "/usr/bin/strip"
 # endif /* ifndef _PATH_STRIP */
 
+# ifndef _PATH_SYSV_PTY
+#  define _PATH_SYSV_PTY "/dev/ptmx"
+# endif
+
 #endif /* ifndef _PATHNAMES_H */
