@@ -34,6 +34,10 @@
 #ifndef _COMPAT_H_
 # define _COMPAT_H_
 
+# ifdef _AIX
+#  include <sys/limits.h>
+# endif /* ifdef _AIX */
+
 # if !defined( _GNU_SOURCE )
 #  define _GNU_SOURCE
 # endif /* ifndef _GNU_SOURCE */
