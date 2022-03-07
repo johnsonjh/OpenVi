@@ -731,14 +731,14 @@ sscr_check(SCR *sp)
 }
 
 #ifdef HAVE_SYS5_PTY
-/*
- * System V pty support
- */
-static int ptys_open _P((int, char *));
-static int ptym_open _P((char *));
+static int ptys_open(int fdm, char *pts_name);
+static int ptym_open(char *pts_name);
+static int sscr_pty(int *amaster, int *aslave, char *name,
+                    struct termios *termp, void *winp);
 
 static int
-sscr_pty(int *amaster, int *aslave, char *name, struct termios *termp, void *winp)
+sscr_pty(int *amaster, int *aslave, char *name,
+         struct termios *termp, void *winp)
 {
 	int master, slave, ttygid;
 
