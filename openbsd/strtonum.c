@@ -3,6 +3,7 @@
 /*
  * Copyright (c) 2004 Ted Unangst and Todd Miller
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
  * All rights reserved.
  *
  * Permission to use, copy, modify, and distribute this software for any

@@ -1,8 +1,7 @@
 /*         $OpenBSD: warn.c,v 1.11 2015/08/31 02:53:57 guenther Exp $        */
 
 /*-
- * Copyright (c) 1993
- *         The Regents of the University of California.
+ * Copyright (c) 1993 The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.

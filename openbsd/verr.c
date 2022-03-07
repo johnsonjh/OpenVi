@@ -1,8 +1,7 @@
 /*         $OpenBSD: verr.c,v 1.11 2016/03/13 18:34:20 guenther Exp $        */
 
 /*-
- * Copyright (c) 1993
- *         The Regents of the University of California.
+ * Copyright (c) 1993 The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
