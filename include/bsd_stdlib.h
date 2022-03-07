@@ -64,7 +64,6 @@ void srandom(unsigned int);
 void srandom_deterministic(unsigned int);
 void srandomdev(void);
 char *initstate(unsigned int, char *, size_t);
-int mkostemp(char *, int);
 
 #endif /* _COMPAT_STDLIB_H_ */
 

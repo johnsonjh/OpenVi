@@ -410,7 +410,11 @@ tmp(void)
 
         (void)sigfillset(&set);
         (void)sigprocmask(SIG_BLOCK, &set, &oset);
+#ifdef _AIX
+        if ((fd = mkstemp(path)) != -1)
+#else
         if ((fd = mkostemp(path, O_CLOEXEC)) != -1)
+#endif /* ifdef _AIX */
                 (void)unlink(path);
         (void)sigprocmask(SIG_SETMASK, &oset, NULL);
         return(fd);
