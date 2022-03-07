@@ -257,9 +257,9 @@ main(int argc, char *argv[])
        * the target file. If more restrictive permissions are required then
        * '-d -m' ought to be used instead.
        */
-#if ( !defined(_AIX) && !defined(__OpenBSD__) )
+#if ( !defined(__APPLE__) && !defined(_AIX) && !defined(__OpenBSD__) )
       if (dest == odst)
-#endif /* if ( !defined(_AIX) && !defined(__OpenBSD__) ) */
+#endif /* if ( !defined(__APPLE__) && !defined(_AIX) && !defined(__OpenBSD__) ) */
         if (strcmp(dest, "."))
           install_dir(dest, 0755);
     }
