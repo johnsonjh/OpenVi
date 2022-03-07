@@ -38,6 +38,11 @@
 
 #undef open
 
+#ifdef _AIX
+# undef lines
+# undef columns
+#endif /* ifdef _AIX */
+
 static input_t  cl_read(SCR *,
                     u_int32_t, CHAR_T *, size_t, int *, struct timeval *);
 static int      cl_resize(SCR *sp, size_t lines, size_t columns);
