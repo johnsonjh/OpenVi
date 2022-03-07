@@ -1,12 +1,18 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Fri Mar 4 11:12:43 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Mon Mar 7 12:26:39 2022
+        + Add support for IBM AIX 7+; tested on IBM AIX 7.2 and IBM AIX 7.3
+          with GNU GCC (8, 9, 10, 11), IBM XL C/C++ V16.1+ (gxlc, xlclang),
+          and IBM Open XL C/C++ V17.1+ using ncurses from IBM's AIX Toolbox
+        + Various portability improvements (portable BSD getopt, warn, etc.)
+        + Reorganize source tree to better separate logical components
+        + `WCOREDUMP` is not in POSIX.1-2008, so don't require it to build
+        + Similarly, check if `TIOCSCTTY` is available and don't require it
         + Add `xinstall`, a BSD install utility based on OpenBSD `install(1)`
         + Switch `vfork` to `fork` as `vfork` is now gone from POSIX.1-2008
         + Clear pointer after ending screen for safety
-        + Documentation / man page improvements and minor corrections
+        + `README.md`, documentation, and man page corrections and improvements
         + Apply `expandtab` to lines filtered with the `!` command, via `nvi2`
         + OpenBSD 7.1 enters beta; bumping OpenBSD version to 7.1
         + Modify text `%s/OpenBSD vi/OpenVi/` in `common/recover.c`
-        + Minor updates to documentation and `README.md`
         + Provide a more helpful message when ex-mode has background screens
         + Fully redraw screen on refresh with ^L / ^R
         + Make `taglength` work correctly; fix from nvi 1.8x
