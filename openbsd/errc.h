@@ -32,18 +32,18 @@
  */
 
 #ifndef _ERRC_H
-# define _ERRC_H
+#define _ERRC_H
 
-# include "../include/compat.h"
+#include "../include/compat.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-# include <grp.h>
-# include <stdarg.h>
-# include <stddef.h>
+#include <grp.h>
+#include <stdarg.h>
+#include <stddef.h>
 
-# undef open
+#undef open
 
 void openbsd_errc(int eval, int code, const char *fmt, ...);
 void openbsd_err(int eval, const char *fmt, ...);

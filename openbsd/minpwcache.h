@@ -32,18 +32,18 @@
  */
 
 #ifndef _MINPWCAC_H
-# define _MINPWCAC_H
+#define _MINPWCAC_H
 
-# include "../include/compat.h"
+#include "../include/compat.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-# include <grp.h>
-# include <stdarg.h>
-# include <stddef.h>
+#include <grp.h>
+#include <stdarg.h>
+#include <stddef.h>
 
-# undef open
+#undef open
 
 int openbsd_gid_from_group(const char *name, gid_t *gid);
 int openbsd_uid_from_user(const char *name, uid_t *uid);

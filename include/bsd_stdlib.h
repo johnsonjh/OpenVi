@@ -34,13 +34,13 @@
  */
 
 #ifndef _COMPAT_STDLIB_H_
-# define _COMPAT_STDLIB_H_
+#define _COMPAT_STDLIB_H_
 
-# include <sys/types.h>
-# include <stdint.h>
+#include <stdint.h>
+#include <sys/types.h>
 
-extern char  *__progname;
-const  char  *bsd_getprogname(void);
+extern char *__progname;
+const char *bsd_getprogname(void);
 
 uint32_t arc4random(void);
 uint32_t arc4random_uniform(uint32_t);
@@ -56,9 +56,9 @@ void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
 int sradixsort(const unsigned char **, int, const unsigned char *, unsigned);
 double strtod(const char *__restrict, char **__restrict);
 long long strtonum(const char *, long long, long long, const char **);
-# ifndef _AIX
+#ifndef _AIX
 long double strtold(const char *__restrict, char **__restrict);
-# endif /* ifndef _AIX */
+#endif /* ifndef _AIX */
 long random(void);
 void srandom(unsigned int);
 void srandom_deterministic(unsigned int);

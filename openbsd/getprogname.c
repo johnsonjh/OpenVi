@@ -20,31 +20,29 @@
 #include <bsd_stdlib.h>
 
 #ifdef _AIX
-# include <bsd_unistd.h>
-# include <bsd_string.h>
-# include <procinfo.h>
+#include <bsd_string.h>
+#include <bsd_unistd.h>
+#include <procinfo.h>
 #else
 extern char *__progname;
 #endif /* ifdef _AIX */
 
-const char *
-bsd_getprogname(void)
-{
+const char *bsd_getprogname(void) {
 #ifdef _AIX
-    static char *p;
-    static int first = 1;
-    if (first)
-    {
-        first = 0;
-        pid_t pid = getpid();
-        struct procentry64 procs;
-        p = (0 < getprocs64 (&procs, sizeof procs, NULL, 0, &pid, 1)
-             ? strdup (procs.pi_comm) : NULL);
-        if (!p)
-            p = "?";
-    }
-    return p;
+  static char *p;
+  static int first = 1;
+  if (first) {
+    first = 0;
+    pid_t pid = getpid();
+    struct procentry64 procs;
+    p = (0 < getprocs64(&procs, sizeof procs, NULL, 0, &pid, 1)
+             ? strdup(procs.pi_comm)
+             : NULL);
+    if (!p)
+      p = "?";
+  }
+  return p;
 #else
-    return (__progname);
+  return (__progname);
 #endif /* ifdef _AIX */
 }

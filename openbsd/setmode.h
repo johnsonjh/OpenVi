@@ -32,20 +32,20 @@
  */
 
 #ifndef _SETMODE_H
-# define _SETMODE_H
+#define _SETMODE_H
 
-# include "../include/compat.h"
+#include "../include/compat.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-# include <grp.h>
-# include <stdarg.h>
-# include <stddef.h>
+#include <grp.h>
+#include <stdarg.h>
+#include <stddef.h>
 
-# undef open
+#undef open
 
-void   *openbsd_setmode(const char *p);
-mode_t  openbsd_getmode(const void *bbox, mode_t omode);
+void *openbsd_setmode(const char *p);
+mode_t openbsd_getmode(const void *bbox, mode_t omode);
 
 #endif /* ifndef _SETMODE_H */

@@ -43,12 +43,10 @@
 
 #undef open
 
-void
-openbsd_errx(int eval, const char *fmt, ...)
-{
-    va_list ap;
+void openbsd_errx(int eval, const char *fmt, ...) {
+  va_list ap;
 
-    va_start(ap, fmt);
-    openbsd_verrx(eval, fmt, ap);
-    va_end(ap);
+  va_start(ap, fmt);
+  openbsd_verrx(eval, fmt, ap);
+  va_end(ap);
 }

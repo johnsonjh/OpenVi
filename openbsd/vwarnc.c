@@ -37,22 +37,19 @@
 #include "../include/compat.h"
 
 #include <bsd_err.h>
-#include <stdarg.h>
-#include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 #undef open
 
-void
-openbsd_vwarnc(int code, const char *fmt, va_list ap)
-{
-    (void)fprintf(stderr, "%s: ", bsd_getprogname());
-    if (fmt != NULL)
-    {
-        (void)vfprintf(stderr, fmt, ap);
-        (void)fprintf(stderr, ": ");
-    }
+void openbsd_vwarnc(int code, const char *fmt, va_list ap) {
+  (void)fprintf(stderr, "%s: ", bsd_getprogname());
+  if (fmt != NULL) {
+    (void)vfprintf(stderr, fmt, ap);
+    (void)fprintf(stderr, ": ");
+  }
 
-    (void)fprintf(stderr, "%s\n", strerror(code));
+  (void)fprintf(stderr, "%s\n", strerror(code));
 }

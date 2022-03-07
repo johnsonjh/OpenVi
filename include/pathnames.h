@@ -32,48 +32,48 @@
  */
 
 #ifndef _PATHNAMES_H
-# define _PATHNAMES_H
+#define _PATHNAMES_H
 
-# ifdef _PATH_EXRC
-#  undef _PATH_EXRC
-# endif /* ifdef _PATH_EXRC */
+#ifdef _PATH_EXRC
+#undef _PATH_EXRC
+#endif /* ifdef _PATH_EXRC */
 
-# define _PATH_EXRC ".exrc"
+#define _PATH_EXRC ".exrc"
 
-# ifdef _PATH_NEXRC
-#  undef _PATH_NEXRC
-# endif /* ifdef _PATH_NEXRC */
+#ifdef _PATH_NEXRC
+#undef _PATH_NEXRC
+#endif /* ifdef _PATH_NEXRC */
 
-# define _PATH_NEXRC ".nexrc"
+#define _PATH_NEXRC ".nexrc"
 
-# ifdef _PATH_PRESERVE
-#  undef _PATH_PRESERVE
-# endif /* ifdef _PATH_PRESERVE */
+#ifdef _PATH_PRESERVE
+#undef _PATH_PRESERVE
+#endif /* ifdef _PATH_PRESERVE */
 
-# define _PATH_PRESERVE "/var/tmp/vi.recover"
+#define _PATH_PRESERVE "/var/tmp/vi.recover"
 
-# ifdef _PATH_SYSEXRC
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_SYSEXRC */
+#ifdef _PATH_SYSEXRC
+#undef _PATH_TAGS
+#endif /* ifdef _PATH_SYSEXRC */
 
-# define _PATH_SYSEXRC "/etc/vi.exrc"
+#define _PATH_SYSEXRC "/etc/vi.exrc"
 
-# ifdef _PATH_TAGS
-#  undef _PATH_TAGS
-# endif /* ifdef _PATH_TAGS */
+#ifdef _PATH_TAGS
+#undef _PATH_TAGS
+#endif /* ifdef _PATH_TAGS */
 
-# define _PATH_TAGS "tags"
+#define _PATH_TAGS "tags"
 
-# ifndef _PATH_SENDMAIL
-#  define _PATH_SENDMAIL "/usr/sbin/sendmail"
-# endif /* ifndef _PATH_SENDMAIL */
+#ifndef _PATH_SENDMAIL
+#define _PATH_SENDMAIL "/usr/sbin/sendmail"
+#endif /* ifndef _PATH_SENDMAIL */
 
-# ifndef _PATH_STRIP
-#  define _PATH_STRIP "/usr/bin/strip"
-# endif /* ifndef _PATH_STRIP */
+#ifndef _PATH_STRIP
+#define _PATH_STRIP "/usr/bin/strip"
+#endif /* ifndef _PATH_STRIP */
 
-# ifndef _PATH_SYSV_PTY
-#  define _PATH_SYSV_PTY "/dev/ptmx"
-# endif
+#ifndef _PATH_SYSV_PTY
+#define _PATH_SYSV_PTY "/dev/ptmx"
+#endif
 
 #endif /* ifndef _PATHNAMES_H */

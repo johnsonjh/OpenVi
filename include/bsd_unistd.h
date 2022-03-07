@@ -34,39 +34,39 @@
  */
 
 #ifndef _COMPAT_UNISTD_H_
-# define _COMPAT_UNISTD_H_
+#define _COMPAT_UNISTD_H_
 
-int      openbsd_pledge(const char *, const char *);
-int      openbsd_getopt(int, char * const *, const char *);
-int      openbsd_getopt(int, char * const *, const char *);
-extern   char *openbsd_optarg;
-extern   int openbsd_opterr, openbsd_optind, openbsd_optopt, openbsd_optreset;
+int openbsd_pledge(const char *, const char *);
+int openbsd_getopt(int, char *const *, const char *);
+int openbsd_getopt(int, char *const *, const char *);
+extern char *openbsd_optarg;
+extern int openbsd_opterr, openbsd_optind, openbsd_optopt, openbsd_optreset;
 
-# ifdef __OpenBSD__
-#  include <sys/types.h>
-# else
+#ifdef __OpenBSD__
+#include <sys/types.h>
+#else
 
-#  include <sys/types.h>
+#include <sys/types.h>
 
-#  define STDIN_FILENO  0       /* standard input file descriptor */
-#  define STDOUT_FILENO 1       /* standard output file descriptor */
-#  define STDERR_FILENO 2       /* standard error file descriptor */
+#define STDIN_FILENO 0  /* standard input file descriptor */
+#define STDOUT_FILENO 1 /* standard output file descriptor */
+#define STDERR_FILENO 2 /* standard error file descriptor */
 
-int      execvpe(const char *, char *const *, char *const *);
-int      crypt_newhash(const char *, const char *, char *, size_t);
-int      getdtablecount(void);
-int      getentropy(void *, size_t);
-mode_t   getmode(const void *, mode_t);
-int      getresgid(gid_t *, gid_t *, gid_t *);
-int      getresuid(uid_t *, uid_t *, uid_t *);
-void    *setmode(const char *);
-int      setresgid(gid_t, gid_t, gid_t);
-int      setresuid(uid_t, uid_t, uid_t);
+int execvpe(const char *, char *const *, char *const *);
+int crypt_newhash(const char *, const char *, char *, size_t);
+int getdtablecount(void);
+int getentropy(void *, size_t);
+mode_t getmode(const void *, mode_t);
+int getresgid(gid_t *, gid_t *, gid_t *);
+int getresuid(uid_t *, uid_t *, uid_t *);
+void *setmode(const char *);
+int setresgid(gid_t, gid_t, gid_t);
+int setresuid(uid_t, uid_t, uid_t);
 
-# endif /* _COMPAT_UNISTD_H_ */
+#endif /* _COMPAT_UNISTD_H_ */
 
 #endif /* ifdef __OpenBSD__ */
 
-#define _COMPAT_GETOPT_H_       /* glibc includes getopt.h */
+#define _COMPAT_GETOPT_H_ /* glibc includes getopt.h */
 #include_next <unistd.h>
-#undef  _COMPAT_GETOPT_H_
+#undef _COMPAT_GETOPT_H_

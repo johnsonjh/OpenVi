@@ -43,12 +43,10 @@
 
 #undef open
 
-void
-openbsd_warnc(int code, const char *fmt, ...)
-{
-    va_list ap;
+void openbsd_warnc(int code, const char *fmt, ...) {
+  va_list ap;
 
-    va_start(ap, fmt);
-    openbsd_vwarnc(code, fmt, ap);
-    va_end(ap);
+  va_start(ap, fmt);
+  openbsd_vwarnc(code, fmt, ap);
+  va_end(ap);
 }

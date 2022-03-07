@@ -40,18 +40,16 @@
 #include "errc.h"
 
 #include <bsd_err.h>
-#include <stdio.h>
 #include <bsd_stdlib.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 #undef open
 
-void
-openbsd_verrx(int eval, const char *fmt, va_list ap)
-{
-    (void)fprintf(stderr, "%s: ", bsd_getprogname());
-    if (fmt != NULL)
-        (void)vfprintf(stderr, fmt, ap);
-    (void)fprintf(stderr, "\n");
-    exit(eval);
+void openbsd_verrx(int eval, const char *fmt, va_list ap) {
+  (void)fprintf(stderr, "%s: ", bsd_getprogname());
+  if (fmt != NULL)
+    (void)vfprintf(stderr, fmt, ap);
+  (void)fprintf(stderr, "\n");
+  exit(eval);
 }

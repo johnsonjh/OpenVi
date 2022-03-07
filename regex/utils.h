@@ -37,15 +37,15 @@
  */
 
 /* utility definitions */
-#define DUPMAX          _POSIX2_RE_DUP_MAX
-#define INFINITY        (DUPMAX + 1)
-#define NC              (CHAR_MAX - CHAR_MIN + 1)
-typedef unsigned char   uch;
+#define DUPMAX _POSIX2_RE_DUP_MAX
+#define INFINITY (DUPMAX + 1)
+#define NC (CHAR_MAX - CHAR_MIN + 1)
+typedef unsigned char uch;
 
 /* switch off assertions (if not already off) if no REDEBUG */
 #ifndef REDEBUG
-# ifndef NDEBUG
-#  define NDEBUG        /* no assertions please */
-# endif /* ifndef NDEBUG */
-#endif /* ifndef REDEBUG */
+#ifndef NDEBUG
+#define NDEBUG /* no assertions please */
+#endif         /* ifndef NDEBUG */
+#endif         /* ifndef REDEBUG */
 #include <assert.h>
