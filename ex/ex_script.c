@@ -741,7 +741,7 @@ static int
 sscr_pty(int *amaster, int *aslave, char *name,
          struct termios *termp, void *winp)
 {
-	int master, slave, ttygid;
+	int master, slave;
 
 	/* open master terminal */
 	if ((master = ptym_open(name)) < 0)  {
