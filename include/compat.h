@@ -34,6 +34,10 @@
 #ifndef _COMPAT_H_
 # define _COMPAT_H_
 
+# if !defined( _GNU_SOURCE )
+#  define _GNU_SOURCE
+# endif /* ifndef _GNU_SOURCE */
+
 # if !defined( DEF_STRONG )
 #  define DEF_STRONG(x)
 # endif /* if !defined( DEF_STRONG ) */

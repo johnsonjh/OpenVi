@@ -6,8 +6,9 @@
 CC          ?= cc
 OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
-CFLAGS      += -std=gnu99 -Iinclude -Icommon -Iregex -Iopenbsd
-CFLAGS      += -Wall -Wno-pointer-sign -Wno-uninitialized
+INCLDS       = -Iinclude -Icommon -Iregex -Iopenbsd
+CFLAGS      += -std=gnu99 $(INCLDS)
+WFLAGS      ?= -Wall -Wno-pointer-sign -Wno-uninitialized
 
 ###############################################################################
 
@@ -33,26 +34,38 @@ LTOC         = -flto
 TR          ?= tr
 UNAME       ?= uname
 
-ifndef $(OS)
+ifndef OS
     OS=$(shell $(UNAME) -s 2> /dev/null | \
         $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
-endif
+endif # OS
 
 ###############################################################################
 
 # Default libraries to link
 CURSESLIB ?= -lncurses
-ifndef LIBS
-   ifeq ($(OS),aix)
-      LDFLAGS  += -L/opt/freeware/lib
-      CFLAGS   += -I/opt/freeware/include
-      LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
-   else
-      LINKLIBS ?= -lutil $(CURSESLIB)
-   endif # aix
+ifeq ($(OS),aix)
+   MAIXBITS ?= $(shell command -p getconf KERNEL_BITMODE 2> /dev/null || \
+                    printf '%s' "32")
+      ifneq (,$(findstring gcc,$(CC))) # gcc (GNU C)
+         CFLAGS  += $(WFLAGS) -maix$(MAIXBITS)
+         LDFLAGS += -maix$(MAIXBITS) -Wl,-b$(MAIXBITS) 
+      endif # gcc
+      ifneq (,$(findstring clang,$(CC))) # xlclang/ibm-clang (IBM Open XL)
+         CFLAGS  += $(WFLAGS) -m$(MAIXBITS)
+         LDFLAGS += -m$(MAIXBITS) -Wl,-b$(MAIXBITS) 
+      endif # clang
+      ifneq (,$(findstring gxlc,$(CC))) # gxlc (IBM XL C)
+         CFLAGS  += -m$(MAIXBITS)
+         LDFLAGS += -m$(MAIXBITS) -Wl,-b$(MAIXBITS)
+         DEPFLAGS =
+      endif # clang
+   LDFLAGS  += -L/opt/freeware/lib
+   CFLAGS   += -I/opt/freeware/include
+   LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
 else
-   LINKLIBS  = $(LIBS)
-endif # LIBS
+     CFLAGS += $(WFLAGS)
+   LINKLIBS ?= -lutil $(CURSESLIB)
+endif # aix
 LINKLIBS    += $(EXTRA_LIBS)
 
 ###############################################################################
