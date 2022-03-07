@@ -259,8 +259,8 @@ main(int argc, char *argv[])
        */
 #if ( !defined(_AIX) && !defined(__OpenBSD__) )
       if (dest == odst)
-        if (strcmp(dest, "."))
 #endif /* if ( !defined(_AIX) && !defined(__OpenBSD__) ) */
+        if (strcmp(dest, "."))
           install_dir(dest, 0755);
     }
 
