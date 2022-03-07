@@ -54,10 +54,10 @@
 #include "../include/compat.h"
 
 #include "libgen.h"
+#include "getopt_long.h"
 
 #include <bsd_err.h>
 #include <errno.h>
-#include <getopt.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
@@ -87,8 +87,10 @@ char *openbsd_optarg;        /* argument associated with option */
 
 static int openbsd_getopt_internal(int, char *const *, const char *,
                                    const struct option *, int *, int);
-static int openbsd_parse_long_options(char *const *, const char *,
-                                      const struct option *, int *, int, int);
+
+static int openbsd_parse_long_options(char *const *nargv, const char *options,
+                                      const struct option *long_options,
+                                      int *idx, int short_too, int flags);
 static int openbsd_gcd(int, int);
 static void openbsd_permute_args(int, int, int, char *const *);
 

@@ -137,6 +137,7 @@ view.
 - The following operating systems are fully supported and regularly tested
   using ix86/AMD64, ARM/AArch64, m68k, MIPS, POWER, and RISC-V processors:
   - **GNU**/**Linux** (*glibc* and *musl*)
+  - *IBM* **AIX** 7.2+
   - **FreeBSD**
   - **OpenBSD**
   - **Darwin** / **macOS** / **Mac OS X** (*PowerPC*, *Intel*, *ARM64*)
@@ -146,6 +147,7 @@ view.
   - **Clang** V6+
   - *GNU* **GCC** V4.6+
   - *IBM* **XL C/C++ Compiler** V16.1+
+  - *IBM* **Open XL C/C++ Compiler** V17.1+ 
   - *Intel* **C Compiler Classic** V19.1+
   - *Intel* **oneAPI DPC++/C++ Compiler** V2021+
   - *Oracle* **Developer Studio** V12.6+
@@ -154,7 +156,6 @@ view.
 
 - The following platforms are **not** currently supported, but **support is
   planned** for a future release.
-  - *IBM* **AIX** 7.2+
   - **Haiku** Walter
   - **NetBSD** 7+
   - *Oracle* **Solaris** 10/11+
