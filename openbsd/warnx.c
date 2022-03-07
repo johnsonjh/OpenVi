@@ -47,9 +47,9 @@
 void
 openbsd_warnx(const char *fmt, ...)
 {
-  va_list ap;
+    va_list ap;
 
-  va_start(ap, fmt);
-  openbsd_vwarnx(fmt, ap);
-  va_end(ap);
+    va_start(ap, fmt);
+    openbsd_vwarnx(fmt, ap);
+    va_end(ap);
 }

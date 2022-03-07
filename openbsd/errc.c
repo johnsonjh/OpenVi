@@ -46,9 +46,9 @@
 void
 openbsd_errc(int eval, int code, const char *fmt, ...)
 {
-  va_list ap;
+    va_list ap;
 
-  va_start(ap, fmt);
-  openbsd_verrc(eval, code, fmt, ap);
-  va_end(ap);
+    va_start(ap, fmt);
+    openbsd_verrc(eval, code, fmt, ap);
+    va_end(ap);
 }

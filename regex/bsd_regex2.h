@@ -109,29 +109,29 @@ typedef long sopno;
  */
 typedef struct
 {
-  uch *ptr; /* -> uch [csetsize] */
-  uch mask; /* bit within array */
-  uch hash; /* hash code */
+    uch *ptr; /* -> uch [csetsize] */
+    uch mask; /* bit within array */
+    uch hash; /* hash code */
 } cset;
 
 static inline void
 CHadd(cset *cs, char c)
 {
-  cs->ptr[(uch)c] |= cs->mask;
-  cs->hash += c;
+    cs->ptr[(uch)c] |= cs->mask;
+    cs->hash += c;
 }
 
 static inline void
 CHsub(cset *cs, char c)
 {
-  cs->ptr[(uch)c] &= ~cs->mask;
-  cs->hash -= c;
+    cs->ptr[(uch)c] &= ~cs->mask;
+    cs->hash -= c;
 }
 
 static inline int
 CHIN(const cset *cs, char c)
 {
-  return ( cs->ptr[(uch)c] & cs->mask ) != 0;
+    return ( cs->ptr[(uch)c] & cs->mask ) != 0;
 }
 
 /*
@@ -139,28 +139,28 @@ CHIN(const cset *cs, char c)
  */
 struct re_guts
 {
-  int magic;
+    int magic;
 #define MAGIC2 ((( 'R' ^ 0200 ) << 8 ) | 'E' )
-  sop *strip;       /* malloced area for strip */
-  int csetsize;     /* number of bits in a cset vector */
-  int ncsets;       /* number of csets in use */
-  cset *sets;       /* -> cset [ncsets] */
-  uch *setbits;     /* -> uch[csetsize][ncsets/CHAR_BIT] */
-  int cflags;       /* copy of regcomp() cflags argument */
-  sopno nstates;    /* = number of sops */
-  sopno firststate; /* the initial OEND (normally 0) */
-  sopno laststate;  /* the final OEND */
-  int iflags;       /* internal flags */
+    sop *strip;       /* malloced area for strip */
+    int csetsize;     /* number of bits in a cset vector */
+    int ncsets;       /* number of csets in use */
+    cset *sets;       /* -> cset [ncsets] */
+    uch *setbits;     /* -> uch[csetsize][ncsets/CHAR_BIT] */
+    int cflags;       /* copy of regcomp() cflags argument */
+    sopno nstates;    /* = number of sops */
+    sopno firststate; /* the initial OEND (normally 0) */
+    sopno laststate;  /* the final OEND */
+    int iflags;       /* internal flags */
 #define USEBOL 01   /* used ^ */
 #define USEEOL 02   /* used $ */
 #define BAD    04   /* something wrong */
-  int nbol;         /* number of ^ used */
-  int neol;         /* number of $ used */
-  char *must;       /* match must contain this string */
-  int mlen;         /* length of must */
-  size_t nsub;      /* copy of re_nsub */
-  int backrefs;     /* does it use back references? */
-  sopno nplus;      /* how deep does it nest +s? */
+    int nbol;         /* number of ^ used */
+    int neol;         /* number of $ used */
+    char *must;       /* match must contain this string */
+    int mlen;         /* length of must */
+    size_t nsub;      /* copy of re_nsub */
+    int backrefs;     /* does it use back references? */
+    sopno nplus;      /* how deep does it nest +s? */
 };
 
 /* misc utilities */

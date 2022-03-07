@@ -73,19 +73,19 @@
 /* another structure passed up and down to avoid zillions of parameters */
 struct match
 {
-  struct re_guts *g;
-  int eflags;
-  regmatch_t *pmatch;   /* [nsub+1] (0 element unused) */
-  const char *offp;     /* offsets work from here */
-  const char *beginp;   /* start of string -- virtual NUL precedes */
-  const char *endp;     /* end of string -- virtual NUL here */
-  const char *coldp;    /* can be no match starting before here */
-  const char **lastpos; /* [nplus+1] */
-  STATEVARS;
-  states st;    /* current states */
-  states fresh; /* states for a fresh start */
-  states tmp;   /* temporary */
-  states empty; /* empty set of states */
+    struct re_guts *g;
+    int eflags;
+    regmatch_t *pmatch;   /* [nsub+1] (0 element unused) */
+    const char *offp;     /* offsets work from here */
+    const char *beginp;   /* start of string -- virtual NUL precedes */
+    const char *endp;     /* end of string -- virtual NUL here */
+    const char *coldp;    /* can be no match starting before here */
+    const char **lastpos; /* [nplus+1] */
+    STATEVARS;
+    states st;    /* current states */
+    states fresh; /* states for a fresh start */
+    states tmp;   /* temporary */
+    states empty; /* empty set of states */
 };
 
 static int matcher(struct re_guts *, const char *, size_t, regmatch_t[], int);
@@ -147,229 +147,229 @@ static int /* 0 success, REG_NOMATCH failure */
 matcher(struct re_guts *g, const char *string, size_t nmatch,
         regmatch_t pmatch[], int eflags)
 {
-  const char *endp;
-  int i;
-  struct match mv;
-  struct match *m = &mv;
-  const char *dp;
-  const sopno gf = g->firststate + 1; /* +1 for OEND */
-  const sopno gl = g->laststate;
-  const char *start;
-  const char *stop;
+    const char *endp;
+    int i;
+    struct match mv;
+    struct match *m = &mv;
+    const char *dp;
+    const sopno gf = g->firststate + 1; /* +1 for OEND */
+    const sopno gl = g->laststate;
+    const char *start;
+    const char *stop;
 
-  /* simplify the situation where possible */
-  if (g->cflags & REG_NOSUB)
+    /* simplify the situation where possible */
+    if (g->cflags & REG_NOSUB)
     {
-      nmatch = 0;
+        nmatch = 0;
     }
 
-  if (eflags & REG_STARTEND)
+    if (eflags & REG_STARTEND)
     {
-      start = string + pmatch[0].rm_so;
-      stop = string + pmatch[0].rm_eo;
+        start = string + pmatch[0].rm_so;
+        stop = string + pmatch[0].rm_eo;
     }
-  else
+    else
     {
-      start = string;
-      stop = start + strlen(start);
-    }
-
-  if (stop < start)
-    {
-      return REG_INVARG;
+        start = string;
+        stop = start + strlen(start);
     }
 
-  /* prescreening; this does wonders for this rather slow code */
-  if (g->must != NULL)
+    if (stop < start)
     {
-      for (dp = start; dp < stop; dp++)
+        return REG_INVARG;
+    }
+
+    /* prescreening; this does wonders for this rather slow code */
+    if (g->must != NULL)
+    {
+        for (dp = start; dp < stop; dp++)
         {
-          if (*dp == g->must[0] && stop - dp >= g->mlen
-              && memcmp(dp, g->must, g->mlen) == 0)
+            if (*dp == g->must[0] && stop - dp >= g->mlen
+                    && memcmp(dp, g->must, g->mlen) == 0)
             {
-              break;
+                break;
             }
         }
 
-      if (dp == stop) /* we didn't find g->must */
+        if (dp == stop) /* we didn't find g->must */
         {
-          return REG_NOMATCH;
+            return REG_NOMATCH;
         }
     }
 
-  /* match struct setup */
-  m->g = g;
-  m->eflags = eflags;
-  m->pmatch = NULL;
-  m->lastpos = NULL;
-  m->offp = string;
-  m->beginp = start;
-  m->endp = stop;
-  STATESETUP(m, 4);
-  SETUP(m->st);
-  SETUP(m->fresh);
-  SETUP(m->tmp);
-  SETUP(m->empty);
-  CLEAR(m->empty);
+    /* match struct setup */
+    m->g = g;
+    m->eflags = eflags;
+    m->pmatch = NULL;
+    m->lastpos = NULL;
+    m->offp = string;
+    m->beginp = start;
+    m->endp = stop;
+    STATESETUP(m, 4);
+    SETUP(m->st);
+    SETUP(m->fresh);
+    SETUP(m->tmp);
+    SETUP(m->empty);
+    CLEAR(m->empty);
 
-  /* this loop does only one repetition except for backrefs */
-  for (;;)
+    /* this loop does only one repetition except for backrefs */
+    for (;;)
     {
-      endp = fast(m, start, stop, gf, gl);
-      if (endp == NULL)
-        { /* a miss */
-          free(m->pmatch);
-          free(m->lastpos);
-          STATETEARDOWN(m);
-          return REG_NOMATCH;
+        endp = fast(m, start, stop, gf, gl);
+        if (endp == NULL)
+        {   /* a miss */
+            free(m->pmatch);
+            free(m->lastpos);
+            STATETEARDOWN(m);
+            return REG_NOMATCH;
         }
 
-      if (nmatch == 0 && !g->backrefs)
+        if (nmatch == 0 && !g->backrefs)
         {
-          break; /* no further info needed */
+            break; /* no further info needed */
         }
 
-      /* where? */
-      assert(m->coldp != NULL);
-      for (;;)
+        /* where? */
+        assert(m->coldp != NULL);
+        for (;;)
         {
-          NOTE("finding start");
-          endp = slow(m, m->coldp, stop, gf, gl);
-          if (endp != NULL)
+            NOTE("finding start");
+            endp = slow(m, m->coldp, stop, gf, gl);
+            if (endp != NULL)
             {
-              break;
+                break;
             }
 
-          assert(m->coldp < m->endp);
-          m->coldp++;
+            assert(m->coldp < m->endp);
+            m->coldp++;
         }
 
-      if (nmatch == 1 && !g->backrefs)
+        if (nmatch == 1 && !g->backrefs)
         {
-          break; /* no further info needed */
+            break; /* no further info needed */
         }
 
-      /* oh my, he wants the subexpressions... */
-      if (m->pmatch == NULL)
+        /* oh my, he wants the subexpressions... */
+        if (m->pmatch == NULL)
         {
-          m->pmatch = openbsd_reallocarray(
-            NULL, m->g->nsub + 1, sizeof ( regmatch_t ) );
+            m->pmatch = openbsd_reallocarray(
+                            NULL, m->g->nsub + 1, sizeof ( regmatch_t ) );
         }
 
-      if (m->pmatch == NULL)
+        if (m->pmatch == NULL)
         {
-          STATETEARDOWN(m);
-          return REG_ESPACE;
+            STATETEARDOWN(m);
+            return REG_ESPACE;
         }
 
-      for (i = 1; i <= m->g->nsub; i++)
+        for (i = 1; i <= m->g->nsub; i++)
         {
-          m->pmatch[i].rm_so = m->pmatch[i].rm_eo = -1;
+            m->pmatch[i].rm_so = m->pmatch[i].rm_eo = -1;
         }
 
-      if (!g->backrefs && !( m->eflags & REG_BACKR ))
+        if (!g->backrefs && !( m->eflags & REG_BACKR ))
         {
-          NOTE("dissecting");
-          dp = dissect(m, m->coldp, endp, gf, gl);
+            NOTE("dissecting");
+            dp = dissect(m, m->coldp, endp, gf, gl);
         }
-      else
+        else
         {
-          if (g->nplus > 0 && m->lastpos == NULL)
+            if (g->nplus > 0 && m->lastpos == NULL)
             {
-              m->lastpos = openbsd_reallocarray(
-                NULL, g->nplus + 1, sizeof ( char * ) );
+                m->lastpos = openbsd_reallocarray(
+                                 NULL, g->nplus + 1, sizeof ( char * ) );
             }
 
-          if (g->nplus > 0 && m->lastpos == NULL)
+            if (g->nplus > 0 && m->lastpos == NULL)
             {
-              free(m->pmatch);
-              STATETEARDOWN(m);
-              return REG_ESPACE;
+                free(m->pmatch);
+                STATETEARDOWN(m);
+                return REG_ESPACE;
             }
 
-          NOTE("backref dissect");
-          dp = backref(m, m->coldp, endp, gf, gl, (sopno)0, 0);
+            NOTE("backref dissect");
+            dp = backref(m, m->coldp, endp, gf, gl, (sopno)0, 0);
         }
 
-      if (dp != NULL)
+        if (dp != NULL)
         {
-          break;
+            break;
         }
 
-      /* uh-oh... we couldn't find a subexpression-level match */
-      assert(g->backrefs); /* must be back references doing it */
-      assert(g->nplus == 0 || m->lastpos != NULL);
-      for (;;)
+        /* uh-oh... we couldn't find a subexpression-level match */
+        assert(g->backrefs); /* must be back references doing it */
+        assert(g->nplus == 0 || m->lastpos != NULL);
+        for (;;)
         {
-          if (dp != NULL || endp <= m->coldp)
+            if (dp != NULL || endp <= m->coldp)
             {
-              break; /* defeat */
+                break; /* defeat */
             }
 
-          NOTE("backoff");
-          endp = slow(m, m->coldp, endp - 1, gf, gl);
-          if (endp == NULL)
+            NOTE("backoff");
+            endp = slow(m, m->coldp, endp - 1, gf, gl);
+            if (endp == NULL)
             {
-              break; /* defeat */
+                break; /* defeat */
             }
 
-          /* try it on a shorter possibility */
+            /* try it on a shorter possibility */
 #ifndef NDEBUG
-          for (i = 1; i <= m->g->nsub; i++)
+            for (i = 1; i <= m->g->nsub; i++)
             {
-              assert(m->pmatch[i].rm_so == -1);
-              assert(m->pmatch[i].rm_eo == -1);
+                assert(m->pmatch[i].rm_so == -1);
+                assert(m->pmatch[i].rm_eo == -1);
             }
 
 #endif /* ifndef NDEBUG */
-          NOTE("backoff dissect");
-          dp = backref(m, m->coldp, endp, gf, gl, (sopno)0, 0);
+            NOTE("backoff dissect");
+            dp = backref(m, m->coldp, endp, gf, gl, (sopno)0, 0);
         }
 
-      assert(dp == NULL || dp == endp);
-      if (dp != NULL) /* found a shorter one */
+        assert(dp == NULL || dp == endp);
+        if (dp != NULL) /* found a shorter one */
         {
-          break;
+            break;
         }
 
-      /* despite initial appearances, there is no match here */
-      NOTE("false alarm");
-      if (m->coldp == stop)
+        /* despite initial appearances, there is no match here */
+        NOTE("false alarm");
+        if (m->coldp == stop)
         {
-          break;
+            break;
         }
 
-      start = m->coldp + 1; /* recycle starting later */
+        start = m->coldp + 1; /* recycle starting later */
     }
 
-  /* fill in the details if requested */
-  if (nmatch > 0)
+    /* fill in the details if requested */
+    if (nmatch > 0)
     {
-      pmatch[0].rm_so = m->coldp - m->offp;
-      pmatch[0].rm_eo = endp - m->offp;
+        pmatch[0].rm_so = m->coldp - m->offp;
+        pmatch[0].rm_eo = endp - m->offp;
     }
 
-  if (nmatch > 1)
+    if (nmatch > 1)
     {
-      assert(m->pmatch != NULL);
-      for (i = 1; i < nmatch; i++)
+        assert(m->pmatch != NULL);
+        for (i = 1; i < nmatch; i++)
         {
-          if (i <= m->g->nsub)
+            if (i <= m->g->nsub)
             {
-              pmatch[i] = m->pmatch[i];
+                pmatch[i] = m->pmatch[i];
             }
-          else
+            else
             {
-              pmatch[i].rm_so = -1;
-              pmatch[i].rm_eo = -1;
+                pmatch[i].rm_so = -1;
+                pmatch[i].rm_eo = -1;
             }
         }
     }
 
-  free(m->pmatch);
-  free(m->lastpos);
-  STATETEARDOWN(m);
-  return 0;
+    free(m->pmatch);
+    free(m->lastpos);
+    STATETEARDOWN(m);
+    return 0;
 }
 
 /*
@@ -379,234 +379,234 @@ static const char * /* == stop (success) always */
 dissect(struct match *m, const char *start, const char *stop, sopno startst,
         sopno stopst)
 {
-  int i;
-  sopno ss;           /* start sop of current subRE */
-  sopno es;           /* end sop of current subRE */
-  const char *sp;     /* start of string matched by it */
-  const char *stp;    /* string matched by it cannot pass here */
-  const char *rest;   /* start of rest of string */
-  const char *tail;   /* string unmatched by rest of RE */
-  sopno ssub;         /* start sop of subsubRE */
-  sopno esub;         /* end sop of subsubRE */
-  const char *ssp;    /* start of string matched by subsubRE */
-  const char *sep;    /* end of string matched by subsubRE */
-  const char *oldssp; /* previous ssp */
-  const char *dp;
+    int i;
+    sopno ss;           /* start sop of current subRE */
+    sopno es;           /* end sop of current subRE */
+    const char *sp;     /* start of string matched by it */
+    const char *stp;    /* string matched by it cannot pass here */
+    const char *rest;   /* start of rest of string */
+    const char *tail;   /* string unmatched by rest of RE */
+    sopno ssub;         /* start sop of subsubRE */
+    sopno esub;         /* end sop of subsubRE */
+    const char *ssp;    /* start of string matched by subsubRE */
+    const char *sep;    /* end of string matched by subsubRE */
+    const char *oldssp; /* previous ssp */
+    const char *dp;
 
-  AT("diss", start, stop, startst, stopst);
-  sp = start;
-  for (ss = startst; ss < stopst; ss = es)
+    AT("diss", start, stop, startst, stopst);
+    sp = start;
+    for (ss = startst; ss < stopst; ss = es)
     {
-      /* identify end of subRE */
-      es = ss;
-      switch (OP(m->g->strip[es]))
+        /* identify end of subRE */
+        es = ss;
+        switch (OP(m->g->strip[es]))
         {
         case OPLUS_:
         case OQUEST_:
-          es += OPND(m->g->strip[es]);
-          break;
+            es += OPND(m->g->strip[es]);
+            break;
 
         case OCH_:
-          while (OP(m->g->strip[es]) != O_CH)
+            while (OP(m->g->strip[es]) != O_CH)
             {
-              es += OPND(m->g->strip[es]);
+                es += OPND(m->g->strip[es]);
             }
-          break;
+            break;
         }
-      es++;
+        es++;
 
-      /* figure out what it matched */
-      switch (OP(m->g->strip[ss]))
+        /* figure out what it matched */
+        switch (OP(m->g->strip[ss]))
         {
         case OEND:
-          assert(nope);
-          break;
+            assert(nope);
+            break;
 
         case OCHAR:
-          sp++;
-          break;
+            sp++;
+            break;
 
         case OBOL:
         case OEOL:
         case OBOW:
         case OEOW:
-          break;
+            break;
 
         case OANY:
         case OANYOF:
-          sp++;
-          break;
+            sp++;
+            break;
 
         case OBACK_:
         case O_BACK:
-          assert(nope);
-          break;
+            assert(nope);
+            break;
 
         /* cases where length of match is hard to find */
         case OQUEST_:
-          stp = stop;
-          for (;;)
+            stp = stop;
+            for (;;)
             {
-              /* how long could this one be? */
-              rest = slow(m, sp, stp, ss, es);
-              assert(rest != NULL); /* it did match */
-              /* could the rest match the rest? */
-              tail = slow(m, rest, stop, es, stopst);
-              if (tail == stop)
+                /* how long could this one be? */
+                rest = slow(m, sp, stp, ss, es);
+                assert(rest != NULL); /* it did match */
+                /* could the rest match the rest? */
+                tail = slow(m, rest, stop, es, stopst);
+                if (tail == stop)
                 {
-                  break; /* yes! */
+                    break; /* yes! */
                 }
 
-              /* no -- try a shorter match for this one */
-              stp = rest - 1;
-              assert(stp >= sp); /* it did work */
+                /* no -- try a shorter match for this one */
+                stp = rest - 1;
+                assert(stp >= sp); /* it did work */
             }
 
-          ssub = ss + 1;
-          esub = es - 1;
-          /* did innards match? */
-          if (slow(m, sp, rest, ssub, esub) != NULL)
+            ssub = ss + 1;
+            esub = es - 1;
+            /* did innards match? */
+            if (slow(m, sp, rest, ssub, esub) != NULL)
             {
-              dp = dissect(m, sp, rest, ssub, esub);
-              (void)dp;
-              assert(dp == rest);
+                dp = dissect(m, sp, rest, ssub, esub);
+                (void)dp;
+                assert(dp == rest);
             }
-          else /* no */
+            else /* no */
             {
-              assert(sp == rest);
+                assert(sp == rest);
             }
 
-          sp = rest;
-          break;
+            sp = rest;
+            break;
 
         case OPLUS_:
-          stp = stop;
-          for (;;)
+            stp = stop;
+            for (;;)
             {
-              /* how long could this one be? */
-              rest = slow(m, sp, stp, ss, es);
-              assert(rest != NULL); /* it did match */
-              /* could the rest match the rest? */
-              tail = slow(m, rest, stop, es, stopst);
-              if (tail == stop)
+                /* how long could this one be? */
+                rest = slow(m, sp, stp, ss, es);
+                assert(rest != NULL); /* it did match */
+                /* could the rest match the rest? */
+                tail = slow(m, rest, stop, es, stopst);
+                if (tail == stop)
                 {
-                  break; /* yes! */
+                    break; /* yes! */
                 }
 
-              /* no -- try a shorter match for this one */
-              stp = rest - 1;
-              assert(stp >= sp); /* it did work */
+                /* no -- try a shorter match for this one */
+                stp = rest - 1;
+                assert(stp >= sp); /* it did work */
             }
 
-          ssub = ss + 1;
-          esub = es - 1;
-          ssp = sp;
-          oldssp = ssp;
-          for (;;)
-            { /* find last match of innards */
-              sep = slow(m, ssp, rest, ssub, esub);
-              if (sep == NULL || sep == ssp)
+            ssub = ss + 1;
+            esub = es - 1;
+            ssp = sp;
+            oldssp = ssp;
+            for (;;)
+            {   /* find last match of innards */
+                sep = slow(m, ssp, rest, ssub, esub);
+                if (sep == NULL || sep == ssp)
                 {
-                  break; /* failed or matched null */
+                    break; /* failed or matched null */
                 }
 
-              oldssp = ssp; /* on to next try */
-              ssp = sep;
+                oldssp = ssp; /* on to next try */
+                ssp = sep;
             }
 
-          if (sep == NULL)
+            if (sep == NULL)
             {
-              /* last successful match */
-              sep = ssp;
-              ssp = oldssp;
+                /* last successful match */
+                sep = ssp;
+                ssp = oldssp;
             }
 
-          assert(sep == rest); /* must exhaust substring */
-          assert(slow(m, ssp, sep, ssub, esub) == rest);
-          dp = dissect(m, ssp, sep, ssub, esub);
-          (void)dp;
-          assert(dp == sep);
-          sp = rest;
-          break;
+            assert(sep == rest); /* must exhaust substring */
+            assert(slow(m, ssp, sep, ssub, esub) == rest);
+            dp = dissect(m, ssp, sep, ssub, esub);
+            (void)dp;
+            assert(dp == sep);
+            sp = rest;
+            break;
 
         case OCH_:
-          stp = stop;
-          for (;;)
+            stp = stop;
+            for (;;)
             {
-              /* how long could this one be? */
-              rest = slow(m, sp, stp, ss, es);
-              assert(rest != NULL); /* it did match */
-              /* could the rest match the rest? */
-              tail = slow(m, rest, stop, es, stopst);
-              if (tail == stop)
+                /* how long could this one be? */
+                rest = slow(m, sp, stp, ss, es);
+                assert(rest != NULL); /* it did match */
+                /* could the rest match the rest? */
+                tail = slow(m, rest, stop, es, stopst);
+                if (tail == stop)
                 {
-                  break; /* yes! */
+                    break; /* yes! */
                 }
 
-              /* no -- try a shorter match for this one */
-              stp = rest - 1;
-              assert(stp >= sp); /* it did work */
+                /* no -- try a shorter match for this one */
+                stp = rest - 1;
+                assert(stp >= sp); /* it did work */
             }
 
-          ssub = ss + 1;
-          esub = ss + OPND(m->g->strip[ss]) - 1;
-          assert(OP(m->g->strip[esub]) == OOR1);
-          for (;;)
-            { /* find first matching branch */
-              if (slow(m, sp, rest, ssub, esub) == rest)
+            ssub = ss + 1;
+            esub = ss + OPND(m->g->strip[ss]) - 1;
+            assert(OP(m->g->strip[esub]) == OOR1);
+            for (;;)
+            {   /* find first matching branch */
+                if (slow(m, sp, rest, ssub, esub) == rest)
                 {
-                  break; /* it matched all of it */
+                    break; /* it matched all of it */
                 }
 
-              /* that one missed, try next one */
-              assert(OP(m->g->strip[esub]) == OOR1);
-              esub++;
-              assert(OP(m->g->strip[esub]) == OOR2);
-              ssub = esub + 1;
-              esub += OPND(m->g->strip[esub]);
-              if (OP(m->g->strip[esub]) == OOR2)
+                /* that one missed, try next one */
+                assert(OP(m->g->strip[esub]) == OOR1);
+                esub++;
+                assert(OP(m->g->strip[esub]) == OOR2);
+                ssub = esub + 1;
+                esub += OPND(m->g->strip[esub]);
+                if (OP(m->g->strip[esub]) == OOR2)
                 {
-                  esub--;
+                    esub--;
                 }
-              else
+                else
                 {
-                  assert(OP(m->g->strip[esub]) == O_CH);
+                    assert(OP(m->g->strip[esub]) == O_CH);
                 }
             }
 
-          dp = dissect(m, sp, rest, ssub, esub);
-          assert(dp == rest);
-          sp = rest;
-          break;
+            dp = dissect(m, sp, rest, ssub, esub);
+            assert(dp == rest);
+            sp = rest;
+            break;
 
         case O_PLUS:
         case O_QUEST:
         case OOR1:
         case OOR2:
         case O_CH:
-          assert(nope);
-          break;
+            assert(nope);
+            break;
 
         case OLPAREN:
-          i = OPND(m->g->strip[ss]);
-          assert(0 < i && i <= m->g->nsub);
-          m->pmatch[i].rm_so = sp - m->offp;
-          break;
+            i = OPND(m->g->strip[ss]);
+            assert(0 < i && i <= m->g->nsub);
+            m->pmatch[i].rm_so = sp - m->offp;
+            break;
 
         case ORPAREN:
-          i = OPND(m->g->strip[ss]);
-          assert(0 < i && i <= m->g->nsub);
-          m->pmatch[i].rm_eo = sp - m->offp;
-          break;
+            i = OPND(m->g->strip[ss]);
+            assert(0 < i && i <= m->g->nsub);
+            m->pmatch[i].rm_eo = sp - m->offp;
+            break;
 
         default: /* uh oh */
-          assert(nope);
-          break;
+            assert(nope);
+            break;
         }
     }
 
-  assert(sp == stop);
-  return sp;
+    assert(sp == stop);
+    return sp;
 }
 
 /*
@@ -616,293 +616,293 @@ static const char * /* == stop (success) or NULL (failure) */
 backref(struct match *m, const char *start, const char *stop, sopno startst,
         sopno stopst, sopno lev, int rec)  /* PLUS nesting level */
 {
-  int i;
-  sopno ss;        /* start sop of current subRE */
-  const char *sp;  /* start of string matched by it */
-  sopno ssub;      /* start sop of subsubRE */
-  sopno esub;      /* end sop of subsubRE */
-  const char *ssp; /* start of string matched by subsubRE */
-  const char *dp;
-  size_t len;
-  int hard;
-  sop s;
-  regoff_t offsave;
-  cset *cs;
+    int i;
+    sopno ss;        /* start sop of current subRE */
+    const char *sp;  /* start of string matched by it */
+    sopno ssub;      /* start sop of subsubRE */
+    sopno esub;      /* end sop of subsubRE */
+    const char *ssp; /* start of string matched by subsubRE */
+    const char *dp;
+    size_t len;
+    int hard;
+    sop s;
+    regoff_t offsave;
+    cset *cs;
 
-  AT("back", start, stop, startst, stopst);
-  sp = start;
+    AT("back", start, stop, startst, stopst);
+    sp = start;
 
-  /* get as far as we can with easy stuff */
-  hard = 0;
-  for (ss = startst; !hard && ss < stopst; ss++)
+    /* get as far as we can with easy stuff */
+    hard = 0;
+    for (ss = startst; !hard && ss < stopst; ss++)
     {
-      switch (OP(s = m->g->strip[ss]))
+        switch (OP(s = m->g->strip[ss]))
         {
         case OCHAR:
-          if (sp == stop || *sp++ != (char)OPND(s))
+            if (sp == stop || *sp++ != (char)OPND(s))
             {
-              return NULL;
+                return NULL;
             }
 
-          break;
+            break;
 
         case OANY:
-          if (sp == stop)
+            if (sp == stop)
             {
-              return NULL;
+                return NULL;
             }
 
-          sp++;
-          break;
+            sp++;
+            break;
 
         case OANYOF:
-          cs = &m->g->sets[OPND(s)];
-          if (sp == stop || !CHIN(cs, *sp++))
+            cs = &m->g->sets[OPND(s)];
+            if (sp == stop || !CHIN(cs, *sp++))
             {
-              return NULL;
+                return NULL;
             }
 
-          break;
+            break;
 
         case OBOL:
-          if (( sp == m->beginp && !( m->eflags & REG_NOTBOL ))
-              || ( sp > m->offp && sp < m->endp && *( sp - 1 ) == '\n'
-                   && ( m->g->cflags & REG_NEWLINE )))
-            { /* yes */
+            if (( sp == m->beginp && !( m->eflags & REG_NOTBOL ))
+                    || ( sp > m->offp && sp < m->endp && *( sp - 1 ) == '\n'
+                         && ( m->g->cflags & REG_NEWLINE )))
+            {   /* yes */
             }
-          else
+            else
             {
-              return NULL;
+                return NULL;
             }
 
-          break;
+            break;
 
         case OEOL:
-          if (( sp == m->endp && !( m->eflags & REG_NOTEOL ))
-              || ( sp < m->endp && *sp == '\n' && ( m->g->cflags & REG_NEWLINE )))
-            { /* yes */
+            if (( sp == m->endp && !( m->eflags & REG_NOTEOL ))
+                    || ( sp < m->endp && *sp == '\n' && ( m->g->cflags & REG_NEWLINE )))
+            {   /* yes */
             }
-          else
+            else
             {
-              return NULL;
+                return NULL;
             }
 
-          break;
+            break;
 
         case OBOW:
-          if (sp < m->endp && ISWORD(*sp)
-              && (( sp == m->beginp && !( m->eflags & REG_NOTBOL ))
-                  || ( sp > m->offp && !ISWORD(*( sp - 1 )))))
-            { /* yes */
+            if (sp < m->endp && ISWORD(*sp)
+                    && (( sp == m->beginp && !( m->eflags & REG_NOTBOL ))
+                        || ( sp > m->offp && !ISWORD(*( sp - 1 )))))
+            {   /* yes */
             }
-          else
+            else
             {
-              return NULL;
+                return NULL;
             }
 
-          break;
+            break;
 
         case OEOW:
-          if ((( sp == m->endp && !( m->eflags & REG_NOTEOL ))
-               || ( sp < m->endp && *sp == '\n' && ( m->g->cflags & REG_NEWLINE ))
-               || ( sp < m->endp && !ISWORD(*sp)))
-              && ( sp > m->beginp && ISWORD(*( sp - 1 ))))
-            { /* yes */
+            if ((( sp == m->endp && !( m->eflags & REG_NOTEOL ))
+                    || ( sp < m->endp && *sp == '\n' && ( m->g->cflags & REG_NEWLINE ))
+                    || ( sp < m->endp && !ISWORD(*sp)))
+                    && ( sp > m->beginp && ISWORD(*( sp - 1 ))))
+            {   /* yes */
             }
-          else
+            else
             {
-              return NULL;
+                return NULL;
             }
 
-          break;
+            break;
 
         case O_QUEST:
-          break;
+            break;
 
         case OOR1: /* matches null but needs to skip */
-          ss++;
-          s = m->g->strip[ss];
-          do
+            ss++;
+            s = m->g->strip[ss];
+            do
             {
-              assert(OP(s) == OOR2);
-              ss += OPND(s);
+                assert(OP(s) == OOR2);
+                ss += OPND(s);
             }
-          while ( OP(s = m->g->strip[ss]) != O_CH );
-          /* note that the ss++ gets us past the O_CH */
-          break;
+            while ( OP(s = m->g->strip[ss]) != O_CH );
+            /* note that the ss++ gets us past the O_CH */
+            break;
 
         default: /* have to make a choice */
-          hard = 1;
-          break;
+            hard = 1;
+            break;
         }
     }
 
-  if (!hard)
-    { /* that was it! */
-      if (sp != stop)
+    if (!hard)
+    {   /* that was it! */
+        if (sp != stop)
         {
-          return NULL;
+            return NULL;
         }
 
-      return sp;
+        return sp;
     }
 
-  ss--; /* adjust for the for's final increment */
+    ss--; /* adjust for the for's final increment */
 
-  /* the hard stuff */
-  AT("hard", sp, stop, ss, stopst);
-  s = m->g->strip[ss];
-  switch (OP(s))
+    /* the hard stuff */
+    AT("hard", sp, stop, ss, stopst);
+    s = m->g->strip[ss];
+    switch (OP(s))
     {
     case OBACK_: /* the vilest depths */
-      i = OPND(s);
-      assert(0 < i && i <= m->g->nsub);
-      if (m->pmatch[i].rm_eo == -1)
+        i = OPND(s);
+        assert(0 < i && i <= m->g->nsub);
+        if (m->pmatch[i].rm_eo == -1)
         {
-          return NULL;
+            return NULL;
         }
 
-      assert(m->pmatch[i].rm_so != -1);
-      len = m->pmatch[i].rm_eo - m->pmatch[i].rm_so;
-      if (len == 0 && rec++ > MAX_RECURSION)
+        assert(m->pmatch[i].rm_so != -1);
+        len = m->pmatch[i].rm_eo - m->pmatch[i].rm_so;
+        if (len == 0 && rec++ > MAX_RECURSION)
         {
-          return NULL;
+            return NULL;
         }
 
-      assert(stop - m->beginp >= len);
-      if (sp > stop - len)
+        assert(stop - m->beginp >= len);
+        if (sp > stop - len)
         {
-          return NULL; /* not enough left to match */
+            return NULL; /* not enough left to match */
         }
 
-      ssp = m->offp + m->pmatch[i].rm_so;
-      if (memcmp(sp, ssp, len) != 0)
+        ssp = m->offp + m->pmatch[i].rm_so;
+        if (memcmp(sp, ssp, len) != 0)
         {
-          return NULL;
+            return NULL;
         }
 
-      while (m->g->strip[ss] != SOP(O_BACK, i))
+        while (m->g->strip[ss] != SOP(O_BACK, i))
         {
-          ss++;
+            ss++;
         }
-      return backref(m, sp + len, stop, ss + 1, stopst, lev, rec);
+        return backref(m, sp + len, stop, ss + 1, stopst, lev, rec);
 
-      break;
+        break;
 
     case OQUEST_: /* to null or not */
-      dp = backref(m, sp, stop, ss + 1, stopst, lev, rec);
-      if (dp != NULL)
+        dp = backref(m, sp, stop, ss + 1, stopst, lev, rec);
+        if (dp != NULL)
         {
-          return dp; /* not */
+            return dp; /* not */
         }
 
-      return backref(m, sp, stop, ss + OPND(s) + 1, stopst, lev, rec);
+        return backref(m, sp, stop, ss + OPND(s) + 1, stopst, lev, rec);
 
-      break;
+        break;
 
     case OPLUS_:
-      assert(m->lastpos != NULL);
-      assert(lev + 1 <= m->g->nplus);
-      m->lastpos[lev + 1] = sp;
-      return backref(m, sp, stop, ss + 1, stopst, lev + 1, rec);
+        assert(m->lastpos != NULL);
+        assert(lev + 1 <= m->g->nplus);
+        m->lastpos[lev + 1] = sp;
+        return backref(m, sp, stop, ss + 1, stopst, lev + 1, rec);
 
-      break;
+        break;
 
     case O_PLUS:
-      if (sp == m->lastpos[lev]) /* last pass matched null */
+        if (sp == m->lastpos[lev]) /* last pass matched null */
         {
-          return backref(m, sp, stop, ss + 1, stopst, lev - 1, rec);
+            return backref(m, sp, stop, ss + 1, stopst, lev - 1, rec);
         }
 
-      /* try another pass */
-      m->lastpos[lev] = sp;
-      dp = backref(m, sp, stop, ss - OPND(s) + 1, stopst, lev, rec);
-      if (dp == NULL)
+        /* try another pass */
+        m->lastpos[lev] = sp;
+        dp = backref(m, sp, stop, ss - OPND(s) + 1, stopst, lev, rec);
+        if (dp == NULL)
         {
-          return backref(m, sp, stop, ss + 1, stopst, lev - 1, rec);
+            return backref(m, sp, stop, ss + 1, stopst, lev - 1, rec);
         }
-      else
+        else
         {
-          return dp;
+            return dp;
         }
 
-      break;
+        break;
 
     case OCH_: /* find the right one, if any */
-      ssub = ss + 1;
-      esub = ss + OPND(s) - 1;
-      assert(OP(m->g->strip[esub]) == OOR1);
-      for (;;)
-        { /* find first matching branch */
-          dp = backref(m, sp, stop, ssub, esub, lev, rec);
-          if (dp != NULL)
+        ssub = ss + 1;
+        esub = ss + OPND(s) - 1;
+        assert(OP(m->g->strip[esub]) == OOR1);
+        for (;;)
+        {   /* find first matching branch */
+            dp = backref(m, sp, stop, ssub, esub, lev, rec);
+            if (dp != NULL)
             {
-              return dp;
+                return dp;
             }
 
-          /* that one missed, try next one */
-          if (OP(m->g->strip[esub]) == O_CH)
+            /* that one missed, try next one */
+            if (OP(m->g->strip[esub]) == O_CH)
             {
-              return NULL; /* there is none */
+                return NULL; /* there is none */
             }
 
-          esub++;
-          assert(OP(m->g->strip[esub]) == OOR2);
-          ssub = esub + 1;
-          esub += OPND(m->g->strip[esub]);
-          if (OP(m->g->strip[esub]) == OOR2)
+            esub++;
+            assert(OP(m->g->strip[esub]) == OOR2);
+            ssub = esub + 1;
+            esub += OPND(m->g->strip[esub]);
+            if (OP(m->g->strip[esub]) == OOR2)
             {
-              esub--;
+                esub--;
             }
-          else
+            else
             {
-              assert(OP(m->g->strip[esub]) == O_CH);
+                assert(OP(m->g->strip[esub]) == O_CH);
             }
         }
 
-      break;
+        break;
 
     case OLPAREN: /* must undo assignment if rest fails */
-      i = OPND(s);
-      assert(0 < i && i <= m->g->nsub);
-      offsave = m->pmatch[i].rm_so;
-      m->pmatch[i].rm_so = sp - m->offp;
-      dp = backref(m, sp, stop, ss + 1, stopst, lev, rec);
-      if (dp != NULL)
+        i = OPND(s);
+        assert(0 < i && i <= m->g->nsub);
+        offsave = m->pmatch[i].rm_so;
+        m->pmatch[i].rm_so = sp - m->offp;
+        dp = backref(m, sp, stop, ss + 1, stopst, lev, rec);
+        if (dp != NULL)
         {
-          return dp;
+            return dp;
         }
 
-      m->pmatch[i].rm_so = offsave;
-      return NULL;
+        m->pmatch[i].rm_so = offsave;
+        return NULL;
 
-      break;
+        break;
 
     case ORPAREN: /* must undo assignment if rest fails */
-      i = OPND(s);
-      assert(0 < i && i <= m->g->nsub);
-      offsave = m->pmatch[i].rm_eo;
-      m->pmatch[i].rm_eo = sp - m->offp;
-      dp = backref(m, sp, stop, ss + 1, stopst, lev, rec);
-      if (dp != NULL)
+        i = OPND(s);
+        assert(0 < i && i <= m->g->nsub);
+        offsave = m->pmatch[i].rm_eo;
+        m->pmatch[i].rm_eo = sp - m->offp;
+        dp = backref(m, sp, stop, ss + 1, stopst, lev, rec);
+        if (dp != NULL)
         {
-          return dp;
+            return dp;
         }
 
-      m->pmatch[i].rm_eo = offsave;
-      return NULL;
+        m->pmatch[i].rm_eo = offsave;
+        return NULL;
 
-      break;
+        break;
 
     default: /* uh oh */
-      assert(nope);
-      break;
+        assert(nope);
+        break;
     }
 
-  /* "can't happen" */
-  assert(nope);
-  /* NOTREACHED */
-  return NULL;
+    /* "can't happen" */
+    assert(nope);
+    /* NOTREACHED */
+    return NULL;
 }
 
 /*
@@ -912,112 +912,112 @@ static const char * /* where tentative match ended, or NULL */
 fast(struct match *m, const char *start, const char *stop, sopno startst,
      sopno stopst)
 {
-  states st = m->st;
-  states fresh = m->fresh;
-  states tmp = m->tmp;
-  const char *p = start;
-  int c;
-  int lastc; /* previous c */
-  int flagch;
-  int i;
-  const char *coldp; /* last p after which no match was underway */
+    states st = m->st;
+    states fresh = m->fresh;
+    states tmp = m->tmp;
+    const char *p = start;
+    int c;
+    int lastc; /* previous c */
+    int flagch;
+    int i;
+    const char *coldp; /* last p after which no match was underway */
 
-  if (start == m->offp || ( start == m->beginp && !( m->eflags & REG_NOTBOL )))
+    if (start == m->offp || ( start == m->beginp && !( m->eflags & REG_NOTBOL )))
     {
-      c = OUT;
+        c = OUT;
     }
-  else
+    else
     {
-      c = *( start - 1 );
+        c = *( start - 1 );
     }
 
-  CLEAR(st);
-  SET1(st, startst);
-  st = step(m->g, startst, stopst, st, NOTHING, st);
-  ASSIGN(fresh, st);
-  SP("start", st, *p);
-  coldp = NULL;
-  for (;;)
+    CLEAR(st);
+    SET1(st, startst);
+    st = step(m->g, startst, stopst, st, NOTHING, st);
+    ASSIGN(fresh, st);
+    SP("start", st, *p);
+    coldp = NULL;
+    for (;;)
     {
-      /* next character */
-      lastc = c;
-      c = ( p == m->endp ) ? OUT : *p;
-      if (EQ(st, fresh))
+        /* next character */
+        lastc = c;
+        c = ( p == m->endp ) ? OUT : *p;
+        if (EQ(st, fresh))
         {
-          coldp = p;
+            coldp = p;
         }
 
-      /* is there an EOL and/or BOL between lastc and c? */
-      flagch = '\0';
-      i = 0;
-      if (( lastc == '\n' && m->g->cflags & REG_NEWLINE )
-          || ( lastc == OUT && !( m->eflags & REG_NOTBOL )))
+        /* is there an EOL and/or BOL between lastc and c? */
+        flagch = '\0';
+        i = 0;
+        if (( lastc == '\n' && m->g->cflags & REG_NEWLINE )
+                || ( lastc == OUT && !( m->eflags & REG_NOTBOL )))
         {
-          flagch = BOL;
-          i = m->g->nbol;
+            flagch = BOL;
+            i = m->g->nbol;
         }
 
-      if (( c == '\n' && m->g->cflags & REG_NEWLINE )
-          || ( c == OUT && !( m->eflags & REG_NOTEOL )))
+        if (( c == '\n' && m->g->cflags & REG_NEWLINE )
+                || ( c == OUT && !( m->eflags & REG_NOTEOL )))
         {
-          flagch = ( flagch == BOL ) ? BOLEOL : EOL;
-          i += m->g->neol;
+            flagch = ( flagch == BOL ) ? BOLEOL : EOL;
+            i += m->g->neol;
         }
 
-      if (i != 0)
+        if (i != 0)
         {
-          for (; i > 0; i--)
+            for (; i > 0; i--)
             {
-              st = step(m->g, startst, stopst, st, flagch, st);
+                st = step(m->g, startst, stopst, st, flagch, st);
             }
 
-          SP("boleol", st, c);
+            SP("boleol", st, c);
         }
 
-      /* how about a word boundary? */
-      if (( flagch == BOL || ( lastc != OUT && !ISWORD(lastc)))
-          && ( c != OUT && ISWORD(c)))
+        /* how about a word boundary? */
+        if (( flagch == BOL || ( lastc != OUT && !ISWORD(lastc)))
+                && ( c != OUT && ISWORD(c)))
         {
-          flagch = BOW;
+            flagch = BOW;
         }
 
-      if (( lastc != OUT && ISWORD(lastc))
-          && ( flagch == EOL || ( c != OUT && !ISWORD(c))))
+        if (( lastc != OUT && ISWORD(lastc))
+                && ( flagch == EOL || ( c != OUT && !ISWORD(c))))
         {
-          flagch = EOW;
+            flagch = EOW;
         }
 
-      if (flagch == BOW || flagch == EOW)
+        if (flagch == BOW || flagch == EOW)
         {
-          st = step(m->g, startst, stopst, st, flagch, st);
-          SP("boweow", st, c);
+            st = step(m->g, startst, stopst, st, flagch, st);
+            SP("boweow", st, c);
         }
 
-      /* are we done? */
-      if (ISSET(st, stopst) || p == stop)
+        /* are we done? */
+        if (ISSET(st, stopst) || p == stop)
         {
-          break; /* NOTE BREAK OUT */
+            break; /* NOTE BREAK OUT */
         }
 
-      /* no, we must deal with this character */
-      ASSIGN(tmp, st);
-      ASSIGN(st, fresh);
-      assert(c != OUT);
-      st = step(m->g, startst, stopst, tmp, c, st);
-      SP("aft", st, c);
-      assert(EQ(step(m->g, startst, stopst, st, NOTHING, st), st));
-      p++;
+        /* no, we must deal with this character */
+        ASSIGN(tmp, st);
+        ASSIGN(st, fresh);
+        assert(c != OUT);
+        st = step(m->g, startst, stopst, tmp, c, st);
+        SP("aft", st, c);
+        assert(EQ(step(m->g, startst, stopst, st, NOTHING, st), st));
+        p++;
     }
 
-  assert(coldp != NULL);
-  m->coldp = coldp;
-  if (ISSET(st, stopst))
+    assert(coldp != NULL);
+    m->coldp = coldp;
+    if (ISSET(st, stopst))
     {
-      return p + 1;
+        return p + 1;
     }
-  else
+    else
     {
-      return NULL;
+        return NULL;
     }
 }
 
@@ -1028,105 +1028,105 @@ static const char * /* where it ended */
 slow(struct match *m, const char *start, const char *stop, sopno startst,
      sopno stopst)
 {
-  states st = m->st;
-  states empty = m->empty;
-  states tmp = m->tmp;
-  const char *p = start;
-  int c;
-  int lastc; /* previous c */
-  int flagch;
-  int i;
-  const char *matchp; /* last p at which a match ended */
+    states st = m->st;
+    states empty = m->empty;
+    states tmp = m->tmp;
+    const char *p = start;
+    int c;
+    int lastc; /* previous c */
+    int flagch;
+    int i;
+    const char *matchp; /* last p at which a match ended */
 
-  if (start == m->offp || ( start == m->beginp && !( m->eflags & REG_NOTBOL )))
+    if (start == m->offp || ( start == m->beginp && !( m->eflags & REG_NOTBOL )))
     {
-      c = OUT;
+        c = OUT;
     }
-  else
+    else
     {
-      c = *( start - 1 );
+        c = *( start - 1 );
     }
 
-  AT("slow", start, stop, startst, stopst);
-  CLEAR(st);
-  SET1(st, startst);
-  SP("sstart", st, *p);
-  st = step(m->g, startst, stopst, st, NOTHING, st);
-  matchp = NULL;
-  for (;;)
+    AT("slow", start, stop, startst, stopst);
+    CLEAR(st);
+    SET1(st, startst);
+    SP("sstart", st, *p);
+    st = step(m->g, startst, stopst, st, NOTHING, st);
+    matchp = NULL;
+    for (;;)
     {
-      /* next character */
-      lastc = c;
-      c = ( p == m->endp ) ? OUT : *p;
+        /* next character */
+        lastc = c;
+        c = ( p == m->endp ) ? OUT : *p;
 
-      /* is there an EOL and/or BOL between lastc and c? */
-      flagch = '\0';
-      i = 0;
-      if (( lastc == '\n' && m->g->cflags & REG_NEWLINE )
-          || ( lastc == OUT && !( m->eflags & REG_NOTBOL )))
+        /* is there an EOL and/or BOL between lastc and c? */
+        flagch = '\0';
+        i = 0;
+        if (( lastc == '\n' && m->g->cflags & REG_NEWLINE )
+                || ( lastc == OUT && !( m->eflags & REG_NOTBOL )))
         {
-          flagch = BOL;
-          i = m->g->nbol;
+            flagch = BOL;
+            i = m->g->nbol;
         }
 
-      if (( c == '\n' && m->g->cflags & REG_NEWLINE )
-          || ( c == OUT && !( m->eflags & REG_NOTEOL )))
+        if (( c == '\n' && m->g->cflags & REG_NEWLINE )
+                || ( c == OUT && !( m->eflags & REG_NOTEOL )))
         {
-          flagch = ( flagch == BOL ) ? BOLEOL : EOL;
-          i += m->g->neol;
+            flagch = ( flagch == BOL ) ? BOLEOL : EOL;
+            i += m->g->neol;
         }
 
-      if (i != 0)
+        if (i != 0)
         {
-          for (; i > 0; i--)
+            for (; i > 0; i--)
             {
-              st = step(m->g, startst, stopst, st, flagch, st);
+                st = step(m->g, startst, stopst, st, flagch, st);
             }
 
-          SP("sboleol", st, c);
+            SP("sboleol", st, c);
         }
 
-      /* how about a word boundary? */
-      if (( flagch == BOL || ( lastc != OUT && !ISWORD(lastc)))
-          && ( c != OUT && ISWORD(c)))
+        /* how about a word boundary? */
+        if (( flagch == BOL || ( lastc != OUT && !ISWORD(lastc)))
+                && ( c != OUT && ISWORD(c)))
         {
-          flagch = BOW;
+            flagch = BOW;
         }
 
-      if (( lastc != OUT && ISWORD(lastc))
-          && ( flagch == EOL || ( c != OUT && !ISWORD(c))))
+        if (( lastc != OUT && ISWORD(lastc))
+                && ( flagch == EOL || ( c != OUT && !ISWORD(c))))
         {
-          flagch = EOW;
+            flagch = EOW;
         }
 
-      if (flagch == BOW || flagch == EOW)
+        if (flagch == BOW || flagch == EOW)
         {
-          st = step(m->g, startst, stopst, st, flagch, st);
-          SP("sboweow", st, c);
+            st = step(m->g, startst, stopst, st, flagch, st);
+            SP("sboweow", st, c);
         }
 
-      /* are we done? */
-      if (ISSET(st, stopst))
+        /* are we done? */
+        if (ISSET(st, stopst))
         {
-          matchp = p;
+            matchp = p;
         }
 
-      if (EQ(st, empty) || p == stop)
+        if (EQ(st, empty) || p == stop)
         {
-          break; /* NOTE BREAK OUT */
+            break; /* NOTE BREAK OUT */
         }
 
-      /* no, we must deal with this character */
-      ASSIGN(tmp, st);
-      ASSIGN(st, empty);
-      assert(c != OUT);
-      st = step(m->g, startst, stopst, tmp, c, st);
-      SP("saft", st, c);
-      assert(EQ(step(m->g, startst, stopst, st, NOTHING, st), st));
-      p++;
+        /* no, we must deal with this character */
+        ASSIGN(tmp, st);
+        ASSIGN(st, empty);
+        assert(c != OUT);
+        st = step(m->g, startst, stopst, tmp, c, st);
+        SP("saft", st, c);
+        assert(EQ(step(m->g, startst, stopst, st, NOTHING, st), st));
+        p++;
     }
 
-  return matchp;
+    return matchp;
 }
 
 /*
@@ -1139,157 +1139,157 @@ step(struct re_guts *g, sopno start,  /* start state within strip */
      int ch,                          /* character or NONCHAR code */
      states aft)  /* states already known reachable after */
 {
-  cset *cs;
-  sop s;
-  sopno pc;
-  onestate here; /* note, macros know this name */
-  sopno look;
-  int i;
+    cset *cs;
+    sop s;
+    sopno pc;
+    onestate here; /* note, macros know this name */
+    sopno look;
+    int i;
 
-  for (pc = start, INIT(here, pc); pc != stop; pc++, INC(here))
+    for (pc = start, INIT(here, pc); pc != stop; pc++, INC(here))
     {
-      s = g->strip[pc];
-      switch (OP(s))
+        s = g->strip[pc];
+        switch (OP(s))
         {
         case OEND:
-          assert(pc == stop - 1);
-          break;
+            assert(pc == stop - 1);
+            break;
 
         case OCHAR:
-          /* only characters can match */
-          assert(!NONCHAR(ch) || ch != (char)OPND(s));
-          if (ch == (char)OPND(s))
+            /* only characters can match */
+            assert(!NONCHAR(ch) || ch != (char)OPND(s));
+            if (ch == (char)OPND(s))
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OBOL:
-          if (ch == BOL || ch == BOLEOL)
+            if (ch == BOL || ch == BOLEOL)
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OEOL:
-          if (ch == EOL || ch == BOLEOL)
+            if (ch == EOL || ch == BOLEOL)
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OBOW:
-          if (ch == BOW)
+            if (ch == BOW)
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OEOW:
-          if (ch == EOW)
+            if (ch == EOW)
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OANY:
-          if (!NONCHAR(ch))
+            if (!NONCHAR(ch))
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OANYOF:
-          cs = &g->sets[OPND(s)];
-          if (!NONCHAR(ch) && CHIN(cs, ch))
+            cs = &g->sets[OPND(s)];
+            if (!NONCHAR(ch) && CHIN(cs, ch))
             {
-              FWD(aft, bef, 1);
+                FWD(aft, bef, 1);
             }
 
-          break;
+            break;
 
         case OBACK_: /* ignored here */
         case O_BACK:
-          FWD(aft, aft, 1);
-          break;
+            FWD(aft, aft, 1);
+            break;
 
         case OPLUS_: /* forward, this is just an empty */
-          FWD(aft, aft, 1);
-          break;
+            FWD(aft, aft, 1);
+            break;
 
         case O_PLUS: /* both forward and back */
-          FWD(aft, aft, 1);
-          i = ISSETBACK(aft, OPND(s));
-          BACK(aft, aft, OPND(s));
-          if (!i && ISSETBACK(aft, OPND(s)))
+            FWD(aft, aft, 1);
+            i = ISSETBACK(aft, OPND(s));
+            BACK(aft, aft, OPND(s));
+            if (!i && ISSETBACK(aft, OPND(s)))
             {
-              /* oho, must reconsider loop body */
-              pc -= OPND(s) + 1;
-              INIT(here, pc);
+                /* oho, must reconsider loop body */
+                pc -= OPND(s) + 1;
+                INIT(here, pc);
             }
 
-          break;
+            break;
 
         case OQUEST_: /* two branches, both forward */
-          FWD(aft, aft, 1);
-          FWD(aft, aft, OPND(s));
-          break;
+            FWD(aft, aft, 1);
+            FWD(aft, aft, OPND(s));
+            break;
 
         case O_QUEST: /* just an empty */
-          FWD(aft, aft, 1);
-          break;
+            FWD(aft, aft, 1);
+            break;
 
         case OLPAREN: /* not significant here */
         case ORPAREN:
-          FWD(aft, aft, 1);
-          break;
+            FWD(aft, aft, 1);
+            break;
 
         case OCH_: /* mark the first two branches */
-          FWD(aft, aft, 1);
-          assert(OP(g->strip[pc + OPND(s)]) == OOR2);
-          FWD(aft, aft, OPND(s));
-          break;
+            FWD(aft, aft, 1);
+            assert(OP(g->strip[pc + OPND(s)]) == OOR2);
+            FWD(aft, aft, OPND(s));
+            break;
 
         case OOR1: /* done a branch, find the O_CH */
-          if (ISSTATEIN(aft, here))
+            if (ISSTATEIN(aft, here))
             {
-              for (look = 1; OP(s = g->strip[pc + look]) != O_CH; look += OPND(s))
+                for (look = 1; OP(s = g->strip[pc + look]) != O_CH; look += OPND(s))
                 {
-                  assert(OP(s) == OOR2);
+                    assert(OP(s) == OOR2);
                 }
 
-              FWD(aft, aft, look + 1);
+                FWD(aft, aft, look + 1);
             }
 
-          break;
+            break;
 
         case OOR2: /* propagate OCH_'s marking */
-          FWD(aft, aft, 1);
-          if (OP(g->strip[pc + OPND(s)]) != O_CH)
+            FWD(aft, aft, 1);
+            if (OP(g->strip[pc + OPND(s)]) != O_CH)
             {
-              assert(OP(g->strip[pc + OPND(s)]) == OOR2);
-              FWD(aft, aft, OPND(s));
+                assert(OP(g->strip[pc + OPND(s)]) == OOR2);
+                FWD(aft, aft, OPND(s));
             }
 
-          break;
+            break;
 
         case O_CH: /* just empty */
-          FWD(aft, aft, 1);
-          break;
+            FWD(aft, aft, 1);
+            break;
 
         default: /* ooooops... */
-          assert(nope);
-          break;
+            assert(nope);
+            break;
         }
     }
 
-  return aft;
+    return aft;
 }
 
 #ifdef REDEBUG
@@ -1299,27 +1299,27 @@ step(struct re_guts *g, sopno start,  /* start state within strip */
 static void
 print(struct match *m, const char *caption, states st, int ch, FILE *d)
 {
-  struct re_guts *g = m->g;
-  int i;
-  int first = 1;
+    struct re_guts *g = m->g;
+    int i;
+    int first = 1;
 
-  if (!( m->eflags & REG_TRACE ))
+    if (!( m->eflags & REG_TRACE ))
     {
-      return;
+        return;
     }
 
-  (void)fprintf(d, "%s", caption);
-  (void)fprintf(d, " %s", pchar(ch));
-  for (i = 0; i < g->nstates; i++)
+    (void)fprintf(d, "%s", caption);
+    (void)fprintf(d, " %s", pchar(ch));
+    for (i = 0; i < g->nstates; i++)
     {
-      if (ISSET(st, i))
+        if (ISSET(st, i))
         {
-          (void)fprintf(d, "%s%d", ( first ) ? "\t" : ", ", i);
-          first = 0;
+            (void)fprintf(d, "%s%d", ( first ) ? "\t" : ", ", i);
+            first = 0;
         }
     }
 
-  (void)fprintf(d, "\n");
+    (void)fprintf(d, "\n");
 }
 
 /*
@@ -1329,22 +1329,22 @@ static void
 at(struct match *m, const char *title, const char *start, const char *stop,
    sopno startst, sopno stopst)
 {
-  if (!( m->eflags & REG_TRACE ))
+    if (!( m->eflags & REG_TRACE ))
     {
-      return;
+        return;
     }
 
-  (void)printf("%s %s-", title, pchar(*start));
-  (void)printf("%s ", pchar(*stop));
-  (void)printf("%ld-%ld\n", (long)startst, (long)stopst);
+    (void)printf("%s %s-", title, pchar(*start));
+    (void)printf("%s ", pchar(*stop));
+    (void)printf("%ld-%ld\n", (long)startst, (long)stopst);
 }
 
 # ifndef PCHARDONE
 #  define PCHARDONE /* never again */
 static const char *nonchars[]
-  = {
-  "OUT", "BOL", "EOL", "BOLEOL", "NOTHING", "BOW", "EOW"
-  };
+= {
+    "OUT", "BOL", "EOL", "BOLEOL", "NOTHING", "BOW", "EOW"
+};
 #  define PNONCHAR(c) \
        (( c ) - OUT < ( sizeof ( nonchars ) / sizeof ( nonchars[0] )) \
            ? nonchars[( c ) - OUT] : "invalid" )
@@ -1360,28 +1360,28 @@ static const char *nonchars[]
 static const char * /* -> representation */
 pchar(int ch)
 {
-  static char pbuf[10];
+    static char pbuf[10];
 
-  if (NONCHAR(ch))
+    if (NONCHAR(ch))
     {
-      if (ch - OUT < ( sizeof ( nonchars ) / sizeof ( nonchars[0] )))
+        if (ch - OUT < ( sizeof ( nonchars ) / sizeof ( nonchars[0] )))
         {
-          return nonchars[ch - OUT];
+            return nonchars[ch - OUT];
         }
 
-      return "invalid";
+        return "invalid";
     }
 
-  if (isprint((unsigned char)ch) || ch == ' ')
+    if (isprint((unsigned char)ch) || ch == ' ')
     {
-      (void)snprintf(pbuf, sizeof pbuf, "%c", ch);
+        (void)snprintf(pbuf, sizeof pbuf, "%c", ch);
     }
-  else
+    else
     {
-      (void)snprintf(pbuf, sizeof pbuf, "\\%o", ch);
+        (void)snprintf(pbuf, sizeof pbuf, "\\%o", ch);
     }
 
-  return pbuf;
+    return pbuf;
 }
 # endif /* ifndef PCHARDONE */
 #endif /* ifdef REDEBUG */

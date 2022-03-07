@@ -51,14 +51,14 @@
 void
 openbsd_verr(int eval, const char *fmt, va_list ap)
 {
-  int sverrno;
+    int sverrno;
 
-  sverrno = errno;
-  (void)fprintf(stderr, "%s: ", bsd_getprogname());
-  if (fmt != NULL) {
-    (void)vfprintf(stderr, fmt, ap);
-    (void)fprintf(stderr, ": ");
-  }
-  (void)fprintf(stderr, "%s\n", strerror(sverrno));
-  exit(eval);
+    sverrno = errno;
+    (void)fprintf(stderr, "%s: ", bsd_getprogname());
+    if (fmt != NULL) {
+        (void)vfprintf(stderr, fmt, ap);
+        (void)fprintf(stderr, ": ");
+    }
+    (void)fprintf(stderr, "%s\n", strerror(sverrno));
+    exit(eval);
 }

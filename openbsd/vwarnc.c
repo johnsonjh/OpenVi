@@ -47,12 +47,12 @@
 void
 openbsd_vwarnc(int code, const char *fmt, va_list ap)
 {
-  (void)fprintf(stderr, "%s: ", bsd_getprogname());
-  if (fmt != NULL)
+    (void)fprintf(stderr, "%s: ", bsd_getprogname());
+    if (fmt != NULL)
     {
-      (void)vfprintf(stderr, fmt, ap);
-      (void)fprintf(stderr, ": ");
+        (void)vfprintf(stderr, fmt, ap);
+        (void)fprintf(stderr, ": ");
     }
 
-  (void)fprintf(stderr, "%s\n", strerror(code));
+    (void)fprintf(stderr, "%s\n", strerror(code));
 }

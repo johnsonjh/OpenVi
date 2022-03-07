@@ -53,27 +53,28 @@ static const char *regatoi(const regex_t *, char *, int);
 
 static const struct rerr
 {
-  int code;
-  const char *name;
-  const char *explain;
+    int code;
+    const char *name;
+    const char *explain;
 } rerrs[]
-  = { { REG_NOMATCH,  "REG_NOMATCH",  "regexec() failed to match"           },
-      { REG_BADPAT,   "REG_BADPAT",   "invalid regular expression"          },
-      { REG_ECOLLATE, "REG_ECOLLATE", "invalid collating element"           },
-      { REG_ECTYPE,   "REG_ECTYPE",   "invalid character class"             },
-      { REG_EESCAPE,  "REG_EESCAPE",  "trailing backslash (\\)"             },
-      { REG_ESUBREG,  "REG_ESUBREG",  "invalid backreference number"        },
-      { REG_EBRACK,   "REG_EBRACK",   "brackets ([ ]) not balanced"         },
-      { REG_EPAREN,   "REG_EPAREN",   "parentheses not balanced"            },
-      { REG_EBRACE,   "REG_EBRACE",   "braces not balanced"                 },
-      { REG_BADBR,    "REG_BADBR",    "invalid repetition count(s)"         },
-      { REG_ERANGE,   "REG_ERANGE",   "invalid character range"             },
-      { REG_ESPACE,   "REG_ESPACE",   "out of memory"                       },
-      { REG_BADRPT,   "REG_BADRPT",   "repetition-operator operand invalid" },
-      { REG_EMPTY,    "REG_EMPTY",    "empty (sub)expression"               },
-      { REG_ASSERT,   "REG_ASSERT",   "\"can't happen\" -- you found a bug" },
-      { REG_INVARG,   "REG_INVARG",   "invalid argument to regex routine"   },
-      { 0,            "",             "*** unknown regexp error code ***"   } };
+= { { REG_NOMATCH,  "REG_NOMATCH",  "regexec() failed to match"           },
+    { REG_BADPAT,   "REG_BADPAT",   "invalid regular expression"          },
+    { REG_ECOLLATE, "REG_ECOLLATE", "invalid collating element"           },
+    { REG_ECTYPE,   "REG_ECTYPE",   "invalid character class"             },
+    { REG_EESCAPE,  "REG_EESCAPE",  "trailing backslash (\\)"             },
+    { REG_ESUBREG,  "REG_ESUBREG",  "invalid backreference number"        },
+    { REG_EBRACK,   "REG_EBRACK",   "brackets ([ ]) not balanced"         },
+    { REG_EPAREN,   "REG_EPAREN",   "parentheses not balanced"            },
+    { REG_EBRACE,   "REG_EBRACE",   "braces not balanced"                 },
+    { REG_BADBR,    "REG_BADBR",    "invalid repetition count(s)"         },
+    { REG_ERANGE,   "REG_ERANGE",   "invalid character range"             },
+    { REG_ESPACE,   "REG_ESPACE",   "out of memory"                       },
+    { REG_BADRPT,   "REG_BADRPT",   "repetition-operator operand invalid" },
+    { REG_EMPTY,    "REG_EMPTY",    "empty (sub)expression"               },
+    { REG_ASSERT,   "REG_ASSERT",   "\"can't happen\" -- you found a bug" },
+    { REG_INVARG,   "REG_INVARG",   "invalid argument to regex routine"   },
+    { 0,            "",             "*** unknown regexp error code ***"   }
+};
 
 /*
  * - regerror - the interface to error numbers
@@ -82,56 +83,56 @@ static const struct rerr
 size_t
 regerror(int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
 {
-  const struct rerr *r;
-  size_t len;
-  int target = errcode & ~REG_ITOA;
-  const char *s;
-  char convbuf[50];
+    const struct rerr *r;
+    size_t len;
+    int target = errcode & ~REG_ITOA;
+    const char *s;
+    char convbuf[50];
 
-  if (errcode == REG_ATOI)
+    if (errcode == REG_ATOI)
     {
-      s = regatoi(preg, convbuf, sizeof convbuf);
+        s = regatoi(preg, convbuf, sizeof convbuf);
     }
-  else
+    else
     {
-      for (r = rerrs; r->code != 0; r++)
+        for (r = rerrs; r->code != 0; r++)
         {
-          if (r->code == target)
+            if (r->code == target)
             {
-              break;
+                break;
             }
         }
 
-      if (errcode & REG_ITOA)
+        if (errcode & REG_ITOA)
         {
-          if (r->code != 0)
+            if (r->code != 0)
             {
-              assert(strlen(r->name) < sizeof ( convbuf ));
-              (void)openbsd_strlcpy(convbuf, r->name, sizeof convbuf);
+                assert(strlen(r->name) < sizeof ( convbuf ));
+                (void)openbsd_strlcpy(convbuf, r->name, sizeof convbuf);
             }
-          else
+            else
             {
-              (void)snprintf(convbuf, sizeof convbuf, "REG_0x%x", target);
+                (void)snprintf(convbuf, sizeof convbuf, "REG_0x%x", target);
             }
 
-          s = convbuf;
+            s = convbuf;
         }
-      else
+        else
         {
-          s = r->explain;
+            s = r->explain;
         }
     }
 
-  if (errbuf_size != 0)
+    if (errbuf_size != 0)
     {
-      len = openbsd_strlcpy(errbuf, s, errbuf_size);
+        len = openbsd_strlcpy(errbuf, s, errbuf_size);
     }
-  else
+    else
     {
-      len = strlen(s);
+        len = strlen(s);
     }
 
-  return len + 1;
+    return len + 1;
 }
 
 /*
@@ -140,21 +141,21 @@ regerror(int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
 static const char *
 regatoi(const regex_t *preg, char *localbuf, int localbufsize)
 {
-  const struct rerr *r;
+    const struct rerr *r;
 
-  for (r = rerrs; r->code != 0; r++)
+    for (r = rerrs; r->code != 0; r++)
     {
-      if (strcmp(r->name, preg->re_endp) == 0)
+        if (strcmp(r->name, preg->re_endp) == 0)
         {
-          break;
+            break;
         }
     }
 
-  if (r->code == 0)
+    if (r->code == 0)
     {
-      return "0";
+        return "0";
     }
 
-  (void)snprintf(localbuf, localbufsize, "%d", r->code);
-  return localbuf;
+    (void)snprintf(localbuf, localbufsize, "%d", r->code);
+    return localbuf;
 }

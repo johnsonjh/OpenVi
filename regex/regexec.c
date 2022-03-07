@@ -158,7 +158,7 @@ int /* 0 success, REG_NOMATCH failure */
 regexec(const regex_t *preg, const char *string, size_t nmatch,
         regmatch_t pmatch[], int eflags)
 {
-  struct re_guts *g = preg->re_g;
+    struct re_guts *g = preg->re_g;
 
 #ifdef REDEBUG
 # define GOODFLAGS(f) ( f )
@@ -166,25 +166,25 @@ regexec(const regex_t *preg, const char *string, size_t nmatch,
 # define GOODFLAGS(f) (( f ) & ( REG_NOTBOL | REG_NOTEOL | REG_STARTEND ))
 #endif /* ifdef REDEBUG */
 
-  if (preg->re_magic != MAGIC1 || g->magic != MAGIC2)
+    if (preg->re_magic != MAGIC1 || g->magic != MAGIC2)
     {
-      return REG_BADPAT;
+        return REG_BADPAT;
     }
 
-  assert(!( g->iflags & BAD ));
-  if (g->iflags & BAD) /* backstop for no-debug case */
+    assert(!( g->iflags & BAD ));
+    if (g->iflags & BAD) /* backstop for no-debug case */
     {
-      return REG_BADPAT;
+        return REG_BADPAT;
     }
 
-  eflags = GOODFLAGS(eflags);
+    eflags = GOODFLAGS(eflags);
 
-  if (g->nstates <= CHAR_BIT * sizeof ( states1 ) && !( eflags & REG_LARGE ))
+    if (g->nstates <= CHAR_BIT * sizeof ( states1 ) && !( eflags & REG_LARGE ))
     {
-      return smatcher(g, string, nmatch, pmatch, eflags);
+        return smatcher(g, string, nmatch, pmatch, eflags);
     }
-  else
+    else
     {
-      return lmatcher(g, string, nmatch, pmatch, eflags);
+        return lmatcher(g, string, nmatch, pmatch, eflags);
     }
 }

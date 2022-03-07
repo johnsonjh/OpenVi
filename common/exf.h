@@ -26,42 +26,42 @@
  *      The file structure.
  */
 struct _exf {
-        int      refcnt;                /* Reference count. */
+    int      refcnt;                /* Reference count. */
 
-                                        /* Underlying database state. */
-        DB      *db;                    /* File db structure. */
-        char    *c_lp;                  /* Cached line. */
-        size_t   c_len;                 /* Cached line length. */
-        recno_t  c_lno;                 /* Cached line number. */
-        recno_t  c_nlines;              /* Cached lines in the file. */
+    /* Underlying database state. */
+    DB      *db;                    /* File db structure. */
+    char    *c_lp;                  /* Cached line. */
+    size_t   c_len;                 /* Cached line length. */
+    recno_t  c_lno;                 /* Cached line number. */
+    recno_t  c_nlines;              /* Cached lines in the file. */
 
-        DB      *log;                   /* Log db structure. */
-        char    *l_lp;                  /* Log buffer. */
-        size_t   l_len;                 /* Log buffer length. */
-        recno_t  l_high;                /* Log last + 1 record number. */
-        recno_t  l_cur;                 /* Log current record number. */
-        MARK     l_cursor;              /* Log cursor position. */
-        dir_t    lundo;                 /* Last undo direction. */
+    DB      *log;                   /* Log db structure. */
+    char    *l_lp;                  /* Log buffer. */
+    size_t   l_len;                 /* Log buffer length. */
+    recno_t  l_high;                /* Log last + 1 record number. */
+    recno_t  l_cur;                 /* Log current record number. */
+    MARK     l_cursor;              /* Log cursor position. */
+    dir_t    lundo;                 /* Last undo direction. */
 
-        LIST_HEAD(_markh, _lmark) marks;/* Linked list of file MARK's. */
+    LIST_HEAD(_markh, _lmark) marks;/* Linked list of file MARK's. */
 
-        dev_t    mdev;                  /* Device. */
-        ino_t    minode;                /* Inode. */
+    dev_t    mdev;                  /* Device. */
+    ino_t    minode;                /* Inode. */
 #ifdef _AIX
-        struct st_timespec mtim;        /* Last modification time. (AIX 7+) */
+    struct st_timespec mtim;        /* Last modification time. (AIX 7+) */
 #else
-        struct timespec mtim;           /* Last modification time. */
+    struct timespec mtim;           /* Last modification time. */
 #endif /* ifdef _AIX */
-        int      fcntl_fd;              /* Fcntl locking fd; see exf.c. */
+    int      fcntl_fd;              /* Fcntl locking fd; see exf.c. */
 
-        /*
-         * Recovery in general, and these fields specifically, are described
-         * in recover.c.
-         */
+    /*
+     * Recovery in general, and these fields specifically, are described
+     * in recover.c.
+     */
 #define RCV_PERIOD      120             /* Sync every two minutes. */
-        char    *rcv_path;              /* Recover file name. */
-        char    *rcv_mpath;             /* Recover mail file name. */
-        int      rcv_fd;                /* Locked mail file descriptor. */
+    char    *rcv_path;              /* Recover file name. */
+    char    *rcv_mpath;             /* Recover mail file name. */
+    int      rcv_fd;                /* Locked mail file descriptor. */
 
 #define F_DEVSET        0x001           /* mdev/minode fields initialized. */
 #define F_FIRSTMODIFY   0x002           /* File not yet modified. */
@@ -72,7 +72,7 @@ struct _exf {
 #define F_RCV_ON        0x040           /* Recovery is possible. */
 #define F_UNDO          0x080           /* No change since last undo. */
 #define F_RCV_SYNC      0x100           /* Recovery file sync needed. */
-        u_int16_t flags;
+    u_int16_t flags;
 };
 
 /* Flags to db_get(). */
