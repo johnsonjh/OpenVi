@@ -404,9 +404,9 @@ cl_vi_end(GS *gp)
         (void)endwin();
 
         /* Free the SCREEN created by newterm(3). */
-#ifndef __NetBSD__
+#if ( defined(__NetBSD__) && !defined(NCURSES_VERSION) )
         delscreen(set_term(NULL));
-#endif /* ifndef __NetBSD__ */
+#endif /* if ( defined(__NetBSD__) && !defined(NCURSES_VERSION) ) */
 
         /*
          * XXX
