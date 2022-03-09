@@ -1,4 +1,7 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Mon Mar 7 17:55:53 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Wed Mar 9 9:12:34 2022
+        + Add support for NetBSD; tested on NetBSD/amd64 9.2-stable with
+          the system provided GCC and Clang from binary packages; compiling
+          `CC=clang LTO=1` requires the LLVM LLD linker `ld.lld` installed
         + Add support for IBM AIX 7+; tested on IBM AIX 7.2 and IBM AIX 7.3
           with GNU GCC (8, 9, 10, 11), IBM XL C/C++ V16.1+ (gxlc, xlclang),
           and IBM Open XL C/C++ V17.1+ using ncurses from IBM's AIX Toolbox;

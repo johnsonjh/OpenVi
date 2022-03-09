@@ -26,6 +26,9 @@
 #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
 # include <termio.h>
 #endif /* #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
+#ifdef __NetBSD__
+# include <term.h>
+#endif /* ifdef __NetBSD__ */
 #include <bsd_unistd.h>
 
 #include "../common/common.h"

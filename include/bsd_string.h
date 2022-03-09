@@ -45,7 +45,9 @@ size_t openbsd_strlcat(char *dst, const char *src, size_t dsize);
 #  include <sys/types.h>
 
 void explicit_bzero(void *, size_t);
+# ifndef __NetBSD__
 void strmode(int, char *);
+# endif /* idndef __NetBSD__ */
 
 char *strcasestr(const char *, const char *);
 void *memrchr(const void *, int, size_t);

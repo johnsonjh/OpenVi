@@ -48,7 +48,7 @@
 
 #if defined(__FreeBSD__) || defined(__OpenBSD__) \
        || ( defined(__APPLE__ ) && defined(__MACH__) ) \
-       || ( defined(__CYGWIN__) )
+       || defined(__CYGWIN__) || defined(__NetBSD__)
 # include <unistd.h>
 #else
 
@@ -75,4 +75,4 @@ issetugid(void)
 }
 #endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
                 || ( defined(__APPLE__) && defined(__MACH__) )
-                || ( defined(__CYGWIN__) ) */
+                || defined(__CYGWIN__) || defined(__NetBSD__) */
