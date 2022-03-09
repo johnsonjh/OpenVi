@@ -140,6 +140,7 @@ view.
   - *Apple* **Darwin** (**macOS** / **Mac OS X**) (*ARM64*, *Intel*, *PowerPC*)
   - **FreeBSD** 12.3+
   - **GNU**/**Linux** distributions (*glibc*, *musl*)
+  - **NetBSD** 9+
   - **OpenBSD** 6.9+
   - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
 
@@ -153,6 +154,9 @@ view.
   - *Intel* **oneAPI DPC++**/**C++** (*Linux*) V2021+
   - *Intel* **C Compiler Classic** (*Darwin*, *Linux*) V19.1+
   - *Oracle* **Developer Studio** (*Linux*) V12.6+
+
+Newer or older operating system and compiler releases, within reason, should
+work. The versions listed above are those regularly tested and known working.
 
 ##### Unsupported platforms
 
