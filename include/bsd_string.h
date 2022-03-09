@@ -33,26 +33,25 @@
  *      @(#)string.h    5.10 (Berkeley) 3/9/91
  */
 
-
 #ifndef _COMPAT_STRING_H_
-# define _COMPAT_STRING_H_
+#define _COMPAT_STRING_H_
 
 size_t openbsd_strlcpy(char *, const char *, size_t);
 size_t openbsd_strlcat(char *dst, const char *src, size_t dsize);
 
-# ifndef __OpenBSD__
+#ifndef __OpenBSD__
 
-#  include <sys/types.h>
+#include <sys/types.h>
 
 void explicit_bzero(void *, size_t);
-# ifndef __NetBSD__
+#ifndef __NetBSD__
 void strmode(int, char *);
-# endif /* idndef __NetBSD__ */
+#endif /* idndef __NetBSD__ */
 
 char *strcasestr(const char *, const char *);
 void *memrchr(const void *, int, size_t);
 
-# endif /* ifndef __OpenBSD__ */
+#endif /* ifndef __OpenBSD__ */
 
 #endif /* _COMPAT_STRING_H_ */
 

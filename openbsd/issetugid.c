@@ -38,41 +38,38 @@
 
 #undef open
 
-#if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) ) \
-         || defined(__linux__) || defined(__midipix__)
-# include <sys/auxv.h>
+#if (defined(__GLIBC__) && defined(__GLIBC_MINOR__)) || defined(__linux__) ||  \
+    defined(__midipix__)
+#include <sys/auxv.h>
 #else
-# include <unistd.h>
-#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )
+#include <unistd.h>
+#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )                \
                   || defined(__linux__) || defined(__midipix__) */
 
-#if defined(__FreeBSD__) || defined(__OpenBSD__) \
-       || ( defined(__APPLE__ ) && defined(__MACH__) ) \
-       || defined(__CYGWIN__) || defined(__NetBSD__)
-# include <unistd.h>
+#if defined(__FreeBSD__) || defined(__OpenBSD__) ||                            \
+    (defined(__APPLE__) && defined(__MACH__)) || defined(__CYGWIN__) ||        \
+    defined(__NetBSD__)
+#include <unistd.h>
 #else
 
-# ifdef __linux__
-#  include <elf.h>
-# endif /* ifdef __linux__ */
+#ifdef __linux__
+#include <elf.h>
+#endif /* ifdef __linux__ */
 
-int
-issetugid(void)
-{
-    int rv = 0;
+int issetugid(void) {
+  int rv = 0;
 
+  errno = 0;
+#ifndef _AIX
+  rv = getauxval(AT_SECURE) != 0;
+#endif /* ifndef _AIX */
+  if (errno) {
     errno = 0;
-# ifndef _AIX
-    rv = getauxval(AT_SECURE) != 0;
-# endif /* ifndef _AIX */
-    if (errno)
-    {
-        errno = 0;
-        rv = 1;
-    }
+    rv = 1;
+  }
 
-    return rv;
+  return rv;
 }
-#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
-                || ( defined(__APPLE__) && defined(__MACH__) )
+#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)                      \
+                || ( defined(__APPLE__) && defined(__MACH__) )                 \
                 || defined(__CYGWIN__) || defined(__NetBSD__) */
