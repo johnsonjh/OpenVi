@@ -255,6 +255,7 @@ software packages or system configuration, consult your vendor's documentation.
   binaries running on the **IBM i** operating system) provides `libxcurses`,
   an *XPG4*/*XSI* Extended Curses implementation derived from AT&T System V,
   which is **not** yet supported for use with ***OpenVi***.
+
 - Compilation is supported using *IBM* **XL C**/**C++** V16.1+ (`gxlc` or
   `xlclang`), *IBM* **Open XL C**/**C++** V17.1+ (`ibm-clang`), or *GNU*
   **GCC** (usually `gcc`, `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11`).
@@ -262,10 +263,12 @@ software packages or system configuration, consult your vendor's documentation.
     The *IBM* (*AIX Toolbox*) and *Bull*/*Atos* (*Bull Freeware*) **GCC**
     packages, and **XL C**/**C++** earlier than V17.1 are not LTO-enabled.
   - Link-time garbage collection (`LGC=1`) is **not** supported on IBM AIX.
+
 - The value of the `CC` environment variable should be set to the full path to
   the compiler (e.g. `/opt/freeware/bin/gcc`, `/opt/IBM/xlC/16.1.0/bin/gxlc`,
   `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`, etc.) if the compiler directory is
   not already part of the current `PATH`.
+
 - Man pages are authored using BSD `mandoc` and require conversion before use
   with the AIX `man` software (which derives from AT&T's UNIX System V.)
 
@@ -275,6 +278,7 @@ software packages or system configuration, consult your vendor's documentation.
   To use `ncurses` instead, set the values of the `CFLAGS` and `CURSESLIB`
   environment variables appropriately (i.e. `CFLAGS="-I/usr/pkg/include"`
   `CURSESLIB="-lncurses"`).
+
 - Link-time garbage collection (`LGC=1`) and link-time optimization (`LTO=1`)
   are supported on *NetBSD*, using either the **GCC** or **Clang** compilers.
   - The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
