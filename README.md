@@ -140,7 +140,7 @@ view.
 
 - The following operating systems are fully supported and regularly tested
   using ix86/AMD64, ARM/AArch64, m68k, MIPS, POWER, and RISC-V processors:
-  - *IBM* **AIX** 7.2+
+  - *IBM* **AIX** 7.1+
   - *Apple* **Darwin** (**macOS** / **Mac OS X**) (*ARM64*, *Intel*, *PowerPC*)
   - **FreeBSD** 12.3+
   - **GNU**/**Linux** distributions (*glibc*, *musl*)
@@ -243,7 +243,7 @@ software packages or system configuration, consult your vendor's documentation.
   headers. IBM provides the necessary packages, `ncurses` and `ncurses-devel`,
   in RPM format as part of the *AIX Toolbox for Linux and Open Source
   Software*. With appropriate permissions (e.g. `root`), these packages are
-  installable on most systems via the `dnf` or `yum` utility, for example:
+  installable on most systems via the `dnf` or `yum` utilities, for example:
   ```sh
   dnf install ncurses ncurses-devel
   ```
