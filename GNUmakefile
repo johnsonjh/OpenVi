@@ -55,11 +55,11 @@ endif # netbsd
 # Default libraries to link
 ifeq ($(OS),netbsd)
    CURSESLIB ?= -lcurses -lterminfo
+     LDFLAGS += -L"/usr/local/lib" -L"/usr/pkg/lib" -L"/usr/lib" -L"/lib"
    ifdef LTO
       ifneq (,$(findstring clang,$(CC))) # clang
          LLD     ?= ld.lld
-         LDFLAGS += -L"/usr/local/lib" -L"/usr/pkg/lib" -L"/usr/lib" -L"/lib" \
-                    -fuse-ld="$$(command -v $(LLD) || $(PRINTF) '%s' $(LLD))"
+         LDFLAGS += -fuse-ld="$$(command -v $(LLD) || $(PRINTF) '%s' $(LLD))"
       endif # clang
    endif # LTO
 else # !netbsd
