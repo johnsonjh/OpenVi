@@ -161,7 +161,7 @@ work. The versions listed above are those regularly tested and known working.
 ##### Unsupported platforms
 
 - The following platforms are **not** currently supported, but **support is
-  planned** for a future release.
+  planned** for a future release:
   - **Haiku** Walter
   - *illumos* **OpenIndiana** Hipster
   - *Oracle* **Solaris** 10/11+
