@@ -56,6 +56,8 @@ endif # netbsd
 ifeq ($(OS),netbsd)
    CURSESLIB ?= -lcurses -lterminfo
      LDFLAGS += -L"/usr/local/lib" -L"/usr/pkg/lib" -L"/usr/lib" -L"/lib"
+     LDFLAGS += -Wl,-R"/lib" -Wl,-R"/usr/lib" -Wl,-R"/usr/pkg/lib" \
+                -Wl,-R"/usr/local/bin"
    ifdef LTO
       ifneq (,$(findstring clang,$(CC))) # clang
          LLD     ?= ld.lld
