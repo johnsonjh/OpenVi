@@ -163,7 +163,6 @@ work. The versions listed above are those regularly tested and known working.
 - The following platforms are **not** currently supported, but **support is
   planned** for a future release.
   - **Haiku** Walter
-  - **NetBSD** 7+
   - *illumos* **OpenIndiana** Hipster
   - *Oracle* **Solaris** 10/11+
 
