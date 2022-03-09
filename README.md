@@ -16,6 +16,9 @@
     + [Supported platforms](#supported-platforms)
       - [Unsupported platforms](#unsupported-platforms)
   * [Compilation](#compilation)
+    + [Platform Specifics](#platform-specifics)
+      - [AIX](#aix)
+      - [NetBSD](#netbsd)
 - [Availability](#availability)
 - [Versioning](#versioning)
 - [History](#history)
@@ -119,7 +122,8 @@ view.
   (`mawk`, `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
 - **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
-- **Curses** (*BSD curses*, `ncurses`, `PDCurses`, `PDCursesMod`, etc.)
+- **Curses** (`ncurses`, *NetBSD* `curses` V8+, `PDCurses` V2.8+,
+  `PDCursesMod`, etc.)
 
 #### Optional prerequisites
 
@@ -226,6 +230,56 @@ or
 ```sh
 sudo env PREFIX=/usr/local make install
 ```
+
+### Platform Specifics
+
+The following sections document only platform specific differences, and are not
+intended as a general or exhaustive reference. For installation of prerequisite
+software packages or system configuration, consult your vendor's documentation.
+
+#### AIX
+
+- Before building ***OpenVi*** on AIX, install the `ncurses` libraries and
+  headers. IBM provides the necessary packages, `ncurses` and `ncurses-devel`,
+  in RPM format as part of the *AIX Toolbox for Linux and Open Source
+  Software*. With appropriate permissions (e.g. `root`), these packages are
+  installable on most systems via the `dnf` or `yum` utility, for example:
+  ```sh
+  dnf install ncurses ncurses-devel
+  ```
+  or
+  ```sh
+  yum install ncurses ncurses-devel
+  ```
+  IBM **AIX** (and **PASE for i**, an integrated runtime environment for AIX
+  binaries running on the **IBM i** operating system) provides `libxcurses`,
+  an *XPG4*/*XSI* Extended Curses implementation derived from AT&T System V,
+  which is **not** yet supported for use with ***OpenVi***.
+
+- Compilation is supported using *IBM* **XL C**/**C++** V16.1+ (`gxlc` or
+  `xlclang`), *IBM* **Open XL C**/**C++** V17.1+ (`ibm-clang`), or *GNU*
+  **GCC** (usually `gcc`, `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11`).
+  - Link-time optimization (`LTO=1`) requires **Open XL C**/**C++** V17.1+.
+    The *IBM* (*AIX Toolbox*) and *Bull*/*Atos* (*Bull Freeware*) **GCC**
+    packages, and **XL C**/**C++** earlier than V17.1 are not LTO-enabled.
+  - Link-time garbage collection (`LGC=1`) is **not** supported on IBM AIX.
+
+- The value of the `CC` environment variable should be set to the full path to
+  the compiler (e.g. `/opt/freeware/bin/gcc`, `/opt/IBM/xlC/16.1.0/bin/gxlc`,
+  `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`, etc.) if the compiler directory is
+  not already part of the current `PATH`.
+
+#### NetBSD
+
+- On **NetBSD** systems, ***OpenVi*** uses the bundled BSD `curses` library.
+  To use `ncurses` instead, set the values of the `CFLAGS` and `CURSESLIB`
+  environment variables appropriately (i.e. `CFLAGS="-I/usr/pkg/include"`
+  `CURSESLIB="-lncurses"`).
+
+- Link-time garbage collection (`LGC=1`) and link-time optimization (`LTO=1`)
+  are supported on *NetBSD*, using either the **GCC** or **Clang** compilers.
+  - The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
+    using **Clang**, available as an installable package (i.e. `pkgin in lld`).
 
 ## Availability
 
