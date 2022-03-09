@@ -243,7 +243,7 @@ main(int argc, char *argv[])
       char *odst = strdup(argv[argc - 1]);
       const int wlen = strlen(odst);
       if ( wlen > 0 && odst[wlen-1] == '/' )
-        { 
+        {
           openbsd_errc(1, EFTYPE, "%s", odst);
         }
       char *dest = dirname(odst);
@@ -257,9 +257,11 @@ main(int argc, char *argv[])
        * the target file. If more restrictive permissions are required then
        * '-d -m' ought to be used instead.
        */
-#if ( !defined(__APPLE__) && !defined(_AIX) && !defined(__OpenBSD__) )
+#if ( !defined(__APPLE__)  && !defined(_AIX) \
+   && !defined(__NetBSD__) && !defined(__OpenBSD__) )
       if (dest == odst)
-#endif /* if ( !defined(__APPLE__) && !defined(_AIX) && !defined(__OpenBSD__) ) */
+#endif /* if ( !defined(__APPLE__)  && !defined(_AIX)
+            && !defined(__NetBSD__) && !defined(__OpenBSD__) */
         if (strcmp(dest, "."))
           install_dir(dest, 0755);
     }

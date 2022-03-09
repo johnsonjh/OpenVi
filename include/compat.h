@@ -99,12 +99,14 @@
 #   define __STRING(x) #x
 #  endif /* ifndef __STRING */
 
-#  undef __weak_alias
-#  define __weak_alias(new, old)                                              \
-  extern __typeof ( old ) new __attribute__ (( weak, alias(#old)))
+#  ifndef __NetBSD__
+#   undef __weak_alias
+#   define __weak_alias(new, old)                                             \
+      extern __typeof ( old ) new __attribute__ (( weak, alias(#old)))
 
-#  define __strong_alias(new, old)                                            \
-  extern __typeof ( old ) new __attribute__ (( alias(#old)))
+#   define __strong_alias(new, old)                                           \
+      extern __typeof ( old ) new __attribute__ (( alias(#old)))
+#  endif /* ifndef __NetBSD__ */
 
 #  ifndef SA_LEN
 #   define SA_LEN(X)                                                          \

@@ -180,7 +180,7 @@ ex_bang(SCR *sp, EXCMD *cmdp)
 
         /* Apply expandtab to the new text */
         if (O_ISSET(sp, O_EXPANDTAB))
-                ex_retab(sp, cmdp); 
+                ex_retab(sp, cmdp);
 
         /*
          * XXX

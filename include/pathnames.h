@@ -74,6 +74,6 @@
 
 # ifndef _PATH_SYSV_PTY
 #  define _PATH_SYSV_PTY "/dev/ptmx"
-# endif
+# endif /* ifndef _PATH_SYSV_PTY */
 
 #endif /* ifndef _PATHNAMES_H */

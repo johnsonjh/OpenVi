@@ -30,7 +30,7 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 
-#ifdef __OpenBSD__
+#if defined(__OpenBSD__) || defined(__NetBSD__)
 # include <unistd.h>
 # include <termios.h>
 # include <util.h>
@@ -41,16 +41,16 @@
 # endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 # include <bsd_unistd.h>
 # include <util.h>
-#endif /* ifdef __OpenBSD__ */
+#endif /* if defined(__OpenBSD__) || defined(__NetBSD__) */
 
 #ifndef __FreeBSD__
 # ifdef _AIX
 #  include <sys/pty.h>
 # else
 #  ifndef __OpenBSD__
-#   if ( !defined(__APPLE__) && !defined(__MACH__) )
+#   if ( !defined(__APPLE__) && !defined(__MACH__) && !defined(__NetBSD__) )
 #    include <pty.h>
-#   endif /* if ( !defined(__APPLE__) && !defined(__MACH__) ) */
+#   endif /* if ( !defined(__APPLE__) && !defined(__MACH__) && !defined(__NetBSD__) ) */
 #  endif /* ifndef __OpenBSD__ */
 # endif /* ifdef _AIX */
 #else
@@ -62,9 +62,11 @@
 #include "script.h"
 #include "pathnames.h"
 
-#if defined(__OpenBSD__) || ( defined(__APPLE__) && defined(__MACH__) )
+#if defined(__OpenBSD__) || defined(__NetBSD__) || \
+  ( defined(__APPLE__) && defined(__MACH__) )
 int openpty(int *, int *, char *, struct termios *, struct winsize *);
-#endif /* defined(__OpenBSD__) || ( defined(__APPLE__) && defined(__MACH__) ) */
+#endif /* defined(__OpenBSD__) || defined(__NetBSD__) ||
+        ( defined(__APPLE__) && defined(__MACH__) ) */
 
 #ifdef _AIX
 # define HAVE_SYS5_PTY

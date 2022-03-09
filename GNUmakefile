@@ -1,6 +1,7 @@
 ###############################################################################
 #                               -  O p e n V i  -                             #
 ###############################################################################
+# vi: filetype=make:tabstop=4:tw=79
 
 # Default compiler settings
 CC          ?= cc
@@ -41,18 +42,39 @@ endif # OS
 
 ###############################################################################
 
+ifeq ($(OS),netbsd)
+   ifneq (,$(findstring clang,$(CC))) # clang
+      WFLAGS += -Wno-unknown-warning-option  \
+                -Wno-system-headers          \
+                -Wno-char-subscripts
+   endif # clang
+endif # netbsd
+
+###############################################################################
+
 # Default libraries to link
-CURSESLIB ?= -lncurses
+ifeq ($(OS),netbsd)
+   CURSESLIB ?= -lcurses -lterminfo
+   ifdef LTO
+      ifneq (,$(findstring clang,$(CC))) # clang
+         LLD     ?= ld.lld
+         LDFLAGS += -L"/usr/local/lib" -L"/usr/pkg/lib" -L"/usr/lib" -L"/lib" \
+                    -fuse-ld="$$(command -v $(LLD) || $(PRINTF) '%s' $(LLD))"
+      endif # clang
+   endif # LTO
+else # !netbsd
+   CURSESLIB ?= -lncurses
+endif # netbsd
 ifeq ($(OS),aix)
-   MAIXBITS ?= $(shell command -p getconf KERNEL_BITMODE 2> /dev/null || \
-                    printf '%s' "32")
+   MAIXBITS ?= $(shell command -p $(GETCONF) KERNEL_BITMODE 2> /dev/null || \
+                    $(PRINTF) '%s' "32")
       ifneq (,$(findstring gcc,$(CC))) # gcc (GNU C)
          CFLAGS  += $(WFLAGS) -maix$(MAIXBITS)
-         LDFLAGS += -maix$(MAIXBITS) -Wl,-b$(MAIXBITS) 
+         LDFLAGS += -maix$(MAIXBITS) -Wl,-b$(MAIXBITS)
       endif # gcc
       ifneq (,$(findstring clang,$(CC))) # xlclang/ibm-clang (IBM Open XL)
          CFLAGS  += $(WFLAGS) -m$(MAIXBITS)
-         LDFLAGS += -m$(MAIXBITS) -Wl,-b$(MAIXBITS) 
+         LDFLAGS += -m$(MAIXBITS) -Wl,-b$(MAIXBITS)
       endif # clang
       ifneq (,$(findstring gxlc,$(CC))) # gxlc (IBM XL C)
          CFLAGS  += -m$(MAIXBITS)
@@ -62,7 +84,7 @@ ifeq ($(OS),aix)
    LDFLAGS  += -L/opt/freeware/lib
    CFLAGS   += -I/opt/freeware/include
    LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
-else
+else # !aix
      CFLAGS += $(WFLAGS)
    LINKLIBS ?= -lutil $(CURSESLIB)
 endif # aix
@@ -90,7 +112,7 @@ IUSGR        = root:bin
 # Using _FORTIFY_SOURCE=2 grows the binary by about ~2-3 KiB (on AMD64 systems)
 ifdef DEBUG
    CFLAGS   += $(DBGFLAGS) -DDEBUG -DSTATISTICS -DHASH_STATISTICS
-else
+else # !DEBUG
    CFLAGS   += $(OPTLEVEL) -D_FORTIFY_SOURCE=2
 endif # DEBUG
 
@@ -113,10 +135,11 @@ AWK         ?= awk
 CHMOD       ?= chmod
 CHOWN       ?= chown
 CP          ?= cp -f
+GETCONF     ?= getconf
 LN          ?= ln
 LNS          = $(LN) -fs
 MKDIR       ?= mkdir -p
-PAWK         = command -p env PATH="$$(command -p getconf PATH)" $(AWK)
+PAWK         = command -p env PATH="$$(command -p $(GETCONF) PATH)" $(AWK)
 PRINTF      ?= printf
 RMDIR       ?= rmdir
 RM          ?= rm
@@ -138,7 +161,7 @@ endif # V
 
 ifdef DEBUG
     VERBOSE = set -ex
-else
+else # !DEBUG
     VERBOSE = $(TRUE)
 endif # DEBUG
 
@@ -579,7 +602,7 @@ endif # DEBUG
 ifneq (,$(findstring strip,$(MAKECMDGOALS)))
 .NOTPARALLEL: strip
 endif # (,$(findstring strip,$(MAKECMDGOALS)))
-strip: bin/vi bin/xinstall
+strip: bin/vi bin/ex bin/view bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
@@ -597,19 +620,25 @@ ifneq (,$(findstring strip,$(MAKECMDGOALS)))
 endif # (,$(findstring strip,$(MAKECMDGOALS)))
 ifneq ($(OS),freebsd)
     STRIP_VERS=-R '.gnu.version'
-else
+else # freebsd
     STRIP_VERS=
-endif # ifneq ($(OS),freebsd)
-superstrip sstrip: bin/vi bin/xinstall
+endif # !freebsd
+ifneq ($(OS),netbsd)
+    STRIP_NOTE=-R '.note.*'
+else # netbsd
+    STRIP_NOTE=-R '.SUNW_ctf' -R '.jcr' -R '.ident'  \
+               -R '.note.netbsd.mcmodel'             \
+               -R '.note.netbsd.pax' -R '.gnu.hash'
+endif # !netbsd
+superstrip sstrip: bin/vi bin/ex bin/view bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
 	-@$(VERBOSE); $(STRIP) --strip-all  \
         -R '.gnu.build.attributes'      \
-        -R '.note.*'                    \
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
-        -R '.comment'                   \
+        -R '.comment'   $(STRIP_NOTE)   \
         -R '.comment.*' $(STRIP_VERS)   \
             "./bin/vi"                  \
               2> /dev/null || $(TRUE)
@@ -623,10 +652,9 @@ ifndef DEBUG
 endif # DEBUG
 	-@$(VERBOSE); $(STRIP) --strip-all  \
         -R '.gnu.build.attributes'      \
-        -R '.note.*'                    \
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
-        -R '.comment'                   \
+        -R '.comment'   $(STRIP_NOTE)   \
         -R '.comment.*' $(STRIP_VERS)   \
             "./bin/xinstall"            \
               2> /dev/null || $(TRUE)
@@ -709,3 +737,8 @@ endif # DEBUG
         "$(PREFIX)/libexec/$(BINPREFIX)vi.recover$(BINSUFFIX)"
 
 ###############################################################################
+
+# Local Variables:
+# mode: make
+# tab-width: 4
+# End:
