@@ -39,6 +39,11 @@
 
 #include <sys/mman.h>
 
+#ifdef __illumos__
+# undef madvise
+# define madvise posix_madvise
+#endif /* ifdef __illumos__ */
+
 #ifdef _AIX
 # define _POSIX_SOURCE
 # define _XOPEN_SOURCE 700

@@ -19,6 +19,7 @@
     + [Platform Specifics](#platform-specifics)
       - [AIX](#aix)
       - [NetBSD](#netbsd)
+      - [illumos](#illumos)
 - [Availability](#availability)
 - [Versioning](#versioning)
 - [History](#history)
@@ -144,6 +145,7 @@ view.
   - *Apple* **Darwin** (**macOS** / **Mac OS X**) (*ARM64*, *Intel*, *PowerPC*)
   - **FreeBSD** 12.3+
   - **GNU**/**Linux** distributions (*glibc*, *musl*)
+  - *illumos* **OpenIndiana** Hipster
   - **NetBSD** 9+
   - **OpenBSD** 6.9+
   - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
@@ -167,7 +169,6 @@ work. The versions listed above are those regularly tested and known working.
 - The following platforms are **not** currently supported, but **support is
   planned** for a future release:
   - **Haiku** Walter
-  - *illumos* **OpenIndiana** Hipster
   - *Oracle* **Solaris** 10/11+
 
 User contributions to enhance platform support are welcomed.
@@ -283,6 +284,20 @@ software packages or system configuration, consult your vendor's documentation.
   are supported on *NetBSD*, using either the **GCC** or **Clang** compilers.
   - The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
     using **Clang**, available as an installable package (i.e. `pkgin in lld`).
+
+#### illumos
+
+- Before building ***OpenVi*** on **illumos** (i.e. **OpenIndiana**), install
+  the `ncurses` libraries and headers. The **OpenIndiana** distribution
+  provides the necessary `ncurses` package in IPS format. With appropriate
+  permissions (e.g. `root`), the package can be installed using OpenIndiana's
+  `pkg` utility, for example:
+  ```sh
+  pkg install ncurses
+  ```
+- Compilation is supported using **GCC** or **Clang**.
+  - Link-time optimization (`LTO=1`) is supported using either compiler.
+  - Link-time garbage collection (`LGC=1`) is **not** supported on OpenIndiana.
 
 ## Availability
 
