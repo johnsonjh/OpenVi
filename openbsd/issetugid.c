@@ -61,19 +61,19 @@
 int
 issetugid(void)
 {
-  int rv = 0;
+    int rv = 0;
 
-  errno = 0;
+    errno = 0;
 # if !defined(_AIX) && !defined(__illumos__)
-  rv = getauxval(AT_SECURE) != 0;
+    rv = getauxval(AT_SECURE) != 0;
 # endif /* if !defined(_AIX) && !defined(__illumos__) */
-  if (errno)
+    if (errno)
     {
-      errno = 0;
-      rv = 1;
+        errno = 0;
+        rv = 1;
     }
 
-  return rv;
+    return rv;
 }
 #endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
                 || ( defined(__APPLE__) && defined(__MACH__) )

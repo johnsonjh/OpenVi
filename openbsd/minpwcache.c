@@ -76,16 +76,16 @@
 
 typedef struct uidc
 {
-  int valid;         /* is this a valid or a miss entry */
-  char name[UNMLEN]; /* uid name */
-  uid_t uid;         /* cached uid */
+    int valid;         /* is this a valid or a miss entry */
+    char name[UNMLEN]; /* uid name */
+    uid_t uid;         /* cached uid */
 } UIDC;
 
 typedef struct gidc
 {
-  int valid;         /* is this a valid or a miss entry */
-  char name[GNMLEN]; /* gid name */
-  gid_t gid;         /* cached gid */
+    int valid;         /* is this a valid or a miss entry */
+    char name[GNMLEN]; /* gid name */
+    gid_t gid;         /* cached gid */
 } GIDC;
 
 /*
@@ -103,17 +103,17 @@ static GIDC **grptb; /* group name to gid cache */
 static u_int
 st_hash(const char *name, size_t len, int tabsz)
 {
-  u_int key = 0;
+    u_int key = 0;
 
-  assert(name != NULL);
+    assert(name != NULL);
 
-  while (len--)
+    while (len--)
     {
-      key += *name++;
-      key = ( key << 8 ) | ( key >> 24 );
+        key += *name++;
+        key = ( key << 8 ) | ( key >> 24 );
     }
 
-  return key % tabsz;
+    return key % tabsz;
 }
 
 /*
@@ -125,25 +125,25 @@ st_hash(const char *name, size_t len, int tabsz)
 static int
 usrtb_start(void)
 {
-  static int fail = 0;
+    static int fail = 0;
 
-  if (usrtb != NULL)
+    if (usrtb != NULL)
     {
-      return 0;
+        return 0;
     }
 
-  if (fail)
+    if (fail)
     {
-      return -1;
+        return -1;
     }
 
-  if (( usrtb = calloc(UNM_SZ, sizeof ( UIDC * ))) == NULL)
+    if (( usrtb = calloc(UNM_SZ, sizeof ( UIDC * ))) == NULL)
     {
-      ++fail;
-      return -1;
+        ++fail;
+        return -1;
     }
 
-  return 0;
+    return 0;
 }
 
 /*
@@ -155,25 +155,25 @@ usrtb_start(void)
 static int
 grptb_start(void)
 {
-  static int fail = 0;
+    static int fail = 0;
 
-  if (grptb != NULL)
+    if (grptb != NULL)
     {
-      return 0;
+        return 0;
     }
 
-  if (fail)
+    if (fail)
     {
-      return -1;
+        return -1;
     }
 
-  if (( grptb = calloc(GNM_SZ, sizeof ( GIDC * ))) == NULL)
+    if (( grptb = calloc(GNM_SZ, sizeof ( GIDC * ))) == NULL)
     {
-      ++fail;
-      return -1;
+        ++fail;
+        return -1;
     }
 
-  return 0;
+    return 0;
 }
 
 /*
@@ -185,71 +185,71 @@ grptb_start(void)
 int
 openbsd_uid_from_user(const char *name, uid_t *uid)
 {
-  struct passwd pwstore, *pw = NULL;
-  char pwbuf[_PW_BUF_LEN];
-  UIDC **pptr, *ptr = NULL;
-  size_t namelen;
+    struct passwd pwstore, *pw = NULL;
+    char pwbuf[_PW_BUF_LEN];
+    UIDC **pptr, *ptr = NULL;
+    size_t namelen;
 
-  /*
-   * return -1 for mangled names
-   */
-  if (name == NULL || (( namelen = strlen(name)) == 0 ))
+    /*
+     * return -1 for mangled names
+     */
+    if (name == NULL || (( namelen = strlen(name)) == 0 ))
     {
-      return -1;
+        return -1;
     }
 
-  if (( usrtb != NULL ) || ( usrtb_start() == 0 ))
+    if (( usrtb != NULL ) || ( usrtb_start() == 0 ))
     {
-      /*
-       * look up in hash table, if found and valid return the uid,
-       * if found and invalid, return a -1
-       */
-      pptr = usrtb + st_hash(name, namelen, UNM_SZ);
-      ptr = *pptr;
+        /*
+         * look up in hash table, if found and valid return the uid,
+         * if found and invalid, return a -1
+         */
+        pptr = usrtb + st_hash(name, namelen, UNM_SZ);
+        ptr = *pptr;
 
-      if (( ptr != NULL ) && ( ptr->valid > 0 ) && strcmp(name, ptr->name) == 0)
+        if (( ptr != NULL ) && ( ptr->valid > 0 ) && strcmp(name, ptr->name) == 0)
         {
-          if (ptr->valid == INVALID)
+            if (ptr->valid == INVALID)
             {
-              return -1;
+                return -1;
             }
 
-          *uid = ptr->uid;
-          return 0;
+            *uid = ptr->uid;
+            return 0;
         }
 
-      if (ptr == NULL)
+        if (ptr == NULL)
         {
-          *pptr = ptr = malloc(sizeof ( UIDC ));
+            *pptr = ptr = malloc(sizeof ( UIDC ));
         }
     }
 
-  /*
-   * no match, look it up, if no match store it as an invalid entry,
-   * or store the matching uid
-   */
-  getpwnam_r(name, &pwstore, pwbuf, sizeof ( pwbuf ), &pw);
-  if (ptr == NULL)
+    /*
+     * no match, look it up, if no match store it as an invalid entry,
+     * or store the matching uid
+     */
+    getpwnam_r(name, &pwstore, pwbuf, sizeof ( pwbuf ), &pw);
+    if (ptr == NULL)
     {
-      if (pw == NULL)
+        if (pw == NULL)
         {
-          return -1;
+            return -1;
         }
 
-      *uid = pw->pw_uid;
-      return 0;
+        *uid = pw->pw_uid;
+        return 0;
     }
 
-  (void)openbsd_strlcpy(ptr->name, name, sizeof ( ptr->name ));
-  if (pw == NULL)
+    (void)openbsd_strlcpy(ptr->name, name, sizeof ( ptr->name ));
+    if (pw == NULL)
     {
-      ptr->valid = INVALID;
-      return -1;
+        ptr->valid = INVALID;
+        return -1;
     }
 
-  ptr->valid = VALID;
-  *uid = ptr->uid = pw->pw_uid;
-  return 0;
+    ptr->valid = VALID;
+    *uid = ptr->uid = pw->pw_uid;
+    return 0;
 }
 
 /*
@@ -261,69 +261,69 @@ openbsd_uid_from_user(const char *name, uid_t *uid)
 int
 openbsd_gid_from_group(const char *name, gid_t *gid)
 {
-  struct group grstore, *gr = NULL;
-  char grbuf[_GR_BUF_LEN];
-  GIDC **pptr, *ptr = NULL;
-  size_t namelen;
+    struct group grstore, *gr = NULL;
+    char grbuf[_GR_BUF_LEN];
+    GIDC **pptr, *ptr = NULL;
+    size_t namelen;
 
-  /*
-   * return -1 for mangled names
-   */
-  if (name == NULL || (( namelen = strlen(name)) == 0 ))
+    /*
+     * return -1 for mangled names
+     */
+    if (name == NULL || (( namelen = strlen(name)) == 0 ))
     {
-      return -1;
+        return -1;
     }
 
-  if (( grptb != NULL ) || ( grptb_start() == 0 ))
+    if (( grptb != NULL ) || ( grptb_start() == 0 ))
     {
-      /*
-       * look up in hash table, if found and valid return the uid,
-       * if found and invalid, return a -1
-       */
-      pptr = grptb + st_hash(name, namelen, GID_SZ);
-      ptr = *pptr;
+        /*
+         * look up in hash table, if found and valid return the uid,
+         * if found and invalid, return a -1
+         */
+        pptr = grptb + st_hash(name, namelen, GID_SZ);
+        ptr = *pptr;
 
-      if (( ptr != NULL ) && ( ptr->valid > 0 ) && strcmp(name, ptr->name) == 0)
+        if (( ptr != NULL ) && ( ptr->valid > 0 ) && strcmp(name, ptr->name) == 0)
         {
-          if (ptr->valid == INVALID)
+            if (ptr->valid == INVALID)
             {
-              return -1;
+                return -1;
             }
 
-          *gid = ptr->gid;
-          return 0;
+            *gid = ptr->gid;
+            return 0;
         }
 
-      if (ptr == NULL)
+        if (ptr == NULL)
         {
-          *pptr = ptr = malloc(sizeof ( GIDC ));
+            *pptr = ptr = malloc(sizeof ( GIDC ));
         }
     }
 
-  /*
-   * no match, look it up, if no match store it as an invalid entry,
-   * or store the matching gid
-   */
-  getgrnam_r(name, &grstore, grbuf, sizeof ( grbuf ), &gr);
-  if (ptr == NULL)
+    /*
+     * no match, look it up, if no match store it as an invalid entry,
+     * or store the matching gid
+     */
+    getgrnam_r(name, &grstore, grbuf, sizeof ( grbuf ), &gr);
+    if (ptr == NULL)
     {
-      if (gr == NULL)
+        if (gr == NULL)
         {
-          return -1;
+            return -1;
         }
 
-      *gid = gr->gr_gid;
-      return 0;
+        *gid = gr->gr_gid;
+        return 0;
     }
 
-  (void)openbsd_strlcpy(ptr->name, name, sizeof ( ptr->name ));
-  if (gr == NULL)
+    (void)openbsd_strlcpy(ptr->name, name, sizeof ( ptr->name ));
+    if (gr == NULL)
     {
-      ptr->valid = INVALID;
-      return -1;
+        ptr->valid = INVALID;
+        return -1;
     }
 
-  ptr->valid = VALID;
-  *gid = ptr->gid = gr->gr_gid;
-  return 0;
+    ptr->valid = VALID;
+    *gid = ptr->gid = gr->gr_gid;
+    return 0;
 }
