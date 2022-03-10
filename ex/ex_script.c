@@ -56,9 +56,9 @@
 #  ifndef __OpenBSD__
 #   if ( !defined(__APPLE__)  && !defined(__MACH__) && \
          !defined(__NetBSD__) )
-#    if !defined(__solaris__)
+#    if !defined(__solaris__) && !defined(__illumos__)
 #     include <pty.h>
-#    endif /* if !defined(__solaris__) */
+#    endif /* if !defined(__solaris__) && !defined(__illumos__) */
 #   endif /* if ( !defined(__APPLE__)  && !defined(__MACH__) && \
                   !defined(__NetBSD__) ) */
 #  endif /* ifndef __OpenBSD__ */
