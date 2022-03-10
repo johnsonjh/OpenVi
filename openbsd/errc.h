@@ -32,23 +32,23 @@
  */
 
 #ifndef _ERRC_H
-# define _ERRC_H
+#define _ERRC_H
 
-# include "../include/compat.h"
+#include "../include/compat.h"
 
-# ifndef __solaris__
-#  include <sys/stat.h>
-#  include <sys/types.h>
-# else
-#  undef _TIMESPEC_UTIL_H
-#  define _TIMESPEC_UTIL_H 1
-# endif /* ifndef __solaris__ */
+#ifndef __solaris__
+#include <sys/stat.h>
+#include <sys/types.h>
+#else
+#undef _TIMESPEC_UTIL_H
+#define _TIMESPEC_UTIL_H 1
+#endif /* ifndef __solaris__ */
 
-# include <stdarg.h>
-# include <stddef.h>
-# include <grp.h>
+#include <grp.h>
+#include <stdarg.h>
+#include <stddef.h>
 
-# undef open
+#undef open
 
 void openbsd_errc(int eval, int code, const char *fmt, ...);
 void openbsd_err(int eval, const char *fmt, ...);

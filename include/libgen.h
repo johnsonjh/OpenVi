@@ -32,18 +32,18 @@
  */
 
 #ifdef __solaris__
-# undef _TIMESPEC_UTIL_H
-# define _TIMESPEC_UTIL_H 1
+#undef _TIMESPEC_UTIL_H
+#define _TIMESPEC_UTIL_H 1
 #endif /* ifdef __solaris__ */
 
 #include_next <libgen.h>
 
 #ifndef _COMPAT_LIBGEN_H_
-# define _COMPAT_LIBGEN_H_
+#define _COMPAT_LIBGEN_H_
 
-# undef basename
-# define basename       openbsd_basename
+#undef basename
+#define basename openbsd_basename
 
-char    *basename(char *);
+char *basename(char *);
 
 #endif /* _COMPAT_LIBGEN_H_ */
