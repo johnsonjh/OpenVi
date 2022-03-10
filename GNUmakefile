@@ -138,6 +138,14 @@ LINKLIBS    += $(EXTRA_LIBS)
 
 ###############################################################################
 
+CFLAGS += -Ddbm_open=openbsd_dbm_open -Ddbm_close=openbsd_dbm_close           \
+          -Ddbm_fetch=openbsd_dbm_fetch -Ddbm_firstkey=openbsd_dbm_firstkey   \
+          -Ddbm_nextkey=openbsd_dbm_nextkey -Ddbm_delete=openbsd_dbm_delete   \
+          -Ddbm_store=openbsd_dbm_store -Ddbm_error=openbsd_dbm_error         \
+          -Ddbm_clearerr=openbsd_dbm_clearerr -Ddbm_rdonly=openbsd_dbm_rdonly
+
+###############################################################################
+
 # Installation directory prefix for install/uninstall
 PREFIX      ?= /usr/local
 
