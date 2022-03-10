@@ -29,7 +29,7 @@
 #define UPDATE_SCREEN   0x02                    /* Flush to screen. */
 
 static void     vs_modeline(SCR *);
-static int      vs_paint(SCR *, u_int);
+static int      vs_paint(SCR *, unsigned int);
 
 /*
  * v_repaint --
@@ -63,7 +63,7 @@ vs_refresh(SCR *sp, int forcepaint)
         GS *gp;
         SCR *tsp;
         int need_refresh;
-        u_int priv_paint, pub_paint;
+        unsigned int priv_paint, pub_paint;
 
         gp = sp->gp;
 
@@ -154,7 +154,7 @@ vs_refresh(SCR *sp, int forcepaint)
  *      what you're doing.  It's subtle and quick to anger.
  */
 static int
-vs_paint(SCR *sp, u_int flags)
+vs_paint(SCR *sp, unsigned int flags)
 {
         GS *gp;
         SMAP *smp, tmp;
@@ -510,7 +510,7 @@ adjust: if (!O_ISSET(sp, O_LEFTRIGHT) &&
                  * character, go do it the slow way.
                  */
                 for (cwtotal = 0; cnt--; cwtotal += KEY_LEN(sp, ch))
-                        if ((ch = *(u_char *)p--) == '\t')
+                        if ((ch = *(unsigned char *)p--) == '\t')
                                 goto slow;
 
                 /*
@@ -549,7 +549,7 @@ adjust: if (!O_ISSET(sp, O_LEFTRIGHT) &&
                  * screen boundary, we can quit.
                  */
                 for (cwtotal = SCNO; cnt--;) {
-                        if ((ch = *(u_char *)p++) == '\t')
+                        if ((ch = *(unsigned char *)p++) == '\t')
                                 goto slow;
                         if ((cwtotal += KEY_LEN(sp, ch)) >= SCREEN_COLS(sp))
                                 break;
@@ -867,21 +867,21 @@ vs_modeline(SCR *sp)
             if (!(db_last(sp, &last))) {
                   if (last > 1) {
                     len = snprintf(buf, sizeof(buf), "%lu:%lu  %2lu%%",
-                        (u_long)sp->lno, (u_long)curcol + 1,
-                        (u_long)((((u_long)sp->lno) * 100L) / (u_long)last));
+                        (unsigned long)sp->lno, (unsigned long)curcol + 1,
+                        (unsigned long)((((unsigned long)sp->lno) * 100L) / (unsigned long)last));
                     if (sp->lno >= last)
                         len = snprintf(buf, sizeof(buf), "%lu:%lu  Bot",
-                            (u_long)sp->lno, (u_long)curcol + 1);
+                            (unsigned long)sp->lno, (unsigned long)curcol + 1);
                     if (sp->lno < 2)
                         len = snprintf(buf, sizeof(buf), "%lu:%lu  Top",
-                            (u_long)sp->lno, (u_long)curcol + 1);
+                            (unsigned long)sp->lno, (unsigned long)curcol + 1);
                 } else {
                     len = snprintf(buf, sizeof(buf), "%lu:%lu",
-                        (u_long)sp->lno, (u_long)curcol + 1);
+                        (unsigned long)sp->lno, (unsigned long)curcol + 1);
                 }
             } else {
                 len = snprintf(buf, sizeof(buf), "%lu:%lu",
-                    (u_long)sp->lno, (u_long)curcol + 1);
+                    (unsigned long)sp->lno, (unsigned long)curcol + 1);
             }
                 midpoint = (cols - ((len + 1) / 2)) / 2;
                 if (curlen < midpoint) {

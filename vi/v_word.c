@@ -100,7 +100,7 @@ fword(SCR *sp, VICMD *vp, enum which type)
 {
         enum { INWORD, NOTWORD } state;
         VCS cs;
-        u_long cnt;
+        unsigned long cnt;
 
         cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1;
         cs.cs_lno = vp->m_start.lno;
@@ -260,7 +260,7 @@ eword(SCR *sp, VICMD *vp, enum which type)
 {
         enum { INWORD, NOTWORD } state;
         VCS cs;
-        u_long cnt;
+        unsigned long cnt;
 
         cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1;
         cs.cs_lno = vp->m_start.lno;
@@ -406,7 +406,7 @@ bword(SCR *sp, VICMD *vp, enum which type)
 {
         enum { INWORD, NOTWORD } state;
         VCS cs;
-        u_long cnt;
+        unsigned long cnt;
 
         cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1;
         cs.cs_lno = vp->m_start.lno;

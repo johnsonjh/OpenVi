@@ -62,7 +62,7 @@ static EPG *bt_fast(BTREE *, const DBT *, const DBT *, int *);
  *      tree and R_NOOVERWRITE specified.
  */
 int
-__bt_put(const DB *dbp, DBT *key, const DBT *data, u_int flags)
+__bt_put(const DB *dbp, DBT *key, const DBT *data, unsigned int flags)
 {
         BTREE *t;
         DBT tkey, tdata;
@@ -246,7 +246,7 @@ success:
 }
 
 #ifdef STATISTICS
-u_long bt_cache_hit, bt_cache_miss;
+unsigned long bt_cache_hit, bt_cache_miss;
 #endif /* ifdef STATISTICS */
 
 /*

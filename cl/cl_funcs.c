@@ -157,10 +157,10 @@ cl_attr(SCR *sp, scr_attr_t attribute, int on)
  * cl_baud --
  *      Return the baud rate.
  *
- * PUBLIC: int cl_baud(SCR *, u_long *);
+ * PUBLIC: int cl_baud(SCR *, unsigned long *);
  */
 int
-cl_baud(SCR *sp, u_long *ratep)
+cl_baud(SCR *sp, unsigned long *ratep)
 {
         CL_PRIVATE *clp;
 

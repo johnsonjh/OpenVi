@@ -32,7 +32,7 @@ static void     inc_buf(SCR *, VICMD *);
 int
 v_Put(SCR *sp, VICMD *vp)
 {
-        u_long cnt;
+        unsigned long cnt;
 
         if (F_ISSET(vp, VC_ISDOT))
                 inc_buf(sp, vp);
@@ -63,7 +63,7 @@ v_Put(SCR *sp, VICMD *vp)
 int
 v_put(SCR *sp, VICMD *vp)
 {
-        u_long cnt;
+        unsigned long cnt;
 
         if (F_ISSET(vp, VC_ISDOT))
                 inc_buf(sp, vp);

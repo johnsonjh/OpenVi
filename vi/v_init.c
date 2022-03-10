@@ -94,10 +94,10 @@ v_screen_end(SCR *sp)
  * v_optchange --
  *      Handle change of options for vi.
  *
- * PUBLIC: int v_optchange(SCR *, int, char *, u_long *);
+ * PUBLIC: int v_optchange(SCR *, int, char *, unsigned long *);
  */
 int
-v_optchange(SCR *sp, int offset, char *str, u_long *valp)
+v_optchange(SCR *sp, int offset, char *str, unsigned long *valp)
 {
         switch (offset) {
         case O_PARAGRAPHS:

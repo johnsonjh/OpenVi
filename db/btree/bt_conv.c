@@ -58,7 +58,7 @@ __bt_pgin(void *t, pgno_t pg, void *pp)
 {
         PAGE *h;
         indx_t i, top;
-        u_char flags;
+        unsigned char flags;
         char *p;
 
         if (!F_ISSET(((BTREE *)t), B_NEEDSWAP))
@@ -85,8 +85,8 @@ __bt_pgin(void *t, pgno_t pg, void *pp)
                         p += sizeof(u_int32_t);
                         P_32_SWAP(p);
                         p += sizeof(pgno_t);
-                        if (*(u_char *)p & P_BIGKEY) {
-                                p += sizeof(u_char);
+                        if (*(unsigned char *)p & P_BIGKEY) {
+                                p += sizeof(unsigned char);
                                 P_32_SWAP(p);
                                 p += sizeof(pgno_t);
                                 P_32_SWAP(p);
@@ -100,9 +100,9 @@ __bt_pgin(void *t, pgno_t pg, void *pp)
                         p += sizeof(u_int32_t);
                         P_32_SWAP(p);
                         p += sizeof(u_int32_t);
-                        flags = *(u_char *)p;
+                        flags = *(unsigned char *)p;
                         if (flags & (P_BIGKEY | P_BIGDATA)) {
-                                p += sizeof(u_char);
+                                p += sizeof(unsigned char);
                                 if (flags & P_BIGKEY) {
                                         P_32_SWAP(p);
                                         p += sizeof(pgno_t);
@@ -123,7 +123,7 @@ __bt_pgout(void *t, pgno_t pg, void *pp)
 {
         PAGE *h;
         indx_t i, top;
-        u_char flags;
+        unsigned char flags;
         char *p;
 
         if (!F_ISSET(((BTREE *)t), B_NEEDSWAP))
@@ -142,8 +142,8 @@ __bt_pgout(void *t, pgno_t pg, void *pp)
                         p += sizeof(u_int32_t);
                         P_32_SWAP(p);
                         p += sizeof(pgno_t);
-                        if (*(u_char *)p & P_BIGKEY) {
-                                p += sizeof(u_char);
+                        if (*(unsigned char *)p & P_BIGKEY) {
+                                p += sizeof(unsigned char);
                                 P_32_SWAP(p);
                                 p += sizeof(pgno_t);
                                 P_32_SWAP(p);
@@ -157,9 +157,9 @@ __bt_pgout(void *t, pgno_t pg, void *pp)
                         p += sizeof(u_int32_t);
                         P_32_SWAP(p);
                         p += sizeof(u_int32_t);
-                        flags = *(u_char *)p;
+                        flags = *(unsigned char *)p;
                         if (flags & (P_BIGKEY | P_BIGDATA)) {
-                                p += sizeof(u_char);
+                                p += sizeof(unsigned char);
                                 if (flags & P_BIGKEY) {
                                         P_32_SWAP(p);
                                         p += sizeof(pgno_t);

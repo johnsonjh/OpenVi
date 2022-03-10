@@ -112,10 +112,10 @@ ex_screen_end(SCR *sp)
  * ex_optchange --
  *      Handle change of options for ex.
  *
- * PUBLIC: int ex_optchange(SCR *, int, char *, u_long *);
+ * PUBLIC: int ex_optchange(SCR *, int, char *, unsigned long *);
  */
 int
-ex_optchange(SCR *sp, int offset, char *str, u_long *valp)
+ex_optchange(SCR *sp, int offset, char *str, unsigned long *valp)
 {
         switch (offset) {
         case O_TAGS:

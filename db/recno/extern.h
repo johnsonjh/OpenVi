@@ -36,19 +36,19 @@
 
 __BEGIN_HIDDEN_DECLS
 int      __rec_close(DB *);
-int      __rec_delete(const DB *, const DBT *, u_int);
+int      __rec_delete(const DB *, const DBT *, unsigned int);
 int      __rec_dleaf(BTREE *, PAGE *, u_int32_t);
 int      __rec_fd(const DB *);
 int      __rec_fmap(BTREE *, recno_t);
 int      __rec_fout(BTREE *);
 int      __rec_fpipe(BTREE *, recno_t);
-int      __rec_get(const DB *, const DBT *, DBT *, u_int);
-int      __rec_iput(BTREE *, recno_t, const DBT *, u_int);
-int      __rec_put(const DB *dbp, DBT *, const DBT *, u_int);
+int      __rec_get(const DB *, const DBT *, DBT *, unsigned int);
+int      __rec_iput(BTREE *, recno_t, const DBT *, unsigned int);
+int      __rec_put(const DB *dbp, DBT *, const DBT *, unsigned int);
 int      __rec_ret(BTREE *, EPG *, recno_t, DBT *, DBT *);
 EPG     *__rec_search(BTREE *, recno_t, enum SRCHOP);
-int      __rec_seq(const DB *, DBT *, DBT *, u_int);
-int      __rec_sync(const DB *, u_int);
+int      __rec_seq(const DB *, DBT *, DBT *, unsigned int);
+int      __rec_sync(const DB *, unsigned int);
 int      __rec_vmap(BTREE *, recno_t);
 int      __rec_vout(BTREE *);
 int      __rec_vpipe(BTREE *, recno_t);

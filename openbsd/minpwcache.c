@@ -100,10 +100,10 @@ typedef struct gidc
 static UIDC **usrtb; /* user name to uid cache */
 static GIDC **grptb; /* group name to gid cache */
 
-static u_int
+static unsigned int
 st_hash(const char *name, size_t len, int tabsz)
 {
-  u_int key = 0;
+  unsigned int key = 0;
 
   assert(name != NULL);
 

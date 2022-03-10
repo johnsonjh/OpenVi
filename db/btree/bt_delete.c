@@ -46,7 +46,7 @@
 #include "btree.h"
 
 static int __bt_bdelete(BTREE *, const DBT *);
-static int __bt_curdel(BTREE *, const DBT *, PAGE *, u_int);
+static int __bt_curdel(BTREE *, const DBT *, PAGE *, unsigned int);
 static int __bt_pdelete(BTREE *, PAGE *);
 static int __bt_relink(BTREE *, PAGE *);
 static int __bt_stkacq(BTREE *, PAGE **, CURSOR *);
@@ -58,7 +58,7 @@ static int __bt_stkacq(BTREE *, PAGE **, CURSOR *);
  * Return RET_SPECIAL if the key is not found.
  */
 int
-__bt_delete(const DB *dbp, const DBT *key, u_int flags)
+__bt_delete(const DB *dbp, const DBT *key, unsigned int flags)
 {
         BTREE *t;
         CURSOR *c;
@@ -458,7 +458,7 @@ __bt_pdelete(BTREE *t, PAGE *h)
  *      RET_SUCCESS, RET_ERROR.
  */
 int
-__bt_dleaf(BTREE *t, const DBT *key, PAGE *h, u_int idx)
+__bt_dleaf(BTREE *t, const DBT *key, PAGE *h, unsigned int idx)
 {
         BLEAF *bl;
         indx_t cnt, *ip, offset;
@@ -519,7 +519,7 @@ __bt_dleaf(BTREE *t, const DBT *key, PAGE *h, u_int idx)
  *      RET_SUCCESS, RET_ERROR.
  */
 static int
-__bt_curdel(BTREE *t, const DBT *key, PAGE *h, u_int idx)
+__bt_curdel(BTREE *t, const DBT *key, PAGE *h, unsigned int idx)
 {
         CURSOR *c;
         EPG e;

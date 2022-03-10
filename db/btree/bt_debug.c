@@ -240,12 +240,12 @@ __bt_dpage(PAGE *h)
 void
 __bt_stat(DB *dbp)
 {
-        extern u_long bt_cache_hit, bt_cache_miss, bt_pfxsaved, bt_rootsplit;
-        extern u_long bt_sortsplit, bt_split;
+        extern unsigned long bt_cache_hit, bt_cache_miss, bt_pfxsaved, bt_rootsplit;
+        extern unsigned long bt_sortsplit, bt_split;
         BTREE *t;
         PAGE *h;
         pgno_t i, pcont, pinternal, pleaf;
-        u_long ifree, lfree, nkeys;
+        unsigned long ifree, lfree, nkeys;
         int levels;
 
         t = dbp->internal;

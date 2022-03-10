@@ -26,7 +26,7 @@
 #include "vi.h"
 
 static int v_exaddr(SCR *, VICMD *, dir_t);
-static int v_search(SCR *, VICMD *, char *, size_t, u_int, dir_t);
+static int v_search(SCR *, VICMD *, char *, size_t, unsigned int, dir_t);
 
 /*
  * v_srch -- [count]?RE[? offset]
@@ -244,7 +244,7 @@ v_exaddr(SCR *sp, VICMD *vp, dir_t dir)
 
                 /* Push line number so get correct z display. */
                 tlen = snprintf(buf,
-                    sizeof(buf), "%lu", (u_long)vp->m_stop.lno);
+                    sizeof(buf), "%lu", (unsigned long)vp->m_stop.lno);
                 if (tlen >= sizeof(buf))
                         tlen = sizeof(buf) - 1;
                 if (v_event_push(sp, NULL, buf, tlen, CH_NOMAP | CH_QUOTED))
@@ -336,7 +336,7 @@ v_searchw(SCR *sp, VICMD *vp)
  *      The search commands.
  */
 static int
-v_search(SCR *sp, VICMD *vp, char *ptrn, size_t plen, u_int flags, dir_t dir)
+v_search(SCR *sp, VICMD *vp, char *ptrn, size_t plen, unsigned int flags, dir_t dir)
 {
         /* Display messages. */
         LF_SET(SEARCH_MSG);

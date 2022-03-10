@@ -33,7 +33,7 @@
 static int re_conv(SCR *, char **, size_t *, int *);
 static int re_sub(SCR *, char *, char **, size_t *, size_t *, regmatch_t [10]);
 static int re_tag_conv(SCR *, char **, size_t *, int *);
-static int s(SCR *, EXCMD *, char *, regex_t *, u_int);
+static int s(SCR *, EXCMD *, char *, regex_t *, unsigned int);
 
 /*
  * ex_s --
@@ -48,7 +48,7 @@ ex_s(SCR *sp, EXCMD *cmdp)
 {
         regex_t *re;
         size_t blen, len;
-        u_int flags;
+        unsigned int flags;
         int delim;
         char *bp, *ptrn, *rep, *p, *t;
 
@@ -333,7 +333,7 @@ ex_subtilde(SCR *sp, EXCMD *cmdp)
 }
 
 static int
-s(SCR *sp, EXCMD *cmdp, char *s, regex_t *re, u_int flags)
+s(SCR *sp, EXCMD *cmdp, char *s, regex_t *re, unsigned int flags)
 {
         EVENT ev;
         MARK from, to;
@@ -864,11 +864,11 @@ err:            rval = 1;
  *      Compile the RE.
  *
  * PUBLIC: int re_compile(SCR *,
- * PUBLIC:     char *, size_t, char **, size_t *, regex_t *, u_int);
+ * PUBLIC:     char *, size_t, char **, size_t *, regex_t *, unsigned int);
  */
 int
 re_compile(SCR *sp, char *ptrn, size_t plen, char **ptrnp, size_t *lenp,
-    regex_t *rep, u_int flags)
+    regex_t *rep, unsigned int flags)
 {
         size_t len;
         int reflags, replaced, rval;
@@ -1234,7 +1234,7 @@ re_sub(SCR *sp, char *ip, char **lbp, size_t *lbclenp, size_t *lblenp,
          */
 #define OUTCH(ch, nltrans) {                                            \
         CHAR_T __ch = (ch);                                             \
-        u_int __value = KEY_VAL(sp, __ch);                              \
+        unsigned int __value = KEY_VAL(sp, __ch);                       \
         if ((nltrans) && (__value == K_CR || __value == K_NL)) {        \
                 NEEDNEWLINE(sp);                                        \
                 sp->newl[sp->newl_cnt++] = lbclen;                      \

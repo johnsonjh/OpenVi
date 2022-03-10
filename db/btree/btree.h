@@ -121,7 +121,7 @@ typedef struct _binternal {
         pgno_t  pgno;                   /* page number stored on */
 #define P_BIGDATA       0x01            /* overflow data */
 #define P_BIGKEY        0x02            /* overflow key */
-        u_char  flags;
+        unsigned char  flags;
         char    bytes[1];               /* data */
 } BINTERNAL;
 
@@ -131,7 +131,7 @@ typedef struct _binternal {
 
 /* Get the number of bytes in the entry. */
 #define NBINTERNAL(len)                                                 \
-        LALIGN(sizeof(u_int32_t) + sizeof(pgno_t) + sizeof(u_char) + (len))
+        LALIGN(sizeof(u_int32_t) + sizeof(pgno_t) + sizeof(unsigned char) + (len))
 
 /* Copy a BINTERNAL entry to the page. */
 #define WR_BINTERNAL(p, size, pgno, flags) {                            \
@@ -139,8 +139,8 @@ typedef struct _binternal {
         p += sizeof(u_int32_t);                                         \
         *(pgno_t *)p = pgno;                                            \
         p += sizeof(pgno_t);                                            \
-        *(u_char *)p = flags;                                           \
-        p += sizeof(u_char);                                            \
+        *(unsigned char *)p = flags;                                    \
+        p += sizeof(unsigned char);                                     \
 }
 
 /*
@@ -171,7 +171,7 @@ typedef struct _rinternal {
 typedef struct _bleaf {
         u_int32_t       ksize;          /* size of key */
         u_int32_t       dsize;          /* size of data */
-        u_char  flags;                  /* P_BIGDATA, P_BIGKEY */
+        unsigned char  flags;           /* P_BIGDATA, P_BIGKEY */
         char    bytes[1];               /* data */
 } BLEAF;
 
@@ -184,7 +184,7 @@ typedef struct _bleaf {
 
 /* Get the number of bytes in the user's key/data pair. */
 #define NBLEAFDBT(ksize, dsize)                                         \
-        LALIGN(sizeof(u_int32_t) + sizeof(u_int32_t) + sizeof(u_char) + \
+        LALIGN(sizeof(u_int32_t) + sizeof(u_int32_t) + sizeof(unsigned char) + \
             (ksize) + (dsize))
 
 /* Copy a BLEAF entry to the page. */
@@ -193,8 +193,8 @@ typedef struct _bleaf {
         p += sizeof(u_int32_t);                                         \
         *(u_int32_t *)p = data->size;                                   \
         p += sizeof(u_int32_t);                                         \
-        *(u_char *)p = flags;                                           \
-        p += sizeof(u_char);                                            \
+        *(unsigned char *)p = flags;                                    \
+        p += sizeof(unsigned char);                                     \
         memmove(p, key->data, key->size);                               \
         p += key->size;                                                 \
         memmove(p, data->data, data->size);                             \
@@ -203,7 +203,7 @@ typedef struct _bleaf {
 /* For the recno leaf pages, the item is a data entry. */
 typedef struct _rleaf {
         u_int32_t       dsize;          /* size of data */
-        u_char  flags;                  /* P_BIGDATA */
+        unsigned char  flags;                  /* P_BIGDATA */
         char    bytes[1];
 } RLEAF;
 
@@ -216,14 +216,14 @@ typedef struct _rleaf {
 
 /* Get the number of bytes from the user's data. */
 #define NRLEAFDBT(dsize)                                                \
-        LALIGN(sizeof(u_int32_t) + sizeof(u_char) + (dsize))
+        LALIGN(sizeof(u_int32_t) + sizeof(unsigned char) + (dsize))
 
 /* Copy a RLEAF entry to the page. */
 #define WR_RLEAF(p, data, flags) {                                      \
         *(u_int32_t *)p = data->size;                                   \
         p += sizeof(u_int32_t);                                         \
-        *(u_char *)p = flags;                                           \
-        p += sizeof(u_char);                                            \
+        *(unsigned char *)p = flags;                                           \
+        p += sizeof(unsigned char);                                            \
         memmove(p, data->data, data->size);                             \
 }
 
@@ -350,7 +350,7 @@ typedef struct _btree {
 
         recno_t   bt_nrecs;             /* R: number of records */
         size_t    bt_reclen;            /* R: fixed record length */
-        u_char    bt_bval;              /* R: delimiting byte/pad character */
+        unsigned char    bt_bval;              /* R: delimiting byte/pad character */
 
 /*
  * NB:

@@ -58,7 +58,7 @@
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
 int
-__bt_get(const DB *dbp, const DBT *key, DBT *data, u_int flags)
+__bt_get(const DB *dbp, const DBT *key, DBT *data, unsigned int flags)
 {
         BTREE *t;
         EPG *e;

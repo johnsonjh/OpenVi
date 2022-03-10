@@ -53,7 +53,7 @@
 
 struct _option {
         union {
-                u_long   val;           /* Value or boolean. */
+                unsigned long   val;           /* Value or boolean. */
                 char    *str;           /* String. */
         } o_cur;
 #define O_CLR(sp, o)            o_set((sp), (o), 0, NULL, 0)
@@ -63,7 +63,7 @@ struct _option {
 #define O_ISSET(sp, o)          O_VAL((sp), (o))
 
         union {
-                u_long   val;           /* Value or boolean. */
+                unsigned long   val;           /* Value or boolean. */
                 char    *str;           /* String. */
         } o_def;
 #define O_D_CLR(sp, o)          o_set((sp), (o), OS_DEF, NULL, 0)
@@ -81,7 +81,7 @@ struct _option {
 struct _optlist {
         char    *name;                  /* Name. */
                                         /* Change function. */
-        int     (*func)(SCR *, OPTION *, char *, u_long *);
+        int     (*func)(SCR *, OPTION *, char *, unsigned long *);
                                         /* Type of object. */
         enum { OPT_0BOOL, OPT_1BOOL, OPT_NUM, OPT_STR } type;
 

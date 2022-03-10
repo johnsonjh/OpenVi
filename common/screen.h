@@ -46,8 +46,8 @@ struct _scr {
         char    **argv;                 /* NULL terminated file name array. */
         char    **cargv;                /* Current file name. */
 
-        u_long   ccnt;                  /* Command count. */
-        u_long   q_ccnt;                /* Quit or ZZ command count. */
+        unsigned long   ccnt;                  /* Command count. */
+        unsigned long   q_ccnt;                /* Quit or ZZ command count. */
 
                                         /* Screen's: */
         size_t   rows;                  /* 1-N: number of rows. */

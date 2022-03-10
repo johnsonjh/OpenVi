@@ -134,7 +134,7 @@ int
 v_chf(SCR *sp, VICMD *vp)
 {
         size_t len;
-        u_long cnt;
+        unsigned long cnt;
         int isempty, key;
         char *endp, *p, *startp;
 
@@ -215,7 +215,7 @@ int
 v_chF(SCR *sp, VICMD *vp)
 {
         size_t len;
-        u_long cnt;
+        unsigned long cnt;
         int isempty, key;
         char *endp, *p;
 

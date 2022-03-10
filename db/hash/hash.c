@@ -686,7 +686,7 @@ found:
                         if (__big_return(hashp, rbufp, ndx, val, 0))
                                 return (ERROR);
                 } else {
-                        val->data = (u_char *)rbufp->page + (int)bp[ndx + 1];
+                        val->data = (unsigned char *)rbufp->page + (int)bp[ndx + 1];
                         val->size = bp[ndx] - bp[ndx + 1];
                 }
                 break;
@@ -785,9 +785,9 @@ hash_seq(const DB *dbp, DBT *key, DBT *data, u_int32_t flag)
         } else {
                 if (hashp->cpage == 0)
                         return (ERROR);
-                key->data = (u_char *)hashp->cpage->page + bp[ndx];
+                key->data = (unsigned char *)hashp->cpage->page + bp[ndx];
                 key->size = (ndx > 1 ? bp[ndx - 1] : hashp->BSIZE) - bp[ndx];
-                data->data = (u_char *)hashp->cpage->page + bp[ndx + 1];
+                data->data = (unsigned char *)hashp->cpage->page + bp[ndx + 1];
                 data->size = bp[ndx] - bp[ndx + 1];
         }
         return (SUCCESS);

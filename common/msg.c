@@ -249,7 +249,7 @@ mod_rpt(SCR *sp)
                 "lines",
         };
         recno_t total;
-        u_long rptval;
+        unsigned long rptval;
         int first, cnt;
         size_t blen, len, tlen;
         const char *t;
@@ -339,10 +339,10 @@ alloc_err:
  * msgq_status --
  *      Report on the file's status.
  *
- * PUBLIC: void msgq_status(SCR *, recno_t, u_int);
+ * PUBLIC: void msgq_status(SCR *, recno_t, unsigned int);
  */
 void
-msgq_status(SCR *sp, recno_t lno, u_int flags)
+msgq_status(SCR *sp, recno_t lno, unsigned int flags)
 {
         recno_t last;
         size_t blen, len;

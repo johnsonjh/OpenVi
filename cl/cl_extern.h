@@ -33,7 +33,7 @@
 
 int cl_addstr(SCR *, const char *, size_t);
 int cl_attr(SCR *, scr_attr_t, int);
-int cl_baud(SCR *, u_long *);
+int cl_baud(SCR *, unsigned long *);
 int cl_bell(SCR *);
 int cl_clrtoeol(SCR *);
 int cl_cursor(SCR *, size_t *, size_t *);
@@ -54,7 +54,7 @@ int cl_getcap(SCR *, char *, char **);
 int cl_term_init(SCR *);
 int cl_term_end(GS *);
 int cl_fmap(SCR *, seq_t, CHAR_T *, size_t, CHAR_T *, size_t);
-int cl_optchange(SCR *, int, char *, u_long *);
+int cl_optchange(SCR *, int, char *, unsigned long *);
 int cl_omesg(SCR *, CL_PRIVATE *, int);
 int cl_ssize(SCR *, int, size_t *, size_t *, int *);
 int cl_putchar(int);

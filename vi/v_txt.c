@@ -37,7 +37,7 @@ static void      txt_err(SCR *, TEXTH *);
 static int       txt_fc(SCR *, TEXT *, int *);
 static int       txt_fc_col(SCR *, int, ARGS **);
 static int       txt_hex(SCR *, TEXT *);
-static int       txt_insch(SCR *, TEXT *, CHAR_T *, u_int);
+static int       txt_insch(SCR *, TEXT *, CHAR_T *, unsigned int);
 static int       txt_isrch(SCR *, VICMD *, TEXT *, u_int8_t *);
 static int       txt_map_end(SCR *);
 static int       txt_map_init(SCR *);
@@ -58,10 +58,10 @@ static void      txt_unmap(SCR *, TEXT *, u_int32_t *);
  * v_tcmd --
  *      Fill a buffer from the terminal for vi.
  *
- * PUBLIC: int v_tcmd(SCR *, VICMD *, CHAR_T, u_int);
+ * PUBLIC: int v_tcmd(SCR *, VICMD *, CHAR_T, unsigned int);
  */
 int
-v_tcmd(SCR *sp, VICMD *vp, CHAR_T prompt, u_int flags)
+v_tcmd(SCR *sp, VICMD *vp, CHAR_T prompt, unsigned int flags)
 {
         /* Normally, we end up where we started. */
         vp->m_final.lno = sp->lno;
@@ -234,11 +234,11 @@ txt_map_end(SCR *sp)
  *      Vi text input.
  *
  * PUBLIC: int v_txt(SCR *, VICMD *, MARK *,
- * PUBLIC:    const char *, size_t, CHAR_T, recno_t, u_long, u_int32_t);
+ * PUBLIC:    const char *, size_t, CHAR_T, recno_t, unsigned long, u_int32_t);
  */
 int
 v_txt(SCR *sp, VICMD *vp, MARK *tm, const char *lp, size_t len,
-    CHAR_T prompt, recno_t ai_line, u_long rcount, u_int32_t flags)
+    CHAR_T prompt, recno_t ai_line, unsigned long rcount, u_int32_t flags)
 {
         EVENT ev, *evp = NULL;  /* Current event. */
         EVENT fc;               /* File name completion event. */
@@ -1653,7 +1653,7 @@ txt_unmap(SCR *sp, TEXT *tp, u_int32_t *ec_flagsp)
 static void
 txt_ai_resolve(SCR *sp, TEXT *tp, int *changedp)
 {
-        u_long ts;
+        unsigned long ts;
         int del;
         size_t cno, len, new, old, scno, spaces, tab_after_sp, tabs;
         char *p;
@@ -1870,7 +1870,7 @@ static int
 txt_dent(SCR *sp, TEXT *tp, int swopt, int isindent)
 {
         CHAR_T ch;
-        u_long sw, ts;
+        unsigned long sw, ts;
         size_t cno, current, spaces, target, tabs;
         int ai_reset;
 
@@ -2321,7 +2321,7 @@ txt_hex(SCR *sp, TEXT *tp)
 {
         CHAR_T savec;
         size_t len, off;
-        u_long value;
+        unsigned long value;
         char *p, *wp;
 
         /*
@@ -2395,7 +2395,7 @@ nothex:         tp->lb[tp->cno] = savec;
  * of the screen space they require, but that it not overwrite other characters.
  */
 static int
-txt_insch(SCR *sp, TEXT *tp, CHAR_T *chp, u_int flags)
+txt_insch(SCR *sp, TEXT *tp, CHAR_T *chp, unsigned int flags)
 {
         CHAR_T *kp, savech;
         size_t chlen, cno, copydown, olen, nlen;
@@ -2511,7 +2511,7 @@ txt_isrch(SCR *sp, VICMD *vp, TEXT *tp, u_int8_t *is_flagsp)
 {
         MARK start;
         recno_t lno;
-        u_int sf;
+        unsigned int sf;
 
         /* If it's a one-line screen, we don't do incrementals. */
         if (IS_ONELINE(sp)) {

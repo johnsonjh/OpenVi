@@ -301,7 +301,7 @@ ex_readfp(SCR *sp, char *name, FILE *fp, MARK *fm, recno_t *nlinesp,
         GS *gp;
         recno_t lcnt, lno;
         size_t len;
-        u_long ccnt;                    /* XXX: can't print off_t portably. */
+        unsigned long ccnt;                    /* XXX: can't print off_t portably. */
         int nf, rval;
         char *p;
 

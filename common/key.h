@@ -20,7 +20,7 @@
  *
  * If no integral type can hold a character, don't even try the port.
  */
-typedef u_char          CHAR_T;
+typedef unsigned char          CHAR_T;
 #define MAX_CHAR_T      0xff
 
 /* The maximum number of columns any character can take up on a screen. */

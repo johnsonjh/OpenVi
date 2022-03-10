@@ -59,7 +59,7 @@ static int rec_rdelete(BTREE *, recno_t);
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
 int
-__rec_delete(const DB *dbp, const DBT *key, u_int flags)
+__rec_delete(const DB *dbp, const DBT *key, unsigned int flags)
 {
         BTREE *t;
         recno_t nrec;

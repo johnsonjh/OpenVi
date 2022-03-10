@@ -39,7 +39,7 @@ static int               opts_abbcmp(const void *, const void *);
 static int               opts_cmp(const void *, const void *);
 static int               opts_print(SCR *, OPTLIST const *);
 
-int f_imctrl (SCR *, OPTION *, char *, u_long *);
+int f_imctrl (SCR *, OPTION *, char *, unsigned long *);
 
 /*
  * O'Reilly noted options and abbreviations are from "Learning the VI Editor",
@@ -262,7 +262,7 @@ opts_init(SCR *sp, int *oargs)
 {
         ARGS *argv[2], a, b;
         OPTLIST const *op;
-        u_long v;
+        unsigned long v;
         int optindx;
         char *s, b1[1024];
 
@@ -420,7 +420,7 @@ opts_set(SCR *sp, ARGS *argv[], char *usage)
         enum nresult nret;
         OPTLIST const *op;
         OPTION *spo;
-        u_long value, turnoff;
+        unsigned long value, turnoff;
         int ch, equals, nf, nf2, offset, qmark, rval;
         char *endp, *name, *p, *sep, *t;
 
@@ -704,10 +704,10 @@ badnum:                         p = msg_print(sp, name, &nf);
  * o_set --
  *      Set an option's value.
  *
- * PUBLIC: int o_set(SCR *, int, u_int, char *, u_long);
+ * PUBLIC: int o_set(SCR *, int, unsigned int, char *, unsigned long);
  */
 int
-o_set(SCR *sp, int opt, u_int flags, char *str, u_long val)
+o_set(SCR *sp, int opt, unsigned int flags, char *str, unsigned long val)
 {
         OPTION *op;
 

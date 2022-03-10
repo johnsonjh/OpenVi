@@ -35,7 +35,7 @@ static int      cl_ex_init(SCR *);
 static void     cl_freecap(CL_PRIVATE *);
 static int      cl_vi_end(GS *);
 static int      cl_vi_init(SCR *);
-static int      cl_putenv(char *, char *, u_long);
+static int      cl_putenv(char *, char *, unsigned long);
 
 /*
  * cl_screen --
@@ -222,9 +222,9 @@ cl_vi_init(SCR *sp)
         o_term = getenv("TERM");
         cl_putenv("TERM", ttype, 0);
         o_lines = getenv("LINES");
-        cl_putenv("LINES",   NULL, (u_long)O_VAL(sp, O_LINES));
+        cl_putenv("LINES",   NULL, (unsigned long)O_VAL(sp, O_LINES));
         o_cols = getenv("COLUMNS");
-        cl_putenv("COLUMNS", NULL, (u_long)O_VAL(sp, O_COLUMNS));
+        cl_putenv("COLUMNS", NULL, (unsigned long)O_VAL(sp, O_COLUMNS));
 
         /*
          * The terminal is aways initialized, either in `main`, or by a
@@ -540,7 +540,7 @@ cl_freecap(CL_PRIVATE *clp)
  *      Put a value into the environment.
  */
 static int
-cl_putenv(char *name, char *str, u_long value)
+cl_putenv(char *name, char *str, unsigned long value)
 {
         char buf[40];
 

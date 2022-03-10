@@ -55,7 +55,7 @@ static int       bt_rroot(BTREE *, PAGE *, PAGE *, PAGE *);
 static recno_t   rec_total(PAGE *);
 
 #ifdef STATISTICS
-u_long  bt_rootsplit, bt_split, bt_sortsplit, bt_pfxsaved;
+unsigned long  bt_rootsplit, bt_split, bt_sortsplit, bt_pfxsaved;
 #endif /* ifdef STATISTICS */
 
 /*

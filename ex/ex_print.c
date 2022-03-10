@@ -22,7 +22,7 @@
 
 #include "../common/common.h"
 
-static int ex_prchars(SCR *, const char *, size_t *, size_t, u_int, int);
+static int ex_prchars(SCR *, const char *, size_t *, size_t, unsigned int, int);
 
 /*
  * ex_list -- :[line [,line]] l[ist] [count] [flags]
@@ -102,7 +102,7 @@ ex_print(SCR *sp, EXCMD *cmdp, MARK *fp, MARK *tp, u_int32_t flags)
                  */
                 if (LF_ISSET(E_C_HASH)) {
                         if (from <= 999999) {
-                                snprintf(buf, sizeof(buf), "%6lu  ", (u_long)from);
+                                snprintf(buf, sizeof(buf), "%6lu  ", (unsigned long)from);
                                 p = buf;
                         } else
                                 p = "TOOBIG  ";
@@ -133,10 +133,10 @@ ex_print(SCR *sp, EXCMD *cmdp, MARK *fp, MARK *tp, u_int32_t flags)
  * ex_ldisplay --
  *      Display a line without any preceding number.
  *
- * PUBLIC: int ex_ldisplay(SCR *, const char *, size_t, size_t, u_int);
+ * PUBLIC: int ex_ldisplay(SCR *, const char *, size_t, size_t, unsigned int);
  */
 int
-ex_ldisplay(SCR *sp, const char *p, size_t len, size_t col, u_int flags)
+ex_ldisplay(SCR *sp, const char *p, size_t len, size_t col, unsigned int flags)
 {
         if (len > 0 && ex_prchars(sp, p, &col, len, LF_ISSET(E_C_LIST), 0))
                 return (1);
@@ -192,7 +192,7 @@ ex_scprint(SCR *sp, MARK *fp, MARK *tp)
  *      Local routine to dump characters to the screen.
  */
 static int
-ex_prchars(SCR *sp, const char *p, size_t *colp, size_t len, u_int flags,
+ex_prchars(SCR *sp, const char *p, size_t *colp, size_t len, unsigned int flags,
     int repeatc)
 {
         CHAR_T ch, *kp;

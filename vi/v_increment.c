@@ -50,7 +50,7 @@ int
 v_increment(SCR *sp, VICMD *vp)
 {
         enum nresult nret;
-        u_long ulval;
+        unsigned long ulval;
         long change, ltmp, lval;
         size_t beg, blen, end, len, nlen, wlen;
         int base, isempty, rval;

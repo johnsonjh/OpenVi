@@ -93,10 +93,10 @@ void
 __dbpanic(DB *dbp)
 {
         /* The only thing that can succeed is a close. */
-        dbp->del  = (int (*)(const struct __db *, const DBT*, u_int))__dberr;
+        dbp->del  = (int (*)(const struct __db *, const DBT*, unsigned int))__dberr;
         dbp->fd   = (int (*)(const struct __db *))__dberr;
-        dbp->get  = (int (*)(const struct __db *, const DBT*, DBT *, u_int))__dberr;
-        dbp->put  = (int (*)(const struct __db *, DBT *, const DBT *, u_int))__dberr;
-        dbp->seq  = (int (*)(const struct __db *, DBT *, DBT *, u_int))__dberr;
-        dbp->sync = (int (*)(const struct __db *, u_int))__dberr;
+        dbp->get  = (int (*)(const struct __db *, const DBT*, DBT *, unsigned int))__dberr;
+        dbp->put  = (int (*)(const struct __db *, DBT *, const DBT *, unsigned int))__dberr;
+        dbp->seq  = (int (*)(const struct __db *, DBT *, DBT *, unsigned int))__dberr;
+        dbp->sync = (int (*)(const struct __db *, unsigned int))__dberr;
 }

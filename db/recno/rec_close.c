@@ -100,7 +100,7 @@ __rec_close(DB *dbp)
  *      RET_SUCCESS, RET_ERROR.
  */
 int
-__rec_sync(const DB *dbp, u_int flags)
+__rec_sync(const DB *dbp, unsigned int flags)
 {
         struct iovec iov[2];
         BTREE *t;

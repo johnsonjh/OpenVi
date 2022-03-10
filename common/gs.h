@@ -134,7 +134,7 @@ struct _gs {
             (unsigned char)(ch) > (sp)->gp->max_special ? 0 :           \
             v_key_val((sp),(ch)))
         CHAR_T   max_special;           /* Max special character. */
-        u_char                          /* Fast lookup table. */
+        unsigned char                          /* Fast lookup table. */
             special_key[MAX_FAST_KEY + 1];
 
 /* Flags. */
@@ -155,7 +155,7 @@ struct _gs {
                                         /* Toggle a screen attribute. */
         int     (*scr_attr)(SCR *, scr_attr_t, int);
                                         /* Terminal baud rate. */
-        int     (*scr_baud)(SCR *, u_long *);
+        int     (*scr_baud)(SCR *, unsigned long *);
                                         /* Beep/bell/flash the terminal. */
         int     (*scr_bell)(SCR *);
                                         /* Display a busy message. */
@@ -179,7 +179,7 @@ struct _gs {
                                         /* Insert a line. */
         int     (*scr_insertln)(SCR *);
                                         /* Handle an option change. */
-        int     (*scr_optchange)(SCR *, int, char *, u_long *);
+        int     (*scr_optchange)(SCR *, int, char *, unsigned long *);
                                         /* Move the cursor. */
         int     (*scr_move)(SCR *, size_t, size_t);
                                         /* Message or ex output. */

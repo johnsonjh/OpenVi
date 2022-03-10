@@ -192,7 +192,7 @@ db_delete(SCR *sp, recno_t lno)
         key.size = sizeof(lno);
         if (ep->db->del(ep->db, &key, 0) == 1) {
                 msgq(sp, M_SYSERR,
-                    "unable to delete line %'lu", (u_long)lno);
+                    "unable to delete line %'lu", (unsigned long)lno);
                 return (1);
         }
 
@@ -237,7 +237,7 @@ db_append(SCR *sp, int update, recno_t lno, char *p, size_t len)
         data.size = len;
         if (ep->db->put(ep->db, &key, &data, R_IAFTER) == -1) {
                 msgq(sp, M_SYSERR,
-                    "unable to append to line %'lu", (u_long)lno);
+                    "unable to append to line %'lu", (unsigned long)lno);
                 return (1);
         }
 
@@ -301,7 +301,7 @@ db_insert(SCR *sp, recno_t lno, char *p, size_t len)
         data.size = len;
         if (ep->db->put(ep->db, &key, &data, R_IBEFORE) == -1) {
                 msgq(sp, M_SYSERR,
-                    "unable to insert at line %'lu", (u_long)lno);
+                    "unable to insert at line %'lu", (unsigned long)lno);
                 return (1);
         }
 
@@ -358,7 +358,7 @@ db_set(SCR *sp, recno_t lno, char *p, size_t len)
         data.size = len;
         if (ep->db->put(ep->db, &key, &data, 0) == -1) {
                 msgq(sp, M_SYSERR,
-                    "unable to store line %'lu", (u_long)lno);
+                    "unable to store line %'lu", (unsigned long)lno);
                 return (1);
         }
 
@@ -480,7 +480,7 @@ void
 db_err(SCR *sp, recno_t lno)
 {
         msgq(sp, M_ERR,
-            "Error: unable to retrieve line %'lu", (u_long)lno);
+            "Error: unable to retrieve line %'lu", (unsigned long)lno);
 }
 
 /*

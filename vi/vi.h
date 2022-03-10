@@ -24,8 +24,8 @@ typedef struct _vicmd {
         CHAR_T  key;                    /* Command key. */
         CHAR_T  buffer;                 /* Buffer. */
         CHAR_T  character;              /* Character. */
-        u_long  count;                  /* Count. */
-        u_long  count2;                 /* Second count (only used by z). */
+        unsigned long  count;                  /* Count. */
+        unsigned long  count2;                 /* Second count (only used by z). */
         EVENT   ev;                     /* Associated event. */
 
 #define ISCMD(p, key)   ((p) == &vikeys[(key)])
@@ -263,7 +263,7 @@ typedef struct _vi_private {
 
         char   *ps;             /* Paragraph plus section list. */
 
-        u_long  u_ccnt;         /* Undo command count. */
+        unsigned long  u_ccnt;         /* Undo command count. */
 
         CHAR_T  lastckey;       /* Last search character. */
         cdir_t  csearchdir;     /* Character search direction. */

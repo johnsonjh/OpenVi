@@ -33,7 +33,7 @@ typedef enum {
 static VIKEYS const
                *v_alias(SCR *, VICMD *, VIKEYS const *);
 static gcret_t  v_cmd(SCR *, VICMD *, VICMD *, VICMD *, int *, int *);
-static int      v_count(SCR *, CHAR_T, u_long *);
+static int      v_count(SCR *, CHAR_T, unsigned long *);
 static void     v_dtoh(SCR *);
 static int      v_init(SCR *);
 static gcret_t  v_key(SCR *, int, EVENT *, u_int32_t);
@@ -467,7 +467,7 @@ v_cmd(SCR *sp, VICMD *dp, VICMD *vp, VICMD *ismotion, int *comcountp,
         EVENT ev;
         VIKEYS const *kp;
         gcret_t gcret;
-        u_int flags;
+        unsigned int flags;
         CHAR_T key;
         char *s;
 
@@ -731,8 +731,8 @@ v_motion(SCR *sp, VICMD *dm, VICMD *vp, int *mappedp)
 {
         VICMD motion;
         size_t len;
-        u_long cnt;
-        u_int flags;
+        unsigned long cnt;
+        unsigned int flags;
         int tilde_reset, notused;
 #ifdef IMKEY
         int rval;
@@ -1151,10 +1151,10 @@ v_alias(SCR *sp, VICMD *vp, VIKEYS const *kp)
  *      Return the next count.
  */
 static int
-v_count(SCR *sp, CHAR_T fkey, u_long *countp)
+v_count(SCR *sp, CHAR_T fkey, unsigned long *countp)
 {
         EVENT ev;
-        u_long count, tc;
+        unsigned long count, tc;
 
         ev.e_c = fkey;
         count = tc = 0;

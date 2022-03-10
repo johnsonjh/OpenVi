@@ -253,7 +253,7 @@ sscr_getprompt(SCR *sp)
         struct pollfd pfd[1];
         recno_t lline;
         size_t llen, len;
-        u_int value;
+        unsigned int value;
         int nr;
 
         endp = buf;
@@ -557,7 +557,7 @@ sscr_insert(SCR *sp)
         struct pollfd pfd[1];
         recno_t lno;
         size_t blen, len, tlen;
-        u_int value;
+        unsigned int value;
         int nr, rval;
         char *bp;
 

@@ -111,7 +111,7 @@ __bt_close(DB *dbp)
  *      RET_SUCCESS, RET_ERROR.
  */
 int
-__bt_sync(const DB *dbp, u_int flags)
+__bt_sync(const DB *dbp, unsigned int flags)
 {
         BTREE *t;
         int status;

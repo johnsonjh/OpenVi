@@ -744,7 +744,7 @@ file_write(SCR *sp, MARK *fm, MARK *tm, char *name, int flags)
         FREF *frp;
         MARK from, to;
         size_t len;
-        u_long nlno, nch;
+        unsigned long nlno, nch;
         int fd, nf, noname, oflags, rval;
         char *p, *s, *t, buf[PATH_MAX + 64];
         const char *msgstr;

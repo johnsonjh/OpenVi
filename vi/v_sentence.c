@@ -54,7 +54,7 @@ v_sentencef(SCR *sp, VICMD *vp)
         enum { BLANK, NONE, PERIOD } state;
         VCS cs;
         size_t len;
-        u_long cnt;
+        unsigned long cnt;
 
         cs.cs_lno = vp->m_start.lno;
         cs.cs_cno = vp->m_start.cno;
@@ -193,7 +193,7 @@ v_sentenceb(SCR *sp, VICMD *vp)
         VCS cs;
         recno_t slno;
         size_t len, scno;
-        u_long cnt;
+        unsigned long cnt;
         int last;
 
         /*

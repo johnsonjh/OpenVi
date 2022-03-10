@@ -128,7 +128,7 @@ vs_line(SCR *sp, SMAP *smp, size_t *yp, size_t *xp)
                         cols_per_screen -= O_NUMBER_LENGTH;
                         if ((!dne || smp->lno == 1) && skip_cols == 0) {
                                 nlen = snprintf(cbuf, sizeof(cbuf),
-                                    O_NUMBER_FMT, (u_long)smp->lno);
+                                    O_NUMBER_FMT, (unsigned long)smp->lno);
                                 if (nlen >= sizeof(cbuf))
                                         nlen = sizeof(cbuf) - 1;
                                 (void)gp->scr_addstr(sp, cbuf, nlen);
@@ -249,7 +249,7 @@ empty:                                  (void)gp->scr_addstr(sp,
         /* Do it the hard way, for leftright scrolling screens. */
         if (O_ISSET(sp, O_LEFTRIGHT)) {
                 for (; offset_in_line < len; ++offset_in_line) {
-                        chlen = (ch = *(u_char *)p++) == '\t' && !list_tab ?
+                        chlen = (ch = *(unsigned char *)p++) == '\t' && !list_tab ?
                             TAB_OFF(scno) : KEY_LEN(sp, ch);
                         if ((scno += chlen) >= skip_cols)
                                 break;
@@ -273,7 +273,7 @@ empty:                                  (void)gp->scr_addstr(sp,
         /* Do it the hard way, for historic line-folding screens. */
         else {
                 for (; offset_in_line < len; ++offset_in_line) {
-                        chlen = (ch = *(u_char *)p++) == '\t' && !list_tab ?
+                        chlen = (ch = *(unsigned char *)p++) == '\t' && !list_tab ?
                             TAB_OFF(scno) : KEY_LEN(sp, ch);
                         if ((scno += chlen) < cols_per_screen)
                                 continue;
@@ -324,7 +324,7 @@ display:
         /* This is the loop that actually displays characters. */
         for (is_partial = 0, scno = 0;
             offset_in_line < len; ++offset_in_line, offset_in_char = 0) {
-                if ((ch = *(u_char *)p++) == '\t' && !list_tab) {
+                if ((ch = *(unsigned char *)p++) == '\t' && !list_tab) {
                         scno += chlen = TAB_OFF(scno) - offset_in_char;
                         is_tab = 1;
                 } else {
@@ -502,7 +502,7 @@ vs_number(SCR *sp)
                         break;
 
                 (void)gp->scr_move(sp, smp - HMAP, 0);
-                len = snprintf(nbuf, sizeof(nbuf), O_NUMBER_FMT, (u_long)smp->lno);
+                len = snprintf(nbuf, sizeof(nbuf), O_NUMBER_FMT, (unsigned long)smp->lno);
                 if (len >= sizeof(nbuf))
                         len = sizeof(nbuf) - 1;
                 (void)gp->scr_addstr(sp, nbuf, len);

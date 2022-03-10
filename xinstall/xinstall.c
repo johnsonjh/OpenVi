@@ -102,7 +102,7 @@ gid_t gid = (gid_t)-1;
 
 void copy(int, char *, int, char *, off_t, int);
 int  compare(int, const char *, off_t, int, const char *, off_t);
-void install(char *, char *, u_int);
+void install(char *, char *, unsigned int);
 void install_dir(char *, int);
 void strip(char *);
 void usage(void);
@@ -115,7 +115,7 @@ main(int argc, char *argv[])
 {
   struct stat from_sb, to_sb;
   void *set;
-  u_int iflags;
+  unsigned int iflags;
   int ch, no_target;
   char *to_name, *group = NULL, *owner = NULL;
   const char *errstr;
@@ -320,7 +320,7 @@ main(int argc, char *argv[])
  *      build a path name and install the file
  */
 void
-install(char *from_name, char *to_name, u_int flags)
+install(char *from_name, char *to_name, unsigned int flags)
 {
   struct stat from_sb, to_sb;
   struct timespec ts[2];

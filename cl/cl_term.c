@@ -202,10 +202,10 @@ cl_pfmap(SCR *sp, seq_t stype, CHAR_T *from, size_t flen, CHAR_T *to,
  * cl_optchange --
  *      Curses screen specific "option changed" routine.
  *
- * PUBLIC: int cl_optchange(SCR *, int, char *, u_long *);
+ * PUBLIC: int cl_optchange(SCR *, int, char *, unsigned long *);
  */
 int
-cl_optchange(SCR *sp, int opt, char *str, u_long *valp)
+cl_optchange(SCR *sp, int opt, char *str, unsigned long *valp)
 {
         CL_PRIVATE *clp;
 

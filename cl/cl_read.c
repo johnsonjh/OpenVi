@@ -297,11 +297,11 @@ cl_resize(SCR *sp, size_t lines, size_t columns)
         argv[0] = &a;
         argv[1] = &b;
 
-        (void)snprintf(b1, sizeof(b1), "lines=%lu", (u_long)lines);
+        (void)snprintf(b1, sizeof(b1), "lines=%lu", (unsigned long)lines);
         a.len = strlen(b1);
         if (opts_set(sp, argv, NULL))
                 return (1);
-        (void)snprintf(b1, sizeof(b1), "columns=%lu", (u_long)columns);
+        (void)snprintf(b1, sizeof(b1), "columns=%lu", (unsigned long)columns);
         a.len = strlen(b1);
         if (opts_set(sp, argv, NULL))
                 return (1);

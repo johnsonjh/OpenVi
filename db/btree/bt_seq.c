@@ -72,7 +72,7 @@ static int __bt_seqset(BTREE *, EPG *, DBT *, int);
  *      RET_ERROR, RET_SUCCESS or RET_SPECIAL if there's no next key.
  */
 int
-__bt_seq(const DB *dbp, DBT *key, DBT *data, u_int flags)
+__bt_seq(const DB *dbp, DBT *key, DBT *data, unsigned int flags)
 {
         BTREE *t;
         EPG e;
@@ -424,7 +424,7 @@ __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
  *    idx:      page index
  */
 void
-__bt_setcur(BTREE *t, pgno_t pgno, u_int idx)
+__bt_setcur(BTREE *t, pgno_t pgno, unsigned int idx)
 {
         /* Lose any already deleted key. */
         if (t->bt_cursor.key.data != NULL) {

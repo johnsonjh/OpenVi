@@ -259,15 +259,15 @@ exwr(SCR *sp, EXCMD *cmdp, enum which cmd)
  *      Write a range of lines to a FILE *.
  *
  * PUBLIC: int ex_writefp(SCR *,
- * PUBLIC:    char *, FILE *, MARK *, MARK *, u_long *, u_long *, int);
+ * PUBLIC:    char *, FILE *, MARK *, MARK *, unsigned long *, unsigned long *, int);
  */
 int
-ex_writefp(SCR *sp, char *name, FILE *fp, MARK *fm, MARK *tm, u_long *nlno,
-    u_long *nch, int silent)
+ex_writefp(SCR *sp, char *name, FILE *fp, MARK *fm, MARK *tm, unsigned long *nlno,
+    unsigned long *nch, int silent)
 {
         struct stat sb;
         GS *gp;
-        u_long ccnt;                    /* XXX: can't print off_t portably. */
+        unsigned long ccnt;                    /* XXX: can't print off_t portably. */
         recno_t fline, tline, lcnt;
         size_t len;
         int rval;

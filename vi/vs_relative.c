@@ -136,7 +136,7 @@ done:           if (diffp != NULL)              /* XXX */
         curoff = 0;
 
         /* Macro to return the display length of any signal character. */
-#define CHLEN(val) (ch = *(u_char *)p++) == '\t' &&                     \
+#define CHLEN(val) (ch = *(unsigned char *)p++) == '\t' &&                     \
             !listset ? TAB_OFF(val) : KEY_LEN(sp, ch);
 
         /*

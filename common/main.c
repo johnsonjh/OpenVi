@@ -58,7 +58,7 @@ editor(GS *gp, int argc, char *argv[])
         FREF *frp;
         SCR *sp;
         size_t len;
-        u_int flags;
+        unsigned int flags;
         int ch, flagchk, secure, startup, readonly, rval, silent;
         char *tag_f, *wsizearg, path[256];
 

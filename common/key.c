@@ -100,7 +100,7 @@ static int nkeylist =
 int
 v_key_init(SCR *sp)
 {
-        u_int ch;
+        unsigned int ch;
         GS *gp;
         KEYLIST *kp;
         int cnt;
@@ -318,10 +318,10 @@ v_key_val(SCR *sp, CHAR_T ch)
  * an associated flag value, which indicates if it has already been quoted,
  * and if it is the result of a mapping or an abbreviation.
  *
- * PUBLIC: int v_event_push(SCR *, EVENT *, CHAR_T *, size_t, u_int);
+ * PUBLIC: int v_event_push(SCR *, EVENT *, CHAR_T *, size_t, unsigned int);
  */
 int
-v_event_push(SCR *sp, EVENT *p_evp, CHAR_T *p_s, size_t nitems, u_int flags)
+v_event_push(SCR *sp, EVENT *p_evp, CHAR_T *p_s, size_t nitems, unsigned int flags)
 {
         EVENT *evp;
         GS *gp;
@@ -783,10 +783,10 @@ v_event_err(SCR *sp, EVENT *evp)
  * v_event_flush --
  *      Flush any flagged keys, returning if any keys were flushed.
  *
- * PUBLIC: int v_event_flush(SCR *, u_int);
+ * PUBLIC: int v_event_flush(SCR *, unsigned int);
  */
 int
-v_event_flush(SCR *sp, u_int flags)
+v_event_flush(SCR *sp, unsigned int flags)
 {
         GS *gp;
         int rval;

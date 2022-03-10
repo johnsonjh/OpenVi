@@ -108,7 +108,7 @@ mpool_filter(MPOOL *mp, void (*pgin) (void *, pgno_t, void *),
  *      Get a new page of memory.
  */
 void *
-mpool_new(MPOOL *mp, pgno_t *pgnoaddr, u_int flags)
+mpool_new(MPOOL *mp, pgno_t *pgnoaddr, unsigned int flags)
 {
         struct _hqh *head;
         BKT *bp;
@@ -173,7 +173,7 @@ mpool_delete(MPOOL *mp, void *page)
  */
 void *
 mpool_get(MPOOL *mp, pgno_t pgno,
-    u_int flags)                /* XXX not used? */
+    unsigned int flags)                /* XXX not used? */
 {
         struct _hqh *head;
         BKT *bp;
@@ -266,7 +266,7 @@ mpool_get(MPOOL *mp, pgno_t pgno,
  *      Return a page.
  */
 int
-mpool_put(MPOOL *mp, void *page, u_int flags)
+mpool_put(MPOOL *mp, void *page, unsigned int flags)
 {
         BKT *bp;
 

@@ -424,10 +424,10 @@ static int
 byteorder(void)
 {
         u_int32_t x;
-        u_char *p;
+        unsigned char *p;
 
         x = 0x01020304;
-        p = (u_char *)&x;
+        p = (unsigned char *)&x;
         switch (*p) {
         case 1:
                 return (BIG_ENDIAN);

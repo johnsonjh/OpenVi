@@ -77,7 +77,7 @@ nodel:          msgq(sp, M_BERR, "No characters to delete");
 int
 v_Xchar(SCR *sp, VICMD *vp)
 {
-        u_long cnt;
+        unsigned long cnt;
 
         if (vp->m_start.cno == 0) {
                 v_sol(sp);

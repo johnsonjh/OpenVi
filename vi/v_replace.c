@@ -46,7 +46,7 @@ v_replace(SCR *sp, VICMD *vp)
         VI_PRIVATE *vip;
         TEXT *tp;
         size_t blen, len;
-        u_long cnt;
+        unsigned long cnt;
         int quote, rval;
         char *bp, *p;
 

@@ -1112,10 +1112,10 @@ vs_sm_cursor(SCR *sp, SMAP **smpp)
  *      (The vi H, M and L commands.)  Here because only the screen routines
  *      know what's really out there.
  *
- * PUBLIC: int vs_sm_position(SCR *, MARK *, u_long, pos_t);
+ * PUBLIC: int vs_sm_position(SCR *, MARK *, unsigned long, pos_t);
  */
 int
-vs_sm_position(SCR *sp, MARK *rp, u_long cnt, pos_t pos)
+vs_sm_position(SCR *sp, MARK *rp, unsigned long cnt, pos_t pos)
 {
         SMAP *smp;
         recno_t last;

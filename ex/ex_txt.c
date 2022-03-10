@@ -357,7 +357,7 @@ txt_prompt(SCR *sp, TEXT *tp, CHAR_T prompt, u_int32_t flags)
 
         /* Display the line number. */
         if (LF_ISSET(TXT_NUMBER) && O_ISSET(sp, O_NUMBER))
-                (void)printf("%6lu  ", (u_long)tp->lno);
+                (void)printf("%6lu  ", (unsigned long)tp->lno);
 
         /* Print out autoindent string. */
         if (LF_ISSET(TXT_AUTOINDENT))
@@ -375,7 +375,7 @@ txt_prompt(SCR *sp, TEXT *tp, CHAR_T prompt, u_int32_t flags)
 static int
 txt_dent(SCR *sp, TEXT *tp)
 {
-        u_long sw, ts;
+        unsigned long sw, ts;
         size_t cno, off, scno, spaces, tabs;
 
         ts = O_VAL(sp, O_TABSTOP);

@@ -1810,7 +1810,7 @@ ex_line(SCR *sp, EXCMD *ecp, MARK *mp, int *isaddrp, int *errp)
         enum nresult nret;
         long total, val;
         int isneg;
-        int (*sf)(SCR *, MARK *, MARK *, char *, size_t, char **, u_int);
+        int (*sf)(SCR *, MARK *, MARK *, char *, size_t, char **, unsigned int);
         char *endp;
 
         *isaddrp = *errp = 0;

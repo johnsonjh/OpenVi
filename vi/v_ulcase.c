@@ -48,7 +48,7 @@ v_ulcase(SCR *sp, VICMD *vp)
 {
         recno_t lno;
         size_t cno, lcnt, len;
-        u_long cnt;
+        unsigned long cnt;
         char *p;
 
         lno = vp->m_start.lno;
@@ -150,7 +150,7 @@ ulcase(SCR *sp, recno_t lno, CHAR_T *lp, size_t len, size_t scno, size_t ecno)
 
         change = rval = 0;
         for (p = bp + scno, t = bp + ecno + 1; p < t; ++p) {
-                ch = *(u_char *)p;
+                ch = *(unsigned char *)p;
                 if (islower(ch)) {
                         *p = toupper(ch);
                         change = 1;

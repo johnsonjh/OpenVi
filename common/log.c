@@ -176,14 +176,14 @@ log_cursor1(SCR *sp, int type)
         EXF *ep;
 
         ep = sp->ep;
-        BINC_RET(sp, ep->l_lp, ep->l_len, sizeof(u_char) + sizeof(MARK));
+        BINC_RET(sp, ep->l_lp, ep->l_len, sizeof(unsigned char) + sizeof(MARK));
         ep->l_lp[0] = type;
-        memmove(ep->l_lp + sizeof(u_char), &ep->l_cursor, sizeof(MARK));
+        memmove(ep->l_lp + sizeof(unsigned char), &ep->l_cursor, sizeof(MARK));
 
         key.data = &ep->l_cur;
         key.size = sizeof(recno_t);
         data.data = ep->l_lp;
-        data.size = sizeof(u_char) + sizeof(MARK);
+        data.size = sizeof(unsigned char) + sizeof(MARK);
         if (ep->log->put(ep->log, &key, &data, 0) == -1)
                 LOG_ERR;
 
@@ -197,10 +197,10 @@ log_cursor1(SCR *sp, int type)
  * log_line --
  *      Log a line change.
  *
- * PUBLIC: int log_line(SCR *, recno_t, u_int);
+ * PUBLIC: int log_line(SCR *, recno_t, unsigned int);
  */
 int
-log_line(SCR *sp, recno_t lno, u_int action)
+log_line(SCR *sp, recno_t lno, unsigned int action)
 {
         DBT data, key;
         EXF *ep;
@@ -245,15 +245,15 @@ log_line(SCR *sp, recno_t lno, u_int action)
                 if (db_get(sp, lno, DBG_FATAL, &lp, &len))
                         return (1);
         BINC_RET(sp,
-            ep->l_lp, ep->l_len, len + sizeof(u_char) + sizeof(recno_t));
+            ep->l_lp, ep->l_len, len + sizeof(unsigned char) + sizeof(recno_t));
         ep->l_lp[0] = action;
-        memmove(ep->l_lp + sizeof(u_char), &lno, sizeof(recno_t));
-        memmove(ep->l_lp + sizeof(u_char) + sizeof(recno_t), lp, len);
+        memmove(ep->l_lp + sizeof(unsigned char), &lno, sizeof(recno_t));
+        memmove(ep->l_lp + sizeof(unsigned char) + sizeof(recno_t), lp, len);
 
         key.data = &ep->l_cur;
         key.size = sizeof(recno_t);
         data.data = ep->l_lp;
-        data.size = len + sizeof(u_char) + sizeof(recno_t);
+        data.size = len + sizeof(unsigned char) + sizeof(recno_t);
         if (ep->log->put(ep->log, &key, &data, 0) == -1)
                 LOG_ERR;
 
@@ -290,14 +290,14 @@ log_mark(SCR *sp, LMARK *lmp)
         }
 
         BINC_RET(sp, ep->l_lp,
-            ep->l_len, sizeof(u_char) + sizeof(LMARK));
+            ep->l_len, sizeof(unsigned char) + sizeof(LMARK));
         ep->l_lp[0] = LOG_MARK;
-        memmove(ep->l_lp + sizeof(u_char), lmp, sizeof(LMARK));
+        memmove(ep->l_lp + sizeof(unsigned char), lmp, sizeof(LMARK));
 
         key.data = &ep->l_cur;
         key.size = sizeof(recno_t);
         data.data = ep->l_lp;
-        data.size = sizeof(u_char) + sizeof(LMARK);
+        data.size = sizeof(unsigned char) + sizeof(LMARK);
         if (ep->log->put(ep->log, &key, &data, 0) == -1)
                 LOG_ERR;
 
@@ -321,7 +321,7 @@ log_backward(SCR *sp, MARK *rp)
         MARK m;
         recno_t lno;
         int didop;
-        u_char *p;
+        unsigned char *p;
 
         ep = sp->ep;
         if (F_ISSET(ep, F_NOLOG)) {
@@ -343,10 +343,10 @@ log_backward(SCR *sp, MARK *rp)
                 --ep->l_cur;
                 if (ep->log->get(ep->log, &key, &data, 0))
                         LOG_ERR;
-                switch (*(p = (u_char *)data.data)) {
+                switch (*(p = (unsigned char *)data.data)) {
                 case LOG_CURSOR_INIT:
                         if (didop) {
-                                memmove(rp, p + sizeof(u_char), sizeof(MARK));
+                                memmove(rp, p + sizeof(unsigned char), sizeof(MARK));
                                 F_CLR(ep, F_NOLOG);
                                 return (0);
                         }
@@ -356,16 +356,16 @@ log_backward(SCR *sp, MARK *rp)
                 case LOG_LINE_APPEND:
                 case LOG_LINE_INSERT:
                         didop = 1;
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
                         if (db_delete(sp, lno))
                                 goto err;
                         ++sp->rptlines[L_DELETED];
                         break;
                 case LOG_LINE_DELETE:
                         didop = 1;
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-                        if (db_insert(sp, lno, p + sizeof(u_char) +
-                            sizeof(recno_t), data.size - sizeof(u_char) -
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
+                        if (db_insert(sp, lno, p + sizeof(unsigned char) +
+                            sizeof(recno_t), data.size - sizeof(unsigned char) -
                             sizeof(recno_t)))
                                 goto err;
                         ++sp->rptlines[L_ADDED];
@@ -374,9 +374,9 @@ log_backward(SCR *sp, MARK *rp)
                         break;
                 case LOG_LINE_RESET_B:
                         didop = 1;
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-                        if (db_set(sp, lno, p + sizeof(u_char) +
-                            sizeof(recno_t), data.size - sizeof(u_char) -
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
+                        if (db_set(sp, lno, p + sizeof(unsigned char) +
+                            sizeof(recno_t), data.size - sizeof(unsigned char) -
                             sizeof(recno_t)))
                                 goto err;
                         if (sp->rptlchange != lno) {
@@ -386,7 +386,7 @@ log_backward(SCR *sp, MARK *rp)
                         break;
                 case LOG_MARK:
                         didop = 1;
-                        memmove(&lm, p + sizeof(u_char), sizeof(LMARK));
+                        memmove(&lm, p + sizeof(unsigned char), sizeof(LMARK));
                         m.lno = lm.lno;
                         m.cno = lm.cno;
                         if (mark_set(sp, lm.name, &m, 0))
@@ -421,7 +421,7 @@ log_setline(SCR *sp)
         LMARK lm;
         MARK m;
         recno_t lno;
-        u_char *p;
+        unsigned char *p;
 
         ep = sp->ep;
         if (F_ISSET(ep, F_NOLOG)) {
@@ -442,16 +442,16 @@ log_setline(SCR *sp)
                 --ep->l_cur;
                 if (ep->log->get(ep->log, &key, &data, 0))
                         LOG_ERR;
-                switch (*(p = (u_char *)data.data)) {
+                switch (*(p = (unsigned char *)data.data)) {
                 case LOG_CURSOR_INIT:
-                        memmove(&m, p + sizeof(u_char), sizeof(MARK));
+                        memmove(&m, p + sizeof(unsigned char), sizeof(MARK));
                         if (m.lno != sp->lno || ep->l_cur == 1) {
                                 F_CLR(ep, F_NOLOG);
                                 return (0);
                         }
                         break;
                 case LOG_CURSOR_END:
-                        memmove(&m, p + sizeof(u_char), sizeof(MARK));
+                        memmove(&m, p + sizeof(unsigned char), sizeof(MARK));
                         if (m.lno != sp->lno) {
                                 ++ep->l_cur;
                                 F_CLR(ep, F_NOLOG);
@@ -464,10 +464,10 @@ log_setline(SCR *sp)
                 case LOG_LINE_RESET_F:
                         break;
                 case LOG_LINE_RESET_B:
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
                         if (lno == sp->lno &&
-                            db_set(sp, lno, p + sizeof(u_char) +
-                            sizeof(recno_t), data.size - sizeof(u_char) -
+                            db_set(sp, lno, p + sizeof(unsigned char) +
+                            sizeof(recno_t), data.size - sizeof(unsigned char) -
                             sizeof(recno_t)))
                                 goto err;
                         if (sp->rptlchange != lno) {
@@ -476,7 +476,7 @@ log_setline(SCR *sp)
                         }
                         break;
                 case LOG_MARK:
-                        memmove(&lm, p + sizeof(u_char), sizeof(LMARK));
+                        memmove(&lm, p + sizeof(unsigned char), sizeof(LMARK));
                         m.lno = lm.lno;
                         m.cno = lm.cno;
                         if (mark_set(sp, lm.name, &m, 0))
@@ -506,7 +506,7 @@ log_forward(SCR *sp, MARK *rp)
         MARK m;
         recno_t lno;
         int didop;
-        u_char *p;
+        unsigned char *p;
 
         ep = sp->ep;
         if (F_ISSET(ep, F_NOLOG)) {
@@ -528,11 +528,11 @@ log_forward(SCR *sp, MARK *rp)
                 ++ep->l_cur;
                 if (ep->log->get(ep->log, &key, &data, 0))
                         LOG_ERR;
-                switch (*(p = (u_char *)data.data)) {
+                switch (*(p = (unsigned char *)data.data)) {
                 case LOG_CURSOR_END:
                         if (didop) {
                                 ++ep->l_cur;
-                                memmove(rp, p + sizeof(u_char), sizeof(MARK));
+                                memmove(rp, p + sizeof(unsigned char), sizeof(MARK));
                                 F_CLR(ep, F_NOLOG);
                                 return (0);
                         }
@@ -542,16 +542,16 @@ log_forward(SCR *sp, MARK *rp)
                 case LOG_LINE_APPEND:
                 case LOG_LINE_INSERT:
                         didop = 1;
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-                        if (db_insert(sp, lno, p + sizeof(u_char) +
-                            sizeof(recno_t), data.size - sizeof(u_char) -
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
+                        if (db_insert(sp, lno, p + sizeof(unsigned char) +
+                            sizeof(recno_t), data.size - sizeof(unsigned char) -
                             sizeof(recno_t)))
                                 goto err;
                         ++sp->rptlines[L_ADDED];
                         break;
                 case LOG_LINE_DELETE:
                         didop = 1;
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
                         if (db_delete(sp, lno))
                                 goto err;
                         ++sp->rptlines[L_DELETED];
@@ -560,9 +560,9 @@ log_forward(SCR *sp, MARK *rp)
                         break;
                 case LOG_LINE_RESET_F:
                         didop = 1;
-                        memmove(&lno, p + sizeof(u_char), sizeof(recno_t));
-                        if (db_set(sp, lno, p + sizeof(u_char) +
-                            sizeof(recno_t), data.size - sizeof(u_char) -
+                        memmove(&lno, p + sizeof(unsigned char), sizeof(recno_t));
+                        if (db_set(sp, lno, p + sizeof(unsigned char) +
+                            sizeof(recno_t), data.size - sizeof(unsigned char) -
                             sizeof(recno_t)))
                                 goto err;
                         if (sp->rptlchange != lno) {
@@ -572,7 +572,7 @@ log_forward(SCR *sp, MARK *rp)
                         break;
                 case LOG_MARK:
                         didop = 1;
-                        memmove(&lm, p + sizeof(u_char), sizeof(LMARK));
+                        memmove(&lm, p + sizeof(unsigned char), sizeof(LMARK));
                         m.lno = lm.lno;
                         m.cno = lm.cno;
                         if (mark_set(sp, lm.name, &m, 0))

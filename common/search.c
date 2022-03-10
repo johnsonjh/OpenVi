@@ -27,7 +27,7 @@
 typedef enum { S_EMPTY, S_EOF, S_NOPREV, S_NOTFOUND, S_SOF, S_WRAP } smsg_t;
 
 static void     search_msg(SCR *, smsg_t);
-static int      search_init(SCR *, dir_t, char *, size_t, char **, u_int);
+static int      search_init(SCR *, dir_t, char *, size_t, char **, unsigned int);
 
 /*
  * search_init --
@@ -35,7 +35,7 @@ static int      search_init(SCR *, dir_t, char *, size_t, char **, u_int);
  */
 static int
 search_init(SCR *sp, dir_t dir, char *ptrn, size_t plen, char **epp,
-    u_int flags)
+    unsigned int flags)
 {
         recno_t lno;
         int delim;
@@ -132,11 +132,11 @@ prev:                   if (sp->re == NULL) {
  * f_search --
  *      Do a forward search.
  *
- * PUBLIC: int f_search(SCR *, MARK *, MARK *, char *, size_t, char **, u_int);
+ * PUBLIC: int f_search(SCR *, MARK *, MARK *, char *, size_t, char **, unsigned int);
  */
 int
 f_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
-    u_int flags)
+    unsigned int flags)
 {
         busy_t btype;
         recno_t lno;
@@ -264,11 +264,11 @@ f_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
  * b_search --
  *      Do a backward search.
  *
- * PUBLIC: int b_search(SCR *, MARK *, MARK *, char *, size_t, char **, u_int);
+ * PUBLIC: int b_search(SCR *, MARK *, MARK *, char *, size_t, char **, unsigned int);
  */
 int
 b_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
-    u_int flags)
+    unsigned int flags)
 {
         busy_t btype;
         recno_t lno;

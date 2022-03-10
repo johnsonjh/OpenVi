@@ -204,7 +204,7 @@ int
 __bt_defcmp(const DBT *a, const DBT *b)
 {
         size_t len;
-        u_char *p1, *p2;
+        unsigned char *p1, *p2;
 
         /*
          * XXX
@@ -232,7 +232,7 @@ __bt_defcmp(const DBT *a, const DBT *b)
 size_t
 __bt_defpfx(const DBT *a, const DBT *b)
 {
-        u_char *p1, *p2;
+        unsigned char *p1, *p2;
         size_t cnt, len;
 
         cnt = 1;

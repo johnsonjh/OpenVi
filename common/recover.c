@@ -245,10 +245,10 @@ err:    msgq(sp, M_ERR,
  *              sending email to the user if the file was modified
  *              ending the file session
  *
- * PUBLIC: int rcv_sync(SCR *, u_int);
+ * PUBLIC: int rcv_sync(SCR *, unsigned int);
  */
 int
-rcv_sync(SCR *sp, u_int flags)
+rcv_sync(SCR *sp, unsigned int flags)
 {
         EXF *ep;
         int fd, rval;

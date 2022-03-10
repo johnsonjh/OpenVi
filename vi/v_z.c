@@ -31,7 +31,7 @@ int
 v_z(SCR *sp, VICMD *vp)
 {
         recno_t lno;
-        u_int value;
+        unsigned int value;
 
         /*
          * The first count is the line to use.  If the value doesn't

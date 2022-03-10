@@ -114,10 +114,10 @@ v_strdup(SCR *sp, const CHAR_T *str, size_t len)
  * nget_uslong --
  *      Get an unsigned long, checking for overflow.
  *
- * PUBLIC: enum nresult nget_uslong(u_long *, const char *, char **, int);
+ * PUBLIC: enum nresult nget_uslong(unsigned long *, const char *, char **, int);
  */
 enum nresult
-nget_uslong(u_long *valp, const char *p, char **endp, int base)
+nget_uslong(unsigned long *valp, const char *p, char **endp, int base)
 {
         errno = 0;
         *valp = strtoul(p, endp, base);

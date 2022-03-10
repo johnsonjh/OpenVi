@@ -67,7 +67,7 @@ typedef struct bitcmd
 #define CMD2_OBITS 0x08
 #define CMD2_UBITS 0x10
 
-static BITCMD *addcmd(BITCMD *, int, int, int, u_int);
+static BITCMD *addcmd(BITCMD *, int, int, int, unsigned int);
 static void compress_mode(BITCMD *);
 
 /*
@@ -198,7 +198,7 @@ openbsd_setmode(const char *p)
   sigset_t sigset, sigoset;
   mode_t mask, perm, permXbits, who;
   int equalopdone, setlen;
-  u_long perml;
+  unsigned long perml;
 
   if (!*p)
     {
@@ -220,7 +220,7 @@ openbsd_setmode(const char *p)
 
   setlen = SET_LEN + 2;
 
-  if (( set = calloc((u_int)sizeof ( BITCMD ), setlen)) == NULL)
+  if (( set = calloc((unsigned int)sizeof ( BITCMD ), setlen)) == NULL)
     {
       return NULL;
     }
@@ -420,7 +420,7 @@ apply:
 }
 
 static BITCMD *
-addcmd(BITCMD *set, int op, int who, int oparg, u_int mask)
+addcmd(BITCMD *set, int op, int who, int oparg, unsigned int mask)
 {
   switch (op)
     {
