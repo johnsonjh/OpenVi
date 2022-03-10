@@ -419,7 +419,7 @@ all: bin/vi                    \
      bin/view                  \
      bin/xinstall              \
      docs/USD.doc/vi.man/vi.1  \
-     scripts/virecover.8       \
+     scripts/virecover.8
 
 ###############################################################################
 
