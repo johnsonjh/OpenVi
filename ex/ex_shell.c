@@ -40,36 +40,36 @@
 int
 ex_shell(SCR *sp, EXCMD *cmdp)
 {
-        int rval;
-        char buf[PATH_MAX];
+    int rval;
+    char buf[PATH_MAX];
 
-        /* We'll need a shell. */
-        if (opts_empty(sp, O_SHELL, 0))
-                return (1);
+    /* We'll need a shell. */
+    if (opts_empty(sp, O_SHELL, 0))
+        return (1);
 
-        /*
-         * XXX
-         * Assumes all shells use -i.
-         */
-        (void)snprintf(buf, sizeof(buf), "%s -i", O_STR(sp, O_SHELL));
+    /*
+     * XXX
+     * Assumes all shells use -i.
+     */
+    (void)snprintf(buf, sizeof(buf), "%s -i", O_STR(sp, O_SHELL));
 
-        /* Restore the window name. */
-        (void)sp->gp->scr_rename(sp, NULL, 0);
+    /* Restore the window name. */
+    (void)sp->gp->scr_rename(sp, NULL, 0);
 
-        /* If we're still in a vi screen, move out explicitly. */
-        rval = ex_exec_proc(sp, cmdp, buf, NULL, !F_ISSET(sp, SC_SCR_EXWROTE));
+    /* If we're still in a vi screen, move out explicitly. */
+    rval = ex_exec_proc(sp, cmdp, buf, NULL, !F_ISSET(sp, SC_SCR_EXWROTE));
 
-        /* Set the window name. */
-        (void)sp->gp->scr_rename(sp, sp->frp->name, 1);
+    /* Set the window name. */
+    (void)sp->gp->scr_rename(sp, sp->frp->name, 1);
 
-        /*
-         * !!!
-         * Historically, vi didn't require a continue message after the
-         * return of the shell.  Match it.
-         */
-        F_SET(sp, SC_EX_WAIT_NO);
+    /*
+     * !!!
+     * Historically, vi didn't require a continue message after the
+     * return of the shell.  Match it.
+     */
+    F_SET(sp, SC_EX_WAIT_NO);
 
-        return (rval);
+    return (rval);
 }
 
 /*
@@ -80,54 +80,54 @@ ex_shell(SCR *sp, EXCMD *cmdp)
  */
 int
 ex_exec_proc(SCR *sp, EXCMD *cmdp, char *cmd, const char *msg,
-    int need_newline)
+             int need_newline)
 {
-        GS *gp;
-        const char *name;
-        pid_t pid;
+    GS *gp;
+    const char *name;
+    pid_t pid;
 
-        gp = sp->gp;
+    gp = sp->gp;
 
-        /* We'll need a shell. */
-        if (opts_empty(sp, O_SHELL, 0))
-                return (1);
+    /* We'll need a shell. */
+    if (opts_empty(sp, O_SHELL, 0))
+        return (1);
 
-        /* Enter ex mode. */
-        if (F_ISSET(sp, SC_VI)) {
-                if (gp->scr_screen(sp, SC_EX)) {
-                        ex_emsg(sp, cmdp->cmd->name, EXM_NOCANON);
-                        return (1);
-                }
-                (void)gp->scr_attr(sp, SA_ALTERNATE, 0);
-                F_SET(sp, SC_SCR_EX | SC_SCR_EXWROTE);
+    /* Enter ex mode. */
+    if (F_ISSET(sp, SC_VI)) {
+        if (gp->scr_screen(sp, SC_EX)) {
+            ex_emsg(sp, cmdp->cmd->name, EXM_NOCANON);
+            return (1);
         }
+        (void)gp->scr_attr(sp, SA_ALTERNATE, 0);
+        F_SET(sp, SC_SCR_EX | SC_SCR_EXWROTE);
+    }
 
-        /* Put out additional newline, message. */
-        if (need_newline)
-                (void)ex_puts(sp, "\n");
-        if (msg != NULL) {
-                (void)ex_puts(sp, msg);
-                (void)ex_puts(sp, "\n");
-        }
-        (void)ex_fflush(sp);
+    /* Put out additional newline, message. */
+    if (need_newline)
+        (void)ex_puts(sp, "\n");
+    if (msg != NULL) {
+        (void)ex_puts(sp, msg);
+        (void)ex_puts(sp, "\n");
+    }
+    (void)ex_fflush(sp);
 
-        switch (pid = fork()) {
-        case -1:                        /* Error. */
-                msgq(sp, M_SYSERR, "fork");
-                return (1);
-        case 0:                         /* Utility. */
-                if ((name = strrchr(O_STR(sp, O_SHELL), '/')) == NULL)
-                        name = O_STR(sp, O_SHELL);
-                else
-                        ++name;
-                execl(O_STR(sp, O_SHELL), name, "-c", cmd, (char *)NULL);
-                msgq_str(sp, M_SYSERR, O_STR(sp, O_SHELL), "execl: %s");
-                _exit(127);
-                /* NOTREACHED */
-        default:                        /* Parent. */
-                return (proc_wait(sp, pid, cmd, 0, 0));
-        }
-        /* NOTREACHED */
+    switch (pid = fork()) {
+    case -1:                        /* Error. */
+        msgq(sp, M_SYSERR, "fork");
+        return (1);
+    case 0:                         /* Utility. */
+        if ((name = strrchr(O_STR(sp, O_SHELL), '/')) == NULL)
+            name = O_STR(sp, O_SHELL);
+        else
+            ++name;
+        execl(O_STR(sp, O_SHELL), name, "-c", cmd, (char *)NULL);
+        msgq_str(sp, M_SYSERR, O_STR(sp, O_SHELL), "execl: %s");
+        _exit(127);
+    /* NOTREACHED */
+    default:                        /* Parent. */
+        return (proc_wait(sp, pid, cmd, 0, 0));
+    }
+    /* NOTREACHED */
 }
 
 /*
@@ -145,65 +145,65 @@ ex_exec_proc(SCR *sp, EXCMD *cmdp, char *cmd, const char *msg,
 int
 proc_wait(SCR *sp, pid_t pid, const char *cmd, int silent, int okpipe)
 {
-        size_t len;
-        int nf, pstat;
-        char *p;
+    size_t len;
+    int nf, pstat;
+    char *p;
 
-        /* Wait for the utility, ignoring interruptions. */
-        for (;;) {
-                errno = 0;
-                if (waitpid(pid, &pstat, 0) != -1)
-                        break;
-                if (errno != EINTR) {
-                        msgq(sp, M_SYSERR, "waitpid");
-                        return (1);
-                }
+    /* Wait for the utility, ignoring interruptions. */
+    for (;;) {
+        errno = 0;
+        if (waitpid(pid, &pstat, 0) != -1)
+            break;
+        if (errno != EINTR) {
+            msgq(sp, M_SYSERR, "waitpid");
+            return (1);
         }
+    }
 
-        /*
-         * Display the utility's exit status.  Ignore SIGPIPE from the
-         * parent-writer, as that only means that the utility chose to
-         * exit before reading all of its input.
-         */
-        if (WIFSIGNALED(pstat) && (!okpipe || WTERMSIG(pstat) != SIGPIPE)) {
-                for (; isblank(*cmd); ++cmd);
-                p = msg_print(sp, cmd, &nf);
-                len = strlen(p);
-                msgq(sp, M_ERR, "%.*s%s: received signal: %s%s",
-                     MINIMUM(len, 20),
-                     p,
-                     len > 20 ? " ..." : "",
-                     strsignal(WTERMSIG(pstat)),
+    /*
+     * Display the utility's exit status.  Ignore SIGPIPE from the
+     * parent-writer, as that only means that the utility chose to
+     * exit before reading all of its input.
+     */
+    if (WIFSIGNALED(pstat) && (!okpipe || WTERMSIG(pstat) != SIGPIPE)) {
+        for (; isblank(*cmd); ++cmd);
+        p = msg_print(sp, cmd, &nf);
+        len = strlen(p);
+        msgq(sp, M_ERR, "%.*s%s: received signal: %s%s",
+             MINIMUM(len, 20),
+             p,
+             len > 20 ? " ..." : "",
+             strsignal(WTERMSIG(pstat)),
 #ifdef WCOREDUMP
-                     WCOREDUMP(pstat) ? "; core dumped" : "");
+             WCOREDUMP(pstat) ? "; core dumped" : "");
 #else
-                     "");
+             "");
 #endif /* ifdef WCOREDUMP */
-                if (nf)
-                        FREE_SPACE(sp, p, 0);
-                return (1);
-        }
+        if (nf)
+            FREE_SPACE(sp, p, 0);
+        return (1);
+    }
 
-        if (WIFEXITED(pstat) && WEXITSTATUS(pstat)) {
-                /*
-                 * Remain silent for "normal" errors when doing shell file
-                 * name expansions, they almost certainly indicate nothing
-                 * more than a failure to match.
-                 *
-                 * Remain silent for vi read filter errors.  It's historic
-                 * practice.
-                 */
-                if (!silent) {
-                        for (; isblank(*cmd); ++cmd);
-                        p = msg_print(sp, cmd, &nf);
-                        len = strlen(p);
-                        msgq(sp, M_ERR, "%.*s%s: exited with status %d",
-                            MINIMUM(len, 20), p, len > 20 ? " ..." : "",
-                            WEXITSTATUS(pstat));
-                        if (nf)
-                                FREE_SPACE(sp, p, 0);
-                }
-                return (1);
+    if (WIFEXITED(pstat) && WEXITSTATUS(pstat)) {
+        /*
+         * Remain silent for "normal" errors when doing shell file
+         * name expansions, they almost certainly indicate nothing
+         * more than a failure to match.
+         *
+         * Remain silent for vi read filter errors.  It's historic
+         * practice.
+         */
+        if (!silent) {
+            for (; isblank(*cmd); ++cmd);
+            p = msg_print(sp, cmd, &nf);
+            len = strlen(p);
+            msgq(sp, M_ERR, "%.*s%s: exited with status %d",
+                 MINIMUM(len, 20), p, len > 20 ? " ..." : "",
+                 WEXITSTATUS(pstat));
+            if (nf)
+                FREE_SPACE(sp, p, 0);
         }
-        return (0);
+        return (1);
+    }
+    return (0);
 }

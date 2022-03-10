@@ -65,9 +65,9 @@
 
 typedef struct bitcmd
 {
-  char cmd;
-  char cmd2;
-  mode_t bits;
+    char cmd;
+    char cmd2;
+    mode_t bits;
 } BITCMD;
 
 #define CMD2_CLR 0x01
@@ -88,15 +88,15 @@ static void compress_mode(BITCMD *);
 mode_t
 openbsd_getmode(const void *bbox, mode_t omode)
 {
-  const BITCMD *set;
-  mode_t clrval, newmode, value;
+    const BITCMD *set;
+    mode_t clrval, newmode, value;
 
-  set = (const BITCMD *)bbox;
-  newmode = omode;
-  for (value = 0;; set++)
+    set = (const BITCMD *)bbox;
+    newmode = omode;
+    for (value = 0;; set++)
     {
-      (void)value;
-      switch (set->cmd)
+        (void)value;
+        switch (set->cmd)
         {
         /*
          * When copying the user, group or other bits around, we "know"
@@ -105,77 +105,77 @@ openbsd_getmode(const void *bbox, mode_t omode)
          * grundgy with lots of single bit checks and bit sets.
          */
         case 'u':
-          value = ( newmode & S_IRWXU ) >> 6;
-          (void)value;
-          goto common;
+            value = ( newmode & S_IRWXU ) >> 6;
+            (void)value;
+            goto common;
 
         case 'g':
-          value = ( newmode & S_IRWXG ) >> 3;
-          (void)value;
-          goto common;
+            value = ( newmode & S_IRWXG ) >> 3;
+            (void)value;
+            goto common;
 
         case 'o':
-          value = newmode & S_IRWXO;
-          (void)value;
+            value = newmode & S_IRWXO;
+            (void)value;
 common:
-          if (set->cmd2 & CMD2_CLR)
+            if (set->cmd2 & CMD2_CLR)
             {
-              clrval = ( set->cmd2 & CMD2_SET ) ? S_IRWXO : value;
-              if (set->cmd2 & CMD2_UBITS)
+                clrval = ( set->cmd2 & CMD2_SET ) ? S_IRWXO : value;
+                if (set->cmd2 & CMD2_UBITS)
                 {
-                  newmode &= ~(( clrval << 6 ) & set->bits );
+                    newmode &= ~(( clrval << 6 ) & set->bits );
                 }
 
-              if (set->cmd2 & CMD2_GBITS)
+                if (set->cmd2 & CMD2_GBITS)
                 {
-                  newmode &= ~(( clrval << 3 ) & set->bits );
+                    newmode &= ~(( clrval << 3 ) & set->bits );
                 }
 
-              if (set->cmd2 & CMD2_OBITS)
+                if (set->cmd2 & CMD2_OBITS)
                 {
-                  newmode &= ~( clrval & set->bits );
+                    newmode &= ~( clrval & set->bits );
                 }
             }
 
-          if (set->cmd2 & CMD2_SET)
+            if (set->cmd2 & CMD2_SET)
             {
-              if (set->cmd2 & CMD2_UBITS)
+                if (set->cmd2 & CMD2_UBITS)
                 {
-                  newmode |= ( value << 6 ) & set->bits;
+                    newmode |= ( value << 6 ) & set->bits;
                 }
 
-              if (set->cmd2 & CMD2_GBITS)
+                if (set->cmd2 & CMD2_GBITS)
                 {
-                  newmode |= ( value << 3 ) & set->bits;
+                    newmode |= ( value << 3 ) & set->bits;
                 }
 
-              if (set->cmd2 & CMD2_OBITS)
+                if (set->cmd2 & CMD2_OBITS)
                 {
-                  newmode |= value & set->bits;
+                    newmode |= value & set->bits;
                 }
             }
 
-          break;
+            break;
 
         case '+':
-          newmode |= set->bits;
-          break;
+            newmode |= set->bits;
+            break;
 
         case '-':
-          newmode &= ~set->bits;
-          break;
+            newmode &= ~set->bits;
+            break;
 
         case 'X':
-          if (omode & ( S_IFDIR | S_IXUSR | S_IXGRP | S_IXOTH ))
+            if (omode & ( S_IFDIR | S_IXUSR | S_IXGRP | S_IXOTH ))
             {
-              newmode |= set->bits;
+                newmode |= set->bits;
             }
 
-          break;
+            break;
 
         case '\0':
         default:
-          return newmode;
+            return newmode;
         }
     }
 }
@@ -202,285 +202,285 @@ common:
 void *
 openbsd_setmode(const char *p)
 {
-  char op, *ep;
-  BITCMD *set, *saveset, *endset;
-  sigset_t sigset, sigoset;
-  mode_t mask, perm, permXbits, who;
-  int equalopdone, setlen;
-  unsigned long perml;
+    char op, *ep;
+    BITCMD *set, *saveset, *endset;
+    sigset_t sigset, sigoset;
+    mode_t mask, perm, permXbits, who;
+    int equalopdone, setlen;
+    unsigned long perml;
 
-  if (!*p)
+    if (!*p)
     {
-      errno = EINVAL;
-      return NULL;
+        errno = EINVAL;
+        return NULL;
     }
 
-  /*
-   * Get a copy of the mask for the permissions that are mask relative.
-   * Flip the bits, we want what's not set.  Since it's possible that
-   * the caller is opening files inside a signal handler, protect them
-   * as best we can.
-   */
-  sigfillset(&sigset);
-  (void)sigprocmask(SIG_BLOCK, &sigset, &sigoset);
-  (void)umask(mask = umask(0));
-  mask = ~mask;
-  (void)sigprocmask(SIG_SETMASK, &sigoset, NULL);
+    /*
+     * Get a copy of the mask for the permissions that are mask relative.
+     * Flip the bits, we want what's not set.  Since it's possible that
+     * the caller is opening files inside a signal handler, protect them
+     * as best we can.
+     */
+    sigfillset(&sigset);
+    (void)sigprocmask(SIG_BLOCK, &sigset, &sigoset);
+    (void)umask(mask = umask(0));
+    mask = ~mask;
+    (void)sigprocmask(SIG_SETMASK, &sigoset, NULL);
 
-  setlen = SET_LEN + 2;
+    setlen = SET_LEN + 2;
 
-  if (( set = calloc((unsigned int)sizeof ( BITCMD ), setlen)) == NULL)
+    if (( set = calloc((unsigned int)sizeof ( BITCMD ), setlen)) == NULL)
     {
-      return NULL;
+        return NULL;
     }
 
-  saveset = set;
-  endset = set + ( setlen - 2 );
+    saveset = set;
+    endset = set + ( setlen - 2 );
 
-  /*
-   * If an absolute number, get it and return; disallow non-octal digits
-   * or illegal bits.
-   */
-  if (isdigit((unsigned char)*p))
+    /*
+     * If an absolute number, get it and return; disallow non-octal digits
+     * or illegal bits.
+     */
+    if (isdigit((unsigned char)*p))
     {
-      perml = strtoul(p, &ep, 8);
-      /* The test on perml will also catch overflow. */
-      if (*ep != '\0' || ( perml & ~( STANDARD_BITS | S_ISTXT )))
+        perml = strtoul(p, &ep, 8);
+        /* The test on perml will also catch overflow. */
+        if (*ep != '\0' || ( perml & ~( STANDARD_BITS | S_ISTXT )))
         {
-          free(saveset);
-          errno = ERANGE;
-          return NULL;
+            free(saveset);
+            errno = ERANGE;
+            return NULL;
         }
 
-      perm = (mode_t)perml;
-      (void)perm;
-      ADDCMD('=', ( STANDARD_BITS | S_ISTXT ), perm, mask);
-      set->cmd = 0;
-      return saveset;
+        perm = (mode_t)perml;
+        (void)perm;
+        ADDCMD('=', ( STANDARD_BITS | S_ISTXT ), perm, mask);
+        set->cmd = 0;
+        return saveset;
     }
 
-  /*
-   * Build list of structures to set/clear/copy bits as described by
-   * each clause of the symbolic mode.
-   */
-  for (;;)
+    /*
+     * Build list of structures to set/clear/copy bits as described by
+     * each clause of the symbolic mode.
+     */
+    for (;;)
     {
-      /* First, find out which bits might be modified. */
-      for (who = 0;; ++p)
+        /* First, find out which bits might be modified. */
+        for (who = 0;; ++p)
         {
-          switch (*p)
+            switch (*p)
             {
             case 'a':
-              who |= STANDARD_BITS;
-              break;
+                who |= STANDARD_BITS;
+                break;
 
             case 'u':
-              who |= S_ISUID | S_IRWXU;
-              break;
+                who |= S_ISUID | S_IRWXU;
+                break;
 
             case 'g':
-              who |= S_ISGID | S_IRWXG;
-              break;
+                who |= S_ISGID | S_IRWXG;
+                break;
 
             case 'o':
-              who |= S_IRWXO;
-              break;
+                who |= S_IRWXO;
+                break;
 
             default:
-              goto getop;
+                goto getop;
             }
         }
 
 getop:
-      if (( op = *p++ ) != '+' && op != '-' && op != '=')
+        if (( op = *p++ ) != '+' && op != '-' && op != '=')
         {
-          free(saveset);
-          errno = EINVAL;
-          return NULL;
+            free(saveset);
+            errno = EINVAL;
+            return NULL;
         }
 
-      if (op == '=')
+        if (op == '=')
         {
-          equalopdone = 0;
+            equalopdone = 0;
         }
 
-      who &= ~S_ISTXT;
-      for (perm = 0, permXbits = 0;; ++p)
+        who &= ~S_ISTXT;
+        for (perm = 0, permXbits = 0;; ++p)
         {
-          switch (*p)
+            switch (*p)
             {
             case 'r':
-              perm |= S_IRUSR | S_IRGRP | S_IROTH;
-              break;
+                perm |= S_IRUSR | S_IRGRP | S_IROTH;
+                break;
 
             case 's':
-              /*
-               * If specific bits where requested and
-               * only "other" bits ignore set-id.
-               */
-              if (who == 0 || ( who & ~S_IRWXO ))
+                /*
+                 * If specific bits where requested and
+                 * only "other" bits ignore set-id.
+                 */
+                if (who == 0 || ( who & ~S_IRWXO ))
                 {
-                  perm |= S_ISUID | S_ISGID;
+                    perm |= S_ISUID | S_ISGID;
                 }
 
-              break;
+                break;
 
             case 't':
-              /*
-               * If specific bits where requested and
-               * only "other" bits ignore sticky.
-               */
-              if (who == 0 || ( who & ~S_IRWXO ))
+                /*
+                 * If specific bits where requested and
+                 * only "other" bits ignore sticky.
+                 */
+                if (who == 0 || ( who & ~S_IRWXO ))
                 {
-                  who |= S_ISTXT;
-                  perm |= S_ISTXT;
+                    who |= S_ISTXT;
+                    perm |= S_ISTXT;
                 }
 
-              break;
+                break;
 
             case 'w':
-              perm |= S_IWUSR | S_IWGRP | S_IWOTH;
-              break;
+                perm |= S_IWUSR | S_IWGRP | S_IWOTH;
+                break;
 
             case 'X':
-              permXbits = S_IXUSR | S_IXGRP | S_IXOTH;
-              (void)permXbits;
-              break;
+                permXbits = S_IXUSR | S_IXGRP | S_IXOTH;
+                (void)permXbits;
+                break;
 
             case 'x':
-              perm |= S_IXUSR | S_IXGRP | S_IXOTH;
-              break;
+                perm |= S_IXUSR | S_IXGRP | S_IXOTH;
+                break;
 
             case 'u':
             case 'g':
             case 'o':
-              /*
-               * When ever we hit 'u', 'g', or 'o', we have
-               * to flush out any partial mode that we have,
-               * and then do the copying of the mode bits.
-               */
-              if (perm)
+                /*
+                 * When ever we hit 'u', 'g', or 'o', we have
+                 * to flush out any partial mode that we have,
+                 * and then do the copying of the mode bits.
+                 */
+                if (perm)
                 {
-                  ADDCMD(op, who, perm, mask);
-                  perm = 0;
-                  (void)perm;
+                    ADDCMD(op, who, perm, mask);
+                    perm = 0;
+                    (void)perm;
                 }
 
-              if (op == '=')
+                if (op == '=')
                 {
-                  equalopdone = 1;
+                    equalopdone = 1;
                 }
 
-              if (op == '+' && permXbits)
+                if (op == '+' && permXbits)
                 {
-                  ADDCMD('X', who, permXbits, mask);
-                  permXbits = 0;
-                  (void)permXbits;
+                    ADDCMD('X', who, permXbits, mask);
+                    permXbits = 0;
+                    (void)permXbits;
                 }
 
-              ADDCMD(*p, who, op, mask);
-              break;
+                ADDCMD(*p, who, op, mask);
+                break;
 
             default:
-              /*
-               * Add any permissions that we haven't already
-               * done.
-               */
-              if (perm || ( op == '=' && !equalopdone ))
+                /*
+                 * Add any permissions that we haven't already
+                 * done.
+                 */
+                if (perm || ( op == '=' && !equalopdone ))
                 {
-                  if (op == '=')
+                    if (op == '=')
                     {
-                      equalopdone = 1;
+                        equalopdone = 1;
                     }
 
-                  ADDCMD(op, who, perm, mask);
-                  perm = 0;
-                  (void)perm;
+                    ADDCMD(op, who, perm, mask);
+                    perm = 0;
+                    (void)perm;
                 }
 
-              if (permXbits)
+                if (permXbits)
                 {
-                  ADDCMD('X', who, permXbits, mask);
-                  permXbits = 0;
-                  (void)permXbits;
+                    ADDCMD('X', who, permXbits, mask);
+                    permXbits = 0;
+                    (void)permXbits;
                 }
 
-              goto apply;
+                goto apply;
             }
         }
 
 apply:
-      if (!*p)
+        if (!*p)
         {
-          break;
+            break;
         }
 
-      if (*p != ',')
+        if (*p != ',')
         {
-          goto getop;
+            goto getop;
         }
 
-      ++p;
+        ++p;
     }
 
-  set->cmd = 0;
-  compress_mode(saveset);
-  return saveset;
+    set->cmd = 0;
+    compress_mode(saveset);
+    return saveset;
 }
 
 static BITCMD *
 addcmd(BITCMD *set, int op, int who, int oparg, unsigned int mask)
 {
-  switch (op)
+    switch (op)
     {
     case '=':
-      set->cmd = '-';
-      set->bits = who ? who : STANDARD_BITS;
-      set++;
+        set->cmd = '-';
+        set->bits = who ? who : STANDARD_BITS;
+        set++;
 
-      op = '+';
+        op = '+';
 
     /* FALLTHROUGH */
     case '+':
     case '-':
     case 'X':
-      set->cmd = op;
-      set->bits = ( who ? who : mask ) & oparg;
-      break;
+        set->cmd = op;
+        set->bits = ( who ? who : mask ) & oparg;
+        break;
 
     case 'u':
     case 'g':
     case 'o':
-      set->cmd = op;
-      if (who)
+        set->cmd = op;
+        if (who)
         {
-          set->cmd2 = (( who & S_IRUSR ) ? CMD2_UBITS : 0 )
-                      | (( who & S_IRGRP ) ? CMD2_GBITS : 0 )
-                      | (( who & S_IROTH ) ? CMD2_OBITS : 0 );
-          set->bits = ( mode_t ) ~0;
+            set->cmd2 = (( who & S_IRUSR ) ? CMD2_UBITS : 0 )
+                        | (( who & S_IRGRP ) ? CMD2_GBITS : 0 )
+                        | (( who & S_IROTH ) ? CMD2_OBITS : 0 );
+            set->bits = ( mode_t ) ~0;
         }
-      else
+        else
         {
-          set->cmd2 = CMD2_UBITS | CMD2_GBITS | CMD2_OBITS;
-          set->bits = mask;
-        }
-
-      if (oparg == '+')
-        {
-          set->cmd2 |= CMD2_SET;
-        }
-      else if (oparg == '-')
-        {
-          set->cmd2 |= CMD2_CLR;
-        }
-      else if (oparg == '=')
-        {
-          set->cmd2 |= CMD2_SET | CMD2_CLR;
+            set->cmd2 = CMD2_UBITS | CMD2_GBITS | CMD2_OBITS;
+            set->bits = mask;
         }
 
-      break;
+        if (oparg == '+')
+        {
+            set->cmd2 |= CMD2_SET;
+        }
+        else if (oparg == '-')
+        {
+            set->cmd2 |= CMD2_CLR;
+        }
+        else if (oparg == '=')
+        {
+            set->cmd2 |= CMD2_SET | CMD2_CLR;
+        }
+
+        break;
     }
-  return set + 1;
+    return set + 1;
 }
 
 /*
@@ -492,67 +492,67 @@ addcmd(BITCMD *set, int op, int who, int oparg, unsigned int mask)
 static void
 compress_mode(BITCMD *set)
 {
-  BITCMD *nset;
-  int setbits, clrbits, Xbits, op;
+    BITCMD *nset;
+    int setbits, clrbits, Xbits, op;
 
-  for (nset = set;;)
+    for (nset = set;;)
     {
-      /* Copy over any 'u', 'g' and 'o' commands. */
-      while (( op = nset->cmd ) != '+' && op != '-' && op != 'X')
+        /* Copy over any 'u', 'g' and 'o' commands. */
+        while (( op = nset->cmd ) != '+' && op != '-' && op != 'X')
         {
-          *set++ = *nset++;
-          if (!op)
+            *set++ = *nset++;
+            if (!op)
             {
-              return;
+                return;
             }
         }
 
-      for (setbits = clrbits = Xbits = 0;; nset++)
+        for (setbits = clrbits = Xbits = 0;; nset++)
         {
-          if (( op = nset->cmd ) == '-')
+            if (( op = nset->cmd ) == '-')
             {
-              clrbits |= nset->bits;
-              setbits &= ~nset->bits;
-              Xbits &= ~nset->bits;
+                clrbits |= nset->bits;
+                setbits &= ~nset->bits;
+                Xbits &= ~nset->bits;
             }
-          else if (op == '+')
+            else if (op == '+')
             {
-              setbits |= nset->bits;
-              clrbits &= ~nset->bits;
-              Xbits &= ~nset->bits;
+                setbits |= nset->bits;
+                clrbits &= ~nset->bits;
+                Xbits &= ~nset->bits;
             }
-          else if (op == 'X')
+            else if (op == 'X')
             {
-              Xbits |= nset->bits & ~setbits;
+                Xbits |= nset->bits & ~setbits;
             }
-          else
+            else
             {
-              break;
+                break;
             }
         }
 
-      if (clrbits)
+        if (clrbits)
         {
-          set->cmd = '-';
-          set->cmd2 = 0;
-          set->bits = clrbits;
-          set++;
+            set->cmd = '-';
+            set->cmd2 = 0;
+            set->bits = clrbits;
+            set++;
         }
 
-      if (setbits)
+        if (setbits)
         {
-          set->cmd = '+';
-          set->cmd2 = 0;
-          set->bits = setbits;
-          set++;
+            set->cmd = '+';
+            set->cmd2 = 0;
+            set->bits = setbits;
+            set++;
         }
 
-      if (Xbits)
+        if (Xbits)
         {
-          set->cmd = 'X';
-          set->cmd2 = 0;
-          set->bits = Xbits;
-          set++;
+            set->cmd = 'X';
+            set->cmd2 = 0;
+            set->bits = Xbits;
+            set++;
         }
     }
 }

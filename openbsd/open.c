@@ -45,32 +45,32 @@
 int
 openbsd_open(const char *path, int flags, ...)
 {
-  va_list ap;
-  int fd, lock;
+    va_list ap;
+    int fd, lock;
 
-  lock = flags & ( O_EXLOCK | O_SHLOCK );
-  flags &= ~lock;
+    lock = flags & ( O_EXLOCK | O_SHLOCK );
+    flags &= ~lock;
 
-  va_start(ap, flags);
-  if (( fd = open(path, flags, ap)) == -1)
+    va_start(ap, flags);
+    if (( fd = open(path, flags, ap)) == -1)
     {
-      return -1;
+        return -1;
     }
 
-  va_end(ap);
+    va_end(ap);
 
-  if (lock == 0)
+    if (lock == 0)
     {
-      return fd;
+        return fd;
     }
 
 #ifndef __solaris__
-  if (flock(fd, lock & O_EXLOCK ? LOCK_EX : LOCK_SH) == -1)
+    if (flock(fd, lock & O_EXLOCK ? LOCK_EX : LOCK_SH) == -1)
     {
-      close(fd);
-      return -1;
+        close(fd);
+        return -1;
     }
 #endif /* ifndef __solaris__ */
 
-  return fd;
+    return fd;
 }
