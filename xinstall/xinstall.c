@@ -94,7 +94,7 @@
 #define USEFSYNC       0x04   /* Tell install to use fsync(2).  */
 #define BACKUP_SUFFIX ".bak"
 
-int dobackup, docompare, dodest, dodir;
+int dobackup, docompare, dodest, dodir, nommap;
 int dopreserve, dostrip, dounpriv, doverbose;
 int mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
 
@@ -125,7 +125,7 @@ main(int argc, char *argv[])
   const char *errstr;
 
   iflags = 0;
-  while (( ch = openbsd_getopt(argc, argv, "B:bCcDdFg:m:o:pSsUv")) != -1)
+  while (( ch = openbsd_getopt(argc, argv, "B:bCcDdFg:Mm:o:pSsUv")) != -1)
     {
       switch (ch)
         {
@@ -162,6 +162,10 @@ main(int argc, char *argv[])
 
           mode = openbsd_getmode(set, 0);
           free(set);
+          break;
+
+        case 'M':
+          nommap = 1;
           break;
 
         case 'o':
@@ -587,7 +591,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
    * trash memory on big files.  This is really a minor hack, but it wins
    * some CPU back.  Sparse files need special treatment.
    */
-  if (!sparse && size <= 2 * 1048576)
+  if (!nommap && !sparse && size <= 2 * 1048576)
     {
       size_t siz;
 
@@ -839,7 +843,7 @@ void
 usage(void)
 {
   (void)fprintf(stderr,
-    "Usage: %s [-bCcDdFpSsUv] [-B suffix] [-g group] [-m mode] [-o owner] source ... target ...\n",
+    "Usage: %s [-bCcDdFMpSsUv] [-B suffix] [-g group] [-m mode] [-o owner] source ... target ...\n",
     bsd_getprogname());
   exit(1);
   /* NOTREACHED */

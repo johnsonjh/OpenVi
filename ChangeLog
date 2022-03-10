@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Thu Mar 10 20:09:18 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Thu Mar 10 20:28:28 2022
         + Add support for Solaris; tested on Oracle Solaris 11.4.0 with GCC,
           Clang (V6+), and the Oracle Developer Studio V12.6 compiler.
         + Add support for illumos; tested on OpenIndiana Hipster 2022.03
