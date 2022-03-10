@@ -293,7 +293,7 @@ vendor's documentation.
   `curses` library provided by the NetBSD base system. To use `ncurses`
   instead, set the values of the `CFLAGS`, `LDFLAGS`, and `CURSESLIB`
   environment variables appropriately (i.e. `CFLAGS=-I/usr/pkg/include`
-  `LDFLAGS=-L/usr/pkg/lib` `CURSESLIB="-lncurses"`).
+  `LDFLAGS=-L/usr/pkg/lib` `CURSESLIB=-lncurses`).
 
 - The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
   using **Clang**. It is available as an installable package (i.e. `pkgin
