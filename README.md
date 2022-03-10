@@ -268,7 +268,8 @@ vendor's documentation.
   **GCC** (usually `gcc`, `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11`):
   - Link-time optimization (`LTO=1`) requires **Open XL C**/**C++** V17.1+.
     The *IBM* (*AIX Toolbox*) and *Bull*/*Atos* (*Bull Freeware*) **GCC**
-    packages, and **XL C**/**C++** earlier than V17.1 are **not** LTO-enabled.
+    packages, and *IBM* **XL C**/**C++** versions earlier than V17.1 are
+    **not** LTO-enabled.
   - Link-time garbage collection (`LGC=1`) is **not** supported on *IBM*
     **AIX**.
   - A 64-bit build is the default on systems operating in 64-bit mode; for a
