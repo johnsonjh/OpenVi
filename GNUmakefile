@@ -684,7 +684,7 @@ else # netbsd
                -R '.note.netbsd.mcmodel'             \
                -R '.note.netbsd.pax' -R '.gnu.hash'
 endif # !netbsd
-superstrip sstrip: bin/vi bin/ex bin/view bin/xinstall
+superstrip sstrip: strip bin/vi bin/ex bin/view bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
