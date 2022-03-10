@@ -64,7 +64,7 @@ openbsd_open(const char *path, int flags, ...)
       return fd;
     }
 
- #ifndef __solaris__
+#ifndef __solaris__
   if (flock(fd, lock & O_EXLOCK ? LOCK_EX : LOCK_SH) == -1)
     {
       close(fd);

@@ -12,8 +12,8 @@
 
 #include <sys/queue.h>
 #ifndef __solaris__
-#include <sys/types.h>
-#include <sys/time.h>
+# include <sys/types.h>
+# include <sys/time.h>
 #endif /* ifndef __solaris__ */
 
 #include <bitstring.h>
