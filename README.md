@@ -334,7 +334,7 @@ vendor's documentation.
   **Clang**:
   - When using *Oracle* **Developer Studio**, invoke the compiler as `suncc`
     or set the value of the `_OSLCC` environment variable to `1`.
-  - Link-time optimization (`LTO=1`) is currently supported only when using
+  - Link-time optimization (`LTO=1`) is currently supported **only** when using
     **GCC** or **Clang**.
   - Link-time garbage collection (`LGC=1`) is **not** supported on **Solaris**.
   - When using the *Oracle* **Developer Studio** (`suncc`) compiler, the
