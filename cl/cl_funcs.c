@@ -10,24 +10,35 @@
  * See the LICENSE.md file for redistribution information.
  */
 
-#include <sys/types.h>
 #include <sys/queue.h>
-#include <sys/time.h>
+#ifndef __solaris__
+# include <sys/types.h>
+# include <sys/time.h>
+#endif /* ifndef __solaris__ */
 
 #include <bitstring.h>
 #include <ctype.h>
 #include <curses.h>
-#include <signal.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <term.h>
+#ifdef __solaris__
+# define _XPG7
+# undef __EXTENSIONS__
+//# define __EXTENSIONS__
+# include <sys/procset.h>
+#endif /* ifdef __solaris__ */
+#include <signal.h>
 #include <bsd_termios.h>
 #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
 # include <termio.h>
 #endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #include <bsd_unistd.h>
 
+#ifdef __solaris__
+# undef GS
+#endif /* ifdef __solaris__ */
 #include "../common/common.h"
 #include "../vi/vi.h"
 #include "cl.h"

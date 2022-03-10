@@ -21,6 +21,12 @@
 #include <errno.h>
 #include <bsd_fcntl.h>
 #include <paths.h>
+#ifdef __solaris__
+# define _XPG7
+# undef __EXTENSIONS__
+# define __EXTENSIONS__
+# include <sys/procset.h>
+#endif /* ifdef __solaris__ */
 #include <signal.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
@@ -34,6 +40,9 @@
 
 #include "errc.h"
 
+#ifdef __solaris__
+# undef GS
+#endif /* ifdef __solaris__ */
 #include "../common/common.h"
 #include "cl.h"
 

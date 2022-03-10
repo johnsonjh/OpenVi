@@ -31,6 +31,11 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef __solaris__
+# undef _TIMESPEC_UTIL_H
+# define _TIMESPEC_UTIL_H 1
+#endif /* ifdef __solaris__ */
+
 #include_next <libgen.h>
 
 #ifndef _COMPAT_LIBGEN_H_

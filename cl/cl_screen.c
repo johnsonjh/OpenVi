@@ -14,12 +14,19 @@
 #include <sys/queue.h>
 
 #include <bitstring.h>
-#include <curses.h>
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
+
+#if defined(__solaris__)
+# define __EXTENSIONS__
+# include <termios.h>
+# include <sys/termios.h>
+#endif /* if defined(__solaris__) */
+
+#include <curses.h>
 #include <term.h>
 #include <bsd_termios.h>
 #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)

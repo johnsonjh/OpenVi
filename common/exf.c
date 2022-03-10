@@ -33,6 +33,13 @@
 #include <signal.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
+
+#if defined(__solaris__)
+# define __EXTENSIONS__
+# include <termios.h>
+# include <sys/termios.h>
+#endif /* if defined(__solaris__) */
+
 #include <bsd_string.h>
 #include <time.h>
 #include <bsd_unistd.h>
@@ -1405,7 +1412,11 @@ file_lock(SCR *sp, char *name, int *fdp, int fd, int iswrite)
          * they are the former.  There's no portable way to do this.
          */
         errno = 0;
+#ifdef __solaris__
+        return (LOCK_FAILED);
+#else
         return (flock(fd, LOCK_EX | LOCK_NB) ?
             errno == EAGAIN || errno == EWOULDBLOCK ? LOCK_UNAVAIL : LOCK_FAILED :
             LOCK_SUCCESS);
+#endif /* ifdef __solaris__ */
 }

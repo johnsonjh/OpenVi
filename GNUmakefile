@@ -5,7 +5,6 @@
 
 # Default compiler settings
 CC          ?= cc
-OPTLEVEL    ?= -Os
 DEPFLAGS    ?= -MMD -MP
 INCLDS       = -Iinclude -Icommon -Iregex -Iopenbsd
 CFLAGS      += -std=gnu99 $(INCLDS)
@@ -42,7 +41,19 @@ endif # OS
 ifeq ($(OS),sunos)
     OS=$(shell $(UNAME) -o 2> /dev/null | \
         $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
+    _SUNOS = 1
 endif # sunos
+
+###############################################################################
+
+ifeq ($(OS),solaris)
+   ifneq (,$(findstring suncc,$(CC))) # suncc
+      OPTLEVEL ?= -O2 -xspace
+      _OSLCC = 1
+   endif # suncc
+else
+   OPTLEVEL    ?= -Os
+endif # solaris
 
 ###############################################################################
 
@@ -56,6 +67,18 @@ endif # netbsd
 ifeq ($(OS),illumos)
    WFLAGS += -Wno-unknown-pragmas
 endif # illumos
+ifeq ($(OS),solaris)
+   ifeq ($(_OSLCC),1)
+      SUNBITS ?= $$(command -p isainfo -b 2> /dev/null || printf '%s' 32)
+       WFLAGS += -erroff=E_EMPTY_DECLARATION            \
+                 -erroff=E_STATEMENT_NOT_REACHED        \
+                 -erroff=E_ARG_INCOMPATIBLE_WITH_ARG_L  \
+                 -erroff=E_ASSIGNMENT_TYPE_MISMATCH     \
+                 -erroff=E_ATTRIBUTE_UNKNOWN
+       CFLAGS += -m$(SUNBITS)
+      LDFLAGS += -m$(SUNBITS)
+   endif # suncc
+endif # solaris
 
 ###############################################################################
 
@@ -94,15 +117,21 @@ ifeq ($(OS),aix)
    CFLAGS   += -I/opt/freeware/include
    LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
 else # !aix
+ifeq ($(OS),solaris)
+     CFLAGS += -U__EXTENSIONS__ -D_XPG4_2 -D__solaris__ -D_REENTRANT \
+               -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_XOPEN_SOURCE=600
+endif # solaris
 ifeq ($(OS),illumos)
-     CFLAGS += -Du_int32_t=uint32_t -Du_int16_t=uint16_t -Du_int8_t=uint8_t
-     CFLAGS += -DBYTE_ORDER=__BYTE_ORDER__ -D__illumos__
-     CFLAGS += -I/usr/include/ncurses
-  CURSESLIB ?= -lcurses
-   LINKLIBS ?= $(CURSESLIB)
-else # !illumos
-   LINKLIBS ?= -lutil $(CURSESLIB)
+     CFLAGS += -D__illumos__
 endif # illumos
+ifeq ($(_SUNOS),1)
+     CFLAGS += -Du_int32_t=uint32_t -Du_int16_t=uint16_t -Du_int8_t=uint8_t
+     CFLAGS += -DBYTE_ORDER=__BYTE_ORDER__
+     CFLAGS += -I/usr/include/ncurses
+   LINKLIBS ?= $(CURSESLIB)
+else # !sunos
+   LINKLIBS ?= -lutil $(CURSESLIB)
+endif # sunos
      CFLAGS += $(WFLAGS)
 endif # aix
 LINKLIBS    += $(EXTRA_LIBS)

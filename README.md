@@ -20,6 +20,7 @@
       - [AIX](#aix)
       - [NetBSD](#netbsd)
       - [illumos](#illumos)
+      - [Solaris](#solaris)
 - [Availability](#availability)
 - [Versioning](#versioning)
 - [History](#history)
@@ -148,18 +149,21 @@ view.
   - *illumos* **OpenIndiana** Hipster
   - **NetBSD** 9+
   - **OpenBSD** 6.9+
+  - *Oracle* **Solaris** 11+
   - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
 
 - The following compilers are fully supported and regularly tested:
-  - *LLVM* **Clang** (*BSD*, *Darwin*, *Linux*, *Windows*) V6+
+  - *LLVM* **Clang** (*BSD*, *Darwin*, *illumos*, *Linux*, *Solaris*,
+    *Windows*) V6+
   - *AMD* **Optimizing C**/**C++** (*Linux*) V3+
-  - *GNU* **GCC** (*AIX*, *BSD*, *Darwin*, *Linux*, *Windows*) V4.6+
+  - *GNU* **GCC** (*AIX*, *BSD*, *Darwin*, *illumos*, *Linux*, *Solaris*,
+    *Windows*) V4.6+
   - *IBM* **Advance Toolchain** (*Linux on POWER*) V14.0+
   - *IBM* **Open XL C**/**C++** (*AIX*) V17.1+
   - *IBM* **XL C**/**C++** (*AIX*, *Linux*) V16.1+
   - *Intel* **oneAPI DPC++**/**C++** (*Linux*) V2021+
   - *Intel* **C Compiler Classic** (*Darwin*, *Linux*) V19.1+
-  - *Oracle* **Developer Studio** (*Linux*) V12.6+
+  - *Oracle* **Developer Studio** (*Linux*, *Solaris*) V12.6+
 
 Newer or older operating system and compiler releases, within reason, should
 work. The versions listed above are those regularly tested and known working.
@@ -169,7 +173,6 @@ work. The versions listed above are those regularly tested and known working.
 - The following platforms are **not** currently supported, but **support is
   planned** for a future release:
   - **Haiku** Walter
-  - *Oracle* **Solaris** 10/11+
 
 User contributions to enhance platform support are welcomed.
 
@@ -243,7 +246,7 @@ software packages or system configuration, consult your vendor's documentation.
 - Before building ***OpenVi*** on AIX, install the `ncurses` libraries and
   headers. IBM provides the necessary packages, `ncurses` and `ncurses-devel`,
   in RPM format as part of the *AIX Toolbox for Linux and Open Source
-  Software*. With appropriate permissions (e.g. `root`), these packages are
+  Software*. With the appropriate permissions (e.g. `root`), these packages are
   installable on most systems via the `dnf` or `yum` utilities, for example:
   ```sh
   dnf install ncurses ncurses-devel
@@ -259,16 +262,20 @@ software packages or system configuration, consult your vendor's documentation.
 
 - Compilation is supported using *IBM* **XL C**/**C++** V16.1+ (`gxlc` or
   `xlclang`), *IBM* **Open XL C**/**C++** V17.1+ (`ibm-clang`), or *GNU*
-  **GCC** (usually `gcc`, `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11`).
+  **GCC** (usually `gcc`, `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11`):
   - Link-time optimization (`LTO=1`) requires **Open XL C**/**C++** V17.1+.
     The *IBM* (*AIX Toolbox*) and *Bull*/*Atos* (*Bull Freeware*) **GCC**
     packages, and **XL C**/**C++** earlier than V17.1 are not LTO-enabled.
   - Link-time garbage collection (`LGC=1`) is **not** supported on IBM AIX.
+  - A 64-bit build is the default on systems operating in 64-bit mode; for
+    32-bit builds, value of the `MAIXBITS` environment variable should be
+    set to `32`.
+  - The value of the `CC` environment variable should be set to the full path
+    to the compiler (e.g. `/opt/freeware/bin/gcc`,
+    `/opt/IBM/xlC/16.1.0/bin/gxlc`, `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`,
+    etc.) if the compiler directory is not already part of the current `PATH`.
 
-- The value of the `CC` environment variable should be set to the full path to
-  the compiler (e.g. `/opt/freeware/bin/gcc`, `/opt/IBM/xlC/16.1.0/bin/gxlc`,
-  `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`, etc.) if the compiler directory is
-  not already part of the current `PATH`.
+- File locking is non-functional, but will be corrected in a future release.
 
 - Man pages are authored using BSD `mandoc` and require conversion before use
   with the AIX `man` software (which derives from AT&T's UNIX System V.)
@@ -289,15 +296,46 @@ software packages or system configuration, consult your vendor's documentation.
 
 - Before building ***OpenVi*** on **illumos** (i.e. **OpenIndiana**), install
   the `ncurses` libraries and headers. The **OpenIndiana** distribution
-  provides the necessary `ncurses` package in IPS format. With appropriate
-  permissions (e.g. `root`), the package can be installed using OpenIndiana's
+  provides the necessary `ncurses` package in IPS format. With the appropriate
+  permissions (e.g. `root`), the package can be installed using
+  **OpenIndiana**'s `pkg` utility, for example:
+  ```sh
+  pkg install ncurses
+  ```
+  **OpenIndiana** provides `libcurses`, an *XPG4*/*XSI* Extended Curses
+  implementation derived from AT&T System V, which is **not** yet supported for
+  use with ***OpenVi***.
+
+- Link-time garbage collection (`LGC=1`) is **not** supported on
+  **OpenIndiana**.
+
+#### Solaris
+
+- Before building ***OpenVi*** on *Oracle* **Solaris** 11, install the
+  `ncurses` libraries and headers. *Oracle* provides provides the necessary
+  `ncurses` package for **Solaris** 11 in IPS format. With the appropriate
+  permissions (e.g. `root`), the package can be installed using the **Solaris**
   `pkg` utility, for example:
   ```sh
   pkg install ncurses
   ```
-- Compilation is supported using **GCC** or **Clang**.
-  - Link-time optimization (`LTO=1`) is supported using either compiler.
-  - Link-time garbage collection (`LGC=1`) is **not** supported on OpenIndiana.
+  *Oracle* **Solaris** provides `libcurses`, an *XPG4*/*XSI* Extended Curses
+  implementation derived from AT&T System V, which is **not** yet supported for
+  use with ***OpenVi***.
+
+- Compilation is supported using *Oracle* **Developer Studio**, **GCC**, and
+  **Clang**:
+  - When using *Oracle* **Developer Studio**, invoke the compiler as `suncc`
+    or set the value of the `_OSLCC` environment variable to `1`.
+  - Link-time optimization (`LTO=1`) is currently supported only when using
+    **GCC** or **Clang**.
+  - Link-time garbage collection (`LGC=1`) is **not** supported on **Solaris**.
+  - When using the *Oracle* **Developer Studio** (`suncc`) compiler, the
+    default is to build a 64-bit binary on systems operating in 64-bit mode; to
+    create a 32-bit, build value of the `SUNBITS` environment variable should
+    be set to `32`.
+
+- File locking is non-functional, but will be corrected in a future release.
 
 ## Availability
 

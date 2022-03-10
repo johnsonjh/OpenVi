@@ -30,6 +30,12 @@
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 
+#if defined(__solaris__)
+# define __EXTENSIONS__
+# include <termios.h>
+# include <sys/termios.h>
+#endif /* if defined(__solaris__) */
+
 #if defined(__OpenBSD__) || defined(__NetBSD__)
 # include <unistd.h>
 # include <termios.h>
@@ -50,9 +56,9 @@
 #  ifndef __OpenBSD__
 #   if ( !defined(__APPLE__)  && !defined(__MACH__) && \
          !defined(__NetBSD__) )
-#    ifndef __illumos__
+#    if !defined(__solaris__) && !defined(__illumos__)
 #     include <pty.h>
-#    endif /* ifndef __illumos__ */
+#    endif /* if !defined(__solaris__) && !defined(__illumos__) */
 #   endif /* if ( !defined(__APPLE__)  && !defined(__MACH__) && \
                   !defined(__NetBSD__) ) */
 #  endif /* ifndef __OpenBSD__ */
@@ -72,9 +78,9 @@ int openpty(int *, int *, char *, struct termios *, struct winsize *);
 #endif /* defined(__OpenBSD__) || defined(__NetBSD__) ||
         ( defined(__APPLE__) && defined(__MACH__) ) */
 
-#if defined(_AIX) || defined(__illumos__)
+#if defined(_AIX) || defined(__illumos__) || defined(__solaris__)
 # define HAVE_SYS5_PTY
-#endif /* if defined(_AIX) || defined(__illumos__) */
+#endif /* if defined(_AIX) || defined(__illumos__) || defined(__solaris__) */
 
 #ifdef HAVE_SYS5_PTY
 # include <sys/stropts.h>
@@ -782,7 +788,7 @@ static int
 ptym_open(char *pts_name)
 {
     int fdm;
-    char *ptr, *ptsname();
+    char *ptr, *ptsname(int fdm);
 
     strcpy(pts_name, _PATH_SYSV_PTY);
     if ((fdm = open(pts_name, O_RDWR)) < 0 )

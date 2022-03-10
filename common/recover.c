@@ -27,6 +27,9 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <bitstring.h>
+#ifdef __solaris__
+# define _XPG7
+#endif /* ifdef __solaris__ */
 #include <dirent.h>
 #include <errno.h>
 #include <bsd_fcntl.h>

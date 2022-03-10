@@ -36,6 +36,11 @@
 #ifndef _COMPAT_STDLIB_H_
 # define _COMPAT_STDLIB_H_
 
+# ifdef __solaris__
+#  undef _TIMESPEC_UTIL_H
+#  define _TIMESPEC_UTIL_H 1
+# endif /* ifdef __solaris__ */
+
 # include <sys/types.h>
 # include <stdint.h>
 
