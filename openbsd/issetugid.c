@@ -38,43 +38,39 @@
 
 #undef open
 
-#if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) ) \
-         || defined(__linux__) || defined(__midipix__) \
-         || defined(__illumos__)
-# include <sys/auxv.h>
+#if (defined(__GLIBC__) && defined(__GLIBC_MINOR__)) || defined(__linux__) ||  \
+    defined(__midipix__) || defined(__illumos__)
+#include <sys/auxv.h>
 #else
-# include <unistd.h>
-#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )
-                  || defined(__linux__) || defined(__midipix__)
+#include <unistd.h>
+#endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )                \
+                  || defined(__linux__) || defined(__midipix__)                \
                   || defined(__illumos__) */
 
-#if defined(__FreeBSD__) || defined(__OpenBSD__) \
-       || ( defined(__APPLE__ ) && defined(__MACH__) ) \
-       || defined(__CYGWIN__) || defined(__NetBSD__)
-# include <unistd.h>
+#if defined(__FreeBSD__) || defined(__OpenBSD__) ||                            \
+    (defined(__APPLE__) && defined(__MACH__)) || defined(__CYGWIN__) ||        \
+    defined(__NetBSD__)
+#include <unistd.h>
 #else
 
-# if defined(__linux__) || defined(__illumos__)
-#  include <elf.h>
-# endif /* if defined(__linux__) || defined(__illumos__) */
+#if defined(__linux__) || defined(__illumos__)
+#include <elf.h>
+#endif /* if defined(__linux__) || defined(__illumos__) */
 
-int
-issetugid(void)
-{
-    int rv = 0;
+int issetugid(void) {
+  int rv = 0;
 
+  errno = 0;
+#if !defined(_AIX) && !defined(__illumos__)
+  rv = getauxval(AT_SECURE) != 0;
+#endif /* if !defined(_AIX) && !defined(__illumos__) */
+  if (errno) {
     errno = 0;
-# if !defined(_AIX) && !defined(__illumos__)
-    rv = getauxval(AT_SECURE) != 0;
-# endif /* if !defined(_AIX) && !defined(__illumos__) */
-    if (errno)
-    {
-        errno = 0;
-        rv = 1;
-    }
+    rv = 1;
+  }
 
-    return rv;
+  return rv;
 }
-#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)
-                || ( defined(__APPLE__) && defined(__MACH__) )
+#endif /* if defined(__FreeBSD__) || defined(__OpenBSD__)                      \
+                || ( defined(__APPLE__) && defined(__MACH__) )                 \
                 || defined(__CYGWIN__) || defined(__NetBSD__) */
