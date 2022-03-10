@@ -17,6 +17,9 @@
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+#ifdef __solaris__
+# define _XPG7
+#endif /* ifdef __solaris__ */
 #include <signal.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>

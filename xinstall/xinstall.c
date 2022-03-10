@@ -37,6 +37,10 @@
 
 #include "../include/compat.h"
 
+#ifdef __solaris__
+# define _XPG7
+#endif /* ifdef __solaris__ */
+
 #include <sys/mman.h>
 
 #ifdef __illumos__

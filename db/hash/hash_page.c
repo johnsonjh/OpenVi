@@ -879,11 +879,11 @@ open_temp(HTAB *hashp)
         /* Block signals; make sure file goes away at process exit. */
         (void)sigfillset(&set);
         (void)sigprocmask(SIG_BLOCK, &set, &oset);
-#ifdef _AIX
+#if defined(_AIX) || defined(__solaris__)
         if ((hashp->fp = mkstemp(path)) != -1) {
 #else
         if ((hashp->fp = mkostemp(path, O_CLOEXEC)) != -1) {
-#endif /* ifdef _AIX */
+#endif /* if defined(_AIX) || defined(__solaris__) */
                 (void)unlink(path);
         }
         (void)sigprocmask(SIG_SETMASK, &oset, (sigset_t *)NULL);

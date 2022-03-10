@@ -28,6 +28,13 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <bsd_stdlib.h>
+
+#ifdef __solaris__
+# undef _STRICT_STDC
+# undef __EXTENSIONS__
+# define __EXTENSIONS__
+#endif /* ifdef __solaris__ */
+
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 

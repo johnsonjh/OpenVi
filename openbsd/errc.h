@@ -36,12 +36,17 @@
 
 # include "../include/compat.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
+# ifndef __solaris__
+#  include <sys/stat.h>
+#  include <sys/types.h>
+#else
+# undef _TIMESPEC_UTIL_H
+# define _TIMESPEC_UTIL_H 1
+# endif /* ifndef __solaris__ */
 
-# include <grp.h>
 # include <stdarg.h>
 # include <stddef.h>
+# include <grp.h>
 
 # undef open
 

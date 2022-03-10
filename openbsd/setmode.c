@@ -47,7 +47,16 @@
 #include <bsd_unistd.h>
 #include <ctype.h>
 #include <errno.h>
-#include <signal.h>
+#ifdef __solaris__
+# undef __EXTENSIONS__
+# define __EXTENSIONS__
+# define _XPG7
+# include <sys/procset.h>
+# undef __EXTENSIONS__
+# include <signal.h>
+#else
+# include <signal.h>
+#endif /* ifdef __solaris__ */
 
 #undef open
 
