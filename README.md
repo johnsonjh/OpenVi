@@ -245,7 +245,7 @@ vendor's documentation.
 #### AIX
 
 - Before building ***OpenVi*** on **AIX**, install the `ncurses` libraries and
-  headers. *IBM *provides the necessary packages, `ncurses` and
+  headers. *IBM* provides the necessary packages, `ncurses` and
   `ncurses-devel`, in RPM format as part of the *AIX Toolbox for Linux and Open
   Source Software*. With the appropriate permissions (e.g. `root`), these
   packages are installable on most systems using the `dnf` or `yum` utilities,
