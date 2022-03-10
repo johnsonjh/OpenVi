@@ -237,17 +237,19 @@ sudo env PREFIX=/usr/local make install
 
 ### Platform Specifics
 
-The following sections document only platform specific differences, and are not
-intended as a general or exhaustive reference. For installation of prerequisite
-software packages or system configuration, consult your vendor's documentation.
+The following sections document ***only*** platform specific differences, and
+are not intended to be a general or exhaustive reference. For installation of
+prerequisite software packages or other system configuration, consult the
+vendor's documentation.
 
 #### AIX
 
-- Before building ***OpenVi*** on AIX, install the `ncurses` libraries and
-  headers. IBM provides the necessary packages, `ncurses` and `ncurses-devel`,
-  in RPM format as part of the *AIX Toolbox for Linux and Open Source
-  Software*. With the appropriate permissions (e.g. `root`), these packages are
-  installable on most systems via the `dnf` or `yum` utilities, for example:
+- Before building ***OpenVi*** on **AIX**, install the `ncurses` libraries and
+  headers. *IBM *provides the necessary packages, `ncurses` and
+  `ncurses-devel`, in RPM format as part of the *AIX Toolbox for Linux and Open
+  Source Software*. With the appropriate permissions (e.g. `root`), these
+  packages are installable on most systems using the `dnf` or `yum` utilities,
+  for example:
   ```sh
   dnf install ncurses ncurses-devel
   ```
@@ -255,56 +257,60 @@ software packages or system configuration, consult your vendor's documentation.
   ```sh
   yum install ncurses ncurses-devel
   ```
-  IBM **AIX** (and **PASE for i**, an integrated runtime environment for AIX
-  binaries running on the **IBM i** operating system) provides `libxcurses`,
-  an *XPG4*/*XSI* Extended Curses implementation derived from AT&T System V,
-  which is **not** yet supported for use with ***OpenVi***.
+  The *IBM* **AIX** base system (and **PASE for i**, an integrated runtime
+  environment for **AIX** applications on the **IBM i** operating system)
+  provides `libxcurses`, an *XPG4*/*XSI* Extended Curses implementation
+  derived from *AT&T System V*, which is **not** yet supported for use with
+  ***OpenVi***.
 
 - Compilation is supported using *IBM* **XL C**/**C++** V16.1+ (`gxlc` or
   `xlclang`), *IBM* **Open XL C**/**C++** V17.1+ (`ibm-clang`), or *GNU*
   **GCC** (usually `gcc`, `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11`):
   - Link-time optimization (`LTO=1`) requires **Open XL C**/**C++** V17.1+.
     The *IBM* (*AIX Toolbox*) and *Bull*/*Atos* (*Bull Freeware*) **GCC**
-    packages, and **XL C**/**C++** earlier than V17.1 are not LTO-enabled.
-  - Link-time garbage collection (`LGC=1`) is **not** supported on IBM AIX.
-  - A 64-bit build is the default on systems operating in 64-bit mode; for
-    32-bit builds, value of the `MAIXBITS` environment variable should be
-    set to `32`.
-  - The value of the `CC` environment variable should be set to the full path
-    to the compiler (e.g. `/opt/freeware/bin/gcc`,
+    packages, and **XL C**/**C++** earlier than V17.1 are **not** LTO-enabled.
+  - Link-time garbage collection (`LGC=1`) is **not** supported on *IBM*
+    **AIX**.
+  - A 64-bit build is the default on systems operating in 64-bit mode; for a
+    32-bit build, set the value of the `MAIXBITS` environment variable to
+    `32` (e.g. `export MAIXBITS=32`).
+  - The value of the `CC` environment variable must be set to the full path
+    of the compiler (e.g. `/opt/freeware/bin/gcc`,
     `/opt/IBM/xlC/16.1.0/bin/gxlc`, `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`,
-    etc.) if the compiler directory is not already part of the current `PATH`.
+    etc.) unless the compiler directory is already part of the current `PATH`.
 
-- File locking is non-functional, but will be corrected in a future release.
+- File locking (via `flock()` as provided by the **AIX** `libbsd` library) is
+  non-functional; this will be investigated and corrected in a future release.
 
-- Man pages are authored using BSD `mandoc` and require conversion before use
-  with the AIX `man` software (which derives from AT&T's UNIX System V.)
+- ***OpenVi*** man pages are authored with `mandoc` and require conversion
+  before use with the **AIX** `man` software (which is derived from *AT&T
+  UNIX System V*.)
 
 #### NetBSD
 
-- On **NetBSD** systems, ***OpenVi*** uses the bundled BSD `curses` library.
-  To use `ncurses` instead, set the values of the `CFLAGS` and `CURSESLIB`
-  environment variables appropriately (i.e. `CFLAGS="-I/usr/pkg/include"`
-  `CURSESLIB="-lncurses"`).
+- On **NetBSD** installations, the default ***OpenVi*** builds use the BSD
+  `curses` library provided by the NetBSD base system. To use `ncurses`
+  instead, set the values of the `CFLAGS`, `LDFLAGS`, and `CURSESLIB`
+  environment variables appropriately (i.e. `CFLAGS=-I/usr/pkg/include`
+  `LDFLAGS=-L/usr/pkg/lib` `CURSESLIB="-lncurses"`).
 
-- Link-time garbage collection (`LGC=1`) and link-time optimization (`LTO=1`)
-  are supported on *NetBSD*, using either the **GCC** or **Clang** compilers.
-  - The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
-    using **Clang**, available as an installable package (i.e. `pkgin in lld`).
+- The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
+  using **Clang**. It is available as an installable package (i.e. `pkgin
+  install lld`).
 
 #### illumos
 
-- Before building ***OpenVi*** on **illumos** (i.e. **OpenIndiana**), install
-  the `ncurses` libraries and headers. The **OpenIndiana** distribution
-  provides the necessary `ncurses` package in IPS format. With the appropriate
-  permissions (e.g. `root`), the package can be installed using
-  **OpenIndiana**'s `pkg` utility, for example:
+- Before building ***OpenVi*** on an **illumos** distribution (i.e.
+  **OpenIndiana**), install the `ncurses` libraries and headers. The
+  **OpenIndiana** distribution provides the necessary `ncurses` package in IPS
+  format. With the appropriate permissions (e.g. `root`), the package can be
+  installed using the **OpenIndiana** `pkg` utility, for example:
   ```sh
   pkg install ncurses
   ```
-  **OpenIndiana** provides `libcurses`, an *XPG4*/*XSI* Extended Curses
-  implementation derived from AT&T System V, which is **not** yet supported for
-  use with ***OpenVi***.
+  The **OpenIndiana** base system provides `libcurses`, an *XPG4*/*XSI*
+  Extended Curses implementation derived from *AT&T System V*, which is **not**
+  yet supported for use with ***OpenVi***.
 
 - Link-time garbage collection (`LGC=1`) is **not** supported on
   **OpenIndiana**.
@@ -319,9 +325,9 @@ software packages or system configuration, consult your vendor's documentation.
   ```sh
   pkg install ncurses
   ```
-  *Oracle* **Solaris** provides `libcurses`, an *XPG4*/*XSI* Extended Curses
-  implementation derived from AT&T System V, which is **not** yet supported for
-  use with ***OpenVi***.
+  The base *Oracle* **Solaris** system provides `libcurses`, an *XPG4*/*XSI*
+  Extended Curses implementation derived from *AT&T System V*, which is **not**
+  yet supported for use with ***OpenVi***.
 
 - Compilation is supported using *Oracle* **Developer Studio**, **GCC**, and
   **Clang**:
@@ -335,7 +341,9 @@ software packages or system configuration, consult your vendor's documentation.
     create a 32-bit, build value of the `SUNBITS` environment variable should
     be set to `32`.
 
-- File locking is non-functional, but will be corrected in a future release.
+- File locking is unavailable, due to the absence of BSD-style `flock()`
+  locking on **Solaris**. This will be addressed by supporting *System V*-style
+  `fcntl()` locking in a future release.
 
 ## Availability
 
