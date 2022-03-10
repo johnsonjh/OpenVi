@@ -337,14 +337,14 @@ vendor's documentation.
   - Link-time optimization (`LTO=1`) is currently supported **only** when using
     **GCC** or **Clang**.
   - Link-time garbage collection (`LGC=1`) is **not** supported on **Solaris**.
-  - When using the *Oracle* **Developer Studio** (`suncc`) compiler, the
-    default is to build a 64-bit binary on systems operating in 64-bit mode; to
-    create a 32-bit, build value of the `SUNBITS` environment variable should
-    be set to `32`.
+  - When using the *Oracle* **Developer Studio** (`suncc`) compiler, a 64-bit
+    build is the default on systems operating in 64-bit mode; for a 32-bit
+    build, set the value of the `SUNBITS` environment variable to `32` (e.g.
+    `export SUNBITS=32`).
 
-- File locking is unavailable, due to the absence of BSD-style `flock()`
-  locking on **Solaris**. This will be addressed by supporting *System V*-style
-  `fcntl()` locking in a future release.
+- File locking is unavailable due to the absence of `flock()` on **Solaris**.
+  This will be addressed by supporting *System V*-style `fcntl()` locking in a
+  future release.
 
 ## Availability
 
