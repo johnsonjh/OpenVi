@@ -26,7 +26,6 @@
 #ifdef __solaris__
 # define _XPG7
 # undef __EXTENSIONS__
-//# define __EXTENSIONS__
 # include <sys/procset.h>
 #endif /* ifdef __solaris__ */
 #include <signal.h>
