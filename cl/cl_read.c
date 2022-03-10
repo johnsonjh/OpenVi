@@ -38,10 +38,10 @@
 
 #undef open
 
-#ifdef _AIX
+#if defined(_AIX) || defined(__illumos__)
 # undef lines
 # undef columns
-#endif /* ifdef _AIX */
+#endif /* if defined(_AIX) || defined(__illumos__) */
 
 static input_t  cl_read(SCR *,
                     u_int32_t, CHAR_T *, size_t, int *, struct timeval *);

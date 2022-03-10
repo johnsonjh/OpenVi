@@ -41,8 +41,13 @@
 #include "../include/compat.h"
 
 #include <sys/types.h>
-
 #include <assert.h>
+
+#if defined(__illumos__) && !defined(_POSIX_PTHREAD_SEMANTICS)
+# define _POSIX_PTHREAD_SEMANTICS
+#endif /* if defined(__illumos__) && !defined(_POSIX_PTHREAD_SEMANTICS) */
+
+
 #include <grp.h>
 #include <pwd.h>
 #include <stdio.h>

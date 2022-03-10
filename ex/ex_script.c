@@ -48,9 +48,13 @@
 #  include <sys/pty.h>
 # else
 #  ifndef __OpenBSD__
-#   if ( !defined(__APPLE__) && !defined(__MACH__) && !defined(__NetBSD__) )
-#    include <pty.h>
-#   endif /* if ( !defined(__APPLE__) && !defined(__MACH__) && !defined(__NetBSD__) ) */
+#   if ( !defined(__APPLE__)  && !defined(__MACH__) && \
+         !defined(__NetBSD__) )
+#    ifndef __illumos__
+#     include <pty.h>
+#    endif /* ifndef __illumos__ */
+#   endif /* if ( !defined(__APPLE__)  && !defined(__MACH__) && \
+                  !defined(__NetBSD__) ) */
 #  endif /* ifndef __OpenBSD__ */
 # endif /* ifdef _AIX */
 #else
@@ -68,9 +72,9 @@ int openpty(int *, int *, char *, struct termios *, struct winsize *);
 #endif /* defined(__OpenBSD__) || defined(__NetBSD__) ||
         ( defined(__APPLE__) && defined(__MACH__) ) */
 
-#ifdef _AIX
+#if defined(_AIX) || defined(__illumos__)
 # define HAVE_SYS5_PTY
-#endif /* ifdef _AIX */
+#endif /* if defined(_AIX) || defined(__illumos__) */
 
 #ifdef HAVE_SYS5_PTY
 # include <sys/stropts.h>

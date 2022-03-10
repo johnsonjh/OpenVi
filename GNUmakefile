@@ -39,6 +39,10 @@ ifndef OS
     OS=$(shell $(UNAME) -s 2> /dev/null | \
         $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
 endif # OS
+ifeq ($(OS),sunos)
+    OS=$(shell $(UNAME) -o 2> /dev/null | \
+        $(TR) '[:upper:]' '[:lower:]' 2> /dev/null)
+endif # sunos
 
 ###############################################################################
 
@@ -49,6 +53,9 @@ ifeq ($(OS),netbsd)
                 -Wno-char-subscripts
    endif # clang
 endif # netbsd
+ifeq ($(OS),illumos)
+   WFLAGS += -Wno-unknown-pragmas
+endif # illumos
 
 ###############################################################################
 
@@ -87,8 +94,16 @@ ifeq ($(OS),aix)
    CFLAGS   += -I/opt/freeware/include
    LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
 else # !aix
-     CFLAGS += $(WFLAGS)
+ifeq ($(OS),illumos)
+     CFLAGS += -Du_int32_t=uint32_t -Du_int16_t=uint16_t -Du_int8_t=uint8_t
+     CFLAGS += -DBYTE_ORDER=__BYTE_ORDER__ -D__illumos__
+     CFLAGS += -I/usr/include/ncurses
+  CURSESLIB ?= -lcurses
+   LINKLIBS ?= $(CURSESLIB)
+else # !illumos
    LINKLIBS ?= -lutil $(CURSESLIB)
+endif # illumos
+     CFLAGS += $(WFLAGS)
 endif # aix
 LINKLIBS    += $(EXTRA_LIBS)
 

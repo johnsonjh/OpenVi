@@ -39,12 +39,14 @@
 #undef open
 
 #if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) ) \
-         || defined(__linux__) || defined(__midipix__)
+         || defined(__linux__) || defined(__midipix__) \
+         || defined(__illumos__)
 # include <sys/auxv.h>
 #else
 # include <unistd.h>
 #endif /* if ( defined(__GLIBC__) && defined(__GLIBC_MINOR__) )
-                  || defined(__linux__) || defined(__midipix__) */
+                  || defined(__linux__) || defined(__midipix__)
+                  || defined(__illumos__) */
 
 #if defined(__FreeBSD__) || defined(__OpenBSD__) \
        || ( defined(__APPLE__ ) && defined(__MACH__) ) \
@@ -52,9 +54,9 @@
 # include <unistd.h>
 #else
 
-# ifdef __linux__
+# if defined(__linux__) || defined(__illumos__)
 #  include <elf.h>
-# endif /* ifdef __linux__ */
+# endif /* if defined(__linux__) || defined(__illumos__) */
 
 int
 issetugid(void)
@@ -62,9 +64,9 @@ issetugid(void)
   int rv = 0;
 
   errno = 0;
-# ifndef _AIX
+# if !defined(_AIX) && !defined(__illumos__)
   rv = getauxval(AT_SECURE) != 0;
-# endif /* ifndef _AIX */
+# endif /* if !defined(_AIX) && !defined(__illumos__) */
   if (errno)
     {
       errno = 0;
