@@ -47,7 +47,6 @@
 extern char  *__progname;
 const  char  *bsd_getprogname(void);
 
-void arc4random_buf(void *, size_t);
 void *openbsd_reallocarray(void *, size_t, size_t);
 void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
 long long strtonum(const char *, long long, long long, const char **);

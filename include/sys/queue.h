@@ -108,11 +108,14 @@ struct {                                                                \
  * Singly-linked List access methods.
  */
 # define SLIST_FIRST(head)      ((head)->slh_first)
+
 # define SLIST_END(head)                NULL
+
 # define SLIST_EMPTY(head)      (SLIST_FIRST(head) == SLIST_END(head))
+
 # define SLIST_NEXT(elm, field) ((elm)->field.sle_next)
 
-# define SLIST_FOREACH(var, head, field)                                        \
+# define SLIST_FOREACH(var, head, field)                                \
         for((var) = SLIST_FIRST(head);                                  \
             (var) != SLIST_END(head);                                   \
             (var) = SLIST_NEXT(var, field))
@@ -182,8 +185,11 @@ struct {                                                                \
  * List access methods.
  */
 # define LIST_FIRST(head)               ((head)->lh_first)
+
 # define LIST_END(head)                 NULL
+
 # define LIST_EMPTY(head)               (LIST_FIRST(head) == LIST_END(head))
+
 # define LIST_NEXT(elm, field)          ((elm)->field.le_next)
 
 # define LIST_FOREACH(var, head, field)                                 \
@@ -218,7 +224,7 @@ struct {                                                                \
         (listelm)->field.le_prev = &(elm)->field.le_next;               \
 } while (0)
 
-# define LIST_INSERT_HEAD(head, elm, field) do {                                \
+# define LIST_INSERT_HEAD(head, elm, field) do {                        \
         if (((elm)->field.le_next = (head)->lh_first) != NULL)          \
                 (head)->lh_first->field.le_prev = &(elm)->field.le_next;\
         (head)->lh_first = (elm);                                       \
@@ -245,164 +251,6 @@ struct {                                                                \
 } while (0)
 
 /*
- * Simple queue definitions.
- */
-# define SIMPLEQ_HEAD(name, type)                                       \
-struct name {                                                           \
-        struct type *sqh_first; /* first element */                     \
-        struct type **sqh_last; /* addr of last next element */         \
-}
-
-# define SIMPLEQ_HEAD_INITIALIZER(head)                                 \
-        { NULL, &(head).sqh_first }
-
-# define SIMPLEQ_ENTRY(type)                                            \
-struct {                                                                \
-        struct type *sqe_next;  /* next element */                      \
-}
-
-/*
- * Simple queue access methods.
- */
-# define SIMPLEQ_FIRST(head)        ((head)->sqh_first)
-# define SIMPLEQ_END(head)          NULL
-# define SIMPLEQ_EMPTY(head)        (SIMPLEQ_FIRST(head) == SIMPLEQ_END(head))
-# define SIMPLEQ_NEXT(elm, field)    ((elm)->field.sqe_next)
-
-# define SIMPLEQ_FOREACH(var, head, field)                              \
-        for((var) = SIMPLEQ_FIRST(head);                                \
-            (var) != SIMPLEQ_END(head);                                 \
-            (var) = SIMPLEQ_NEXT(var, field))
-
-# define SIMPLEQ_FOREACH_SAFE(var, head, field, tvar)                   \
-        for ((var) = SIMPLEQ_FIRST(head);                               \
-            (var) && ((tvar) = SIMPLEQ_NEXT(var, field), 1);            \
-            (var) = (tvar))
-
-/*
- * Simple queue functions.
- */
-# define SIMPLEQ_INIT(head) do {                                                \
-        (head)->sqh_first = NULL;                                       \
-        (head)->sqh_last = &(head)->sqh_first;                          \
-} while (0)
-
-# define SIMPLEQ_INSERT_HEAD(head, elm, field) do {                     \
-        if (((elm)->field.sqe_next = (head)->sqh_first) == NULL)        \
-                (head)->sqh_last = &(elm)->field.sqe_next;              \
-        (head)->sqh_first = (elm);                                      \
-} while (0)
-
-# define SIMPLEQ_INSERT_TAIL(head, elm, field) do {                     \
-        (elm)->field.sqe_next = NULL;                                   \
-        *(head)->sqh_last = (elm);                                      \
-        (head)->sqh_last = &(elm)->field.sqe_next;                      \
-} while (0)
-
-# define SIMPLEQ_INSERT_AFTER(head, listelm, elm, field) do {           \
-        if (((elm)->field.sqe_next = (listelm)->field.sqe_next) == NULL)\
-                (head)->sqh_last = &(elm)->field.sqe_next;              \
-        (listelm)->field.sqe_next = (elm);                              \
-} while (0)
-
-# define SIMPLEQ_REMOVE_HEAD(head, field) do {                          \
-        if (((head)->sqh_first = (head)->sqh_first->field.sqe_next) == NULL) \
-                (head)->sqh_last = &(head)->sqh_first;                  \
-} while (0)
-
-# define SIMPLEQ_REMOVE_AFTER(head, elm, field) do {                    \
-        if (((elm)->field.sqe_next = (elm)->field.sqe_next->field.sqe_next) \
-            == NULL)                                                    \
-                (head)->sqh_last = &(elm)->field.sqe_next;              \
-} while (0)
-
-# define SIMPLEQ_CONCAT(head1, head2) do {                              \
-        if (!SIMPLEQ_EMPTY((head2))) {                                  \
-                *(head1)->sqh_last = (head2)->sqh_first;                \
-                (head1)->sqh_last = (head2)->sqh_last;                  \
-                SIMPLEQ_INIT((head2));                                  \
-        }                                                               \
-} while (0)
-
-/*
- * XOR Simple queue definitions.
- */
-# define XSIMPLEQ_HEAD(name, type)                                      \
-struct name {                                                           \
-        struct type *sqx_first; /* first element */                     \
-        struct type **sqx_last; /* addr of last next element */         \
-        unsigned long sqx_cookie;                                       \
-}
-
-# define XSIMPLEQ_ENTRY(type)                                           \
-struct {                                                                \
-        struct type *sqx_next;  /* next element */                      \
-}
-
-/*
- * XOR Simple queue access methods.
- */
-# define XSIMPLEQ_XOR(head, ptr)            ((__typeof(ptr))((head)->sqx_cookie ^ \
-                                        (unsigned long)(ptr)))
-# define XSIMPLEQ_FIRST(head)       XSIMPLEQ_XOR(head, ((head)->sqx_first))
-# define XSIMPLEQ_END(head)         NULL
-# define XSIMPLEQ_EMPTY(head)       (XSIMPLEQ_FIRST(head) == XSIMPLEQ_END(head))
-# define XSIMPLEQ_NEXT(head, elm, field)    XSIMPLEQ_XOR(head, ((elm)->field.sqx_next))
-
-# define XSIMPLEQ_FOREACH(var, head, field)                             \
-        for ((var) = XSIMPLEQ_FIRST(head);                              \
-            (var) != XSIMPLEQ_END(head);                                \
-            (var) = XSIMPLEQ_NEXT(head, var, field))
-
-# define XSIMPLEQ_FOREACH_SAFE(var, head, field, tvar)                  \
-        for ((var) = XSIMPLEQ_FIRST(head);                              \
-            (var) && ((tvar) = XSIMPLEQ_NEXT(head, var, field), 1);     \
-            (var) = (tvar))
-
-/*
- * XOR Simple queue functions.
- */
-# define XSIMPLEQ_INIT(head) do {                                       \
-        arc4random_buf(&(head)->sqx_cookie, sizeof((head)->sqx_cookie)); \
-        (head)->sqx_first = XSIMPLEQ_XOR(head, NULL);                   \
-        (head)->sqx_last = XSIMPLEQ_XOR(head, &(head)->sqx_first);      \
-} while (0)
-
-# define XSIMPLEQ_INSERT_HEAD(head, elm, field) do {                    \
-        if (((elm)->field.sqx_next = (head)->sqx_first) ==              \
-            XSIMPLEQ_XOR(head, NULL))                                   \
-                (head)->sqx_last = XSIMPLEQ_XOR(head, &(elm)->field.sqx_next); \
-        (head)->sqx_first = XSIMPLEQ_XOR(head, (elm));                  \
-} while (0)
-
-# define XSIMPLEQ_INSERT_TAIL(head, elm, field) do {                    \
-        (elm)->field.sqx_next = XSIMPLEQ_XOR(head, NULL);               \
-        *(XSIMPLEQ_XOR(head, (head)->sqx_last)) = XSIMPLEQ_XOR(head, (elm)); \
-        (head)->sqx_last = XSIMPLEQ_XOR(head, &(elm)->field.sqx_next);  \
-} while (0)
-
-# define XSIMPLEQ_INSERT_AFTER(head, listelm, elm, field) do {          \
-        if (((elm)->field.sqx_next = (listelm)->field.sqx_next) ==      \
-            XSIMPLEQ_XOR(head, NULL))                                   \
-                (head)->sqx_last = XSIMPLEQ_XOR(head, &(elm)->field.sqx_next); \
-        (listelm)->field.sqx_next = XSIMPLEQ_XOR(head, (elm));          \
-} while (0)
-
-# define XSIMPLEQ_REMOVE_HEAD(head, field) do {                         \
-        if (((head)->sqx_first = XSIMPLEQ_XOR(head,                     \
-            (head)->sqx_first)->field.sqx_next) == XSIMPLEQ_XOR(head, NULL)) \
-                (head)->sqx_last = XSIMPLEQ_XOR(head, &(head)->sqx_first); \
-} while (0)
-
-# define XSIMPLEQ_REMOVE_AFTER(head, elm, field) do {                   \
-        if (((elm)->field.sqx_next = XSIMPLEQ_XOR(head,                 \
-            (elm)->field.sqx_next)->field.sqx_next)                     \
-            == XSIMPLEQ_XOR(head, NULL))                                \
-                (head)->sqx_last =                                      \
-                    XSIMPLEQ_XOR(head, &(elm)->field.sqx_next);         \
-} while (0)
-
-/*
  * Tail queue definitions.
  */
 # define TAILQ_HEAD(name, type)                                         \
@@ -424,17 +272,21 @@ struct {                                                                \
  * Tail queue access methods.
  */
 # define TAILQ_FIRST(head)              ((head)->tqh_first)
+
 # define TAILQ_END(head)                        NULL
+
 # define TAILQ_NEXT(elm, field)         ((elm)->field.tqe_next)
+
 # define TAILQ_LAST(head, headname)                                     \
         (*(((struct headname *)((head)->tqh_last))->tqh_last))
-/* XXX */
+
 # define TAILQ_PREV(elm, headname, field)                               \
         (*(((struct headname *)((elm)->field.tqe_prev))->tqh_last))
+
 # define TAILQ_EMPTY(head)                                              \
         (TAILQ_FIRST(head) == TAILQ_END(head))
 
-# define TAILQ_FOREACH(var, head, field)                                        \
+# define TAILQ_FOREACH(var, head, field)                                \
         for((var) = TAILQ_FIRST(head);                                  \
             (var) != TAILQ_END(head);                                   \
             (var) = TAILQ_NEXT(var, field))

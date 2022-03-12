@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Sat Mar 12 12:21:39 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Sat Mar 12 12:40:57 2022
         + Add OpenBSD basename functionality for use with xinstall
         + Simplify compatibility headers
         + Make `sstrip` target depend on the `strip` target, since many
