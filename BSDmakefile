@@ -19,6 +19,8 @@ _GMAKE:
 			printf '\rError: %s\n' "GNU Make is required.";	\
 			exit 1;						\
 		}
-	@command gmake -j $(.MAKE.JOBS) $(.TARGETS)
+	@command gmake 							\
+		$$(printf '%s' "$(MAKEFLAGS)" | 			\
+			sed -e 's/-J .* //' -e 's/-J.* //') $(.TARGETS)
 
 ###############################################################################
