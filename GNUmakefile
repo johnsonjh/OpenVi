@@ -513,7 +513,7 @@ bin/xinstall: $(XOBJ)
 ifndef DEBUG
 	-@$(PRINTF) '\r\t$(LD):\t%42s\n' "$@"
 endif # DEBUG
-	@$(VERBOSE); $(CC) -o "$@" $^ $(LDFLAGS) $(LINKLIBS)
+	@$(VERBOSE); $(CC) -o "$@" $^ $(LDFLAGS) $(EXTRA_LIBS)
 
 .PHONY: xinstall
 xinstall: bin/xinstall
