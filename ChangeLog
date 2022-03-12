@@ -1,4 +1,4 @@
-OpenVi 7.0.15 -> OpenVi 7.1.16: Sat Mar 12 16:08:17 2022
+OpenVi 7.0.15 -> OpenVi 7.1.16: Sat Mar 12 16:46:17 2022
         + Add a BSD make wrapper that calls gmake if available
         + Add OpenBSD basename functionality for use with xinstall
         + Simplify compatibility headers
