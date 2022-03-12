@@ -5,6 +5,7 @@
 
 ###############################################################################
 
+.MAIN: all
 .MAKE.JOBS ?= 1
 .NOTPARALLEL: _FAIL all _GMAKE $(.TARGETS)
 .PHONY: _FAIL all _GMAKE $(.TARGETS)
