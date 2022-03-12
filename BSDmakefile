@@ -17,7 +17,7 @@ $(.TARGETS): _GMAKE
 _GMAKE:
 	@command -v gmake > /dev/null 2>&1 ||				\
 	{								\
-		printf '\rError: %s\n' "GNU Make is required.";		\
+		printf '\rError: %s\n' "GNU Make is required." 1>&2;	\
 		exit 1;							\
 	} &&								\
 	command gmake 							\
