@@ -596,7 +596,7 @@ log_err(SCR *sp, char *file, int line)
 {
         EXF *ep;
 
-        msgq(sp, M_SYSERR, "%s/%d: log put error", basename(file), line);
+        msgq(sp, M_SYSERR, "%s/%d: log put error", openbsd_basename(file), line);
         ep = sp->ep;
         (void)ep->log->close(ep->log);
         if (!log_init(sp, ep))

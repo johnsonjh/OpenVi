@@ -159,19 +159,6 @@
 /* pwd.h */
 #  define _PW_NAME_LEN 63
 
-/* unistd.h */
-#  ifndef HAVE_EXECVPE
-int execvpe(const char *, char *const *, char *const *);
-#  endif /* !HAVE_EXECVPE */
-
-#  ifndef HAVE_SETPROGNAME
-const char *getprogname(void);
-void setprogname(const char *progname);
-#  endif /* !HAVE_SETPROGNAME */
-
-/* getbsize.c */
-char *getbsize(int *, long *);
-
 /* #define d_namlen d_reclen */
 #  if !defined( _DIRENT_HAVE_NAMLEN )
 #   define D_NAMLEN(x) strnlen(( x )->d_name, ( x )->d_reclen)
@@ -241,9 +228,6 @@ char *getbsize(int *, long *);
 #  ifndef CHILD_MAX
 #   define CHILD_MAX 80 /* max simultaneous processes */
 #  endif /* ifndef CHILD_MAX */
-
-/* setproctitle.c */
-void setproctitle(const char *, ...);
 
 /* pw_dup.c */
 struct passwd *pw_dup(const struct passwd *);

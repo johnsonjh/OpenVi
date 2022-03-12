@@ -473,7 +473,7 @@ adjust: if (!O_ISSET(sp, O_LEFTRIGHT) &&
         /* Sanity checking. */
         if (CNO >= len && len != 0) {
                 msgq(sp, M_ERR, "Error: %s/%d: cno (%u) >= len (%u)",
-                     basename(__FILE__), __LINE__, CNO, len);
+                     openbsd_basename(__FILE__), __LINE__, CNO, len);
                 return (1);
         }
 #endif /* ifdef DEBUG */

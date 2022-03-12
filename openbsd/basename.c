@@ -26,7 +26,7 @@
 #undef open
 
 char *
-basename(char *path)
+openbsd_basename(char *path)
 {
   static char bname[PATH_MAX];
   size_t len;

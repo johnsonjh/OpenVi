@@ -52,17 +52,6 @@ extern   int openbsd_opterr, openbsd_optind, openbsd_optopt, openbsd_optreset;
 #  define STDOUT_FILENO 1       /* standard output file descriptor */
 #  define STDERR_FILENO 2       /* standard error file descriptor */
 
-int      execvpe(const char *, char *const *, char *const *);
-int      crypt_newhash(const char *, const char *, char *, size_t);
-int      getdtablecount(void);
-int      getentropy(void *, size_t);
-mode_t   getmode(const void *, mode_t);
-int      getresgid(gid_t *, gid_t *, gid_t *);
-int      getresuid(uid_t *, uid_t *, uid_t *);
-void    *setmode(const char *);
-int      setresgid(gid_t, gid_t, gid_t);
-int      setresuid(uid_t, uid_t, uid_t);
-
 # endif /* _COMPAT_UNISTD_H_ */
 
 #endif /* ifdef __OpenBSD__ */
