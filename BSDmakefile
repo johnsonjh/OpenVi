@@ -5,6 +5,7 @@
 
 ###############################################################################
 
+.SHELL: name=sh
 .MAIN: all
 .MAKE.JOBS ?= 1
 .NOTPARALLEL: _FAIL all _GMAKE $(.TARGETS)
@@ -15,12 +16,13 @@ $(.TARGETS): _GMAKE
 
 _GMAKE:
 	@command -v gmake > /dev/null 2>&1 ||				\
-		{							\
-			printf '\rError: %s\n' "GNU Make is required.";	\
-			exit 1;						\
-		}
-	@command gmake 							\
-		$$(printf '%s' "$(MAKEFLAGS)" | 			\
-			sed -e 's/-J .* //' -e 's/-J.* //') $(.TARGETS)
+	{								\
+		printf '\rError: %s\n' "GNU Make is required.";		\
+		exit 1;							\
+	} &&								\
+	command gmake 							\
+		$$(printf '%s' "$(MAKEFLAGS)" |				\
+			sed -e 's/-J .* //' -e 's/-J.* //')		\
+		$(.TARGETS)
 
 ###############################################################################
