@@ -21,8 +21,9 @@ _GMAKE:
 		exit 1;							\
 	} &&								\
 	command gmake 							\
-		$$(printf '%s' "$(MAKEFLAGS)" |				\
-			sed -e 's/-J .* //' -e 's/-J.* //')		\
+		$$(printf '%s' "$(MAKEFLAGS)"  2> /dev/null |		\
+			sed -e 's/-J .* //' 				\
+				-e 's/-J.* //' 2> /dev/null)		\
 		$(.TARGETS)
 
 ###############################################################################
