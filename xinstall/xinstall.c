@@ -259,7 +259,7 @@ main(int argc, char *argv[])
         {
           openbsd_errc(1, EFTYPE, "%s", odst);
         }
-      char *dest = dirname(odst);
+      char *dest = openbsd_dirname(odst);
       if (dest == NULL)
         {
           openbsd_errx(1, "cannot determine dirname");
@@ -270,13 +270,8 @@ main(int argc, char *argv[])
        * the target file. If more restrictive permissions are required then
        * '-d -m' ought to be used instead.
        */
-#if ( !defined(__APPLE__)  && !defined(_AIX) \
-   && !defined(__NetBSD__) && !defined(__OpenBSD__) )
-      if (dest == odst)
-#endif /* if ( !defined(__APPLE__)  && !defined(_AIX)
-            && !defined(__NetBSD__) && !defined(__OpenBSD__) */
-        if (strcmp(dest, "."))
-          install_dir(dest, 0755);
+      if (strcmp(dest, "."))
+        install_dir(dest, 0755);
     }
 
   no_target = stat(to_name = argv[argc - 1], &to_sb);

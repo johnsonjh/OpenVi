@@ -40,6 +40,7 @@
 # define _COMPAT_LIBGEN_H_
 
 char    *openbsd_basename(char *);
+char    *openbsd_dirname(char *);
 
 # include_next <libgen.h>
 

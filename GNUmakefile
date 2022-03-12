@@ -221,7 +221,8 @@ endif # DEBUG
 
 ###############################################################################
 
-XSRC =	openbsd/err.c           \
+XSRC =	openbsd/dirname.c       \
+		openbsd/err.c           \
 		openbsd/errc.c          \
 		openbsd/errx.c          \
 		openbsd/getopt_long.c   \
