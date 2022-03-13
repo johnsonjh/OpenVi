@@ -164,6 +164,7 @@ view.
   - *Intel* **oneAPI DPC++**/**C++** (*Linux*) V2021+
   - *Intel* **C Compiler Classic** (*Darwin*, *Linux*) V19.1+
   - *Oracle* **Developer Studio** (*Linux*, *Solaris*) V12.6+
+  - *PCC* **Portable C Compiler** (*NetBSD*) V1.0.0+
 
 Newer or older operating system and compiler releases, within reason, should
 work. The versions listed above are those regularly tested and known working.

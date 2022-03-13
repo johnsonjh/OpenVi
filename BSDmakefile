@@ -4,6 +4,7 @@
 # vi: filetype=make:tabstop=8:tw=79
 
 ###############################################################################
+# Configuration
 
 .SHELL: name=sh
 .MAIN: all
@@ -13,6 +14,7 @@
 $(.TARGETS): _GMAKE
 
 ###############################################################################
+# Wrapper
 
 _GMAKE:
 	@command -v gmake > /dev/null 2>&1 ||				\
