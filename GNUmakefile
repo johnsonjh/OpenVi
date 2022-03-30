@@ -114,7 +114,7 @@ ifeq ($(OS),aix)
          CFLAGS  += -m$(MAIXBITS)
          LDFLAGS += -m$(MAIXBITS) -Wl,-b$(MAIXBITS)
          DEPFLAGS =
-      endif # clang
+      endif # gxlc
    LDFLAGS  += -L/opt/freeware/lib
    CFLAGS   += -I/opt/freeware/include
    LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses

@@ -21,6 +21,8 @@
       - [NetBSD](#netbsd)
       - [illumos](#illumos)
       - [Solaris](#solaris)
+      - [Windows](#windows)
+        - [Cygwin](#cygwin)
 - [Availability](#availability)
 - [Versioning](#versioning)
 - [History](#history)
@@ -346,6 +348,26 @@ vendor's documentation.
 - File locking is unavailable due to the absence of `flock()` on **Solaris**.
   This will be addressed by supporting *System V*-style `fcntl()` locking in a
   future release.
+
+#### Windows
+
+- *Microsoft* **Windows** can be configured to use one or more development and
+  runtime environments, including those provided by *MSVC*, *Cygwin*, *Midipix*,
+  *MSYS2*, *GNU on Windows*, *UWIN*, the *Git Bash* environment, and others.
+  - Care should be taken to avoid mixing of incompatible libraries and tools.
+
+##### Cygwin
+
+- Compilation problems in the **Cygwin** environment are often the result of
+  incomplete or interrupted package installations, or installation of packages
+  using non-standard tools (e.g. `apt-cyg`), resulting in missing files and
+  symbolic links. Before compiling ***OpenVi***, it is recommended to:
+  - Update the **Cygwin** `setup` application to the latest released version.
+  - Update all installed packages using the **Cygwin** `setup` application.
+  - Install the required prerequisite packages (i.e. `make`, `gcc`, `ncurses`,
+    `ncurses-devel`) using the **Cygwin** `setup` application.
+  - Invoke the `cygcheck` utility (i.e. `cygcheck -cv`) to verify the integrity
+    of the currently installed packages.
 
 ## Availability
 
