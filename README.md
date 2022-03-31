@@ -360,7 +360,7 @@ vendor's documentation.
 
 - Compilation problems in the **Cygwin** environment are often caused by
   incomplete or interrupted package installations, or by the installation of
-  packages using non-standard tools (e.g. `apt-cyg`), often resulting in
+  packages using non-standard tools (e.g. `apt-cyg`), which can result in
   missing files and dangling or missing symbolic links. Before compiling
   ***OpenVi*** using **Cygwin**, it is *highly* recommended to:
   - Update the **Cygwin** `setup` application to the newest available version.
