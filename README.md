@@ -351,23 +351,24 @@ vendor's documentation.
 
 #### Windows
 
-- *Microsoft* **Windows** can be configured to use one or more development and
-  runtime environments, including those provided by *MSVC*, *Cygwin*, *Midipix*,
-  *MSYS2*, *GNU on Windows*, *UWIN*, the *Git Bash* environment, and others.
-  - Care should be taken to avoid mixing of incompatible libraries and tools.
+- *Microsoft* **Windows** supports various development and runtime
+  environments, including *MSVC*, *Cygwin*, *Midipix*, *MSYS2*, *UWIN*, the
+  *Git Bash* environment, and others. Care must be taken to avoid mixing
+  incompatible libraries and tools.
 
 ##### Cygwin
 
-- Compilation problems in the **Cygwin** environment are often the result of
-  incomplete or interrupted package installations, or installation of packages
-  using non-standard tools (e.g. `apt-cyg`), resulting in missing files and
-  symbolic links. Before compiling ***OpenVi***, it is recommended to:
-  - Update the **Cygwin** `setup` application to the latest released version.
-  - Update all installed packages using the **Cygwin** `setup` application.
+- Compilation problems in the **Cygwin** environment are often caused by
+  incomplete or interrupted package installations, or by the installation of
+  packages using non-standard tools (e.g. `apt-cyg`), often resulting in
+  missing files and dangling or missing symbolic links. Before compiling
+  ***OpenVi*** using **Cygwin**, it is *highly* recommended to:
+  - Update the **Cygwin** `setup` application to the newest available version.
+  - Update all installed packages using the new **Cygwin** `setup` application.
   - Install the required prerequisite packages (i.e. `make`, `gcc`, `ncurses`,
     `ncurses-devel`) using the **Cygwin** `setup` application.
   - Invoke the `cygcheck` utility (i.e. `cygcheck -cv`) to verify the integrity
-    of the currently installed packages.
+    of all currently installed packages.
 
 ## Availability
 
