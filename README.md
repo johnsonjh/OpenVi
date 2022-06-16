@@ -233,7 +233,7 @@ as-is or stripped — using an invocation such as:
 ```sh
 doas gmake install-strip
 ```
-or
+or,
 ```sh
 sudo env PREFIX=/usr/local make install
 ```
