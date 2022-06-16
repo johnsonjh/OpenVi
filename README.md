@@ -176,6 +176,7 @@ work. The versions listed above are those regularly tested and known working.
 - The following platforms are **not** currently supported, but **support is
   planned** for a future release:
   - **Haiku** Walter
+  - *SGI* **IRIX**
 
 User contributions to enhance platform support are welcomed.
 
