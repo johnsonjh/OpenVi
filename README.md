@@ -295,16 +295,16 @@ vendor's documentation.
 - On **NetBSD** installations, the default ***OpenVi*** builds use the BSD
   `curses` library provided by the NetBSD base system. To use `ncurses`
   instead, set the values of the `CFLAGS`, `LDFLAGS`, and `CURSESLIB`
-  environment variables appropriately (i.e. `CFLAGS=-I/usr/pkg/include`
+  environment variables appropriately (*i.e.* `CFLAGS=-I/usr/pkg/include`
   `LDFLAGS=-L/usr/pkg/lib` `CURSESLIB=-lncurses`).
 
 - The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
-  using **Clang**. It is available as an installable package (i.e. `pkgin
+  using **Clang**. It is available as an installable package (*i.e.* `pkgin
   install lld`).
 
 #### illumos
 
-- Before building ***OpenVi*** on an **illumos** distribution (i.e.
+- Before building ***OpenVi*** on an **illumos** distribution (*i.e.*
   **OpenIndiana**), install the `ncurses` libraries and headers. The
   **OpenIndiana** distribution provides the necessary `ncurses` package in
   *IPS* format. With the appropriate permissions (*e.g.* `root`), the package
@@ -361,14 +361,14 @@ vendor's documentation.
 - Compilation problems in the **Cygwin** environment are often caused by
   incomplete or interrupted package installations, or by the installation of
   packages using non-standard tools (*e.g.* `apt-cyg`), which can result in
-  missing files and dangling or missing symbolic links. Before compiling
+  missing files and dangling or missing symbolic links. **Before** compiling
   ***OpenVi*** using **Cygwin**, it is *highly* recommended to:
   - Update the **Cygwin** `setup` application to the newest available version.
   - Update all installed packages using the new **Cygwin** `setup` application.
-  - Install the required prerequisite packages (i.e. `make`, `gcc`, `ncurses`,
+  - Install the required prerequisite packages (*i.e.* `make`, `gcc`, `ncurses`,
     `ncurses-devel`) using the **Cygwin** `setup` application.
-  - Invoke the `cygcheck` utility (i.e. `cygcheck -cv`) to verify the integrity
-    of all currently installed packages.
+  - Invoke the `cygcheck` utility (*i.e.* `cygcheck -cv`) to verify the
+    integrity of all currently installed packages.
 
 ## Availability
 
