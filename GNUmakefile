@@ -744,6 +744,7 @@ ifndef DEBUG
 	-@$(PRINTF) "\r\t$(UPX):\t%42s\n" "bin/vi"
 endif # DEBUG
 	-@$(VERBOSE); $(UPX) -qqq9 --exact "./bin/vi" 2> /dev/null || $(TRUE)
+	-@$(VERBOSE); $(UPX) -qqq9         "./bin/vi" 2> /dev/null || $(TRUE)
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(SSTRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
