@@ -62,7 +62,7 @@ endif # sunos
 
 ifeq ($(OS),solaris)
    ifneq (,$(findstring suncc,$(CC))) # suncc
-      OPTLEVEL ?= -O2 -xspace
+      OPTLEVEL ?= -O2
       _OSLCC = 1
    endif # suncc
 else
