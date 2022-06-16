@@ -54,7 +54,7 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
 - Derived from the (extensively audited) *OpenBSD* base system code
   - Focus on readability, simplicity, and correctness of implementation
   - Adherence to *OpenBSD*'s standard secure coding practices
-    - Uses secure functions (e.g. `strlcpy`, `snprintf`, `mkstemp`, `pledge`)
+    - Uses secure functions (*e.g.* `strlcpy`, `snprintf`, `mkstemp`, `pledge`)
   - Reduced complexity for hopefully fewer program defects
 - Clean source code, distributed under a permissive 3-clause BSD license
   - Some support code is distributed under the (more permissive) ISC license
@@ -63,7 +63,7 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
     and sanely implemented with care taken to balance user expectations,
     complexity, and historical accuracy
 - Extensions such as `bserase`, `expandtab`, `imctrl`, `visibletab`, etc.
-- Build requires only *GNU Make* and standard POSIX utilities
+- Build requires only *GNU Make* and standard *POSIX* utilities
   - Easy integration with embedded, minimal, or iteratively bootstrapped
     environments and distributions (such as *Linux From Scratch* builds)
 - No compile-time or build-time configuration options
@@ -106,7 +106,7 @@ view.
         (*legacy*)
   - No support for bidirectional text
   - No support for regional localization or message translation
-- Inefficient handling of extremely large (e.g. multi-GB) files
+- Inefficient handling of extremely large (*e.g.* multi-GB) files
 - No support for syntax highlighting, context-aware code completion, code
   folding, or “*language server*” integrations
 - No interactive macro recording and debugging functionality
@@ -122,10 +122,10 @@ view.
 
 #### Required prerequisites
 
-- **POSIX.1**-**2008** environment: POSIX shell (`sh`) and utilities, **Awk**
-  (`mawk`, `nawk`), etc.
+- **POSIX.1**-**2008** environment: *POSIX* shell (`sh`) and utilities,
+  **Awk** (`mawk`, `nawk`), etc.
 - **GNU Make** (version *3.81* or later)
-- **C99** compiler (e.g. `xlc`, `suncc`, `clang`, `gcc`, etc.)
+- **C99** compiler (*e.g.* `xlc`, `suncc`, `clang`, `gcc`, etc.)
 - **Curses** (`ncurses`, *NetBSD* `curses` V8+, `PDCurses` V2.8+,
   `PDCursesMod`, etc.)
 
@@ -187,27 +187,27 @@ User contributions to enhance platform support are welcomed.
   is a positive integer representing the number of parallel jobs requested.
 - The following environment variables influence compilation and installation:
   - `CC` - C compiler to use
-    - (e.g. `CC=gcc`)
+    - (*e.g.* `CC=gcc`)
   - `OPTLEVEL` - Optimization flags
-    - (e.g. `OPTLEVEL=-O2`)
+    - (*e.g.* `OPTLEVEL=-O2`)
   - `CFLAGS` - Flags to pass to the C compiler
-    - (e.g. `CFLAGS="-Wall -pipe"`)
+    - (*e.g.* `CFLAGS="-Wall -pipe"`)
   - `LIBS` - Libraries (overriding defaults) to pass to the linker
-    - (e.g. `LIBS="-lpdcurses -lflock"`)
+    - (*e.g.* `LIBS="-lpdcurses -lflock"`)
   - `LDFLAGS` - Flags to pass to the linker
-    - (e.g. `LDFLAGS="-L/lib/path -static"`)
+    - (*e.g.* `LDFLAGS="-L/lib/path -static"`)
   - `V` - Set to enable verbose compilation output
-    - (e.g. `V=1`)
+    - (*e.g.* `V=1`)
   - `DEBUG` - Set to compile a debugging build
-    - (e.g. `DEBUG=1`)
+    - (*e.g.* `DEBUG=1`)
   - `LGC` - Set to enable link-time garbage collection
-    - (e.g. `LGC=1`)
+    - (*e.g.* `LGC=1`)
   - `LTO` - Set to enable link-time optimization
-    - (e.g. `LTO=1`)
+    - (*e.g.* `LTO=1`)
   - `EXTRA_LIBS` - Extra libraries for linking
-    - (e.g. `EXTRA_LIBS=-lmtmalloc`)
+    - (*e.g.* `EXTRA_LIBS=-lmtmalloc`)
   - `PREFIX` - Directory prefix for use with `install` and `uninstall` targets
-    - (e.g. `PREFIX=/opt/OpenVi`)
+    - (*e.g.* `PREFIX=/opt/OpenVi`)
 - The usual targets (`all`, `strip`, `superstrip`, `clean`, `distclean`,
   `install`, `install-strip`, `uninstall`, `upx`, etc.) are available; review
   the `GNUmakefile` to see all the available targets and options.
@@ -222,7 +222,7 @@ or, to verbosely compile a debugging build, explicitly using *Clang*:
 ```sh
 env CC=clang DEBUG=1 V=1 gmake
 ```
-For systems with *GNU Make* as `make` (e.g. *GNU/Linux*), basic compilation
+For systems with *GNU Make* as `make` (*e.g.* *GNU/Linux*), basic compilation
 should succeed without any options or additional configuration needed:
 ```sh
 make
@@ -249,8 +249,8 @@ vendor's documentation.
 
 - Before building ***OpenVi*** on **AIX**, install the `ncurses` libraries and
   headers. *IBM* provides the necessary packages, `ncurses` and
-  `ncurses-devel`, in RPM format as part of the *AIX Toolbox for Linux and Open
-  Source Software*. With the appropriate permissions (e.g. `root`), these
+  `ncurses-devel`, in *RPM* format as part of the *AIX Toolbox for Linux and
+  Open Source Software*. With the appropriate permissions (*e.g.* `root`), these
   packages are installable on most systems using the `dnf` or `yum` utilities,
   for example:
   ```sh
@@ -277,9 +277,9 @@ vendor's documentation.
     **AIX**.
   - A 64-bit build is the default on systems operating in 64-bit mode; for a
     32-bit build, set the value of the `MAIXBITS` environment variable to
-    `32` (e.g. `export MAIXBITS=32`).
+    `32` (*e.g.* `export MAIXBITS=32`).
   - The value of the `CC` environment variable must be set to the full path
-    of the compiler (e.g. `/opt/freeware/bin/gcc`,
+    of the compiler (*e.g.* `/opt/freeware/bin/gcc`,
     `/opt/IBM/xlC/16.1.0/bin/gxlc`, `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`,
     etc.) unless the compiler directory is already part of the current `PATH`.
 
@@ -306,9 +306,9 @@ vendor's documentation.
 
 - Before building ***OpenVi*** on an **illumos** distribution (i.e.
   **OpenIndiana**), install the `ncurses` libraries and headers. The
-  **OpenIndiana** distribution provides the necessary `ncurses` package in IPS
-  format. With the appropriate permissions (e.g. `root`), the package can be
-  installed using the **OpenIndiana** `pkg` utility, for example:
+  **OpenIndiana** distribution provides the necessary `ncurses` package in
+  *IPS* format. With the appropriate permissions (*e.g.* `root`), the package
+  can be installed using the **OpenIndiana** `pkg` utility, for example:
   ```sh
   pkg install ncurses
   ```
@@ -323,8 +323,8 @@ vendor's documentation.
 
 - Before building ***OpenVi*** on *Oracle* **Solaris** 11, install the
   `ncurses` libraries and headers. *Oracle* provides provides the necessary
-  `ncurses` package for **Solaris** 11 in IPS format. With the appropriate
-  permissions (e.g. `root`), the package can be installed using the **Solaris**
+  `ncurses` package for **Solaris** 11 in *IPS* format. With the appropriate
+  permissions (*e.g.* `root`), the package can be installed using the **Solaris**
   `pkg` utility, for example:
   ```sh
   pkg install ncurses
@@ -342,7 +342,7 @@ vendor's documentation.
   - Link-time garbage collection (`LGC=1`) is **not** supported on **Solaris**.
   - When using the *Oracle* **Developer Studio** (`suncc`) compiler, a 64-bit
     build is the default on systems operating in 64-bit mode; for a 32-bit
-    build, set the value of the `SUNBITS` environment variable to `32` (e.g.
+    build, set the value of the `SUNBITS` environment variable to `32` (*e.g.*
     `export SUNBITS=32`).
 
 - File locking is unavailable due to the absence of `flock()` on **Solaris**.
@@ -360,7 +360,7 @@ vendor's documentation.
 
 - Compilation problems in the **Cygwin** environment are often caused by
   incomplete or interrupted package installations, or by the installation of
-  packages using non-standard tools (e.g. `apt-cyg`), which can result in
+  packages using non-standard tools (*e.g.* `apt-cyg`), which can result in
   missing files and dangling or missing symbolic links. Before compiling
   ***OpenVi*** using **Cygwin**, it is *highly* recommended to:
   - Update the **Cygwin** `setup` application to the newest available version.
