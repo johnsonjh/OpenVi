@@ -363,12 +363,14 @@ vendor's documentation.
   packages using non-standard tools (*e.g.* `apt-cyg`), which can result in
   missing files and dangling or missing symbolic links. **Before** compiling
   ***OpenVi*** using **Cygwin**, it is *highly* recommended to:
-  - Update the **Cygwin** `setup` application to the newest available version.
-  - Update all installed packages using the new **Cygwin** `setup` application.
+  - Update the **Cygwin** `setup.exe` application to the latest available
+    version.
+  - Update all installed packages using the new **Cygwin** `setup.exe`
+    application.
   - Install the required prerequisite packages (*i.e.* `make`, `gcc`, `ncurses`,
-    `ncurses-devel`) using the **Cygwin** `setup` application.
-  - Invoke the `cygcheck` utility (*i.e.* `cygcheck -cv`) to verify the
-    integrity of all currently installed packages.
+    `ncurses-devel`) using the **Cygwin** `setup.exe` application.
+  - Invoke the `cygcheck` utility (*i.e.* `cygcheck -cv | grep -v "OK$"`) to
+    verify the integrity of all currently installed packages.
 
 ## Availability
 

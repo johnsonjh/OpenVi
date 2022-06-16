@@ -2,6 +2,18 @@
 #                               -  O p e n V i  -                             #
 ###############################################################################
 # vi: filetype=make:tabstop=8:tw=79
+###############################################################################
+
+###############################################################################
+#
+# Copyright (c) 2021-2022 Jeffrey H. Johnson <trnsz@pobox.com>
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered "AS-IS",
+# without any warranty.
+#
+###############################################################################
 
 ###############################################################################
 # Configuration
