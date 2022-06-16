@@ -1239,8 +1239,8 @@ file_m1(SCR *sp, int force, int flags)
                                 return (1);
                 } else if (ep->refcnt <= 1 && !force) {
                         msgq(sp, M_ERR, LF_ISSET(FS_POSSIBLE) ?
-"File modified since last complete write; write or use ! to override" :
-"File modified since last complete write; write or use :edit! to override");
+"File may be modified since last complete write; write or use ! to override" :
+"File may be modified since last complete write; write or use :edit! to override");
                         return (1);
                 }
         }
@@ -1272,7 +1272,7 @@ file_m2(SCR *sp, int force)
          */
         if (F_ISSET(ep, F_MODIFIED) && ep->refcnt <= 1 && !force) {
                 msgq(sp, M_ERR,
-"File modified since last complete write; write or use ! to override");
+"File may be modified since last complete write; write or use ! to override");
                 return (1);
         }
 

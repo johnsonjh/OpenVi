@@ -108,7 +108,7 @@ ex_bang(SCR *sp, EXCMD *cmdp)
                                         return (0);
                         } else if (O_ISSET(sp, O_WARN) &&
                             !F_ISSET(sp, SC_EX_SILENT))
-                                msg = "File modified since last write.";
+                                msg = "File may be modified since last write.";
                 }
 
                 /* If we're still in a vi screen, move out explicitly. */

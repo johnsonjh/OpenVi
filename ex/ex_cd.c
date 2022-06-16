@@ -47,7 +47,7 @@ ex_cd(SCR *sp, EXCMD *cmdp)
         if (F_ISSET(sp->ep, F_MODIFIED) &&
             !FL_ISSET(cmdp->iflags, E_C_FORCE) && sp->frp->name[0] != '/') {
                 msgq(sp, M_ERR,
-    "File modified since last complete write; write or use ! to override");
+ "File may be modified since last complete write; write or use ! to override");
                 return (1);
         }
 
@@ -58,7 +58,7 @@ ex_cd(SCR *sp, EXCMD *cmdp)
                         if ((pw = getpwuid(getuid())) == NULL ||
                             pw->pw_dir == NULL || pw->pw_dir[0] == '\0') {
                                 msgq(sp, M_ERR,
-                           "Unable to find home directory location");
+                           "Unable to find $HOME directory location");
                                 return (1);
                         }
                         dir = pw->pw_dir;

@@ -1178,7 +1178,7 @@ will be:
 .DS
 :\|\fBq
 .R
-File modified since last complete write; write or use ! to override
+File may be modified since last complete write; write or use ! to override
 :
 .DE
 This is \fIex\fP's warning that you have not written
@@ -1985,7 +1985,7 @@ indicates that the rest of the line is to be processed as a shell command.
 If the buffer contents have not been written since the last change,
 a warning will be printed before the command is executed:
 .DS I 1i
-File modified since last write.
+File may be modified since last write.
 .DE
 The editor prints a `!' when the command is completed.
 Other tutorials describe useful features of the system,
