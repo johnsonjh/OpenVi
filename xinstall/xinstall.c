@@ -922,7 +922,6 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
 {
   char *pt;
   char *end;
-  size_t wcnt;
   char *st = str;
 
   /*
@@ -945,7 +944,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
        * only examine up to the end of the current file block or
        * remaining characters to write, whatever is smaller
        */
-      wcnt = MINIMUM(cnt, *rem);
+      size_t wcnt = MINIMUM(cnt, *rem);
       cnt -= wcnt;
       *rem -= wcnt;
       if (*isempt)
