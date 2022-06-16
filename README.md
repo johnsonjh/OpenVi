@@ -206,7 +206,7 @@ User contributions to enhance platform support are welcomed.
     - (e.g. `LTO=1`)
   - `EXTRA_LIBS` - Extra libraries for linking
     - (e.g. `EXTRA_LIBS=-lmtmalloc`)
-  - `PREFIX` - Directory prefix for use with `install` and `uninstall'` targets
+  - `PREFIX` - Directory prefix for use with `install` and `uninstall` targets
     - (e.g. `PREFIX=/opt/OpenVi`)
 - The usual targets (`all`, `strip`, `superstrip`, `clean`, `distclean`,
   `install`, `install-strip`, `uninstall`, `upx`, etc.) are available; review
