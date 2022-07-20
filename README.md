@@ -379,6 +379,13 @@ vendor's documentation.
 - [GitHub source repository](https://github.com/johnsonjh/OpenVi)
 - [Latest source release](http://github.com/johnsonjh/OpenVi/releases/latest)
 
+**OpenVi** is also available to Linux and macOS users via the
+[Homebrew](https://brew.sh/) package manager.
+
+```sh
+brew install openvi
+```
+
 ## Versioning
 
 The ***OpenVi*** version number is based on the version of the corresponding
