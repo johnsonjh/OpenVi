@@ -16,13 +16,13 @@
     + [Supported platforms](#supported-platforms)
       - [Unsupported platforms](#unsupported-platforms)
   * [Compilation](#compilation)
-  * [Platform Specifics](#platform-specifics)
-    + [AIX](#aix)
-    + [NetBSD](#netbsd)
-    + [illumos](#illumos)
-    + [Solaris](#solaris)
-    + [Windows](#windows)
-      - [Cygwin](#cygwin)
+    + [Platform Specifics](#platform-specifics)
+      - [AIX](#aix)
+      - [NetBSD](#netbsd)
+      - [illumos](#illumos)
+      - [Solaris](#solaris)
+      - [Windows](#windows)
+        * [Cygwin](#cygwin)
 - [Availability](#availability)
   * [Source Code](#source-code)
   * [Packages](#packages)
@@ -241,14 +241,14 @@ or
 sudo env PREFIX=/usr/local make install
 ```
 
-### Platform Specifics
+#### Platform Specifics
 
 The following sections document ***only*** platform specific differences, and
 are not intended to be a general or exhaustive reference. For installation of
 prerequisite software packages or other system configuration, consult the
 vendor's documentation.
 
-#### AIX
+##### AIX
 
 - Before building ***OpenVi*** on **AIX**, install the `ncurses` libraries and
   headers. *IBM* provides the necessary packages, `ncurses` and
@@ -293,7 +293,7 @@ vendor's documentation.
   before use with the **AIX** `man` software (which is derived from *AT&T
   UNIX System V*.)
 
-#### NetBSD
+##### NetBSD
 
 - On **NetBSD** installations, the default ***OpenVi*** builds use the BSD
   `curses` library provided by the NetBSD base system. To use `ncurses`
@@ -305,7 +305,7 @@ vendor's documentation.
   using **Clang**. It is available as an installable package (*i.e.* `pkgin
   install lld`).
 
-#### illumos
+##### illumos
 
 - Before building ***OpenVi*** on an **illumos** distribution (*i.e.*
   **OpenIndiana**), install the `ncurses` libraries and headers. The
@@ -322,7 +322,7 @@ vendor's documentation.
 - Link-time garbage collection (`LGC=1`) is **not** supported on
   **OpenIndiana**.
 
-#### Solaris
+##### Solaris
 
 - Before building ***OpenVi*** on *Oracle* **Solaris** 11, install the
   `ncurses` libraries and headers. *Oracle* provides provides the necessary
@@ -352,14 +352,14 @@ vendor's documentation.
   This will be addressed by supporting *System V*-style `fcntl()` locking in a
   future release.
 
-#### Windows
+##### Windows
 
 - *Microsoft* **Windows** supports various development and runtime
   environments, including *MSVC*, *Cygwin*, *Midipix*, *MSYS2*, *UWIN*, the
   *Git Bash* environment, and others. Care must be taken to avoid mixing
   incompatible libraries and tools.
 
-##### Cygwin
+###### Cygwin
 
 - Compilation problems in the **Cygwin** environment are often caused by
   incomplete or interrupted package installations, or by the installation of
