@@ -24,6 +24,8 @@
       - [Windows](#windows)
         - [Cygwin](#cygwin)
 - [Availability](#availability)
+  - [Source Code](#source-code)
+  - [Packages](#packages)
 - [Versioning](#versioning)
 - [History](#history)
 - [License](#license)
@@ -376,10 +378,14 @@ vendor's documentation.
 
 ## Availability
 
+### Source Code
+
 - [GitHub source repository](https://github.com/johnsonjh/OpenVi)
 - [Latest source release](http://github.com/johnsonjh/OpenVi/releases/latest)
 
-**OpenVi** is also available to Linux and macOS users via the
+### Packages
+
+**OpenVi** is available to Linux and macOS users via the
 [Homebrew](https://brew.sh/) package manager.
 
 ```sh
