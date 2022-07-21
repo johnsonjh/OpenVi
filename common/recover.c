@@ -146,8 +146,11 @@ rcv_tmp(SCR *sp, EXF *ep, char *name)
          */
         if (opts_empty(sp, O_RECDIR, 0))
                 goto err;
+
         dp = O_STR(sp, O_RECDIR);
         if (stat(dp, &sb)) {
+			    if (errno == ENOENT)
+					    goto err_quiet;
                 if (!warned) {
                         warned = 1;
                         msgq(sp, M_SYSERR, "%s", dp);
@@ -174,6 +177,7 @@ rcv_tmp(SCR *sp, EXF *ep, char *name)
                 (void)unlink(path);
 err:            msgq(sp, M_ERR,
                     "Modifications not recoverable if the session fails");
+err_quiet:
                 return (1);
         }
 
