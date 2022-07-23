@@ -1,7 +1,7 @@
-OpenVi 7.1.17 -> OpenVi 7.1.18-dev: Thu Jul 21 21:04:29 2022
+OpenVi 7.1.17 -> OpenVi 7.1.18: Sat Jul 23 19:40:59 2022
         + Quiet complaints when recovery directory is non-existent
         + Improve various status messages
-        + Add permission statement to `GNUmakefile`, `BSDmakefile`
+        + Add permission statements to `GNUmakefile`, `BSDmakefile`
         + Update documentation
 
 OpenVi 7.0.16 -> OpenVi 7.1.17: Sun Apr 24 07:57:29 2022
