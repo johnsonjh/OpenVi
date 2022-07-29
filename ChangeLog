@@ -2656,5 +2656,4 @@ Nvi 0.92 -> Nvi 0.93: Mon Dec 20 19:52:14 EST 1993
           handled in the same way as vi used to handle them
         + Several more mapping fixes and ex parser addressing fixes
 
--------------------------------------------------------------------------------
 # vim: set filetype=changelog ts=8 sw=8 tw=79 expandtab colorcolumn=79 :

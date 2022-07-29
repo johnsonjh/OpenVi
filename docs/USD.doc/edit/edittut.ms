@@ -1,5 +1,7 @@
 .\"        $OpenBSD: edittut.ms,v 1.7 2004/02/20 19:56:53 jmc Exp $
 .\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+.\"
 .\" Copyright (c) 1980, 1993
 .\"        The Regents of the University of California.  All rights reserved.
 .\" Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
@@ -7,11 +9,14 @@
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions
 .\" are met:
+.\"
 .\" 1. Redistributions of source code must retain the above copyright
 .\"    notice, this list of conditions and the following disclaimer.
+.\"
 .\" 2. Redistributions in binary form must reproduce the above copyright
 .\"    notice, this list of conditions and the following disclaimer in the
 .\"    documentation and/or other materials provided with the distribution.
+.\"
 .\" 3. Neither the name of the University nor the names of its contributors
 .\"    may be used to endorse or promote products derived from this software
 .\"    without specific prior written permission.
