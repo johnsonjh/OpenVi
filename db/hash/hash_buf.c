@@ -1,5 +1,7 @@
 /*      $OpenBSD: hash_buf.c,v 1.19 2015/01/16 16:48:51 deraadt Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -72,16 +77,16 @@
 static BUFHEAD *newbuf(HTAB *, u_int32_t, BUFHEAD *);
 
 /* Unlink B from its place in the lru */
-#define BUF_REMOVE(B) { \
+#define BUF_REMOVE(B) {              \
         (B)->prev->next = (B)->next; \
         (B)->next->prev = (B)->prev; \
 }
 
 /* Insert B after P */
-#define BUF_INSERT(B, P) { \
+#define BUF_INSERT(B, P) {     \
         (B)->next = (P)->next; \
-        (B)->prev = (P); \
-        (P)->next = (B); \
+        (B)->prev = (P);       \
+        (P)->next = (B);       \
         (B)->next->prev = (B); \
 }
 
@@ -100,6 +105,7 @@ static BUFHEAD *newbuf(HTAB *, u_int32_t, BUFHEAD *);
  * be valid.  Therefore, you must always verify that its address matches the
  * address you are seeking.
  */
+
 BUFHEAD *
 __get_buf(HTAB *hashp, u_int32_t addr,
     BUFHEAD *prev_bp,   /* If prev_bp set, indicates a new overflow page. */
@@ -110,7 +116,7 @@ __get_buf(HTAB *hashp, u_int32_t addr,
         int is_disk, segment_ndx;
         SEGMENT segp;
 
-        is_disk = 0;
+        is_disk      = 0;
         is_disk_mask = 0;
         if (prev_bp) {
                 bp = prev_bp->ovfl;
@@ -127,9 +133,9 @@ __get_buf(HTAB *hashp, u_int32_t addr,
 #ifdef DEBUG
                 assert(segp != NULL);
 #endif /* ifdef DEBUG */
-                bp = PTROF(segp[segment_ndx]);
+                bp           = PTROF(segp[segment_ndx]);
                 is_disk_mask = ISDISK(segp[segment_ndx]);
-                is_disk = is_disk_mask || !hashp->new_file;
+                is_disk      = is_disk_mask || !hashp->new_file;
         }
 
         if (!bp) {
@@ -153,6 +159,7 @@ __get_buf(HTAB *hashp, u_int32_t addr,
  *
  * If newbuf finds an error (returning NULL), it also sets errno.
  */
+
 static BUFHEAD *
 newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
 {
@@ -164,7 +171,7 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
         u_int16_t oaddr, *shortp;
 
         oaddr = 0;
-        bp = LRU;
+        bp    = LRU;
 
         /* It is bad to overwrite the page under the cursor. */
         if (bp == hashp->cpage) {
@@ -189,6 +196,7 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
          * If LRU buffer is pinned, the buffer pool is too small. We need to
          * allocate more buffers.
          */
+
         if (hashp->nbufs || (bp->flags & BUF_PIN) || bp == hashp->cpage) {
                 /* Allocate a new one */
                 if ((bp = (BUFHEAD *)malloc(sizeof(BUFHEAD))) == NULL)
@@ -204,21 +212,26 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
         } else {
                 /* Kick someone out */
                 BUF_REMOVE(bp);
+
                 /*
                  * If this is an overflow page with addr 0, it's already been
                  * flushed back in an overflow chain and initialized.
                  */
+
                 if ((bp->addr != 0) || (bp->flags & BUF_BUCKET)) {
+
                         /*
                          * Set oaddr before __put_page so that you get it
                          * before bytes are swapped.
                          */
+
                         shortp = (u_int16_t *)bp->page;
                         if (shortp[0])
                                 oaddr = shortp[shortp[0] - 1];
                         if ((bp->flags & BUF_MOD) && __put_page(hashp, bp->page,
                             bp->addr, (int)IS_BUCKET(bp->flags), 0))
                                 return (NULL);
+
                         /*
                          * Update the pointer to this page (i.e. invalidate it).
                          *
@@ -227,6 +240,7 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
                          * written to disk so we retrieve them from disk later,
                          * rather than allocating new pages.
                          */
+
                         if (IS_BUCKET(bp->flags)) {
                                 segment_ndx = bp->addr & (hashp->SGSIZE - 1);
                                 segp = hashp->dir[bp->addr >> hashp->SSHIFT];
@@ -241,11 +255,13 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
                                 else
                                         segp[segment_ndx] = NULL;
                         }
+
                         /*
                          * Since overflow pages can only be access by means of
                          * their bucket, free overflow pages associated with
                          * this bucket.
                          */
+
                         for (xbp = bp; xbp->ovfl;) {
                                 next_xbp = xbp->ovfl;
                                 xbp->ovfl = 0;
@@ -279,10 +295,12 @@ newbuf(HTAB *hashp, u_int32_t addr, BUFHEAD *prev_bp)
 #endif /* ifdef DEBUG1 */
         bp->ovfl = NULL;
         if (prev_bp) {
+
                 /*
                  * If prev_bp is set, this is an overflow page, hook it in to
                  * the buffer overflow links.
                  */
+
 #ifdef DEBUG1
                 (void)fprintf(stderr, "NEWBUF2: %d->ovfl was %d is now %d\n",
                     prev_bp->addr, (prev_bp->ovfl ? prev_bp->ovfl->addr : 0),
@@ -302,20 +320,21 @@ __buf_init(HTAB *hashp, int nbytes)
         BUFHEAD *bfp;
         int npages;
 
-        bfp = &(hashp->bufhead);
+        bfp    = &(hashp->bufhead);
         npages = (nbytes + hashp->BSIZE - 1) >> hashp->BSHIFT;
         npages = MAXIMUM(npages, MIN_BUFFERS);
 
         hashp->nbufs = npages;
-        bfp->next = bfp;
-        bfp->prev = bfp;
+        bfp->next    = bfp;
+        bfp->prev    = bfp;
+
         /*
          * This space is calloc'd so these are already null.
          *
-         * bfp->ovfl = NULL;
+         * bfp->ovfl  = NULL;
          * bfp->flags = 0;
-         * bfp->page = NULL;
-         * bfp->addr = 0;
+         * bfp->page  = NULL;
+         * bfp->addr  = 0;
          */
 }
 
@@ -353,8 +372,8 @@ __buf_free(HTAB *hashp, int do_free, int to_disk)
 void
 __reclaim_buf(HTAB *hashp, BUFHEAD *bp)
 {
-        bp->ovfl = 0;
-        bp->addr = 0;
+        bp->ovfl  = 0;
+        bp->addr  = 0;
         bp->flags = 0;
         BUF_REMOVE(bp);
         LRU_INSERT(bp);

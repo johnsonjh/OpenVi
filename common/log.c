@@ -1,5 +1,7 @@
 /*      $OpenBSD: log.c,v 1.12 2017/04/18 01:45:35 deraadt Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -82,6 +84,7 @@ static void     log_err(SCR *, char *, int);
  *
  * PUBLIC: int log_init(SCR *, EXF *);
  */
+
 int
 log_init(SCR *sp, EXF *ep)
 {
@@ -93,6 +96,7 @@ log_init(SCR *sp, EXF *ep)
          * buffers because the global ones are almost by definition
          * going to be in use when the log runs.
          */
+
         ep->l_lp = NULL;
         ep->l_len = 0;
         ep->l_cursor.lno = 1;           /* XXX Any valid recno. */
@@ -116,6 +120,7 @@ log_init(SCR *sp, EXF *ep)
  *
  * PUBLIC: int log_end(SCR *, EXF *);
  */
+
 int
 log_end(SCR *sp, EXF *ep)
 {
@@ -123,6 +128,7 @@ log_end(SCR *sp, EXF *ep)
          * !!!
          * ep MAY NOT BE THE SAME AS sp->ep, DON'T USE THE LATTER.
          */
+
         if (ep->log != NULL) {
                 (void)(ep->log->close)(ep->log);
                 ep->log = NULL;
@@ -142,6 +148,7 @@ log_end(SCR *sp, EXF *ep)
  *
  * PUBLIC: int log_cursor(SCR *);
  */
+
 int
 log_cursor(SCR *sp)
 {
@@ -155,6 +162,7 @@ log_cursor(SCR *sp)
          * If any changes were made since the last cursor init,
          * put out the ending cursor record.
          */
+
         if (ep->l_cursor.lno == OOBLNO) {
                 ep->l_cursor.lno = sp->lno;
                 ep->l_cursor.cno = sp->cno;
@@ -169,6 +177,7 @@ log_cursor(SCR *sp)
  * log_cursor1 --
  *      Actually push a cursor record out.
  */
+
 static int
 log_cursor1(SCR *sp, int type)
 {
@@ -199,6 +208,7 @@ log_cursor1(SCR *sp, int type)
  *
  * PUBLIC: int log_line(SCR *, recno_t, unsigned int);
  */
+
 int
 log_line(SCR *sp, recno_t lno, unsigned int action)
 {
@@ -217,6 +227,7 @@ log_line(SCR *sp, recno_t lno, unsigned int action)
          * Kluge for vi.  Clear the EXF undo flag so that the
          * next 'u' command does a roll-back, regardless.
          */
+
         F_CLR(ep, F_UNDO);
 
         /* Put out one initial cursor record per set of changes. */
@@ -232,6 +243,7 @@ log_line(SCR *sp, recno_t lno, unsigned int action)
          * line 1, it just means that the user started with an empty file,
          * so fake an empty length line.
          */
+
         if (action == LOG_LINE_RESET_B) {
                 if (db_get(sp, lno, DBG_NOCACHE, &lp, &len)) {
                         if (lno != 1) {
@@ -272,6 +284,7 @@ log_line(SCR *sp, recno_t lno, unsigned int action)
  *
  * PUBLIC: int log_mark(SCR *, LMARK *);
  */
+
 int
 log_mark(SCR *sp, LMARK *lmp)
 {
@@ -312,6 +325,7 @@ log_mark(SCR *sp, LMARK *lmp)
  *
  * PUBLIC: int log_backward(SCR *, MARK *);
  */
+
 int
 log_backward(SCR *sp, MARK *rp)
 {
@@ -413,6 +427,7 @@ err:    F_CLR(ep, F_NOLOG);
  *
  * PUBLIC: int log_setline(SCR *);
  */
+
 int
 log_setline(SCR *sp)
 {
@@ -497,6 +512,7 @@ err:    F_CLR(ep, F_NOLOG);
  *
  * PUBLIC: int log_forward(SCR *, MARK *);
  */
+
 int
 log_forward(SCR *sp, MARK *rp)
 {
@@ -591,6 +607,7 @@ err:    F_CLR(ep, F_NOLOG);
  * log_err --
  *      Try and restart the log on failure, i.e. if we run out of memory.
  */
+
 static void
 log_err(SCR *sp, char *file, int line)
 {

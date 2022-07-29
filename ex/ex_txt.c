@@ -1,5 +1,7 @@
 /*      $OpenBSD: ex_txt.c,v 1.17 2020/04/30 10:40:21 millert Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

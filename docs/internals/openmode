@@ -1,4 +1,5 @@
-        @(#)openmode    8.1 (Berkeley) 10/29/94
+# SPDX-License-Identifier: BSD-3-Clause
+# @(#)openmode    8.1 (Berkeley) 10/29/94
 
 Open mode has the following special behaviors:
 

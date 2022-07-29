@@ -1,5 +1,7 @@
 /*      $OpenBSD: cl_screen.c,v 1.28 2017/04/18 01:45:33 deraadt Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

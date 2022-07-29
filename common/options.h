@@ -1,5 +1,7 @@
 /*      $OpenBSD: options.h,v 1.9 2017/07/03 07:01:14 bentley Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -27,6 +29,7 @@
  * in the screen's value field.  This is set up when the options are first
  * initialized.
  */
+
 #define O_V(sp, o, fld)                                                 \
         (F_ISSET(&(sp)->opts[(o)], OPT_GLOBAL) ?                        \
             (sp)->gp->opts[(sp)->opts[(o)].o_cur.val].fld :             \
@@ -46,6 +49,7 @@
  * Flags to o_set(); need explicit OS_STR as can be setting the value to
  * NULL.
  */
+
 #define OS_DEF          0x01            /* Set the default value. */
 #define OS_NOFREE       0x02            /* Don't free the old string. */
 #define OS_STR          0x04            /* Set to string argument. */

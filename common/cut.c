@@ -1,5 +1,7 @@
 /*      $OpenBSD: cut.c,v 1.17 2017/04/18 01:45:35 deraadt Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -60,6 +62,7 @@ static void     cb_rotate(SCR *);
  *
  * PUBLIC: int cut(SCR *, CHAR_T *, MARK *, MARK *, int);
  */
+
 int
 cut(SCR *sp, CHAR_T *namep, MARK *fm, MARK *tm, int flags)
 {
@@ -90,6 +93,7 @@ cut(SCR *sp, CHAR_T *namep, MARK *fm, MARK *tm, int flags)
          *
          * Otherwise, put it in the unnamed buffer.
          */
+
         append = copy_one = copy_def = 0;
         if (namep != NULL) {
                 name = *namep;

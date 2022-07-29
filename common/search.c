@@ -1,5 +1,7 @@
 /*      $OpenBSD: search.c,v 1.14 2016/08/14 21:47:16 guenther Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -33,6 +35,7 @@ static int      search_init(SCR *, dir_t, char *, size_t, char **, unsigned int)
  * search_init --
  *      Set up a search.
  */
+
 static int
 search_init(SCR *sp, dir_t dir, char *ptrn, size_t plen, char **epp,
     unsigned int flags)
@@ -53,6 +56,7 @@ search_init(SCR *sp, dir_t dir, char *ptrn, size_t plen, char **epp,
         }
 
         if (LF_ISSET(SEARCH_PARSE)) {           /* Parse the string. */
+
                 /*
                  * Use the saved pattern if no pattern specified, or if only
                  * one or two delimiter characters specified.
@@ -61,6 +65,7 @@ search_init(SCR *sp, dir_t dir, char *ptrn, size_t plen, char **epp,
                  * Historically, only the pattern itself was saved, vi didn't
                  * preserve addressing or delta information.
                  */
+
                 if (ptrn == NULL)
                         goto prev;
                 if (plen == 1) {
@@ -97,6 +102,7 @@ prev:                   if (sp->re == NULL) {
                  * QUOTING NOTE:
                  * Only discard an escape character if it escapes a delimiter.
                  */
+
                 for (delim = *ptrn, p = t = ++ptrn;; *t++ = *p++) {
                         if (--plen == 0 || p[0] == delim) {
                                 if (plen != 0)
@@ -134,6 +140,7 @@ prev:                   if (sp->re == NULL) {
  *
  * PUBLIC: int f_search(SCR *, MARK *, MARK *, char *, size_t, char **, unsigned int);
  */
+
 int
 f_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
     unsigned int flags)
@@ -168,6 +175,7 @@ f_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
                  * "-t foo" didn't work if the 'f' was the first character in
                  * the file.
                  */
+
                 if (LF_ISSET(SEARCH_INCR)) {
                         if ((coff = fm->cno) != 0)
                                 --coff;
@@ -248,6 +256,7 @@ f_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
                  * "c?$<cr>").  Not all that sure this gets it right, there
                  * are lots of strange cases.
                  */
+
                 if (!LF_ISSET(SEARCH_EOL) && rm->cno >= len)
                         rm->cno = len != 0 ? len - 1 : 0;
 
@@ -266,6 +275,7 @@ f_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
  *
  * PUBLIC: int b_search(SCR *, MARK *, MARK *, char *, size_t, char **, unsigned int);
  */
+
 int
 b_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
     unsigned int flags)
@@ -290,6 +300,7 @@ b_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
          * Otherwise, start searching immediately before the cursor.  If in
          * the first column, start search on the previous line.
          */
+
         if (LF_ISSET(SEARCH_INCR)) {
                 lno = fm->lno;
                 coff = fm->cno + 1;
@@ -374,6 +385,7 @@ b_search(SCR *sp, MARK *fm, MARK *rm, char *ptrn, size_t plen, char **eptrn,
                  * match.  This is painful, we need a better interface to regex
                  * to make this work.
                  */
+
                 for (;;) {
                         last = match[0].rm_so++;
                         if (match[0].rm_so >= len)
@@ -414,6 +426,7 @@ err:    if (LF_ISSET(SEARCH_MSG))
  * search_msg --
  *      Display one of the search messages.
  */
+
 static void
 search_msg(SCR *sp, smsg_t msg)
 {
@@ -449,6 +462,7 @@ search_msg(SCR *sp, smsg_t msg)
  *
  * PUBLIC: void search_busy(SCR *, busy_t);
  */
+
 void
 search_busy(SCR *sp, busy_t btype)
 {

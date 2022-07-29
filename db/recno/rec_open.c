@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_open.c,v 1.14 2020/12/01 16:19:38 millert Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -72,14 +77,14 @@ __rec_open(const char *fname, int flags, int mode, const RECNOINFO *openinfo,
         if (openinfo) {
                 if (openinfo->flags & ~(R_FIXEDLEN | R_NOKEY | R_SNAPSHOT))
                         goto einval;
-                btopeninfo.flags = 0;
-                btopeninfo.cachesize = openinfo->cachesize;
+                btopeninfo.flags      = 0;
+                btopeninfo.cachesize  = openinfo->cachesize;
                 btopeninfo.maxkeypage = 0;
                 btopeninfo.minkeypage = 0;
-                btopeninfo.psize = openinfo->psize;
-                btopeninfo.compare = NULL;
-                btopeninfo.prefix = NULL;
-                btopeninfo.lorder = openinfo->lorder;
+                btopeninfo.psize      = openinfo->psize;
+                btopeninfo.compare    = NULL;
+                btopeninfo.prefix     = NULL;
+                btopeninfo.lorder     = openinfo->lorder;
                 dbp = __bt_open(openinfo->bfname,
                     O_RDWR, S_IRUSR | S_IWUSR, &btopeninfo, dflags);
         } else
@@ -93,6 +98,7 @@ __rec_open(const char *fname, int flags, int mode, const RECNOINFO *openinfo,
          * don't change the bt_ovflsize value, it's close enough and slightly
          * bigger.
          */
+
         t = dbp->internal;
         if (openinfo) {
                 if (openinfo->flags & R_FIXEDLEN) {
@@ -112,11 +118,13 @@ __rec_open(const char *fname, int flags, int mode, const RECNOINFO *openinfo,
                 t->bt_rfd = rfd;
 
         if (fname != NULL) {
+
                 /*
                  * In 4.4BSD, stat(2) returns true for ISSOCK on pipes.
                  * Unfortunately, that's not portable, so we use lseek
                  * and check the errno values.
                  */
+
                 errno = 0;
                 if (lseek(rfd, 0, SEEK_CUR) == -1 && errno == ESPIPE) {
                         switch (flags & O_ACCMODE) {
@@ -154,13 +162,13 @@ slow:                   if ((t->bt_rfp = fdopen(rfd, "r")) == NULL)
 
         /* Use the recno routines. */
         dbp->close = __rec_close;
-        dbp->del = __rec_delete;
-        dbp->fd = __rec_fd;
-        dbp->get = __rec_get;
-        dbp->put = __rec_put;
-        dbp->seq = __rec_seq;
-        dbp->sync = __rec_sync;
-        dbp->type = DB_RECNO;
+        dbp->del   = __rec_delete;
+        dbp->fd    = __rec_fd;
+        dbp->get   = __rec_get;
+        dbp->put   = __rec_put;
+        dbp->seq   = __rec_seq;
+        dbp->sync  = __rec_sync;
+        dbp->type  = DB_RECNO;
 
         /* If the root page was created, reset the flags. */
         if ((h = mpool_get(t->bt_mp, P_ROOT, 0)) == NULL)

@@ -1,5 +1,7 @@
 /*      $OpenBSD: ex_tag.c,v 1.26 2021/10/24 21:24:17 deraadt Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

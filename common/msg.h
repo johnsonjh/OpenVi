@@ -1,5 +1,7 @@
 /*      $OpenBSD: msg.h,v 1.3 2001/01/29 01:58:31 niklas Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -15,6 +17,7 @@
 /*
  * Common messages (continuation or confirmation).
  */
+
 typedef enum {
         CMSG_CONF, CMSG_CONT, CMSG_CONT_EX,
         CMSG_CONT_R, CMSG_CONT_S, CMSG_CONT_Q } cmsg_t;
@@ -40,6 +43,7 @@ typedef enum {
  * M_ERR and M_INFO -- all the other message types are converted into one
  * of them by the message routines.
  */
+
 typedef enum {
         M_NONE = 1, M_BERR, M_ERR, M_INFO, M_SYSERR, M_VINFO } mtype_t;
 
@@ -54,6 +58,7 @@ typedef enum {
  * S_SCREEN_READY is set, that means that the screen is prepared to display
  * messages.
  */
+
 typedef struct _msgh MSGH;      /* MSGS list head structure. */
 LIST_HEAD(_msgh, _msg);
 struct _msg {

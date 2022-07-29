@@ -1,5 +1,7 @@
 /*      $OpenBSD: db.h,v 1.4 2016/05/29 20:47:49 guenther Exp $ */
 
+/* SPDX-License-Identifier: ISC */
+
 /*
  * Copyright (c) 2015 Philip Guenther <guenther@openbsd.org>
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
@@ -26,6 +28,7 @@
  *      P_32_SWAP       swap a referenced memory location
  *      P_32_COPY       swap from one location to another
  */
+
 # define M_32_SWAP(a) {                                                 \
         u_int32_t _tmp = a;                                             \
         ((char *)&a)[0] = ((char *)&_tmp)[3];                           \
@@ -55,6 +58,7 @@
  *      P_16_SWAP       swap a referenced memory location
  *      P_16_COPY       swap from one location to another
  */
+
 # define M_16_SWAP(a) {                                                 \
         u_int16_t _tmp = a;                                             \
         ((char *)&a)[0] = ((char *)&_tmp)[1];                           \

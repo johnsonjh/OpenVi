@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_search.c,v 1.11 2005/08/05 13:03:00 espie Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *    w
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -58,6 +63,7 @@
  *      of the key, if it were inserted into the tree, is entered into
  *      the bt_cur field of the tree.  A pointer to the field is returned.
  */
+
 EPG *
 __rec_search(BTREE *t, recno_t recno, enum SRCHOP op)
 {

@@ -1,5 +1,7 @@
 /*      $OpenBSD: exf.c,v 1.48 2021/10/25 14:17:24 dv Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_search.c,v 1.10 2005/08/05 13:02:59 espie Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -60,6 +65,7 @@ static int __bt_sprev(BTREE *, PAGE *, const DBT *, int *);
  *      of the key, if it were inserted into the tree, is entered into
  *      the bt_cur field of the tree.  A pointer to the field is returned.
  */
+
 EPG *
 __bt_search(BTREE *t, const DBT *key, int *exactp)
 {
@@ -98,6 +104,7 @@ __bt_search(BTREE *t, const DBT *key, int *exactp)
                  * while there are matches on other pages.  If at the start or
                  * end of a page, check the adjacent page.
                  */
+
                 if (h->flags & P_BLEAF) {
                         if (!F_ISSET(t, B_NODUPS)) {
                                 if (base == 0 &&
@@ -121,6 +128,7 @@ __bt_search(BTREE *t, const DBT *key, int *exactp)
                  * be a parent page for the key.  If a split later occurs, the
                  * inserted page will be to the right of the saved page.
                  */
+
                 idx = base ? base - 1 : base;
 
 next:           BT_PUSH(t, h->pgno, idx);
@@ -142,6 +150,7 @@ next:           BT_PUSH(t, h->pgno, idx);
  * Returns:
  *      If an exact match found.
  */
+
 static int
 __bt_snext(BTREE *t, PAGE *h, const DBT *key, int *exactp)
 {
@@ -151,6 +160,7 @@ __bt_snext(BTREE *t, PAGE *h, const DBT *key, int *exactp)
          * Get the next page.  The key is either an exact
          * match, or not as good as the one we already have.
          */
+
         if ((e.page = mpool_get(t->bt_mp, h->nextpg, 0)) == NULL)
                 return (0);
         e.index = 0;
@@ -177,6 +187,7 @@ __bt_snext(BTREE *t, PAGE *h, const DBT *key, int *exactp)
  * Returns:
  *      If an exact match found.
  */
+
 static int
 __bt_sprev(BTREE *t, PAGE *h, const DBT *key, int *exactp)
 {
@@ -186,6 +197,7 @@ __bt_sprev(BTREE *t, PAGE *h, const DBT *key, int *exactp)
          * Get the previous page.  The key is either an exact
          * match, or not as good as the one we already have.
          */
+
         if ((e.page = mpool_get(t->bt_mp, h->prevpg, 0)) == NULL)
                 return (0);
         e.index = NEXTINDEX(e.page) - 1;

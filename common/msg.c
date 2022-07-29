@@ -1,5 +1,7 @@
 /*      $OpenBSD: msg.c,v 1.27 2016/12/18 18:28:39 krw Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -34,6 +36,7 @@
  *
  * PUBLIC: void msgq(SCR *, mtype_t, const char *, ...);
  */
+
 void
 msgq(SCR *sp, mtype_t mt, const char *fmt, ...)
 {
@@ -50,6 +53,7 @@ msgq(SCR *sp, mtype_t mt, const char *fmt, ...)
          * message.  If sp is NULL, ignore the special cases and put the
          * message out to stderr.
          */
+
         if (sp == NULL) {
                 gp = NULL;
                 if (mt == M_BERR)
@@ -90,6 +94,7 @@ msgq(SCR *sp, mtype_t mt, const char *fmt, ...)
          * XXX
          * Yes, there's a race, but it should only be two instructions.
          */
+
         if (reenter++)
                 return;
 
@@ -110,6 +115,7 @@ retry:          FREE_SPACE(sp, bp, blen);
          * mlen: length of the already written characters
          * blen: total length of the buffer
          */
+
 #define REM     (blen - mlen)
         mp = bp;
         mlen = 0;
@@ -131,6 +137,7 @@ retry:          FREE_SPACE(sp, bp, blen);
          * If we're running an ex command that the user didn't enter, display
          * the file name and line number prefix.
          */
+
         if ((mt == M_ERR || mt == M_SYSERR) &&
             sp != NULL && gp != NULL && gp->if_name != NULL) {
                 for (p = gp->if_name; *p != '\0'; ++p) {
@@ -193,6 +200,7 @@ alloc_err:
  *
  * PUBLIC: void msgq_str(SCR *, mtype_t, char *, char *);
  */
+
 void
 msgq_str(SCR *sp, mtype_t mtype, char *str, char *fmt)
 {
@@ -232,6 +240,7 @@ msgq_str(SCR *sp, mtype_t mtype, char *str, char *fmt)
  *
  * PUBLIC: void mod_rpt(SCR *);
  */
+
 void
 mod_rpt(SCR *sp)
 {
@@ -278,6 +287,7 @@ mod_rpt(SCR *sp)
          * I got complaints, so nvi conforms to System III/V historic practice
          * except that we report a yank of 1 line if report is set to 1.
          */
+
 #define ARSIZE(a)       sizeof(a) / sizeof (*a)
 #define MAXNUM          25
         rptval = O_VAL(sp, O_REPORT);
@@ -341,6 +351,7 @@ alloc_err:
  *
  * PUBLIC: void msgq_status(SCR *, recno_t, unsigned int);
  */
+
 void
 msgq_status(SCR *sp, recno_t lno, unsigned int flags)
 {
@@ -388,6 +399,7 @@ msgq_status(SCR *sp, recno_t lno, unsigned int flags)
          * !!!
          * The historic display for "name changed" was "[Not edited]".
          */
+
         needsep = 0;
         if (F_ISSET(sp->frp, FR_NEWFILE)) {
                 F_CLR(sp->frp, FR_NEWFILE);
@@ -482,6 +494,7 @@ msgq_status(SCR *sp, recno_t lno, unsigned int flags)
          * below the top screen.  We don't want users having to enter continue
          * characters for those screens.  Make it really hard to screw this up.
          */
+
         s = bp;
         if (LF_ISSET(MSTAT_TRUNCATE) && len > sp->cols) {
                 for (; s < np && (*s != '/' || (p - s) > sp->cols - 3); ++s);
@@ -511,6 +524,7 @@ alloc_err:
  *
  * PUBLIC: const char *msg_cmsg(SCR *, cmsg_t, size_t *);
  */
+
 const char *
 msg_cmsg(SCR *sp, cmsg_t which, size_t *lenp)
 {
@@ -547,6 +561,7 @@ msg_cmsg(SCR *sp, cmsg_t which, size_t *lenp)
  *
  * PUBLIC: char *msg_print(SCR *, const char *, int *);
  */
+
 char *
 msg_print(SCR *sp, const char *s, int *needfree)
 {

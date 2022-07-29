@@ -1,6 +1,8 @@
 /*      $OpenBSD: getopt_long.c,v 1.32 2020/05/27 22:25:09 schwarze Exp $       */
 /*      $NetBSD: getopt_long.c,v 1.15 2002/01/31 22:43:40 tv Exp $      */
 
+/* SPDX-License-Identifier: ISC AND BSD-2-Clause */
+
 /*
  * Copyright (c) 2002 Todd C. Miller <millert@openbsd.org>
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
@@ -32,8 +34,10 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.

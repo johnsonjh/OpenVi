@@ -1,5 +1,7 @@
 /*      $OpenBSD: seq.h,v 1.5 2016/05/27 09:18:11 martijn Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -29,6 +31,7 @@
  * The fast-lookup bits are never turned off -- users don't usually unmap
  * things, though, so it's probably not a big deal.
  */
+
 struct _seq {
         LIST_ENTRY(_seq) q;             /* Linked list of all sequences. */
         seq_t    stype;                 /* Sequence type. */

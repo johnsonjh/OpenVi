@@ -1,5 +1,7 @@
 /*      $OpenBSD: pwcache.c,v 1.15 2018/09/22 02:47:23 millert Exp $         */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992 Keith Muller
  * Copyright (c) 1992, 1993 The Regents of the University of California

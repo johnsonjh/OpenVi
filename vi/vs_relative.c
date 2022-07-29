@@ -1,5 +1,7 @@
 /*      $OpenBSD: vs_relative.c,v 1.9 2014/11/12 04:28:41 bentley Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

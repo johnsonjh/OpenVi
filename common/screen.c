@@ -1,5 +1,7 @@
 /*      $OpenBSD: screen.c,v 1.14 2017/04/18 01:45:35 deraadt Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -31,6 +33,7 @@
  *
  * PUBLIC: int screen_init(GS *, SCR *, SCR **);
  */
+
 int
 screen_init(GS *gp, SCR *orig, SCR **spp)
 {
@@ -123,6 +126,7 @@ err:    screen_end(sp);
  *
  * PUBLIC: int screen_end(SCR *);
  */
+
 int
 screen_end(SCR *sp)
 {
@@ -139,6 +143,7 @@ screen_end(SCR *sp)
          * If a created screen failed during initialization, it may not
          * be linked into a queue.
          */
+
         TAILQ_FOREACH(tsp, &sp->gp->dq, q) {
                 if (tsp == sp) {
                         TAILQ_REMOVE(&sp->gp->dq, sp, q);
@@ -202,6 +207,7 @@ screen_end(SCR *sp)
  *
  * PUBLIC: SCR *screen_next(SCR *);
  */
+
 SCR *
 screen_next(SCR *sp)
 {

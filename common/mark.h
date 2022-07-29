@@ -1,5 +1,7 @@
 /*      $OpenBSD: mark.h,v 1.5 2016/05/27 09:18:11 martijn Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -24,6 +26,7 @@
  * the underlying type of the database.  The column number is of type size_t,
  * guaranteeing that we can malloc a line.
  */
+
 struct _mark {
 #define OOBLNO          0               /* Out-of-band line number. */
         recno_t  lno;                   /* Line number. */

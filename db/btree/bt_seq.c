@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_seq.c,v 1.11 2005/08/05 13:03:00 espie Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -71,6 +76,7 @@ static int __bt_seqset(BTREE *, EPG *, DBT *, int);
  * Returns:
  *      RET_ERROR, RET_SUCCESS or RET_SPECIAL if there's no next key.
  */
+
 int
 __bt_seq(const DB *dbp, DBT *key, DBT *data, unsigned int flags)
 {
@@ -91,6 +97,7 @@ __bt_seq(const DB *dbp, DBT *key, DBT *data, unsigned int flags)
          * the scan to a specific key.  Both __bt_seqset and __bt_seqadv pin
          * the page the cursor references if they're successful.
          */
+
         switch (flags) {
         case R_NEXT:
         case R_PREV:
@@ -119,6 +126,7 @@ __bt_seq(const DB *dbp, DBT *key, DBT *data, unsigned int flags)
                  * If the user is doing concurrent access, we copied the
                  * key/data, toss the page.
                  */
+
                 if (F_ISSET(t, B_DB_LOCK))
                         mpool_put(t->bt_mp, e.page, 0);
                 else
@@ -143,6 +151,7 @@ __bt_seq(const DB *dbp, DBT *key, DBT *data, unsigned int flags)
  * Returns:
  *      RET_ERROR, RET_SUCCESS or RET_SPECIAL if there's no next key.
  */
+
 static int
 __bt_seqset(BTREE *t, EPG *ep, DBT *key, int flags)
 {
@@ -155,12 +164,15 @@ __bt_seqset(BTREE *t, EPG *ep, DBT *key, int flags)
          * cursor at it.  The cursor may not be moved until a new key has
          * been found.
          */
+
         switch (flags) {
         case R_CURSOR:                          /* Keyed scan. */
+
                 /*
                  * Find the first instance of the key or the smallest key
                  * which is greater than or equal to the specified key.
                  */
+
                 if (key->data == NULL || key->size == 0) {
                         errno = EINVAL;
                         return (RET_ERROR);
@@ -227,6 +239,7 @@ __bt_seqset(BTREE *t, EPG *ep, DBT *key, int flags)
  * Returns:
  *      RET_ERROR, RET_SUCCESS or RET_SPECIAL if there's no next key.
  */
+
 static int
 __bt_seqadv(BTREE *t, EPG *ep, int flags)
 {
@@ -240,6 +253,7 @@ __bt_seqadv(BTREE *t, EPG *ep, int flags)
          * There are a couple of states that we can be in.  The cursor has
          * been initialized by the time we get here, but that's all we know.
          */
+
         c = &t->bt_cursor;
 
         /*
@@ -250,6 +264,7 @@ __bt_seqadv(BTREE *t, EPG *ep, int flags)
          * the delete so we can just return it.  If not, as long as there's
          * a record there, return it.
          */
+
         if (F_ISSET(c, CURS_ACQUIRE))
                 return (__bt_first(t, &c->key, ep, &exact));
 
@@ -261,13 +276,16 @@ __bt_seqadv(BTREE *t, EPG *ep, int flags)
          * Find the next/previous record in the tree and point the cursor at
          * it.  The cursor may not be moved until a new key has been found.
          */
+
         switch (flags) {
         case R_NEXT:                    /* Next record. */
+
                 /*
                  * The cursor was deleted in duplicate records, and moved
                  * forward to a record that has yet to be returned.  Clear
                  * that flag, and return the record.
                  */
+
                 if (F_ISSET(c, CURS_AFTER))
                         goto usecurrent;
                 idx = c->pg.index;
@@ -282,11 +300,13 @@ __bt_seqadv(BTREE *t, EPG *ep, int flags)
                 }
                 break;
         case R_PREV:                    /* Previous record. */
+
                 /*
                  * The cursor was deleted in duplicate records, and moved
                  * backward to a record that has yet to be returned.  Clear
                  * that flag, and return the record.
                  */
+
                 if (F_ISSET(c, CURS_BEFORE)) {
 usecurrent:             F_CLR(c, CURS_AFTER | CURS_BEFORE);
                         ep->page = h;
@@ -326,6 +346,7 @@ usecurrent:             F_CLR(c, CURS_AFTER | CURS_BEFORE);
  *      The first entry in the tree greater than or equal to key,
  *      or RET_SPECIAL if no such key exists.
  */
+
 static int
 __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
 {
@@ -341,6 +362,7 @@ __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
          * a valid key (__bt_search may return an index just past the end of a
          * page) and return it.
          */
+
         if ((ep = __bt_search(t, key, exactp)) == NULL)
                 return (0);
         if (*exactp) {
@@ -354,6 +376,7 @@ __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
                  * keys left in the tree.  Save a copy of each match in case
                  * we go too far.
                  */
+
                 save = *ep;
                 h = ep->page;
                 do {
@@ -368,6 +391,7 @@ __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
                          * was on, but make sure it's unpinned if an error
                          * occurs.
                          */
+
                         if (ep->index == 0) {
                                 if (h->prevpg == P_INVALID)
                                         break;
@@ -391,6 +415,7 @@ __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
                  * which may or may not be the same as the last (or original)
                  * match page.  If it's not useful, release it.
                  */
+
                 if (h->pgno != save.page->pgno)
                         mpool_put(t->bt_mp, h, 0);
 
@@ -423,6 +448,7 @@ __bt_first(BTREE *t, const DBT *key, EPG *erval, int *exactp)
  *   pgno:      page number
  *    idx:      page index
  */
+
 void
 __bt_setcur(BTREE *t, pgno_t pgno, unsigned int idx)
 {

@@ -1,5 +1,7 @@
 /*      $OpenBSD: v_cmd.c,v 1.5 2016/03/13 18:30:43 martijn Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -25,6 +27,7 @@
  * This array maps keystrokes to vi command functions.  It is known
  * in ex/ex_usage.c that it takes four columns to name a vi character.
  */
+
 VIKEYS const vikeys [MAXVIKEY + 1] = {
 /* 000 NUL -- The code in vi.c expects key 0 to be undefined. */
         {NULL, 0, NULL, NULL},

@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_utils.c,v 1.12 2021/10/24 10:05:22 jsg Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -61,6 +66,7 @@
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 int
 __bt_ret(BTREE *t, EPG *e, DBT *key, DBT *rkey, DBT *data, DBT *rdata, int copy)
 {
@@ -74,6 +80,7 @@ __bt_ret(BTREE *t, EPG *e, DBT *key, DBT *rkey, DBT *data, DBT *rdata, int copy)
          * leave the page pinned and don't copy unless the user specified
          * concurrent access.
          */
+
         if (key == NULL)
                 goto dataonly;
 
@@ -140,6 +147,7 @@ dataonly:
  *      = 0 if k1 is = record
  *      > 0 if k1 is > record
  */
+
 int
 __bt_cmp(BTREE *t, const DBT *k1, EPG *e)
 {
@@ -156,6 +164,7 @@ __bt_cmp(BTREE *t, const DBT *k1, EPG *e)
          * page when the user inserts a new key in the tree smaller than
          * anything we've yet seen.
          */
+
         h = e->page;
         if (e->index == 0 && h->prevpg == P_INVALID && !(h->flags & P_BLEAF))
                 return (1);
@@ -200,6 +209,7 @@ __bt_cmp(BTREE *t, const DBT *k1, EPG *e)
  *      = 0 if a is = b
  *      > 0 if a is > b
  */
+
 int
 __bt_defcmp(const DBT *a, const DBT *b)
 {
@@ -212,6 +222,7 @@ __bt_defcmp(const DBT *a, const DBT *b)
          * What we need is a integral type which is guaranteed to be
          * larger than a size_t, and there is no such thing.
          */
+
         len = MINIMUM(a->size, b->size);
         for (p1 = a->data, p2 = b->data; len--; ++p1, ++p2)
                 if (*p1 != *p2)
@@ -229,6 +240,7 @@ __bt_defcmp(const DBT *a, const DBT *b)
  * Returns:
  *      Number of bytes needed to distinguish b from a.
  */
+
 size_t
 __bt_defpfx(const DBT *a, const DBT *b)
 {

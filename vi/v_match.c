@@ -1,5 +1,7 @@
 /*      $OpenBSD: v_match.c,v 1.9 2016/01/06 22:28:52 millert Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

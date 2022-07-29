@@ -1,5 +1,7 @@
 /*      $OpenBSD: hash.c,v 1.29 2016/09/21 04:38:56 guenther Exp $      */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -135,6 +140,7 @@ __hash_open(const char *file, int flags, int mode,
          * field in the hashp structure needs to be accurate so that
          * we can check accesses.
          */
+
         hashp->flags = flags;
 
         if (file) {
@@ -177,6 +183,7 @@ __hash_open(const char *file, int flags, int mode,
                  * maximum bucket number, so the number of buckets is
                  * max_bucket + 1.
                  */
+
                 nsegs = (hashp->MAX_BUCKET + 1 + hashp->SGSIZE - 1) /
                          hashp->SGSIZE;
                 if (alloc_segs(hashp, nsegs))
@@ -210,14 +217,14 @@ __hash_open(const char *file, int flags, int mode,
                 return (NULL);
         }
         dbp->internal = hashp;
-        dbp->close = hash_close;
-        dbp->del = hash_delete;
-        dbp->fd = hash_fd;
-        dbp->get = hash_get;
-        dbp->put = hash_put;
-        dbp->seq = hash_seq;
-        dbp->sync = hash_sync;
-        dbp->type = DB_HASH;
+        dbp->close    = hash_close;
+        dbp->del      = hash_delete;
+        dbp->fd       = hash_fd;
+        dbp->get      = hash_get;
+        dbp->put      = hash_put;
+        dbp->seq      = hash_seq;
+        dbp->sync     = hash_sync;
+        dbp->type     = DB_HASH;
 
 #ifdef DEBUG
         (void)fprintf(stderr,
@@ -291,16 +298,16 @@ init_hash(HTAB *hashp, const char *file, const HASHINFO *info)
         struct stat statbuf;
         int nelem;
 
-        nelem = 1;
-        hashp->NKEYS = 0;
-        hashp->LORDER = BYTE_ORDER;
-        hashp->BSIZE = DEF_BUCKET_SIZE;
-        hashp->BSHIFT = DEF_BUCKET_SHIFT;
-        hashp->SGSIZE = DEF_SEGSIZE;
-        hashp->SSHIFT = DEF_SEGSIZE_SHIFT;
-        hashp->DSIZE = DEF_DIRSIZE;
+        nelem          = 1;
+        hashp->NKEYS   = 0;
+        hashp->LORDER  = BYTE_ORDER;
+        hashp->BSIZE   = DEF_BUCKET_SIZE;
+        hashp->BSHIFT  = DEF_BUCKET_SHIFT;
+        hashp->SGSIZE  = DEF_SEGSIZE;
+        hashp->SSHIFT  = DEF_SEGSIZE_SHIFT;
+        hashp->DSIZE   = DEF_DIRSIZE;
         hashp->FFACTOR = DEF_FFACTOR;
-        hashp->hash = __default_hash;
+        hashp->hash    = __default_hash;
         memset(hashp->SPARES, 0, sizeof(hashp->SPARES));
         memset(hashp->BITMAPS, 0, sizeof (hashp->BITMAPS));
 
@@ -343,12 +350,14 @@ init_hash(HTAB *hashp, const char *file, const HASHINFO *info)
         else
                 return (hashp);
 }
+
 /*
  * This calls alloc_segs which may run out of memory.  Alloc_segs will destroy
  * the table and set errno, so we just pass the error information along.
  *
  * Returns 0 on No Error
  */
+
 static int
 init_htab(HTAB *hashp, int nelem)
 {
@@ -359,23 +368,24 @@ init_htab(HTAB *hashp, int nelem)
          * desired number of buckets.  Allocate space for the next greater
          * power of two number of buckets.
          */
+
         nelem = (nelem - 1) / hashp->FFACTOR + 1;
 
         l2 = __log2(MAXIMUM(nelem, 2));
         nbuckets = 1 << l2;
 
-        hashp->SPARES[l2] = l2 + 1;
+        hashp->SPARES[l2]     = l2 + 1;
         hashp->SPARES[l2 + 1] = l2 + 1;
-        hashp->OVFL_POINT = l2;
-        hashp->LAST_FREED = 2;
+        hashp->OVFL_POINT     = l2;
+        hashp->LAST_FREED     = 2;
 
         /* First bitmap page is at: splitpoint l2 page offset 1 */
         if (__ibitmap(hashp, OADDR_OF(l2, 1), l2 + 1, 0))
                 return (-1);
 
         hashp->MAX_BUCKET = hashp->LOW_MASK = nbuckets - 1;
-        hashp->HIGH_MASK = (nbuckets << 1) - 1;
-        hashp->HDRPAGES = ((MAXIMUM(sizeof(HASHHDR), MINHDRSIZE) - 1) >>
+        hashp->HIGH_MASK  = (nbuckets << 1) - 1;
+        hashp->HDRPAGES   = ((MAXIMUM(sizeof(HASHHDR), MINHDRSIZE) - 1) >>
             hashp->BSHIFT) + 1;
 
         nsegs = (nbuckets - 1) / hashp->SGSIZE + 1;
@@ -392,6 +402,7 @@ init_htab(HTAB *hashp, int nelem)
  * Flushes any changes to the file if necessary and destroys the hashp
  * structure, freeing all allocated space.
  */
+
 static int
 hdestroy(HTAB *hashp)
 {
@@ -416,10 +427,12 @@ hdestroy(HTAB *hashp)
                 (void)fprintf(stderr,
                     "spares[%d] = %d\n", i, hashp->SPARES[i]);
 #endif /* ifdef HASH_STATISTICS */
+
         /*
          * Call on buffer manager to free buffers, and if required,
          * write them to disk.
          */
+
         if (__buf_free(hashp, 1, hashp->save_file))
                 save_errno = errno;
         if (hashp->dir) {
@@ -448,6 +461,7 @@ hdestroy(HTAB *hashp)
         }
         return (SUCCESS);
 }
+
 /*
  * Write modified pages to disk
  *
@@ -455,6 +469,7 @@ hdestroy(HTAB *hashp)
  *       0 == OK
  *      -1 ERROR
  */
+
 static int
 hash_sync(const DB *dbp, u_int32_t flags)
 {
@@ -482,6 +497,7 @@ hash_sync(const DB *dbp, u_int32_t flags)
  *       0 == OK
  *      -1 indicates that errno should be set
  */
+
 static int
 flush_meta(HTAB *hashp)
 {
@@ -493,8 +509,8 @@ flush_meta(HTAB *hashp)
 
         if (!hashp->save_file)
                 return (0);
-        hashp->MAGIC = HASHMAGIC;
-        hashp->VERSION = HASHVERSION;
+        hashp->MAGIC     = HASHMAGIC;
+        hashp->VERSION   = HASHVERSION;
         hashp->H_CHARKEY = hashp->hash(CHARKEY, sizeof(CHARKEY));
 
         fp = hashp->fp;
@@ -529,6 +545,7 @@ flush_meta(HTAB *hashp)
  *       1 to indicate an external ERROR (i.e. key not found, etc)
  *      -1 to indicate an internal ERROR (i.e. out of memory, etc)
  */
+
 static int
 hash_get(const DB *dbp, const DBT *key, DBT *data, u_int32_t flag)
 {
@@ -581,6 +598,7 @@ hash_delete(const DB *dbp, const DBT *key,
 /*
  * Assume that hashp has been set in wrapper routine.
  */
+
 static int
 hash_access(HTAB *hashp, ACTION action, DBT *key, DBT *val)
 {
@@ -800,6 +818,7 @@ hash_seq(const DB *dbp, DBT *key, DBT *data, u_int32_t flag)
  *       0 ==> OK
  *      -1 ==> Error
  */
+
 int
 __expand_table(HTAB *hashp)
 {
@@ -830,11 +849,13 @@ __expand_table(HTAB *hashp)
                 hashp->exsegs++;
                 hashp->nsegs++;
         }
+
         /*
          * If the split point is increasing (MAX_BUCKET's log base 2
          * * increases), we need to copy the current contents of the spare
          * split bucket to the next bucket.
          */
+
         spare_ndx = __log2(hashp->MAX_BUCKET + 1);
         if (spare_ndx > hashp->OVFL_POINT) {
                 hashp->SPARES[spare_ndx] = hashp->SPARES[hashp->OVFL_POINT];
@@ -854,6 +875,7 @@ __expand_table(HTAB *hashp)
  * If realloc guarantees that the pointer is not destroyed if the realloc
  * fails, then this routine can go away.
  */
+
 static void *
 hash_realloc(SEGMENT **p_ptr, int oldsize, int newsize)
 {
@@ -885,6 +907,7 @@ __call_hash(HTAB *hashp, char *k, int len)
  *
  * Returns 0 on success
  */
+
 static int
 alloc_segs(HTAB *hashp, int nsegs)
 {
@@ -917,33 +940,35 @@ alloc_segs(HTAB *hashp, int nsegs)
 }
 
 #if BYTE_ORDER == LITTLE_ENDIAN
+
 /*
  * Hashp->hdr needs to be byteswapped.
  */
+
 static void
 swap_header_copy(HASHHDR *srcp, HASHHDR *destp)
 {
         int i;
 
-        P_32_COPY(srcp->magic, destp->magic);
-        P_32_COPY(srcp->version, destp->version);
-        P_32_COPY(srcp->lorder, destp->lorder);
-        P_32_COPY(srcp->bsize, destp->bsize);
-        P_32_COPY(srcp->bshift, destp->bshift);
-        P_32_COPY(srcp->dsize, destp->dsize);
-        P_32_COPY(srcp->ssize, destp->ssize);
-        P_32_COPY(srcp->sshift, destp->sshift);
+        P_32_COPY(srcp->magic,      destp->magic);
+        P_32_COPY(srcp->version,    destp->version);
+        P_32_COPY(srcp->lorder,     destp->lorder);
+        P_32_COPY(srcp->bsize,      destp->bsize);
+        P_32_COPY(srcp->bshift,     destp->bshift);
+        P_32_COPY(srcp->dsize,      destp->dsize);
+        P_32_COPY(srcp->ssize,      destp->ssize);
+        P_32_COPY(srcp->sshift,     destp->sshift);
         P_32_COPY(srcp->ovfl_point, destp->ovfl_point);
         P_32_COPY(srcp->last_freed, destp->last_freed);
         P_32_COPY(srcp->max_bucket, destp->max_bucket);
-        P_32_COPY(srcp->high_mask, destp->high_mask);
-        P_32_COPY(srcp->low_mask, destp->low_mask);
-        P_32_COPY(srcp->ffactor, destp->ffactor);
-        P_32_COPY(srcp->nkeys, destp->nkeys);
-        P_32_COPY(srcp->hdrpages, destp->hdrpages);
-        P_32_COPY(srcp->h_charkey, destp->h_charkey);
+        P_32_COPY(srcp->high_mask,  destp->high_mask);
+        P_32_COPY(srcp->low_mask,   destp->low_mask);
+        P_32_COPY(srcp->ffactor,    destp->ffactor);
+        P_32_COPY(srcp->nkeys,      destp->nkeys);
+        P_32_COPY(srcp->hdrpages,   destp->hdrpages);
+        P_32_COPY(srcp->h_charkey,  destp->h_charkey);
         for (i = 0; i < NCACHED; i++) {
-                P_32_COPY(srcp->spares[i], destp->spares[i]);
+                P_32_COPY(srcp->spares[i],  destp->spares[i]);
                 P_16_COPY(srcp->bitmaps[i], destp->bitmaps[i]);
         }
 }

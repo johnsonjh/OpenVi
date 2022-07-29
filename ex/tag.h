@@ -1,5 +1,7 @@
 /*      $OpenBSD: tag.h,v 1.7 2015/11/19 07:53:31 bentley Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

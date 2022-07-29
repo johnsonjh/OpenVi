@@ -1,5 +1,7 @@
 /*      $OpenBSD: vi.h,v 1.11 2016/05/27 09:18:12 martijn Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -24,8 +26,8 @@ typedef struct _vicmd {
         CHAR_T  key;                    /* Command key. */
         CHAR_T  buffer;                 /* Buffer. */
         CHAR_T  character;              /* Character. */
-        unsigned long  count;                  /* Count. */
-        unsigned long  count2;                 /* Second count (only used by z). */
+        unsigned long  count;           /* Count. */
+        unsigned long  count2;          /* Second count (only used by z). */
         EVENT   ev;                     /* Associated event. */
 
 #define ISCMD(p, key)   ((p) == &vikeys[(key)])
@@ -55,6 +57,7 @@ typedef struct _vicmd {
          * the flags in the VICMD and VIKEYS structures live in the same name
          * space.
          */
+
 #define VM_CMDFAILED    0x00000001      /* Command failed. */
 #define VM_CUTREQ       0x00000002      /* Always cut into numeric buffers. */
 #define VM_LDOUBLE      0x00000004      /* Doubled command for line mode. */
@@ -65,6 +68,7 @@ typedef struct _vicmd {
          * The VM_RCM_* flags are single usage, i.e. if you set one, you have
          * to clear the others.
          */
+
 #define VM_RCM          0x00000010      /* Use relative cursor movment (RCM). */
 #define VM_RCM_SET      0x00000020      /* RCM: set to current position. */
 #define VM_RCM_SETFNB   0x00000040      /* RCM: set to first non-blank (FNB). */
@@ -125,6 +129,7 @@ typedef struct _vicmd {
          * set the cursor for us, usually to something related to the first
          * <nonblank>.
          */
+
         MARK     m_start;               /* mark: initial cursor, range start. */
         MARK     m_stop;                /* mark: range end. */
         MARK     m_final;               /* mark: final cursor position. */
@@ -202,6 +207,7 @@ int     cs_prev(SCR *, VCS *);
  * column offset into the lines, and can take on any value, as it's adjusted
  * by the user set value O_SIDESCROLL.
  */
+
 typedef struct _smap {
         recno_t  lno;           /* 1-N: Physical file line number. */
         size_t   coff;          /* 0-N: Column offset in the line. */
@@ -222,7 +228,7 @@ typedef struct _smap {
 typedef enum { CNOTSET, FSEARCH, fSEARCH, TSEARCH, tSEARCH } cdir_t;
 
 typedef enum { AB_NOTSET, AB_NOTWORD, AB_INWORD } abb_t;
-typedef enum { Q_NOTSET, Q_VNEXT, Q_VTHIS } quote_t;
+typedef enum { Q_NOTSET,  Q_VNEXT,    Q_VTHIS   } quote_t;
 
 /* Vi private, per-screen memory. */
 typedef struct _vi_private {
@@ -234,6 +240,7 @@ typedef struct _vi_private {
          * The saved command structure can be modified by the underlying
          * vi functions, see v_Put() and v_put().
          */
+
         VICMD   sdot;           /* Saved dot, motion command. */
         VICMD   sdotmotion;
 
@@ -263,7 +270,7 @@ typedef struct _vi_private {
 
         char   *ps;             /* Paragraph plus section list. */
 
-        unsigned long  u_ccnt;         /* Undo command count. */
+        unsigned long  u_ccnt;  /* Undo command count. */
 
         CHAR_T  lastckey;       /* Last search character. */
         cdir_t  csearchdir;     /* Character search direction. */
@@ -275,6 +282,7 @@ typedef struct _vi_private {
          * One extra slot is always allocated for the map so that we can use
          * it to do vi :colon command input; see v_tcmd().
          */
+
         recno_t sv_tm_lno;      /* tcmd: saved TMAP lno field. */
         size_t  sv_tm_coff;     /* tcmd: saved TMAP coff field. */
         size_t  sv_tm_soff;     /* tcmd: saved TMAP soff field. */
@@ -290,6 +298,7 @@ typedef struct _vi_private {
          * and operating on each entry, use sp->t_rows as the count of slots,
          * don't use a loop that compares <= TMAP.
          */
+
 #define _HMAP(sp)       (VIP(sp)->h_smap)
 #define HMAP            _HMAP(sp)
 #define _TMAP(sp)       (VIP(sp)->t_smap)
@@ -332,6 +341,7 @@ typedef struct _vi_private {
  * regardless of the changes in the screen to permit text input on the last line
  * of the screen, or the existence of small screens.
  */
+
 #define LASTLINE(sp) \
         ((sp)->t_maxrows < (sp)->rows ? (sp)->t_maxrows : (sp)->rows - 1)
 
@@ -339,6 +349,7 @@ typedef struct _vi_private {
  * Small screen (see vs_refresh.c, section 6a) and one-line screen test.
  * Note, both cannot be true for the same screen.
  */
+
 #define IS_SMALL(sp)    ((sp)->t_minrows != (sp)->t_maxrows)
 #define IS_ONELINE(sp)  ((sp)->rows == 1)
 
@@ -358,6 +369,7 @@ typedef struct _vi_private {
  * positions when <esc> is entered.  I believe that nvi does tabs correctly,
  * but there are some historical incompatibilities.
  */
+
 #define TAB_OFF(c)      COL_OFF((c), O_VAL(sp, O_TABSTOP))
 
 /* If more than one screen being shown. */

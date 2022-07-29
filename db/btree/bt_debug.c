@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_debug.c,v 1.10 2015/01/16 16:48:51 deraadt Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -44,12 +49,14 @@
 #include "btree.h"
 
 #ifdef DEBUG
+
 /*
  * BT_DUMP -- Dump the tree
  *
  * Parameters:
  *      dbp:    pointer to the DB
  */
+
 void
 __bt_dump(DB *dbp)
 {
@@ -92,6 +99,7 @@ __bt_dump(DB *dbp)
  * Parameters:
  *      h:      pointer to the PAGE
  */
+
 void
 __bt_dmpage(PAGE *h)
 {
@@ -125,6 +133,7 @@ __bt_dmpage(PAGE *h)
  * Parameters:
  *      n:      page number to dump.
  */
+
 void
 __bt_dnpage(DB *dbp, pgno_t pgno)
 {
@@ -142,6 +151,7 @@ __bt_dnpage(DB *dbp, pgno_t pgno)
  * Parameters:
  *      h:      pointer to the PAGE
  */
+
 void
 __bt_dpage(PAGE *h)
 {
@@ -231,12 +241,14 @@ __bt_dpage(PAGE *h)
 #endif /* ifdef DEBUG */
 
 #ifdef STATISTICS
+
 /*
  * BT_STAT -- Gather/print the tree statistics
  *
  * Parameters:
  *      dbp:    pointer to the DB
  */
+
 void
 __bt_stat(DB *dbp)
 {

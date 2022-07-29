@@ -1,5 +1,7 @@
 /*      $OpenBSD: ex_filter.c,v 1.15 2016/08/01 18:27:35 bentley Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

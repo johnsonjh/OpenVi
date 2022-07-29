@@ -1,5 +1,7 @@
 /*      $OpenBSD: cl_read.c,v 1.23 2021/09/02 11:19:02 schwarze Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

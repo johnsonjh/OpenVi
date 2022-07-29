@@ -1,5 +1,7 @@
 /*      $OpenBSD: util.c,v 1.17 2018/07/11 06:39:23 martijn Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -31,6 +33,7 @@
  *
  * PUBLIC: void *binc(SCR *, void *, size_t *, size_t);
  */
+
 void *
 binc(SCR *sp, void *bp, size_t *bsizep, size_t min)
 {
@@ -47,10 +50,12 @@ binc(SCR *sp, void *bp, size_t *bsizep, size_t min)
                 *bsizep = 0;
                 return (NULL);
         }
+
         /*
          * Memory is guaranteed to be zero-filled, various parts of
          * nvi depend on this.
          */
+
         memset((char *)bp + *bsizep, 0, csize - *bsizep);
         *bsizep = csize;
         return (bp);
@@ -64,6 +69,7 @@ binc(SCR *sp, void *bp, size_t *bsizep, size_t min)
  *
  * PUBLIC: int nonblank(SCR *, recno_t, size_t *);
  */
+
 int
 nonblank(SCR *sp, recno_t lno, size_t *cnop)
 {
@@ -97,6 +103,7 @@ nonblank(SCR *sp, recno_t lno, size_t *cnop)
  *
  * PUBLIC: CHAR_T *v_strdup(SCR *, const CHAR_T *, size_t);
  */
+
 CHAR_T *
 v_strdup(SCR *sp, const CHAR_T *str, size_t len)
 {
@@ -116,6 +123,7 @@ v_strdup(SCR *sp, const CHAR_T *str, size_t len)
  *
  * PUBLIC: enum nresult nget_uslong(unsigned long *, const char *, char **, int);
  */
+
 enum nresult
 nget_uslong(unsigned long *valp, const char *p, char **endp, int base)
 {
@@ -134,6 +142,7 @@ nget_uslong(unsigned long *valp, const char *p, char **endp, int base)
  *
  * PUBLIC: enum nresult nget_slong(long *, const char *, char **, int);
  */
+
 enum nresult
 nget_slong(long *valp, const char *p, char **endp, int base)
 {
@@ -159,6 +168,7 @@ nget_slong(long *valp, const char *p, char **endp, int base)
  *
  * PUBLIC: void TRACE(SCR *, const char *, ...);
  */
+
 void
 TRACE(SCR *sp, const char *fmt, ...)
 {

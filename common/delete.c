@@ -1,5 +1,7 @@
 /*      $OpenBSD: delete.c,v 1.12 2017/11/26 09:59:41 mestre Exp $      */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -28,6 +30,7 @@
  *
  * PUBLIC: int del(SCR *, MARK *, MARK *, int);
  */
+
 int
 del(SCR *sp, MARK *fm, MARK *tm, int lmode)
 {
@@ -54,6 +57,7 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
          * Case 2 -- delete to EOF.  This is a special case because it's
          * easier to pick it off than try and find it in the other cases.
          */
+
         if (db_last(sp, &lno))
                 return (1);
         if (tm->lno >= lno) {
@@ -107,6 +111,7 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
          *
          * Copy the start partial line into place.
          */
+
         if ((tlen = fm->cno) != 0) {
                 if (db_get(sp, fm->lno, DBG_FATAL, &p, NULL))
                         return (1);

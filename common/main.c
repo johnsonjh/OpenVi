@@ -1,5 +1,7 @@
 /*      $OpenBSD: main.c,v 1.43 2021/10/24 21:24:17 deraadt Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -48,6 +50,7 @@ enum pmode pmode;
  *
  * PUBLIC: int editor(GS *, int, char *[]);
  */
+
 int
 editor(GS *gp, int argc, char *argv[])
 {
@@ -158,10 +161,12 @@ editor(GS *gp, int argc, char *argv[])
         while ((ch = openbsd_getopt(argc, argv, optstr[pmode])) != -1)
                 switch (ch) {
                 case 'c':               /* Run the command. */
+
                         /*
                          * XXX
                          * We should support multiple -c options.
                          */
+
                         if (gp->c_option != NULL) {
                                 openbsd_warnx("only one -c command may be specified.");
                                 return (1);
@@ -261,6 +266,7 @@ editor(GS *gp, int argc, char *argv[])
          *
          * If not reading from a terminal, it's like -s was specified.
          */
+
         if (silent && !LF_ISSET(SC_EX)) {
                 openbsd_warnx("-s option is only applicable to ex.");
                 goto err;
@@ -277,6 +283,7 @@ editor(GS *gp, int argc, char *argv[])
          * !!!
          * Everything we do until we go interactive is done in ex mode.
          */
+
         if (screen_init(gp, NULL, &sp)) {
                 if (sp != NULL)
                         TAILQ_INSERT_HEAD(&gp->dq, sp, q);
@@ -334,6 +341,7 @@ editor(GS *gp, int argc, char *argv[])
          * Note, options must be initialized and startup information
          * read before doing this.
          */
+
         if (flagchk == 'r' && argv[0] == NULL) {
                 if (rcv_list(sp))
                         goto err;
@@ -351,6 +359,7 @@ editor(GS *gp, int argc, char *argv[])
          * option did not alter the default scrolling value, only giving
          * a count to ^D/^U did that.
          */
+
         sp->defscroll = (O_VAL(sp, O_WINDOW) + 1) / 2;
 
         /*
@@ -364,6 +373,7 @@ editor(GS *gp, int argc, char *argv[])
          * up in the wrong place, but I think that the combination is
          * unlikely.
          */
+
         if (gp->c_option == NULL) {
                 F_CLR(sp, SC_EX | SC_VI);
                 F_SET(sp, LF_ISSET(SC_EX | SC_VI));
@@ -378,6 +388,7 @@ editor(GS *gp, int argc, char *argv[])
          * files if -r specified.  If the tag option or ex startup commands
          * loaded a file, then any file arguments are going to come after it.
          */
+
         if (*argv != NULL) {
                 if (sp->frp != NULL) {
                         size_t l;
@@ -400,6 +411,7 @@ editor(GS *gp, int argc, char *argv[])
          * created a file, create one.  If no command-line files were given,
          * use a temporary file.
          */
+
         if (sp->frp == NULL) {
                 if (sp->argv == NULL) {
                         if ((frp = file_add(sp, NULL)) == NULL)
@@ -432,6 +444,7 @@ editor(GS *gp, int argc, char *argv[])
          * us to lose the messages we're pausing to make sure the user read.
          * So, wait for a complete line.
          */
+
         if (F_ISSET(sp, SC_SCR_EX)) {
                 p = msg_cmsg(sp, CMSG_CONT_R, &len);
                 (void)!write(STDOUT_FILENO, p, len);
@@ -454,6 +467,7 @@ editor(GS *gp, int argc, char *argv[])
          * Main edit loop.  Vi handles split screens itself, we only return
          * here when switching editor modes or restarting the screen.
          */
+
         while (sp != NULL)
                 if (F_ISSET(sp, SC_EX) ? ex(&sp) : vi(&sp))
                         goto err;
@@ -474,6 +488,7 @@ err:            rval = 1;
  *
  * PUBLIC: void v_end(GS *);
  */
+
 void
 v_end(GS *gp)
 {
@@ -524,6 +539,7 @@ v_end(GS *gp)
          * it's possible that the user is sourcing a file that exits from the
          * editor).
          */
+
         while ((mp = LIST_FIRST(&gp->msgq)) != NULL) {
                 (void)fprintf(stderr, "%s%.*s",
                     mp->mtype == M_ERR ? "ex/vi: " : "", (int)mp->len, mp->buf);
@@ -551,6 +567,7 @@ v_end(GS *gp)
  *      Convert historic arguments into something
  *      openbsd_getopt(3) will like.
  */
+
 static int
 v_obsolete(char *argv[])
 {
@@ -570,6 +587,7 @@ v_obsolete(char *argv[])
          * Stop if we find "--" as an argument, the user may want to edit
          * a file named "+foo".
          */
+
         while (*++argv && strcmp(argv[0], "--"))
                 if (argv[0][0] == '+') {
                         if (argv[0][1] == '\0') {

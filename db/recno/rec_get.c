@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_get.c,v 1.11 2007/08/08 07:16:50 ray Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -57,6 +62,7 @@
  * Returns:
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
+
 int
 __rec_get(const DB *dbp, const DBT *key, DBT *data, unsigned int flags)
 {
@@ -83,6 +89,7 @@ __rec_get(const DB *dbp, const DBT *key, DBT *data, unsigned int flags)
          * If we haven't seen this record yet, try to find it in the
          * original file.
          */
+
         if (nrec > t->bt_nrecs) {
                 if (F_ISSET(t, R_EOF | R_INMEM))
                         return (RET_SPECIAL);
@@ -112,6 +119,7 @@ __rec_get(const DB *dbp, const DBT *key, DBT *data, unsigned int flags)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __rec_fpipe(BTREE *t, recno_t top)
 {
@@ -166,6 +174,7 @@ __rec_fpipe(BTREE *t, recno_t top)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __rec_vpipe(BTREE *t, recno_t top)
 {
@@ -221,6 +230,7 @@ __rec_vpipe(BTREE *t, recno_t top)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __rec_fmap(BTREE *t, recno_t top)
 {
@@ -269,6 +279,7 @@ __rec_fmap(BTREE *t, recno_t top)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __rec_vmap(BTREE *t, recno_t top)
 {

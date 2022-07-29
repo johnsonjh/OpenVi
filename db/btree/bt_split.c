@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_split.c,v 1.13 2005/08/05 13:03:00 espie Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -73,6 +78,7 @@ unsigned long  bt_rootsplit, bt_split, bt_sortsplit, bt_pfxsaved;
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
     size_t ilen, u_int32_t argskip)
@@ -94,6 +100,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
          * skip set to the offset which should be used.  Additionally, l and r
          * are pinned.
          */
+
         skip = argskip;
         h = sp->pgno == P_ROOT ?
             bt_root(t, sp, &l, &r, &skip, ilen) :
@@ -105,6 +112,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
          * Insert the new key/data pair into the leaf page.  (Key inserts
          * always cause a leaf page to split first.)
          */
+
         h->linp[skip] = h->upper -= ilen;
         dest = (char *)h + h->upper;
         if (F_ISSET(t, R_RECNO))
@@ -141,6 +149,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
          * This code must make sure that all pins are released other than the
          * root page or overflow page which is unlocked elsewhere.
          */
+
         while ((parent = BT_POP(t)) != NULL) {
                 lchild = l;
                 rchild = r;
@@ -153,6 +162,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
                  * The new key goes ONE AFTER the index, because the split
                  * was to the right.
                  */
+
                 skip = parent->index + 1;
 
                 /*
@@ -169,6 +179,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
                  * Further reduction of the key between pairs of internal
                  * pages loses too much information.
                  */
+
                 switch (rchild->flags & P_TYPE) {
                 case P_BINTERNAL:
                         bi = GETBINTERNAL(rchild, 0);
@@ -240,10 +251,12 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
                                 goto err1;
                         break;
                 case P_RINTERNAL:
+
                         /*
                          * Update the left page count.  If split
                          * added at index 0, fix the correct page.
                          */
+
                         if (skip > 0)
                                 dest = (char *)h + h->linp[skip - 1];
                         else
@@ -258,10 +271,12 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
                         ((RINTERNAL *)dest)->pgno = rchild->pgno;
                         break;
                 case P_RLEAF:
+
                         /*
                          * Update the left page count.  If split
                          * added at index 0, fix the correct page.
                          */
+
                         if (skip > 0)
                                 dest = (char *)h + h->linp[skip - 1];
                         else
@@ -307,6 +322,7 @@ __bt_split(BTREE *t, PAGE *sp, const DBT *key, const DBT *data, int flags,
          * up the tree and the tree is now inconsistent.  Nothing much we can
          * do about it but release any memory we're holding.
          */
+
 err1:   mpool_put(t->bt_mp, lchild, MPOOL_DIRTY);
         mpool_put(t->bt_mp, rchild, MPOOL_DIRTY);
 
@@ -330,6 +346,7 @@ err2:   mpool_put(t->bt_mp, l, 0);
  * Returns:
  *      Pointer to page in which to insert or NULL on error.
  */
+
 static PAGE *
 bt_page(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
 {
@@ -359,6 +376,7 @@ bt_page(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
          * reverse sorted data, that is, split the tree left, but it's not.
          * Don't even try.
          */
+
         if (h->nextpg == P_INVALID && *skip == NEXTINDEX(h)) {
 #ifdef STATISTICS
                 ++bt_sortsplit;
@@ -402,6 +420,7 @@ bt_page(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
          * the left page in place.  Since the left page can't change, we have
          * to swap the original and the allocated left page after the split.
          */
+
         tp = bt_psplit(t, h, l, r, skip, ilen);
 
         /* Move the new left page onto the old left page. */
@@ -429,6 +448,7 @@ bt_page(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
  * Returns:
  *      Pointer to page in which to insert or NULL on error.
  */
+
 static PAGE *
 bt_root(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
 {
@@ -472,6 +492,7 @@ bt_root(BTREE *t, PAGE *h, PAGE **lp, PAGE **rp, indx_t *skip, size_t ilen)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 static int
 bt_rroot(BTREE *t, PAGE *h, PAGE *l, PAGE *r)
 {
@@ -510,6 +531,7 @@ bt_rroot(BTREE *t, PAGE *h, PAGE *l, PAGE *r)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 static int
 bt_broot(BTREE *t, PAGE *h, PAGE *l, PAGE *r)
 {
@@ -526,6 +548,7 @@ bt_broot(BTREE *t, PAGE *h, PAGE *l, PAGE *r)
          * The btree comparison code guarantees that the left-most key on any
          * level of the tree is never used, so it doesn't need to be filled in.
          */
+
         nbytes = NBINTERNAL(0);
         h->linp[0] = h->upper = t->bt_psize - nbytes;
         dest = (char *)h + h->upper;
@@ -544,6 +567,7 @@ bt_broot(BTREE *t, PAGE *h, PAGE *l, PAGE *r)
                  * If the key is on an overflow page, mark the overflow chain
                  * so it isn't deleted when the leaf copy of the key is deleted.
                  */
+
                 if (bl->flags & P_BIGKEY &&
                     bt_preserve(t, *(pgno_t *)bl->bytes) == RET_ERROR)
                         return (RET_ERROR);
@@ -585,6 +609,7 @@ bt_broot(BTREE *t, PAGE *h, PAGE *l, PAGE *r)
  * Returns:
  *      Pointer to page in which to insert.
  */
+
 static PAGE *
 bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
 {
@@ -604,6 +629,7 @@ bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
          * key.  This makes internal page processing faster and can save
          * space as overflow keys used by internal pages are never deleted.
          */
+
         bigkeycnt = 0;
         skip = *pskip;
         full = t->bt_psize - BTDATAOFF;
@@ -645,6 +671,7 @@ bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
                  * where we decide to try and copy too much onto the left page.
                  * Make sure that doesn't happen.
                  */
+
                 if ((skip <= off && used + nbytes + sizeof(indx_t) >= full) ||
                     nxt == top - 1) {
                         --off;
@@ -672,6 +699,7 @@ bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
          * Off is the last offset that's valid for the left page.
          * Nxt is the first offset to be placed on the right page.
          */
+
         l->lower += (off + 1) * sizeof(indx_t);
 
         /*
@@ -681,6 +709,7 @@ bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
          * one.  If the cursor is on the right page, it is decremented by the
          * number of records split to the left page.
          */
+
         c = &t->bt_cursor;
         if (F_ISSET(c, CURS_INIT) && c->pg.pgno == h->pgno) {
                 if (c->pg.index >= skip)
@@ -698,6 +727,7 @@ bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
          * Otherwise, adjust the skip index to reflect the new position on
          * the right page.
          */
+
         if (skip <= off) {
                 skip = MAX_PAGE_OFFSET;
                 rval = l;
@@ -759,6 +789,7 @@ bt_psplit(BTREE *t, PAGE *h, PAGE *l, PAGE *r, indx_t *pskip, size_t ilen)
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 static int
 bt_preserve(BTREE *t, pgno_t pg)
 {
@@ -785,6 +816,7 @@ bt_preserve(BTREE *t, pgno_t pg)
  * entry has to be popped off of the stack etc. or the values have to be passed
  * all the way back to bt_split/bt_rroot and it's not very clean.
  */
+
 static recno_t
 rec_total(PAGE *h)
 {

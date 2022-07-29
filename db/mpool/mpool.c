@@ -1,5 +1,7 @@
 /*      $OpenBSD: mpool.c,v 1.21 2015/11/01 03:45:28 guenther Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -57,6 +62,7 @@ static int  mpool_write(MPOOL *, BKT *);
  * mpool_open --
  *      Initialize a memory pool.
  */
+
 MPOOL *
 mpool_open(void *key, int fd, pgno_t pagesize, pgno_t maxcache)
 {
@@ -70,6 +76,7 @@ mpool_open(void *key, int fd, pgno_t pagesize, pgno_t maxcache)
          * XXX
          * We don't currently handle pipes, although we should.
          */
+
         if (fstat(fd, &sb))
                 return (NULL);
         if (!S_ISREG(sb.st_mode)) {
@@ -84,9 +91,9 @@ mpool_open(void *key, int fd, pgno_t pagesize, pgno_t maxcache)
         for (entry = 0; entry < HASHSIZE; ++entry)
                 TAILQ_INIT(&mp->hqh[entry]);
         mp->maxcache = maxcache;
-        mp->npages = sb.st_size / pagesize;
+        mp->npages   = sb.st_size / pagesize;
         mp->pagesize = pagesize;
-        mp->fd = fd;
+        mp->fd       = fd;
         return (mp);
 }
 
@@ -94,12 +101,13 @@ mpool_open(void *key, int fd, pgno_t pagesize, pgno_t maxcache)
  * mpool_filter --
  *      Initialize input/output filters.
  */
+
 void
 mpool_filter(MPOOL *mp, void (*pgin) (void *, pgno_t, void *),
     void (*pgout) (void *, pgno_t, void *), void *pgcookie)
 {
-        mp->pgin = pgin;
-        mp->pgout = pgout;
+        mp->pgin     = pgin;
+        mp->pgout    = pgout;
         mp->pgcookie = pgcookie;
 }
 
@@ -107,6 +115,7 @@ mpool_filter(MPOOL *mp, void (*pgin) (void *, pgno_t, void *),
  * mpool_new --
  *      Get a new page of memory.
  */
+
 void *
 mpool_new(MPOOL *mp, pgno_t *pgnoaddr, unsigned int flags)
 {
@@ -120,11 +129,13 @@ mpool_new(MPOOL *mp, pgno_t *pgnoaddr, unsigned int flags)
 #ifdef STATISTICS
         ++mp->pagenew;
 #endif /* ifdef STATISTICS */
+
         /*
          * Get a BKT from the cache.  Assign a new page number, attach
          * it to the head of the hash chain, the tail of the lru chain,
          * and return.
          */
+
         if ((bp = mpool_bkt(mp)) == NULL)
                 return (NULL);
         if (flags == MPOOL_PAGE_REQUEST) {
@@ -171,6 +182,7 @@ mpool_delete(MPOOL *mp, void *page)
  * mpool_get
  *      Get a page.
  */
+
 void *
 mpool_get(MPOOL *mp, pgno_t pgno,
     unsigned int flags)                /* XXX not used? */
@@ -193,10 +205,12 @@ mpool_get(MPOOL *mp, pgno_t pgno,
                         abort();
                 }
 #endif /* ifdef DEBUG */
+
                 /*
                  * Move the page to the head of the hash chain and the tail
                  * of the lru chain.
                  */
+
                 head = &mp->hqh[HASHKEY(bp->pgno)];
                 TAILQ_REMOVE(head, bp, hq);
                 TAILQ_INSERT_HEAD(head, bp, hq);
@@ -250,6 +264,7 @@ mpool_get(MPOOL *mp, pgno_t pgno,
          * Add the page to the head of the hash chain and the tail
          * of the lru chain.
          */
+
         head = &mp->hqh[HASHKEY(bp->pgno)];
         TAILQ_INSERT_HEAD(head, bp, hq);
         TAILQ_INSERT_TAIL(&mp->lqh, bp, q);
@@ -265,6 +280,7 @@ mpool_get(MPOOL *mp, pgno_t pgno,
  * mpool_put
  *      Return a page.
  */
+
 int
 mpool_put(MPOOL *mp, void *page, unsigned int flags)
 {
@@ -291,6 +307,7 @@ mpool_put(MPOOL *mp, void *page, unsigned int flags)
  * mpool_close
  *      Close the buffer pool.
  */
+
 int
 mpool_close(MPOOL *mp)
 {
@@ -311,6 +328,7 @@ mpool_close(MPOOL *mp)
  * mpool_sync
  *      Sync the pool to disk.
  */
+
 int
 mpool_sync(MPOOL *mp)
 {
@@ -330,6 +348,7 @@ mpool_sync(MPOOL *mp)
  * mpool_bkt
  *      Get a page from the cache (or create one).
  */
+
 static BKT *
 mpool_bkt(MPOOL *mp)
 {
@@ -346,6 +365,7 @@ mpool_bkt(MPOOL *mp)
          * off any lists.  If we don't find anything we grow the cache anyway.
          * The cache never shrinks.
          */
+
         TAILQ_FOREACH(bp, &mp->lqh, q)
                 if (!(bp->flags & MPOOL_PINNED)) {
                         /* Flush if dirty. */
@@ -376,7 +396,7 @@ new:    if ((bp = (BKT *)malloc(sizeof(BKT) + mp->pagesize)) == NULL)
         ++mp->pagealloc;
 #endif /* ifdef STATISTICS */
         memset(bp, 0xff, sizeof(BKT) + mp->pagesize);
-        bp->page = (char *)bp + sizeof(BKT);
+        bp->page  = (char *)bp + sizeof(BKT);
         bp->flags = 0;
         ++mp->curcache;
         return (bp);
@@ -386,6 +406,7 @@ new:    if ((bp = (BKT *)malloc(sizeof(BKT) + mp->pagesize)) == NULL)
  * mpool_write
  *      Write a page to disk.
  */
+
 static int
 mpool_write(MPOOL *mp, BKT *bp)
 {
@@ -409,6 +430,7 @@ mpool_write(MPOOL *mp, BKT *bp)
          * did may screw things up if we don't let the input filter
          * restore the in-core copy.
          */
+
         if (mp->pgin)
                 (mp->pgin)(mp->pgcookie, bp->pgno, bp->page);
 
@@ -420,6 +442,7 @@ mpool_write(MPOOL *mp, BKT *bp)
  * mpool_look
  *      Lookup a page in the cache.
  */
+
 static BKT *
 mpool_look(MPOOL *mp, pgno_t pgno)
 {
@@ -442,10 +465,12 @@ mpool_look(MPOOL *mp, pgno_t pgno)
 }
 
 #ifdef STATISTICS
+
 /*
  * mpool_stat
  *      Print out cache statistics.
  */
+
 void
 mpool_stat(MPOOL *mp)
 {

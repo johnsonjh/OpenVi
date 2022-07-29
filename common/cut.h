@@ -1,5 +1,7 @@
 /*      $OpenBSD: cut.h,v 1.9 2016/05/27 09:18:11 martijn Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -56,6 +58,7 @@ struct _text {                          /* Text: a linked list of lines. */
          *      TERM_OK:        Data available.
          *      TERM_SEARCH:    Incremental search.
          */
+
         enum {
             TERM_BS, TERM_CEDIT, TERM_CR, TERM_ESC, TERM_OK, TERM_SEARCH
         } term;
@@ -65,6 +68,7 @@ struct _text {                          /* Text: a linked list of lines. */
  * Get named buffer 'name'.
  * Translate upper-case buffer names to lower-case buffer names.
  */
+
 #define CBNAME(sp, cbp, nch) {                                          \
         CHAR_T L__name;                                                 \
         L__name = isupper(nch) ? tolower(nch) : (nch);                  \

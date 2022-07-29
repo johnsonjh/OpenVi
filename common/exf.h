@@ -1,5 +1,7 @@
 /*      $OpenBSD: exf.h,v 1.6 2022/02/20 19:45:51 tb Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -25,6 +27,7 @@
  * exf --
  *      The file structure.
  */
+
 struct _exf {
         int      refcnt;                /* Reference count. */
 

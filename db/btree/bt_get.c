@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_get.c,v 1.8 2005/08/05 13:02:59 espie Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -57,6 +62,7 @@
  * Returns:
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
+
 int
 __bt_get(const DB *dbp, const DBT *key, DBT *data, unsigned int flags)
 {
@@ -91,6 +97,7 @@ __bt_get(const DB *dbp, const DBT *key, DBT *data, unsigned int flags)
          * If the user is doing concurrent access, we copied the
          * key/data, toss the page.
          */
+
         if (F_ISSET(t, B_DB_LOCK))
                 mpool_put(t->bt_mp, e->page, 0);
         else

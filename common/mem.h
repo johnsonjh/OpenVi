@@ -1,5 +1,7 @@
 /*      $OpenBSD: mem.h,v 1.10 2017/06/24 16:30:47 martijn Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

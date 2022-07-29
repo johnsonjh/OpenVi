@@ -1,5 +1,11 @@
 #!/usr/bin/env csh
-#       $OpenBSD: vi.tut.csh,v 1.2 2001/01/29 01:58:40 niklas Exp $
+# $OpenBSD: vi.tut.csh,v 1.2 2001/01/29 01:58:40 niklas Exp $
+# SPDX-License-Identifier: BSD-3-Clause
+# Copyright (c) 1980, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994
+#         The Regents of the University of California
+# Copyright (c) 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
+#         Keith Bostic
+# Copyright (c) 2021-2022 Jeffrey H. Johnson <trnsz@pobox.com>
 
 # XXX I don't know what happens if there is .exrc file!
 # XXX Make sure that user is using a 24 line window!!!

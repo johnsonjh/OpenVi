@@ -1,6 +1,6 @@
-#       $OpenBSD: input,v 1.2 2001/01/29 01:58:38 niklas Exp $
-
-#       @(#)input       5.5 (Berkeley) 7/2/94
+# $OpenBSD: input,v 1.2 2001/01/29 01:58:38 niklas Exp $
+# SPDX-License-Identifier: BSD-3-Clause
+# @(#)input       5.5 (Berkeley) 7/2/94
 
 MAPS, EXECUTABLE BUFFERS AND INPUT IN EX/VI:
 

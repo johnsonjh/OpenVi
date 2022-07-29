@@ -1,5 +1,7 @@
 /*      $OpenBSD: recover.c,v 1.32 2022/02/20 19:45:51 tb Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -22,6 +24,7 @@
  * on historical systems.  We also include <bsd_fcntl.h> because the open(2)
  * #defines are found there on newer systems.
  */
+
 #include <sys/file.h>
 
 #include <stddef.h>
@@ -132,6 +135,7 @@ int      rcv_openat(SCR *, int, const char *, int *);
  *
  * PUBLIC: int rcv_tmp(SCR *, EXF *, char *);
  */
+
 int
 rcv_tmp(SCR *sp, EXF *ep, char *name)
 {
@@ -144,6 +148,7 @@ rcv_tmp(SCR *sp, EXF *ep, char *name)
          * !!!
          * ep MAY NOT BE THE SAME AS sp->ep, DON'T USE THE LATTER.
          */
+
         if (opts_empty(sp, O_RECDIR, 0))
                 goto err;
 
@@ -192,6 +197,7 @@ err_quiet:
  *
  * PUBLIC: int rcv_init(SCR *);
  */
+
 int
 rcv_init(SCR *sp)
 {
@@ -254,6 +260,7 @@ err:    msgq(sp, M_ERR,
  *
  * PUBLIC: int rcv_sync(SCR *, unsigned int);
  */
+
 int
 rcv_sync(SCR *sp, unsigned int flags)
 {
@@ -296,6 +303,7 @@ rcv_sync(SCR *sp, unsigned int flags)
          *
          * REQUEST: snapshot the file.
          */
+
         rval = 0;
         if (LF_ISSET(RCV_SNAPSHOT)) {
                 if (opts_empty(sp, O_RECDIR, 0))
@@ -328,6 +336,7 @@ err:            rval = 1;
  * rcv_mailfile --
  *      Build the file to mail to the user.
  */
+
 int
 rcv_mailfile(SCR *sp, int issync, char *cp_path)
 {
@@ -364,6 +373,7 @@ rcv_mailfile(SCR *sp, int issync, char *cp_path)
          * be recovered.  There's an obvious window between the mkstemp call
          * and the lock, but it's pretty small.
          */
+
         ep = sp->ep;
         if (file_lock(sp, NULL, NULL, fd, 1) != LOCK_SUCCESS)
                 msgq(sp, M_SYSERR, "Unable to lock recovery file");
@@ -384,6 +394,7 @@ rcv_mailfile(SCR *sp, int issync, char *cp_path)
          * lock is lost.  So, we could never close the FILE *, even if we
          * dup'd the fd first.
          */
+
         t = sp->frp->name;
         if ((p = strrchr(t, '/')) == NULL)
                 p = t;
@@ -423,6 +434,7 @@ lerr:           msgq(sp, M_ERR, "Recovery file buffer overrun");
          * Format the message.  (Yes, I know it's silly.)
          * Requires that the message end in a <newline>.
          */
+
 #define FMTCOLS 60
         for (t1 = buf; len > 0; len -= t2 - t1, t1 = t2) {
                 /* Check for a short length. */
@@ -475,6 +487,7 @@ err:    if (!issync)
  *
  * PUBLIC: int rcv_openat(SCR *, int, const char *, int *)
  */
+
 int
 rcv_openat(SCR *sp, int dfd, const char *name, int *locked)
 {
@@ -485,6 +498,7 @@ rcv_openat(SCR *sp, int dfd, const char *name, int *locked)
          * If it's readable, it's recoverable.
          * Note: file_lock() sets the close on exec flag for us.
          */
+
         fd = openat(dfd, name, O_RDONLY|O_NOFOLLOW|O_NONBLOCK);
         if (fd == -1)
                 goto bad;
@@ -493,6 +507,7 @@ rcv_openat(SCR *sp, int dfd, const char *name, int *locked)
          * Real vi recovery files are created with mode 0600.
          * If not a regular file or the mode has changed, skip it.
          */
+
         if (fstat(fd, &sb) == -1 || !S_ISREG(sb.st_mode) ||
             (sb.st_mode & ALLPERMS) != (S_IRUSR | S_IWUSR))
                 goto bad;
@@ -501,6 +516,7 @@ rcv_openat(SCR *sp, int dfd, const char *name, int *locked)
                 locked = &dummy;
         switch ((*locked = file_lock(sp, NULL, NULL, fd, 0))) {
         case LOCK_FAILED:
+
                 /*
                  * XXX
                  * Assume that a lock can't be acquired, but that we
@@ -508,6 +524,7 @@ rcv_openat(SCR *sp, int dfd, const char *name, int *locked)
                  * and someone else is using the file, we're going to
                  * die horribly.
                  */
+
                 break;
         case LOCK_SUCCESS:
                 break;
@@ -532,6 +549,7 @@ bad:
  *
  * PUBLIC: int rcv_list(SCR *);
  */
+
 int
 rcv_list(SCR *sp)
 {
@@ -585,6 +603,7 @@ rcv_list(SCR *sp)
                  * This can occur if the backup file was deleted and we crashed
                  * before deleting the email file.
                  */
+
                 errno = 0;
                 if (stat(path + sizeof(VI_PHEADER) - 1, &sb) &&
                     errno == ENOENT) {
@@ -613,6 +632,7 @@ next:           (void)fclose(fp);
  *
  * PUBLIC: int rcv_read(SCR *, FREF *);
  */
+
 int
 rcv_read(SCR *sp, FREF *frp)
 {
@@ -673,6 +693,7 @@ rcv_read(SCR *sp, FREF *frp)
                  * This can occur if the backup file was deleted and we crashed
                  * before deleting the email file.
                  */
+
                 errno = 0;
                 if (stat(path + sizeof(VI_PHEADER) - 1, &sb) &&
                     errno == ENOENT) {
@@ -689,6 +710,7 @@ rcv_read(SCR *sp, FREF *frp)
                 /*
                  * If we've found more than one, take the most recent.
                  */
+
                 (void)fstat(fd, &sb);
                 if (recp == NULL ||
                     timespeccmp(&rec_mtim, &sb.st_mtim, <)) {
@@ -739,6 +761,7 @@ next:                   (void)close(fd);
          * XXX
          * file_init() is going to set ep->rcv_path.
          */
+
         if (file_init(sp, frp, pathp + sizeof(VI_PHEADER) - 1, 0)) {
                 free(recp);
                 free(pathp);
@@ -751,6 +774,7 @@ next:                   (void)close(fd);
          * distinguish between files that are live and those that need to
          * be recovered.  The lock is already acquired, just copy it.
          */
+
         ep = sp->ep;
         ep->rcv_mpath = recp;
         ep->rcv_fd = sv_fd;
@@ -766,6 +790,7 @@ next:                   (void)close(fd);
  * rcv_copy --
  *      Copy a recovery file.
  */
+
 int
 rcv_copy(SCR *sp, int wfd, char *fname)
 {
@@ -789,6 +814,7 @@ err:    msgq_str(sp, M_SYSERR, fname, "%s");
  * rcv_gets --
  *      Fgets(3) for a file descriptor.
  */
+
 char *
 rcv_gets(char *buf, size_t len, int fd)
 {
@@ -808,6 +834,7 @@ rcv_gets(char *buf, size_t len, int fd)
  * rcv_mktemp --
  *      Paranoid make temporary file routine.
  */
+
 int
 rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
 {
@@ -822,6 +849,7 @@ rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
          * XXX
          * The variable perms should really be a mode_t.
          */
+
         if ((fd = mkstemp(path)) == -1 || fchmod(fd, perms) == -1) {
                 msgq_str(sp, M_SYSERR, dname, "%s");
                 if (fd != -1) {
@@ -837,6 +865,7 @@ rcv_mktemp(SCR *sp, char *path, char *dname, int perms)
  * rcv_email --
  *      Send email.
  */
+
 void
 rcv_email(SCR *sp, int fd)
 {
@@ -849,6 +878,7 @@ rcv_email(SCR *sp, int fd)
          * Later vi -r still works because rcv_mailfile()
          * already did all the necessary setup.
          */
+
         if (O_ISSET(sp, O_SECURE))
                 return;
 
@@ -856,6 +886,7 @@ rcv_email(SCR *sp, int fd)
                 msgq_str(sp, M_SYSERR,
                     _PATH_SENDMAIL, "not sending email: %s");
         else {
+
                 /*
                  * !!!
                  * If you need to port this to a system that doesn't have
@@ -863,6 +894,7 @@ rcv_email(SCR *sp, int fd)
                  * for the recipients instead of specifying them some other
                  * way.
                  */
+
                 switch (pid = fork()) {
                 case -1:                /* Error. */
                         msgq(sp, M_SYSERR, "fork");

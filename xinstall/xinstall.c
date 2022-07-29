@@ -1,6 +1,8 @@
 /*      $OpenBSD: xinstall.c,v 1.76 2021/11/28 19:28:42 deraadt Exp $        */
 /*      $NetBSD: xinstall.c,v 1.9 1995/12/20 10:25:17 jonathan Exp $         */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*
  * Copyright (c) 1987, 1993 The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>

@@ -1,5 +1,7 @@
 /*      $OpenBSD: basename.c,v 1.17 2020/10/20 19:30:14 naddy Exp $     */
 
+/* SPDX-License-Identifier: ISC */
+
 /*
  * Copyright (c) 1997, 2004 Todd C. Miller <millert@openbsd.org>
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>

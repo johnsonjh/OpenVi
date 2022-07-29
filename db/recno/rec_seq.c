@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_seq.c,v 1.8 2005/08/05 13:03:00 espie Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -55,6 +60,7 @@
  * Returns:
  *      RET_ERROR, RET_SUCCESS or RET_SPECIAL if there's no next key.
  */
+
 int
 __rec_seq(const DB *dbp, DBT *key, DBT *data, unsigned int flags)
 {

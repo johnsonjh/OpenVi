@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_close.c,v 1.13 2016/09/21 04:38:56 guenther Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -54,6 +59,7 @@
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __rec_close(DB *dbp)
 {
@@ -99,6 +105,7 @@ __rec_close(DB *dbp)
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 int
 __rec_sync(const DB *dbp, unsigned int flags)
 {
@@ -138,11 +145,13 @@ __rec_sync(const DB *dbp, unsigned int flags)
         key.data = &trec;
 
         if (F_ISSET(t, R_FIXLEN)) {
+
                 /*
                  * We assume that fixed length records are all fixed length.
                  * Any that aren't are either EINVAL'd or corrected by the
                  * record put code.
                  */
+
                 status = (dbp->seq)(dbp, &key, &data, R_FIRST);
                 while (status == RET_SUCCESS) {
                         if (write(t->bt_rfd, data.data, data.size) != data.size)

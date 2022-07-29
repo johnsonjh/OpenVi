@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_open.c,v 1.19 2015/12/28 22:08:18 mmcc Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -94,6 +99,7 @@ static int tmp(void);
  *      NULL on failure, pointer to DB on success.
  *
  */
+
 DB *
 __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
     int dflags)
@@ -116,6 +122,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
          * file is opened.  Also, the file's page size can cause the cachesize
          * to change.
          */
+
         machine_lorder = byteorder();
         if (openinfo) {
                 b = *openinfo;
@@ -129,6 +136,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
                  * page size is set farther on, based on the underlying file
                  * transfer size.
                  */
+
                 if (b.psize &&
                     (b.psize < MINPSIZE || b.psize > MAX_PAGE_OFFSET + 1 ||
                     b.psize & (sizeof(indx_t) - 1)))
@@ -193,6 +201,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
          * If no file name was supplied, this is an in-memory btree and we
          * open a backing temporary file.  Otherwise, it's a disk-based tree.
          */
+
         if (fname) {
                 switch (flags & O_ACCMODE) {
                 case O_RDONLY:
@@ -232,6 +241,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
                  * don't bother to return an error, we just clear the NEEDSWAP
                  * bit.
                  */
+
                 if (m.magic == BTREEMAGIC)
                         F_CLR(t, B_NEEDSWAP);
                 else {
@@ -255,10 +265,12 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
                 t->bt_free = m.free;
                 t->bt_nrecs = m.nrecs;
         } else {
+
                 /*
                  * Set the page size to the best value for I/O to this file.
                  * Don't overflow the page offset type.
                  */
+
                 if (b.psize == 0) {
                         b.psize = sb.st_blksize;
                         if (b.psize < MINPSIZE)
@@ -298,6 +310,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
          * a key/data pair won't fit even if both key and data are on overflow
          * pages.
          */
+
         t->bt_ovflsize = (t->bt_psize - BTDATAOFF) / b.minkeypage -
             (sizeof(indx_t) + NBLEAFDBT(0, 0));
         if (t->bt_ovflsize < NBLEAFDBT(NOVFLSIZE, NOVFLSIZE) + sizeof(indx_t))
@@ -351,6 +364,7 @@ err:    saved_errno = errno;
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 static int
 nroot(BTREE *t)
 {

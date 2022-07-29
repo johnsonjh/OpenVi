@@ -1,6 +1,8 @@
 /*      $OpenBSD: setmode.c,v 1.22 2014/10/11 04:14:35 deraadt Exp $         */
 /*      $NetBSD: setmode.c,v 1.15 1997/02/07 22:21:06 christos Exp $         */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*
  * Copyright (c) 1989, 1993, 1994 The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>

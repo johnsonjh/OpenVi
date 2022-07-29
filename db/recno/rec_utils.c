@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_utils.c,v 1.9 2015/01/16 16:48:51 deraadt Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -54,6 +59,7 @@
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 int
 __rec_ret(BTREE *t, EPG *e, recno_t nrec, DBT *key, DBT *data)
 {
@@ -84,6 +90,7 @@ dataonly:
          * leave the page pinned and don't copy unless the user specified
          * concurrent access.
          */
+
         rl = GETRLEAF(e->page, e->index);
         if (rl->flags & P_BIGDATA) {
                 if (__ovfl_get(t, rl->bytes,

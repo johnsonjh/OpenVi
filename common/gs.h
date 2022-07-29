@@ -1,5 +1,7 @@
 /*      $OpenBSD: gs.h,v 1.18 2016/05/27 09:18:11 martijn Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -21,6 +23,7 @@
  * !!!
  * The read-only bit follows the file name, not the file itself.
  */
+
 struct _fref {
         TAILQ_ENTRY(_fref) q;           /* Linked list of file references. */
         char    *name;                  /* File name. */
@@ -58,6 +61,7 @@ typedef enum { KEY_VEOF, KEY_VERASE, KEY_VKILL, KEY_VWERASE } scr_keyval_t;
  *
  * Structure that describes global state of the running program.
  */
+
 struct _gs {
         int      id;                    /* Last allocated screen id. */
         TAILQ_HEAD(_dqh, _scr) dq;      /* Displayed screens. */

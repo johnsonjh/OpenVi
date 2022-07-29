@@ -1,5 +1,7 @@
 /*      $OpenBSD: btree.h,v 1.7 2015/07/16 04:27:33 tedu Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -51,6 +56,7 @@
  * used as an out-of-band page, i.e. page pointers that point to nowhere point
  * to page 0.  Page 1 is the root of the btree.
  */
+
 #define P_INVALID        0              /* Invalid tree page number. */
 #define P_META           0              /* Tree metadata page number. */
 #define P_ROOT           1              /* Tree root page number. */
@@ -63,6 +69,7 @@
  * (ANSI C permits random padding.)  If your compiler pads randomly you'll have
  * to do some work to get this package to run.
  */
+
 typedef struct _page {
         pgno_t  pgno;                   /* this page's page number */
         pgno_t  prevpg;                 /* left sibling */
@@ -104,6 +111,7 @@ typedef struct _page {
  * be manipulated without copying.  (This presumes that 32 bit items can be
  * manipulated on this system.)
  */
+
 #define LALIGN(n)       (((n) + sizeof(pgno_t) - 1) & ~(sizeof(pgno_t) - 1))
 #define NOVFLSIZE       (sizeof(pgno_t) + sizeof(u_int32_t))
 
@@ -116,6 +124,7 @@ typedef struct _page {
  * somewhat special and can cause duplicate internal and leaf page records and
  * some minor modifications of the above rule.
  */
+
 typedef struct _binternal {
         u_int32_t ksize;                /* key size */
         pgno_t  pgno;                   /* page number stored on */
@@ -147,6 +156,7 @@ typedef struct _binternal {
  * For the recno internal pages, the item is a page number with the number of
  * keys found on that page and below.
  */
+
 typedef struct _rinternal {
         recno_t nrecs;                  /* number of records */
         pgno_t  pgno;                   /* page number stored below */
@@ -222,8 +232,8 @@ typedef struct _rleaf {
 #define WR_RLEAF(p, data, flags) {                                      \
         *(u_int32_t *)p = data->size;                                   \
         p += sizeof(u_int32_t);                                         \
-        *(unsigned char *)p = flags;                                           \
-        p += sizeof(unsigned char);                                            \
+        *(unsigned char *)p = flags;                                    \
+        p += sizeof(unsigned char);                                     \
         memmove(p, data->data, data->size);                             \
 }
 
@@ -237,6 +247,7 @@ typedef struct _rleaf {
  * must find the smallest record greater than key so that the returned index
  * is the record's correct position for insertion.
  */
+
 typedef struct _epgno {
         pgno_t  pgno;                   /* the page number */
         indx_t  index;                  /* the index on the page */
@@ -271,6 +282,7 @@ typedef struct _epg {
  * This structure is broken out so that we can eventually offer multiple
  * cursors as part of the DB interface.
  */
+
 typedef struct _cursor {
         EPGNO    pg;                    /* B: Saved tree reference. */
         DBT      key;                   /* B: Saved key, or key.data == NULL. */
@@ -288,6 +300,7 @@ typedef struct _cursor {
  * This is because the btree doesn't really need it and it requires that every
  * put or delete call modify the metadata.
  */
+
 typedef struct _btmeta {
         u_int32_t       magic;          /* magic number */
         u_int32_t       version;        /* version */
@@ -350,12 +363,13 @@ typedef struct _btree {
 
         recno_t   bt_nrecs;             /* R: number of records */
         size_t    bt_reclen;            /* R: fixed record length */
-        unsigned char    bt_bval;              /* R: delimiting byte/pad character */
+        unsigned char    bt_bval;       /* R: delimiting byte/pad character */
 
 /*
  * NB:
  * B_NODUPS and R_RECNO are stored on disk, and may not be changed.
  */
+
 #define B_INMEM         0x00001         /* in-memory tree */
 #define B_METADIRTY     0x00002         /* need to write metadata */
 #define B_MODIFIED      0x00004         /* tree modified */

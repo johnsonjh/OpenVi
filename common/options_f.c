@@ -1,5 +1,7 @@
 /*      $OpenBSD: options_f.c,v 1.13 2019/05/21 09:24:58 martijn Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -32,6 +34,7 @@
 /*
  * PUBLIC: int f_altwerase(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_altwerase(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -43,6 +46,7 @@ f_altwerase(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_columns(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_columns(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -61,6 +65,7 @@ f_columns(SCR *sp, OPTION *op, char *str, unsigned long *valp)
          * number of lines/columns for the screen, but at least we don't drop
          * core.
          */
+
 #define MAXIMUM_SCREEN_COLS     3640
         if (*valp > MAXIMUM_SCREEN_COLS) {
                 msgq(sp, M_ERR, "Screen columns too large, greater than %d",
@@ -73,6 +78,7 @@ f_columns(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_lines(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_lines(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -91,6 +97,7 @@ f_lines(SCR *sp, OPTION *op, char *str, unsigned long *valp)
          * number of lines/columns for the screen, but at least we don't drop
          * core.
          */
+
 #define MAXIMUM_SCREEN_ROWS     2048
         if (*valp > MAXIMUM_SCREEN_ROWS) {
                 msgq(sp, M_ERR, "Screen lines too large, greater than %d",
@@ -102,6 +109,7 @@ f_lines(SCR *sp, OPTION *op, char *str, unsigned long *valp)
          * Set the value, and the related scroll value.  If no window
          * value set, set a new default window.
          */
+
         o_set(sp, O_LINES, 0, NULL, *valp);
         if (*valp == 1) {
                 sp->defscroll = 1;
@@ -126,6 +134,7 @@ f_lines(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_paragraph(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_paragraph(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -140,6 +149,7 @@ f_paragraph(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_print(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_print(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -154,6 +164,7 @@ f_print(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_readonly(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_readonly(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -171,6 +182,7 @@ f_readonly(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_recompile(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_recompile(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -188,6 +200,7 @@ f_recompile(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_reformat(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_reformat(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -198,6 +211,7 @@ f_reformat(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_section(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_section(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -212,6 +226,7 @@ f_section(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_secure(SCR *, OPTION *, char *, unsigned long *)
  */
+
 int
 f_secure(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -226,6 +241,7 @@ f_secure(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_ttywerase(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_ttywerase(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -237,6 +253,7 @@ f_ttywerase(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_w300(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_w300(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -254,6 +271,7 @@ f_w300(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_w1200(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_w1200(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -271,6 +289,7 @@ f_w1200(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_w9600(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_w9600(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -288,6 +307,7 @@ f_w9600(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_window(SCR *, OPTION *, char *, unsigned long *);
  */
+
 int
 f_window(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {
@@ -300,6 +320,7 @@ f_window(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 /*
  * PUBLIC: int f_imctrl __P((SCR *, OPTION *, char *, unsigned long *));
  */
+
 int
 f_imctrl(SCR *sp, OPTION *op, char *str, unsigned long *valp)
 {

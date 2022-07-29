@@ -1,5 +1,7 @@
 /*      $OpenBSD: v_txt.c,v 1.35 2021/04/13 15:34:41 millert Exp $      */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

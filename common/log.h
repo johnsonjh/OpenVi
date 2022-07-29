@@ -1,5 +1,7 @@
 /*      $OpenBSD: log.h,v 1.3 2001/01/29 01:58:30 niklas Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

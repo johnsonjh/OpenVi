@@ -1,5 +1,7 @@
 /*      $OpenBSD: v_paragraph.c,v 1.9 2017/04/18 01:45:35 deraadt Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -83,6 +85,7 @@ v_paragraphf(SCR *sp, VICMD *vp)
          * line itself remained.  If somebody complains, don't pause, don't
          * hesitate, just hit them.
          */
+
         if (ISMOTION(vp)) {
                 if (vp->m_start.cno == 0)
                         F_SET(vp, VM_LMODE);
@@ -105,6 +108,7 @@ v_paragraphf(SCR *sp, VICMD *vp)
          * If we start in text, we want to switch states
          * (2 * N - 1) times, in non-text, (2 * N) times.
          */
+
         cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1;
         cnt *= 2;
         if (len == 0 || v_isempty(p, len))
@@ -130,6 +134,7 @@ v_paragraphf(SCR *sp, VICMD *vp)
                                 pstate = P_INTEXT;
                                 break;
                         }
+
                         /*
                          * !!!
                          * Non-motion commands move to the end of the range,
@@ -139,6 +144,7 @@ v_paragraphf(SCR *sp, VICMD *vp)
                          * the previous line, whereas the movement command was
                          * to the start of the new "paragraph".
                          */
+
 found:                  if (ISMOTION(vp)) {
                                 vp->m_stop.lno = lastlno;
                                 vp->m_stop.cno = lastlen ? lastlen - 1 : 0;
@@ -162,6 +168,7 @@ found:                  if (ISMOTION(vp)) {
          * last line.  It also historically worked on empty files, so we
          * have to make it okay.
          */
+
 eof:    if (vp->m_start.lno == lno || vp->m_start.lno == lno - 1) {
                 if (db_eget(sp, vp->m_start.lno, &p, &len, &isempty)) {
                         if (!isempty)
@@ -174,6 +181,7 @@ eof:    if (vp->m_start.lno == lno || vp->m_start.lno == lno - 1) {
                         return (1);
                 }
         }
+
         /*
          * !!!
          * Non-motion commands move to the end of the range, delete
@@ -182,6 +190,7 @@ eof:    if (vp->m_start.lno == lno || vp->m_start.lno == lno - 1) {
          * If deleting the line (which happens if deleting to EOF), then
          * cursor movement is to the first nonblank.
          */
+
         if (ISMOTION(vp) && ISCMD(vp->rkp, 'd')) {
                 F_CLR(vp, VM_RCM_MASK);
                 F_SET(vp, VM_RCM_SETFNB);
@@ -224,6 +233,7 @@ v_paragraphb(SCR *sp, VICMD *vp)
          *
          * Correct for a left motion component while we're thinking about it.
          */
+
         lno = vp->m_start.lno;
 
         if (ISMOTION(vp)) {
@@ -249,6 +259,7 @@ v_paragraphb(SCR *sp, VICMD *vp)
          * If we start in text, we want to switch states
          * (2 * N - 1) times, in non-text, (2 * N) times.
          */
+
         cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1;
         cnt *= 2;
         if (len == 0 || v_isempty(p, len))
@@ -262,6 +273,7 @@ v_paragraphb(SCR *sp, VICMD *vp)
                  * If the starting cursor is past the first column,
                  * the current line is checked for a paragraph.
                  */
+
                 if (vp->m_start.cno > 0)
                         ++lno;
         }
@@ -295,6 +307,7 @@ found:  vp->m_stop.lno = lno;
          * All commands move to the end of the range.  (We already
          * adjusted the start of the range for motion commands).
          */
+
         vp->m_final = vp->m_stop;
         return (0);
 }
@@ -316,6 +329,7 @@ v_buildps(SCR *sp, char *p_p, char *s_p)
          * The vi paragraph command searches for either a paragraph or
          * section option macro.
          */
+
         p_len = p_p == NULL ? 0 : strlen(p_p);
         s_len = s_p == NULL ? 0 : strlen(s_p);
 

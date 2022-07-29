@@ -1,5 +1,7 @@
 /*      $OpenBSD: script.h,v 1.4 2014/11/12 16:29:04 millert Exp $      */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

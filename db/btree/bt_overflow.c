@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_overflow.c,v 1.11 2015/01/16 16:48:51 deraadt Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -74,6 +79,7 @@
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __ovfl_get(BTREE *t, void *p, size_t *ssz, void **buf, size_t *bufsz)
 {
@@ -104,6 +110,7 @@ __ovfl_get(BTREE *t, void *p, size_t *ssz, void **buf, size_t *bufsz)
          * Step through the linked list of pages, copying the data on each one
          * into the buffer.  Never copy more than the data's length.
          */
+
         plen = t->bt_psize - BTDATAOFF;
         for (p = *buf;; p = (char *)p + nb, pg = h->nextpg) {
                 if ((h = mpool_get(t->bt_mp, pg, 0)) == NULL)
@@ -130,6 +137,7 @@ __ovfl_get(BTREE *t, void *p, size_t *ssz, void **buf, size_t *bufsz)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __ovfl_put(BTREE *t, const DBT *dbt, pgno_t *pg)
 {
@@ -143,6 +151,7 @@ __ovfl_put(BTREE *t, const DBT *dbt, pgno_t *pg)
          * Allocate pages and copy the key/data record into them.  Store the
          * number of the first page in the chain.
          */
+
         plen = t->bt_psize - BTDATAOFF;
         for (last = NULL, p = dbt->data, sz = dbt->size;;
             p = (char *)p + plen, last = h) {
@@ -181,6 +190,7 @@ __ovfl_put(BTREE *t, const DBT *dbt, pgno_t *pg)
  * Returns:
  *      RET_ERROR, RET_SUCCESS
  */
+
 int
 __ovfl_delete(BTREE *t, void *p)
 {

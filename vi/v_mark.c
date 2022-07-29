@@ -1,5 +1,7 @@
 /*      $OpenBSD: v_mark.c,v 1.10 2015/03/29 01:04:23 bcallah Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

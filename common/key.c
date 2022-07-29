@@ -1,5 +1,7 @@
 /*      $OpenBSD: key.c,v 1.19 2022/04/21 17:50:50 millert Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

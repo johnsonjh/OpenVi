@@ -1,5 +1,7 @@
 /*      $OpenBSD: ndbm.c,v 1.27 2021/10/24 10:05:22 jsg Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -52,6 +57,7 @@
  * First are the DBM routines, which call the NDBM routines, and
  * the NDBM routines, which call the DB routines.
  */
+
 static DBM *__cur_db;
 
 static DBM *_dbm_open(const char *, const char *, int, mode_t);
@@ -61,6 +67,7 @@ static DBM *_dbm_open(const char *, const char *, int, mode_t);
  *      *DBM on success
  *       NULL on failure
  */
+
 static DBM *
 _dbm_open(const char *file, const char *suff, int flags, mode_t mode)
 {
@@ -80,12 +87,12 @@ _dbm_open(const char *file, const char *suff, int flags, mode_t mode)
                 flags &= ~O_WRONLY;
                 flags |= O_RDWR;
         }
-        info.bsize = 4096;
-        info.ffactor = 40;
-        info.nelem = 1;
+        info.bsize     = 4096;
+        info.ffactor   = 40;
+        info.nelem     = 1;
         info.cachesize = 0;
-        info.hash = NULL;
-        info.lorder = 0;
+        info.hash      = NULL;
+        info.lorder    = 0;
         return ((DBM *)__hash_open(path, flags, mode, &info, 0));
 }
 
@@ -94,6 +101,7 @@ _dbm_open(const char *file, const char *suff, int flags, mode_t mode)
  *      *DBM on success
  *       NULL on failure
  */
+
 DBM *
 dbm_open(const char *file, int flags, mode_t mode)
 {
@@ -105,6 +113,7 @@ dbm_open(const char *file, int flags, mode_t mode)
  * Returns:
  *      Nothing.
  */
+
 void
 dbm_close(DBM *db)
 {
@@ -118,6 +127,7 @@ DEF_WEAK(dbm_close);
  *      DATUM on success
  *      NULL on failure
  */
+
 datum
 dbm_fetch(DBM *db, datum key)
 {
@@ -127,12 +137,12 @@ dbm_fetch(DBM *db, datum key)
 
         dbtkey.data = key.dptr;
         dbtkey.size = key.dsize;
-        status = (db->get)(db, &dbtkey, &dbtretdata, 0);
+        status      = (db->get)(db, &dbtkey, &dbtretdata, 0);
         if (status) {
                 dbtretdata.data = NULL;
                 dbtretdata.size = 0;
         }
-        retdata.dptr = dbtretdata.data;
+        retdata.dptr  = dbtretdata.data;
         retdata.dsize = dbtretdata.size;
         return (retdata);
 }
@@ -143,6 +153,7 @@ DEF_WEAK(dbm_fetch);
  *      DATUM on success
  *      NULL on failure
  */
+
 datum
 dbm_firstkey(DBM *db)
 {
@@ -153,7 +164,7 @@ dbm_firstkey(DBM *db)
         status = (db->seq)(db, &dbtretkey, &dbtretdata, R_FIRST);
         if (status)
                 dbtretkey.data = NULL;
-        retkey.dptr = dbtretkey.data;
+        retkey.dptr  = dbtretkey.data;
         retkey.dsize = dbtretkey.size;
         return (retkey);
 }
@@ -164,6 +175,7 @@ DEF_WEAK(dbm_firstkey);
  *      DATUM on success
  *      NULL on failure
  */
+
 datum
 dbm_nextkey(DBM *db)
 {
@@ -174,7 +186,7 @@ dbm_nextkey(DBM *db)
         status = (db->seq)(db, &dbtretkey, &dbtretdata, R_NEXT);
         if (status)
                 dbtretkey.data = NULL;
-        retkey.dptr = dbtretkey.data;
+        retkey.dptr  = dbtretkey.data;
         retkey.dsize = dbtretkey.size;
         return (retkey);
 }
@@ -185,6 +197,7 @@ DEF_WEAK(dbm_nextkey);
  *       0 on success
  *      <0 on failure
  */
+
 int
 dbm_delete(DBM *db, datum key)
 {
@@ -193,7 +206,7 @@ dbm_delete(DBM *db, datum key)
 
         dbtkey.data = key.dptr;
         dbtkey.size = key.dsize;
-        status = (db->del)(db, &dbtkey, 0);
+        status      = (db->del)(db, &dbtkey, 0);
         if (status)
                 return (-1);
         else
@@ -207,13 +220,14 @@ DEF_WEAK(dbm_delete);
  *      <0 on failure
  *       1 if DBM_INSERT and entry exists
  */
+
 int
 dbm_store(DBM *db, datum key, datum data, int flags)
 {
         DBT dbtkey, dbtdata;
 
-        dbtkey.data = key.dptr;
-        dbtkey.size = key.dsize;
+        dbtkey.data  = key.dptr;
+        dbtkey.size  = key.dsize;
         dbtdata.data = data.dptr;
         dbtdata.size = data.dsize;
         return ((db->put)(db, &dbtkey, &dbtdata,
@@ -235,7 +249,7 @@ dbm_clearerr(DBM *db)
 {
         HTAB *hp;
 
-        hp = (HTAB *)db->internal;
+        hp      = (HTAB *)db->internal;
         hp->err = 0;
         return (0);
 }

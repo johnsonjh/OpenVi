@@ -1,5 +1,7 @@
 /*      $OpenBSD: rec_delete.c,v 1.10 2005/08/05 13:03:00 espie Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -58,6 +63,7 @@ static int rec_rdelete(BTREE *, recno_t);
  * Returns:
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
+
 int
 __rec_delete(const DB *dbp, const DBT *key, unsigned int flags)
 {
@@ -111,6 +117,7 @@ einval:         errno = EINVAL;
  * Returns:
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
+
 static int
 rec_rdelete(BTREE *t, recno_t nrec)
 {
@@ -143,6 +150,7 @@ rec_rdelete(BTREE *t, recno_t nrec)
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 int
 __rec_dleaf(BTREE *t, PAGE *h, u_int32_t idx)
 {
@@ -162,6 +170,7 @@ __rec_dleaf(BTREE *t, PAGE *h, u_int32_t idx)
          * down, overwriting the deleted record and its index.  If the record
          * uses overflow pages, make them available for reuse.
          */
+
         to = rl = GETRLEAF(h, idx);
         if (rl->flags & P_BIGDATA && __ovfl_delete(t, rl->bytes) == RET_ERROR)
                 return (RET_ERROR);
@@ -171,6 +180,7 @@ __rec_dleaf(BTREE *t, PAGE *h, u_int32_t idx)
          * Compress the key/data pairs.  Compress and adjust the [BR]LEAF
          * offsets.  Reset the headers.
          */
+
         from = (char *)h + h->upper;
         memmove(from + nbytes, from, (char *)to - from);
         h->upper += nbytes;

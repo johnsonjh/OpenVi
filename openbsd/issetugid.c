@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
  * Copyright (c) 2022 Ørjan Malde <red@foxi.me>

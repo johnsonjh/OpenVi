@@ -1,5 +1,7 @@
 /*         $OpenBSD: vwarn.c,v 1.11 2016/03/13 18:34:20 guenther Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1993 The Regents of the University of California.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>

@@ -1,5 +1,7 @@
 /*      $OpenBSD: ex.c,v 1.22 2022/02/20 19:45:51 tb Exp $  */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -44,6 +46,7 @@ static void     ex_unknown(SCR *, char *, size_t);
  *
  * PUBLIC: int ex(SCR **);
  */
+
 int
 ex(SCR **spp)
 {
@@ -81,6 +84,7 @@ ex(SCR **spp)
          * first time a ^H was discarded from the input, there was a message,
          * "^H discarded", that was displayed.  We don't bother.
          */
+
         LF_INIT(TXT_BACKSLASH | TXT_CNTRLD | TXT_CR);
         for (;; ++gp->excmd.if_lno) {
                 /* Display status line and flush. */
@@ -114,6 +118,7 @@ ex(SCR **spp)
                  * If the user entered a single carriage return, send
                  * ex_cmd() a separator -- it discards single newlines.
                  */
+
                 tp = TAILQ_FIRST(&sp->tiq);
                 if (tp->len == 0) {
                         gp->excmd.cp = " ";     /* __TK__ why not |? */
@@ -140,6 +145,7 @@ ex(SCR **spp)
                  * If the last command caused a restart, or switched screens
                  * or into vi, return.
                  */
+
                 if (F_ISSET(gp, G_SRESTART) || F_ISSET(sp, SC_SSWITCH | SC_VI)) {
                         *spp = sp;
                         break;
@@ -154,6 +160,7 @@ ex(SCR **spp)
                  * main editor loop.  The ordering is careful, don't discard
                  * the contents of sp until the end.
                  */
+
                 if (F_ISSET(sp, SC_EXIT | SC_EXIT_FORCE)) {
                         if (file_end(sp, NULL, F_ISSET(sp, SC_EXIT_FORCE)))
                                 return (1);
@@ -193,6 +200,7 @@ ex(SCR **spp)
  *
  * PUBLIC: int ex_cmd(SCR *);
  */
+
 int
 ex_cmd(SCR *sp)
 {

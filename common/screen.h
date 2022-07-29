@@ -1,5 +1,7 @@
 /*      $OpenBSD: screen.h,v 1.10 2016/05/27 09:18:11 martijn Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -21,6 +23,7 @@
  * than the current column value.  It's simpler to have a fixed value and not
  * worry about it.
  */
+
 #define MINIMUM_SCREEN_ROWS      1
 #define MINIMUM_SCREEN_COLS     20
 
@@ -30,6 +33,7 @@
  *      is stored in the various private areas.  The only information here
  *      is used by global routines or is shared by too many screens.
  */
+
 struct _scr {
 /* INITIALIZED AT SCREEN CREATE. */
         TAILQ_ENTRY(_scr) q;            /* Screens. */
@@ -136,6 +140,7 @@ struct _scr {
  *
  * Editor screens.
  */
+
 #define SC_EX           0x00000001      /* Ex editor. */
 #define SC_VI           0x00000002      /* Vi editor. */
 
@@ -165,6 +170,7 @@ struct _scr {
  * SC_SCR_TOP
  *      If the current line isn't already on the screen, put it at the to@.
  */
+
 #define SC_SCR_EX       0x00000004      /* Screen is in ex mode. */
 #define SC_SCR_VI       0x00000008      /* Screen is in vi mode. */
 #define SC_SCR_EXWROTE  0x00000010      /* Ex overwrite: see comment above. */

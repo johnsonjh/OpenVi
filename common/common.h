@@ -1,5 +1,7 @@
 /*      $OpenBSD: common.h,v 1.10 2021/01/26 18:19:43 deraadt Exp $     */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -22,6 +24,7 @@
  * Forward structure declarations.  Not pretty, but the include files
  * are far too interrelated for a clean solution.
  */
+
 typedef struct _cb              CB;
 typedef struct _event           EVENT;
 typedef struct _excmd           EXCMD;
@@ -54,6 +57,7 @@ typedef enum { BUSY_ON = 1, BUSY_OFF, BUSY_UPDATE } busy_t;
  *      CONF_QUIT       User answered quit, eof or an error.
  *      CONF_YES        User answered yes.
  */
+
 typedef enum { CONF_NO, CONF_QUIT, CONF_YES } conf_t;
 
 /* Directions. */
@@ -74,6 +78,7 @@ extern enum pmode { MODE_EX, MODE_VI, MODE_VIEW } pmode;
 /*
  * Extensions to POSIX.
  */
+
 #ifndef ACCESSPERMS
 # define ACCESSPERMS (S_IRWXU|S_IRWXG|S_IRWXO)
 #endif /* ifndef ACCESSPERMS */
@@ -85,6 +90,7 @@ extern enum pmode { MODE_EX, MODE_VI, MODE_VIEW } pmode;
 /*
  * Local includes.
  */
+
 #include "key.h"                /* Required by args.h. */
 #include "args.h"               /* Required by options.h. */
 #include "options.h"            /* Required by screen.h. */

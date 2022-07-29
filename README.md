@@ -1,3 +1,5 @@
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+<!-- Copyright (c) 2021-2022 Jeffrey H Johnson <trnsz@pobox.com> -->
 # OpenVi
 
 ***OpenVi*** — Portable *OpenBSD* **`vi`** / **`ex`**

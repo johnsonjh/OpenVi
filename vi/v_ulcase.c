@@ -1,5 +1,7 @@
 /*      $OpenBSD: v_ulcase.c,v 1.10 2016/05/27 09:18:12 martijn Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.

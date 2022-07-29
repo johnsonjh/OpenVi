@@ -1,5 +1,7 @@
 /*      $OpenBSD: mark.c,v 1.14 2016/05/27 09:18:11 martijn Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -61,15 +63,18 @@ static LMARK *mark_find(SCR *, CHAR_T);
  *
  * PUBLIC: int mark_init(SCR *, EXF *);
  */
+
 int
 mark_init(SCR *sp, EXF *ep)
 {
+
         /*
          * !!!
          * ep MAY NOT BE THE SAME AS sp->ep, DON'T USE THE LATTER.
          *
          * Set up the marks.
          */
+
         LIST_INIT(&ep->marks);
         return (0);
 }
@@ -80,6 +85,7 @@ mark_init(SCR *sp, EXF *ep)
  *
  * PUBLIC: int mark_end(SCR *, EXF *);
  */
+
 int
 mark_end(SCR *sp, EXF *ep)
 {
@@ -89,6 +95,7 @@ mark_end(SCR *sp, EXF *ep)
          * !!!
          * ep MAY NOT BE THE SAME AS sp->ep, DON'T USE THE LATTER.
          */
+
         while ((lmp = LIST_FIRST(&ep->marks)) != NULL) {
                 LIST_REMOVE(lmp, q);
                 free(lmp);
@@ -102,6 +109,7 @@ mark_end(SCR *sp, EXF *ep)
  *
  * PUBLIC: int mark_get(SCR *, CHAR_T, MARK *, mtype_t);
  */
+
 int
 mark_get(SCR *sp, CHAR_T key, MARK *mp, mtype_t mtype)
 {
@@ -126,6 +134,7 @@ mark_get(SCR *sp, CHAR_T key, MARK *mp, mtype_t mtype)
          * The absolute mark is initialized to lno 1/cno 0, and historically
          * you could use it in an empty file.  Make such a mark always work.
          */
+
         if ((lmp->lno != 1 || lmp->cno != 0) && !db_exist(sp, lmp->lno)) {
                 msgq(sp, mtype,
                     "Mark %s: cursor position no longer exists",
@@ -143,6 +152,7 @@ mark_get(SCR *sp, CHAR_T key, MARK *mp, mtype_t mtype)
  *
  * PUBLIC: int mark_set(SCR *, CHAR_T, MARK *, int);
  */
+
 int
 mark_set(SCR *sp, CHAR_T key, MARK *value, int userset)
 {
@@ -157,6 +167,7 @@ mark_set(SCR *sp, CHAR_T key, MARK *value, int userset)
          * an undo, and we set it if it's not already set or if it was set
          * by a previous undo.
          */
+
         lmp = mark_find(sp, key);
         if (lmp == NULL || lmp->name != key) {
                 MALLOC_RET(sp, lmt, sizeof(LMARK));
@@ -181,6 +192,7 @@ mark_set(SCR *sp, CHAR_T key, MARK *value, int userset)
  *      Find the requested mark, or, the slot immediately before
  *      where it would go.
  */
+
 static LMARK *
 mark_find(SCR *sp, CHAR_T key)
 {
@@ -190,6 +202,7 @@ mark_find(SCR *sp, CHAR_T key)
          * Return the requested mark or the slot immediately before
          * where it should go.
          */
+
         for (lastlmp = NULL, lmp = LIST_FIRST(&sp->ep->marks);
             lmp != NULL; lastlmp = lmp, lmp = LIST_NEXT(lmp, q))
                 if (lmp->name >= key)
@@ -203,6 +216,7 @@ mark_find(SCR *sp, CHAR_T key)
  *
  * PUBLIC: int mark_insdel(SCR *, lnop_t, recno_t);
  */
+
 int
 mark_insdel(SCR *sp, lnop_t op, recno_t lno)
 {
@@ -224,6 +238,7 @@ mark_insdel(SCR *sp, lnop_t op, recno_t lno)
                         }
                 break;
         case LINE_INSERT:
+
                 /*
                  * XXX
                  * Very nasty special case.  If the file was empty, then we're
@@ -238,6 +253,7 @@ mark_insdel(SCR *sp, lnop_t op, recno_t lno)
                  *
                  * Check for line #2 before going to the end of the file.
                  */
+
                 if (!db_exist(sp, 2)) {
                         if (db_last(sp, &lline))
                                 return (1);

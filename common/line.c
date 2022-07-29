@@ -1,5 +1,7 @@
 /*      $OpenBSD: line.c,v 1.16 2022/02/20 19:45:51 tb Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -31,6 +33,7 @@ static int scr_update(SCR *, recno_t, lnop_t, int);
  *
  * PUBLIC: int db_eget(SCR *, recno_t, char **, size_t *, int *);
  */
+
 int
 db_eget(SCR *sp, recno_t lno, char **pp, size_t *lenp, int *isemptyp)
 {
@@ -48,6 +51,7 @@ db_eget(SCR *sp, recno_t lno, char **pp, size_t *lenp, int *isemptyp)
          * line in an empty file, find the last line of the file; db_last
          * fails loudly.
          */
+
         if ((lno == 0 || lno == 1) && db_last(sp, &l1))
                 return (1);
 
@@ -70,6 +74,7 @@ db_eget(SCR *sp, recno_t lno, char **pp, size_t *lenp, int *isemptyp)
  *
  * PUBLIC: int db_get(SCR *, recno_t, u_int32_t, char **, size_t *);
  */
+
 int
 db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
 {
@@ -83,6 +88,7 @@ db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
          * have to have an OOB condition for the look-aside into the input
          * buffer anyway.
          */
+
         if (lno == 0)
                 goto err1;
 
@@ -99,6 +105,7 @@ db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
          * Look-aside into the TEXT buffers and see if the line we want
          * is there.
          */
+
         if (F_ISSET(sp, SC_TINPUT)) {
                 l1 = TAILQ_FIRST(&sp->tiq)->lno;
                 l2 = TAILQ_LAST(&sp->tiq, _texth)->lno;
@@ -113,10 +120,12 @@ db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
                                 *pp = tp->lb;
                         return (0);
                 }
+
                 /*
                  * Adjust the line number for the number of lines used
                  * by the text input buffers.
                  */
+
                 if (lno > l2)
                         lno -= l2 - l1;
         }
@@ -166,6 +175,7 @@ err3:           if (lenp != NULL)
  *
  * PUBLIC: int db_delete(SCR *, recno_t);
  */
+
 int
 db_delete(SCR *sp, recno_t lno)
 {
@@ -217,6 +227,7 @@ db_delete(SCR *sp, recno_t lno)
  *
  * PUBLIC: int db_append(SCR *, int, recno_t, char *, size_t);
  */
+
 int
 db_append(SCR *sp, int update, recno_t lno, char *p, size_t len)
 {
@@ -272,6 +283,7 @@ db_append(SCR *sp, int update, recno_t lno, char *p, size_t len)
          * is called to copy the new lines from the cut buffer into the file,
          * it has to know not to update the screen again.
          */
+
         return (scr_update(sp, lno, LINE_APPEND, update) || rval);
 }
 
@@ -281,6 +293,7 @@ db_append(SCR *sp, int update, recno_t lno, char *p, size_t len)
  *
  * PUBLIC: int db_insert(SCR *, recno_t, char *, size_t);
  */
+
 int
 db_insert(SCR *sp, recno_t lno, char *p, size_t len)
 {
@@ -336,6 +349,7 @@ db_insert(SCR *sp, recno_t lno, char *p, size_t len)
  *
  * PUBLIC: int db_set(SCR *, recno_t, char *, size_t);
  */
+
 int
 db_set(SCR *sp, recno_t lno, char *p, size_t len)
 {
@@ -384,6 +398,7 @@ db_set(SCR *sp, recno_t lno, char *p, size_t len)
  *
  * PUBLIC: int db_exist(SCR *, recno_t);
  */
+
 int
 db_exist(SCR *sp, recno_t lno)
 {
@@ -402,6 +417,7 @@ db_exist(SCR *sp, recno_t lno)
          * Check the last-line number cache.  Adjust the cached line
          * number for the lines used by the text input buffers.
          */
+
         if (ep->c_nlines != OOBLNO)
                 return (lno <= (F_ISSET(sp, SC_TINPUT) ?
                     ep->c_nlines + (TAILQ_LAST(&sp->tiq, _texth)->lno
@@ -417,6 +433,7 @@ db_exist(SCR *sp, recno_t lno)
  *
  * PUBLIC: int db_last(SCR *, recno_t *);
  */
+
 int
 db_last(SCR *sp, recno_t *lnop)
 {
@@ -434,6 +451,7 @@ db_last(SCR *sp, recno_t *lnop)
          * Check the last-line number cache.  Adjust the cached line
          * number for the lines used by the text input buffers.
          */
+
         if (ep->c_nlines != OOBLNO) {
                 *lnop = ep->c_nlines;
                 if (F_ISSET(sp, SC_TINPUT))
@@ -476,6 +494,7 @@ db_last(SCR *sp, recno_t *lnop)
  *
  * PUBLIC: void db_err(SCR *, recno_t);
  */
+
 void
 db_err(SCR *sp, recno_t lno)
 {
@@ -488,6 +507,7 @@ db_err(SCR *sp, recno_t lno)
  *      Update all of the screens that are backed by the file that
  *      just changed.
  */
+
 static int
 scr_update(SCR *sp, recno_t lno, lnop_t op, int current)
 {

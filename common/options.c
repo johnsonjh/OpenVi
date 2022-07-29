@@ -1,5 +1,7 @@
 /*      $OpenBSD: options.c,v 1.29 2021/04/13 15:39:21 millert Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -49,6 +51,7 @@ int f_imctrl (SCR *, OPTION *, char *, unsigned long *);
  * HPUX noted options and abbreviations are from "The Ultimate Guide to the
  * VI and EX Text Editors", 1990.
  */
+
 OPTLIST const optlist[] = {
 /* O_ALTWERASE    4.4BSD */
         {"altwerase",   f_altwerase,    OPT_0BOOL,      0},
@@ -257,6 +260,7 @@ static OABBREV const abbrev[] = {
  *
  * PUBLIC: int opts_init(SCR *, int *);
  */
+
 int
 opts_init(SCR *sp, int *oargs)
 {
@@ -290,6 +294,7 @@ opts_init(SCR *sp, int *oargs)
          * terminal, lines, columns first, they're used by other options.
          * Note, don't set the flags until we've set up the indirection.
          */
+
         if (o_set(sp, O_TERM, 0, NULL, GO_TERM)) {
                 optindx = O_TERM;
                 goto err;
@@ -341,6 +346,7 @@ opts_init(SCR *sp, int *oargs)
          * Initialize O_SCROLL here, after term; initializing term should
          * have created a LINES/COLUMNS value.
          */
+
         if ((v = (O_VAL(sp, O_LINES) - 1) / 2) == 0)
                 v = 1;
         (void)snprintf(b1, sizeof(b1), "scroll=%ld", v);
@@ -355,6 +361,7 @@ opts_init(SCR *sp, int *oargs)
          * Note, the windows option code will correct any too-large value
          * or when the O_LINES value is 1.
          */
+
         if (sp->gp->scr_baud(sp, &v))
                 return (1);
         if (v <= 600)
@@ -370,6 +377,7 @@ opts_init(SCR *sp, int *oargs)
          * Set boolean default values, and copy all settings into the default
          * information.  OS_NOFREE is set, we're copying, not replacing.
          */
+
         for (op = optlist, optindx = 0; op->name != NULL; ++op, ++optindx)
                 switch (op->type) {
                 case OPT_0BOOL:
@@ -396,6 +404,7 @@ opts_init(SCR *sp, int *oargs)
          * command-line arguments.  They don't set the default values,
          * it's historic practice.
          */
+
         for (; *oargs != -1; ++oargs)
                 OI(*oargs, optlist[*oargs].name);
         return (0);
@@ -413,6 +422,7 @@ err:    msgq(sp, M_ERR,
  *
  * PUBLIC: int opts_set(SCR *, ARGS *[], char *);
  */
+
 int
 opts_set(SCR *sp, ARGS *argv[], char *usage)
 {
@@ -426,10 +436,12 @@ opts_set(SCR *sp, ARGS *argv[], char *usage)
 
         disp = NO_DISPLAY;
         for (rval = 0; argv[0]->len != 0; ++argv) {
+
                 /*
                  * The historic vi dumped the options for each occurrence of
                  * "all" in the set list.  Puhleeze.
                  */
+
                 if (!strcmp(argv[0]->bp, "all")) {
                         disp = ALL_DISPLAY;
                         continue;
@@ -480,6 +492,7 @@ opts_set(SCR *sp, ARGS *argv[], char *usage)
                  * Historically, the question mark could be a separate
                  * argument.
                  */
+
                 if (!equals && !qmark &&
                     argv[1]->len == 1 && argv[1]->bp[0] == '?') {
                         ++argv;
@@ -515,6 +528,7 @@ opts_set(SCR *sp, ARGS *argv[], char *usage)
                          * Do nothing if the value is unchanged, the underlying
                          * functions can be expensive.
                          */
+
                         if (!F_ISSET(op, OPT_ALWAYS)) {
                                 if (turnoff) {
                                         if (!O_ISSET(sp, offset))
@@ -616,6 +630,7 @@ badnum:                         p = msg_print(sp, name, &nf);
                          * Do nothing if the value is unchanged, the underlying
                          * functions can be expensive.
                          */
+
                         if (!F_ISSET(op, OPT_ALWAYS) &&
                             O_VAL(sp, offset) == value)
                                 break;
@@ -662,6 +677,7 @@ badnum:                         p = msg_print(sp, name, &nf);
                          * Do nothing if the value is unchanged, the underlying
                          * functions can be expensive.
                          */
+
                         if (!F_ISSET(op, OPT_ALWAYS) &&
                             O_STR(sp, offset) != NULL &&
                             !strcmp(O_STR(sp, offset), sep))
@@ -706,6 +722,7 @@ badnum:                         p = msg_print(sp, name, &nf);
  *
  * PUBLIC: int o_set(SCR *, int, unsigned int, char *, unsigned long);
  */
+
 int
 o_set(SCR *sp, int opt, unsigned int flags, char *str, unsigned long val)
 {
@@ -745,6 +762,7 @@ o_set(SCR *sp, int opt, unsigned int flags, char *str, unsigned long val)
  *
  * PUBLIC: int opts_empty(SCR *, int, int);
  */
+
 int
 opts_empty(SCR *sp, int off, int silent)
 {
@@ -765,6 +783,7 @@ opts_empty(SCR *sp, int off, int silent)
  *
  * PUBLIC: void opts_dump(SCR *, enum optdisp);
  */
+
 void
 opts_dump(SCR *sp, enum optdisp type)
 {
@@ -783,6 +802,7 @@ opts_dump(SCR *sp, enum optdisp type)
          *
          * Find a column width we can live with, testing from 10 columns to 1.
          */
+
         for (numcols = 10; numcols > 1; --numcols) {
                 colwidth = sp->cols / numcols & ~(STANDARD_TAB - 1);
                 if (colwidth >= 10) {
@@ -798,6 +818,7 @@ opts_dump(SCR *sp, enum optdisp type)
          * Get the set of options to list, entering them into
          * the column list or the overflow list.
          */
+
         for (b_num = s_num = 0, op = optlist; op->name != NULL; ++op) {
                 cnt = op - optlist;
 
@@ -897,6 +918,7 @@ opts_dump(SCR *sp, enum optdisp type)
  * opts_print --
  *      Print out an option.
  */
+
 static int
 opts_print(SCR *sp, OPTLIST const *op)
 {
@@ -927,6 +949,7 @@ opts_print(SCR *sp, OPTLIST const *op)
  *
  * PUBLIC: int opts_save(SCR *, FILE *);
  */
+
 int
 opts_save(SCR *sp, FILE *fp)
 {
@@ -982,6 +1005,7 @@ opts_save(SCR *sp, FILE *fp)
  *
  * PUBLIC: OPTLIST const *opts_search(char *);
  */
+
 OPTLIST const *
 opts_search(char *name)
 {
@@ -1006,6 +1030,7 @@ opts_search(char *name)
          * Check to see if the name is the prefix of one (and only one)
          * option.  If so, return the option.
          */
+
         len = strlen(name);
         for (found = NULL, op = optlist; op->name != NULL; ++op) {
                 if (op->name[0] < name[0])
@@ -1027,6 +1052,7 @@ opts_search(char *name)
  *
  * PUBLIC: void opts_nomatch(SCR *, char *);
  */
+
 void
 opts_nomatch(SCR *sp, char *name)
 {
@@ -1052,6 +1078,7 @@ opts_cmp(const void *a, const void *b)
  *
  * PUBLIC: int opts_copy(SCR *, SCR *);
  */
+
 int
 opts_copy(SCR *orig, SCR *sp)
 {
@@ -1070,6 +1097,7 @@ opts_copy(SCR *orig, SCR *sp)
                  * have to continue after failure, otherwise would have two
                  * screens referencing the same memory.
                  */
+
                 if (rval || O_STR(sp, cnt) == NULL) {
                         o_set(sp, cnt, OS_NOFREE | OS_STR, NULL, 0);
                         o_set(sp, cnt, OS_DEF | OS_NOFREE | OS_STR, NULL, 0);
@@ -1098,6 +1126,7 @@ nomem:                  msgq(orig, M_SYSERR, NULL);
  *
  * PUBLIC: void opts_free(SCR *);
  */
+
 void
 opts_free(SCR *sp)
 {

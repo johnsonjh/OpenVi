@@ -1,6 +1,8 @@
 /*      $OpenBSD: getopt.h,v 1.3 2013/11/22 21:32:49 millert Exp $           */
 /*      $NetBSD: getopt.h,v 1.4 2000/07/07 10:43:54 ad Exp $                 */
 
+/* SPDX-License-Identifier: BSD-2-Clause */
+
 /*-
  * Copyright (c) 2000 The NetBSD Foundation, Inc.
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>

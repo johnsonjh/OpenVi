@@ -1,5 +1,7 @@
 /*      $OpenBSD: util.h,v 1.4 2006/01/08 21:10:04 miod Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1994
  *      The Regents of the University of California.  All rights reserved.

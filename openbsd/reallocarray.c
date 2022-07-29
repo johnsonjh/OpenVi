@@ -1,5 +1,7 @@
 /*      $OpenBSD: reallocarray.c,v 1.3 2015/09/13 08:31:47 guenther Exp $       */
 
+/* SPDX-License-Identifier: ISC */
+
 /*
  * Copyright (c) 2008 Otto Moerbeek <otto@drijf.net>
  * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>

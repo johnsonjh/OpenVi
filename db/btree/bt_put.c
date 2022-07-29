@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_put.c,v 1.13 2005/08/05 13:02:59 espie Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -61,6 +66,7 @@ static EPG *bt_fast(BTREE *, const DBT *, const DBT *, int *);
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key is already in the
  *      tree and R_NOOVERWRITE specified.
  */
+
 int
 __bt_put(const DB *dbp, DBT *key, const DBT *data, unsigned int flags)
 {
@@ -93,10 +99,12 @@ __bt_put(const DB *dbp, DBT *key, const DBT *data, unsigned int flags)
         case R_NOOVERWRITE:
                 break;
         case R_CURSOR:
+
                 /*
                  * If flags is R_CURSOR, put the cursor.  Must already
                  * have started a scan and not have already deleted it.
                  */
+
                 if (F_ISSET(&t->bt_cursor, CURS_INIT) &&
                     !F_ISSET(&t->bt_cursor,
                         CURS_ACQUIRE | CURS_AFTER | CURS_BEFORE))
@@ -115,6 +123,7 @@ __bt_put(const DB *dbp, DBT *key, const DBT *data, unsigned int flags)
          * XXX
          * If the insert fails later on, the overflow pages aren't recovered.
          */
+
         dflags = 0;
         if (key->size + data->size > t->bt_ovflsize) {
                 if (key->size > t->bt_ovflsize) {
@@ -157,6 +166,7 @@ storekey:               if (__ovfl_put(t, key, &pg) == RET_ERROR)
          * Find the key to delete, or, the location at which to insert.
          * Bt_fast and __bt_search both pin the returned page.
          */
+
         if (t->bt_order == NOT || (e = bt_fast(t, key, data, &exact)) == NULL)
                 if ((e = __bt_search(t, key, &exact)) == NULL)
                         return (RET_ERROR);
@@ -169,6 +179,7 @@ storekey:               if (__ovfl_put(t, key, &pg) == RET_ERROR)
          * R_NOOVERWRITE is not set, the key is either added (if duplicates are
          * permitted) or an error is returned.
          */
+
         switch (flags) {
         case R_NOOVERWRITE:
                 if (!exact)
@@ -183,6 +194,7 @@ storekey:               if (__ovfl_put(t, key, &pg) == RET_ERROR)
                  * Note, the delete may empty the page, so we need to put a
                  * new entry into the page immediately.
                  */
+
 delete:         if (__bt_dleaf(t, key, h, idx) == RET_ERROR) {
                         mpool_put(t->bt_mp, h, 0);
                         return (RET_ERROR);
@@ -196,6 +208,7 @@ delete:         if (__bt_dleaf(t, key, h, idx) == RET_ERROR) {
          * insert the key and data and unpin the current page.  If inserting
          * into the offset array, shift the pointers up.
          */
+
         nbytes = NBLEAFDBT(key->size, data->size);
         if (h->upper - h->lower < nbytes + sizeof(indx_t)) {
                 if ((status = __bt_split(t, h, key,
@@ -259,6 +272,7 @@ unsigned long bt_cache_hit, bt_cache_miss;
  * Returns:
  *      EPG for new record or NULL if not found.
  */
+
 static EPG *
 bt_fast(BTREE *t, const DBT *key, const DBT *data, int *exactp)
 {
@@ -277,6 +291,7 @@ bt_fast(BTREE *t, const DBT *key, const DBT *data, int *exactp)
          * If won't fit in this page or have too many keys in this page,
          * have to search to get split stack.
          */
+
         nbytes = NBLEAFDBT(key->size, data->size);
         if (h->upper - h->lower < nbytes + sizeof(indx_t))
                 goto miss;

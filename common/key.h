@@ -1,5 +1,7 @@
 /*      $OpenBSD: key.h,v 1.8 2016/05/27 09:18:11 martijn Exp $ */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -20,6 +22,7 @@
  *
  * If no integral type can hold a character, don't even try the port.
  */
+
 typedef unsigned char          CHAR_T;
 #define MAX_CHAR_T      0xff
 
@@ -34,6 +37,7 @@ typedef unsigned char          CHAR_T;
  * to the events that vi will reach the command level for the screen, at
  * which point the exit flags will be set and vi will exit.
  */
+
 typedef enum {
         E_NOTUSED = 0,                  /* Not set. */
         E_CHARACTER,                    /* Input character: e_c set. */
@@ -53,6 +57,7 @@ typedef enum {
 /*
  * Character values.
  */
+
 typedef enum {
         K_NOTUSED = 0,                  /* Not set. */
         K_BACKSLASH,                    /*  \ */
@@ -156,6 +161,7 @@ extern KEYLIST keylist[];
  * INTERRUPT_CHECK is the number of lines "operated" on before checking for
  * interrupts.
  */
+
 #define INTERRUPT_CHECK 100
 
 #define INTERRUPTED(sp)                                                    \

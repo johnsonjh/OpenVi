@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_delete.c,v 1.11 2005/08/05 13:02:59 espie Exp $    */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -57,6 +62,7 @@ static int __bt_stkacq(BTREE *, PAGE **, CURSOR *);
  *
  * Return RET_SPECIAL if the key is not found.
  */
+
 int
 __bt_delete(const DB *dbp, const DBT *key, unsigned int flags)
 {
@@ -84,10 +90,12 @@ __bt_delete(const DB *dbp, const DBT *key, unsigned int flags)
                 status = __bt_bdelete(t, key);
                 break;
         case R_CURSOR:
+
                 /*
                  * If flags is R_CURSOR, delete the cursor.  Must already
                  * have started a scan and not have already deleted it.
                  */
+
                 c = &t->bt_cursor;
                 if (F_ISSET(c, CURS_INIT)) {
                         if (F_ISSET(c, CURS_ACQUIRE | CURS_AFTER | CURS_BEFORE))
@@ -99,6 +107,7 @@ __bt_delete(const DB *dbp, const DBT *key, unsigned int flags)
                          * If the page is about to be emptied, we'll need to
                          * delete it, which means we have to acquire a stack.
                          */
+
                         if (NEXTINDEX(h) == 1)
                                 if (__bt_stkacq(t, &h, &t->bt_cursor))
                                         return (RET_ERROR);
@@ -135,6 +144,7 @@ __bt_delete(const DB *dbp, const DBT *key, unsigned int flags)
  * Returns:
  *      0 on success, 1 on failure
  */
+
 static int
 __bt_stkacq(BTREE *t, PAGE **hp, CURSOR *c)
 {
@@ -151,6 +161,7 @@ __bt_stkacq(BTREE *t, PAGE **hp, CURSOR *c)
          * Find the first occurrence of the key in the tree.  Toss the
          * currently locked page so we don't hit an already-locked page.
          */
+
         h = *hp;
         mpool_put(t->bt_mp, h, 0);
         if ((e = __bt_search(t, &c->key, &exact)) == NULL)
@@ -167,6 +178,7 @@ __bt_stkacq(BTREE *t, PAGE **hp, CURSOR *c)
          * we have to change pages at an internal level, we have to fix the
          * stack back up.
          */
+
         while (h->pgno != c->pg.pgno) {
                 if ((nextpg = h->nextpg) == P_INVALID)
                         break;
@@ -222,6 +234,7 @@ __bt_stkacq(BTREE *t, PAGE **hp, CURSOR *c)
          * next page.  If we have to change pages at an internal level, we
          * have to fix the stack back up.
          */
+
         while (h->pgno != c->pg.pgno) {
                 if ((prevpg = h->prevpg) == P_INVALID)
                         break;
@@ -278,6 +291,7 @@ ret:    mpool_put(t->bt_mp, h, 0);
  * Returns:
  *      RET_ERROR, RET_SUCCESS and RET_SPECIAL if the key not found.
  */
+
 static int
 __bt_bdelete(BTREE *t, const DBT *key)
 {
@@ -300,6 +314,7 @@ loop:   if ((e = __bt_search(t, key, &exact)) == NULL)
          * there are duplicates and we reach either side of the page, do
          * the key search again, so that we get them all.
          */
+
         redo = 0;
         h = e->page;
         do {
@@ -363,6 +378,7 @@ loop:   if ((e = __bt_search(t, key, &exact)) == NULL)
  * Side-effects:
  *      mpool_put's the page
  */
+
 static int
 __bt_pdelete(BTREE *t, PAGE *h)
 {
@@ -385,6 +401,7 @@ __bt_pdelete(BTREE *t, PAGE *h)
          * (which is never deleted, it's just not worth the effort) or if the
          * delete does not empty the page.
          */
+
         while ((parent = BT_POP(t)) != NULL) {
                 /* Get the parent page. */
                 if ((pg = mpool_get(t->bt_mp, parent->pgno, 0)) == NULL)
@@ -405,6 +422,7 @@ __bt_pdelete(BTREE *t, PAGE *h)
                  * root page. If it's the rootpage, turn it back into an empty
                  * leaf page.
                  */
+
                 if (NEXTINDEX(pg) == 1) {
                         if (pg->pgno == P_ROOT) {
                                 pg->lower = BTDATAOFF;
@@ -457,6 +475,7 @@ __bt_pdelete(BTREE *t, PAGE *h)
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 int
 __bt_dleaf(BTREE *t, const DBT *key, PAGE *h, unsigned int idx)
 {
@@ -518,6 +537,7 @@ __bt_dleaf(BTREE *t, const DBT *key, PAGE *h, unsigned int idx)
  * Returns:
  *      RET_SUCCESS, RET_ERROR.
  */
+
 static int
 __bt_curdel(BTREE *t, const DBT *key, PAGE *h, unsigned int idx)
 {
@@ -530,16 +550,19 @@ __bt_curdel(BTREE *t, const DBT *key, PAGE *h, unsigned int idx)
          * If there are duplicates, move forward or backward to one.
          * Otherwise, copy the key into the cursor area.
          */
+
         c = &t->bt_cursor;
         F_CLR(c, CURS_AFTER | CURS_BEFORE | CURS_ACQUIRE);
 
         curcopy = 0;
         if (!F_ISSET(t, B_NODUPS)) {
+
                 /*
                  * We're going to have to do comparisons.  If we weren't
                  * provided a copy of the key, i.e. the user is deleting
                  * the current cursor position, get one.
                  */
+
                 if (key == NULL) {
                         e.page = h;
                         e.index = idx;
@@ -613,6 +636,7 @@ dup2:                           c->pg.pgno = e.page->pgno;
  *      t:      tree
  *      h:      page to be deleted
  */
+
 static int
 __bt_relink(BTREE *t, PAGE *h)
 {

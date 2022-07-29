@@ -1,5 +1,7 @@
 /*      $OpenBSD: hash_bigkey.c,v 1.19 2015/12/28 22:08:18 mmcc Exp $   */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -11,11 +13,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -82,6 +87,7 @@ static int collect_data(HTAB *, BUFHEAD *, int, int);
  * 0 ==> OK
  *-1 ==> ERROR
  */
+
 int
 __big_insert(HTAB *hashp, BUFHEAD *bufp, const DBT *key, const DBT *val)
 {
@@ -120,6 +126,7 @@ __big_insert(HTAB *hashp, BUFHEAD *bufp, const DBT *key, const DBT *val)
                         space = FREESPACE(p);
                         if (space) {
                                 move_bytes = MINIMUM(space, val_size);
+
                                 /*
                                  * If the data would fit exactly in the
                                  * remaining space, we must overflow it to the
@@ -127,6 +134,7 @@ __big_insert(HTAB *hashp, BUFHEAD *bufp, const DBT *key, const DBT *val)
                                  * data must end on a page with FREESPACE
                                  * non-zero would fail.
                                  */
+
                                 if (space == val_size && val_size == val->size)
                                         goto toolarge;
                                 off = OFFSET(p) - move_bytes;
@@ -151,10 +159,12 @@ __big_insert(HTAB *hashp, BUFHEAD *bufp, const DBT *key, const DBT *val)
         for (space = FREESPACE(p) - BIGOVERHEAD; val_size;
             space = FREESPACE(p) - BIGOVERHEAD) {
                 move_bytes = MINIMUM(space, val_size);
+
                 /*
                  * Here's the hack to make sure that if the data ends on the
                  * same page as the key ends, FREESPACE is at least one.
                  */
+
                 if (space == val_size && val_size == val->size)
                         move_bytes--;
                 off = OFFSET(p) - move_bytes;
@@ -191,6 +201,7 @@ __big_insert(HTAB *hashp, BUFHEAD *bufp, const DBT *key, const DBT *val)
  * 0 => OK
  *-1 => ERROR
  */
+
 int
 __big_delete(HTAB *hashp, BUFHEAD *bufp)
 {
@@ -198,10 +209,10 @@ __big_delete(HTAB *hashp, BUFHEAD *bufp)
         u_int16_t *bp, pageno;
         int key_done, n;
 
-        rbufp = bufp;
+        rbufp    = bufp;
         last_bfp = NULL;
-        bp = (u_int16_t *)bufp->page;
-        pageno = 0;
+        bp       = (u_int16_t *)bufp->page;
+        pageno   = 0;
         (void)pageno;
         key_done = 0;
 
@@ -214,6 +225,7 @@ __big_delete(HTAB *hashp, BUFHEAD *bufp)
                  * the data is short and fits entirely on this page, and this
                  * is the last page.
                  */
+
                 if (bp[2] == FULL_KEY_DATA && FREESPACE(bp))
                         break;
                 pageno = bp[bp[0] - 1];
@@ -262,6 +274,7 @@ __big_delete(HTAB *hashp, BUFHEAD *bufp)
         hashp->NKEYS--;
         return (0);
 }
+
 /*
  * Returns:
  *  0 = key not found
@@ -269,6 +282,7 @@ __big_delete(HTAB *hashp, BUFHEAD *bufp)
  * -2 means key not found and this is big key/data
  * -3 error
  */
+
 int
 __find_bigpair(HTAB *hashp, BUFHEAD *bufp, int ndx, char *key, int size)
 {
@@ -316,6 +330,7 @@ __find_bigpair(HTAB *hashp, BUFHEAD *bufp, int ndx, char *key, int size)
  * of the pair; 0 if there isn't any (i.e. big pair is the last key in the
  * bucket)
  */
+
 u_int16_t
 __find_last_page(HTAB *hashp, BUFHEAD **bpp)
 {
@@ -333,6 +348,7 @@ __find_last_page(HTAB *hashp, BUFHEAD **bpp)
                  * either only 2 entries OVFLPAGE marker is explicit there
                  * is freespace on the page.
                  */
+
                 if (bp[2] == FULL_KEY_DATA &&
                     ((n == 2) || (bp[n] == OVFLPAGE) || (FREESPACE(bp))))
                         break;
@@ -355,6 +371,7 @@ __find_last_page(HTAB *hashp, BUFHEAD **bpp)
  * Return the data for the key/data pair that begins on this page at this
  * index (index should always be 1).
  */
+
 int
 __big_return(HTAB *hashp, BUFHEAD *bufp, int ndx, DBT *val, int set_current)
 {
@@ -382,6 +399,7 @@ __big_return(HTAB *hashp, BUFHEAD *bufp, int ndx, DBT *val, int set_current)
                 len = 0;
         } else
                 if (!FREESPACE(bp)) {
+
                         /*
                          * This is a hack.  We can't distinguish between
                          * FULL_KEY_DATA that contains complete data or
@@ -389,19 +407,20 @@ __big_return(HTAB *hashp, BUFHEAD *bufp, int ndx, DBT *val, int set_current)
                          * is complete, there is at least 1 byte of free
                          * space left.
                          */
-                        off = bp[bp[0]];
-                        len = bp[1] - off;
-                        save_p = bufp;
+
+                        off       = bp[bp[0]];
+                        len       = bp[1] - off;
+                        save_p    = bufp;
                         save_addr = bufp->addr;
-                        bufp = __get_buf(hashp, bp[bp[0] - 1], bufp, 0);
+                        bufp      = __get_buf(hashp, bp[bp[0] - 1], bufp, 0);
                         if (!bufp)
                                 return (-1);
                         bp = (u_int16_t *)bufp->page;
                         (void)bp;
                 } else {
                         /* The data is all on one page. */
-                        tp = (char *)bp;
-                        off = bp[bp[0]];
+                        tp        = (char *)bp;
+                        off       = bp[bp[0]];
                         val->data = (unsigned char *)tp + off;
                         val->size = bp[1] - off;
                         if (set_current) {
@@ -409,7 +428,7 @@ __big_return(HTAB *hashp, BUFHEAD *bufp, int ndx, DBT *val, int set_current)
                                                          * chain */
                                         hashp->cpage = NULL;
                                         hashp->cbucket++;
-                                        hashp->cndx = 1;
+                                        hashp->cndx  = 1;
                                 } else {
                                         hashp->cpage = __get_buf(hashp,
                                             bp[bp[0] - 1], bufp, 0);
@@ -438,10 +457,12 @@ __big_return(HTAB *hashp, BUFHEAD *bufp, int ndx, DBT *val, int set_current)
         val->data = (unsigned char *)hashp->tmp_buf;
         return (0);
 }
+
 /*
  * Count how big the total datasize is by recursing through the pages.  Then
  * allocate a buffer and copy the data as you recurse up.
  */
+
 static int
 collect_data(HTAB *hashp, BUFHEAD *bufp, int len, int set)
 {
@@ -451,9 +472,9 @@ collect_data(HTAB *hashp, BUFHEAD *bufp, int len, int set)
         u_int16_t save_addr;
         int mylen, totlen;
 
-        p = bufp->page;
-        bp = (u_int16_t *)p;
-        mylen = hashp->BSIZE - bp[1];
+        p         = bufp->page;
+        bp        = (u_int16_t *)p;
+        mylen     = hashp->BSIZE - bp[1];
         save_addr = bufp->addr;
 
         if (bp[2] == FULL_KEY_DATA) {           /* End of Data */
@@ -494,6 +515,7 @@ collect_data(HTAB *hashp, BUFHEAD *bufp, int len, int set)
 /*
  * Fill in the key and data for this big pair.
  */
+
 int
 __big_keydata(HTAB *hashp, BUFHEAD *bufp, DBT *key, DBT *val, int set)
 {
@@ -508,6 +530,7 @@ __big_keydata(HTAB *hashp, BUFHEAD *bufp, DBT *key, DBT *val, int set)
  * Count how big the total key size is by recursing through the pages.  Then
  * collect the data, allocate a buffer and copy the key as you recurse up.
  */
+
 static int
 collect_key(HTAB *hashp, BUFHEAD *bufp, int len, DBT *val, int set)
 {
@@ -516,8 +539,8 @@ collect_key(HTAB *hashp, BUFHEAD *bufp, int len, DBT *val, int set)
         int mylen, totlen;
         u_int16_t *bp, save_addr;
 
-        p = bufp->page;
-        bp = (u_int16_t *)p;
+        p     = bufp->page;
+        bp    = (u_int16_t *)p;
         mylen = hashp->BSIZE - bp[1];
 
         save_addr = bufp->addr;
@@ -547,6 +570,7 @@ collect_key(HTAB *hashp, BUFHEAD *bufp, int len, DBT *val, int set)
  *  0 => OK
  * -1 => error
  */
+
 int
 __big_split(HTAB *hashp,
     BUFHEAD *op,        /* Pointer to where to put keys that go in old bucket */
@@ -595,13 +619,13 @@ __big_split(HTAB *hashp,
 #ifdef DEBUG
         assert(FREESPACE(tp) >= OVFLSIZE);
 #endif /* ifdef DEBUG */
-        n = tp[0];
-        off = OFFSET(tp);
-        free_space = FREESPACE(tp);
-        tp[++n] = (u_int16_t)addr;
-        tp[++n] = OVFLPAGE;
-        tp[0] = n;
-        OFFSET(tp) = off;
+        n             = tp[0];
+        off           = OFFSET(tp);
+        free_space    = FREESPACE(tp);
+        tp[++n]       = (u_int16_t)addr;
+        tp[++n]       = OVFLPAGE;
+        tp[0]         = n;
+        OFFSET(tp)    = off;
         FREESPACE(tp) = free_space - OVFLSIZE;
 
         /*
@@ -617,6 +641,7 @@ __big_split(HTAB *hashp,
         tp = (u_int16_t *)big_keyp->page;
         big_keyp->flags |= BUF_MOD;
         if (tp[0] > 2) {
+
                 /*
                  * There may be either one or two offsets on this page.  If
                  * there is one, then the overflow page is linked on normally
@@ -624,13 +649,14 @@ __big_split(HTAB *hashp,
                  * the second offset and needs to get stuffed in after the
                  * next overflow page is added.
                  */
-                n = tp[4];
-                free_space = FREESPACE(tp);
-                off = OFFSET(tp);
-                tp[0] -= 2;
-                FREESPACE(tp) = free_space + OVFLSIZE;
-                OFFSET(tp) = off;
-                tmpp = __add_ovflpage(hashp, big_keyp);
+
+                n              = tp[4];
+                free_space     = FREESPACE(tp);
+                off            = OFFSET(tp);
+                tp[0]         -= 2;
+                FREESPACE(tp)  = free_space + OVFLSIZE;
+                OFFSET(tp)     = off;
+                tmpp           = __add_ovflpage(hashp, big_keyp);
                 if (!tmpp)
                         return (-1);
                 tp[4] = n;

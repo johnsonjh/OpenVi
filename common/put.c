@@ -1,5 +1,7 @@
 /*      $OpenBSD: put.c,v 1.16 2016/05/27 09:18:11 martijn Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -28,6 +30,7 @@
  *
  * PUBLIC: int put(SCR *, CB *, CHAR_T *, MARK *, MARK *, int);
  */
+
 int
 put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
 {
@@ -73,6 +76,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
          * Historical practice is that the cursor ends at the first character
          * in the file.
          */
+
         if (cp->lno == 1) {
                 if (db_last(sp, &lno))
                         return (1);
@@ -109,6 +113,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
          *
          * Get the first line.
          */
+
         lno = cp->lno;
         if (db_get(sp, lno, DBG_FATAL, &p, &len))
                 return (1);
@@ -151,6 +156,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
          * cursor on the first character.  Nvi implements the System III/V
          * behavior, and expect POSIX.2 to do so as well.
          */
+
         rp->lno = lno;
         rp->cno = len == 0 ? 0 : sp->cno + (append && tp->len ? 1 : 0);
 
@@ -160,6 +166,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
          * the intermediate lines, because the line changes will lose
          * the cached line.
          */
+
         if (TAILQ_NEXT(tp, q) == NULL) {
                 if (clen > 0) {
                         memcpy(t, p, clen);
@@ -172,6 +179,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
                         ++sp->rptlines[L_CHANGED];
                 }
         } else {
+
                 /*
                  * Have to build both the first and last lines of the
                  * put before doing any sets or we'll lose the cached
@@ -182,6 +190,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
                  * Last part of original line; check for space, reset
                  * the pointer into the buffer.
                  */
+
                 ltp = TAILQ_LAST(&cbp->textq, _texth);
                 len = t - bp;
                 ADD_SPACE_RET(sp, bp, blen, ltp->len + clen);
@@ -202,6 +211,7 @@ put(SCR *sp, CB *cbp, CHAR_T *namep, MARK *cp, MARK *rp, int append)
                  *
                  * Output the line replacing the original line.
                  */
+
                 if (db_set(sp, lno, bp, t - bp))
                         goto err;
                 if (sp->rptlchange != lno) {

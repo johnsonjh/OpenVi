@@ -1,5 +1,7 @@
 /*      $OpenBSD: bt_page.c,v 1.9 2005/08/05 13:02:59 espie Exp $       */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -8,11 +10,14 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
+ *
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
+ *
  * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -54,6 +59,7 @@
  * Side-effect:
  *      mpool_put's the page.
  */
+
 int
 __bt_free(BTREE *t, PAGE *h)
 {
@@ -78,6 +84,7 @@ __bt_free(BTREE *t, PAGE *h)
  * Returns:
  *      Pointer to a page, NULL on error.
  */
+
 PAGE *
 __bt_new(BTREE *t, pgno_t *npg)
 {

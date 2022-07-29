@@ -1,5 +1,7 @@
 /*      $OpenBSD: seq.c,v 1.14 2017/04/18 01:45:35 deraadt Exp $        */
 
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 /*-
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
@@ -31,6 +33,7 @@
  * PUBLIC: int seq_set(SCR *, CHAR_T *,
  * PUBLIC:    size_t, CHAR_T *, size_t, CHAR_T *, size_t, seq_t, int);
  */
+
 int
 seq_set(SCR *sp, CHAR_T *name, size_t nlen, CHAR_T *input, size_t ilen,
     CHAR_T *output, size_t olen, seq_t stype, int flags)
@@ -46,6 +49,7 @@ seq_set(SCR *sp, CHAR_T *name, size_t nlen, CHAR_T *input, size_t ilen,
          *
          * Just replace the output field if the string already set.
          */
+
         if ((qp =
             seq_find(sp, &lastqp, NULL, input, ilen, stype, NULL)) != NULL) {
                 if (LF_ISSET(SEQ_NOOVERWRITE))
@@ -125,6 +129,7 @@ mem1:           errno = sv_errno;
  *
  * PUBLIC: int seq_delete(SCR *, CHAR_T *, size_t, seq_t);
  */
+
 int
 seq_delete(SCR *sp, CHAR_T *input, size_t ilen, seq_t stype)
 {
@@ -141,6 +146,7 @@ seq_delete(SCR *sp, CHAR_T *input, size_t ilen, seq_t stype)
  *
  * PUBLIC: int seq_mdel(SEQ *);
  */
+
 int
 seq_mdel(SEQ *qp)
 {
@@ -160,6 +166,7 @@ seq_mdel(SEQ *qp)
  * PUBLIC: SEQ *seq_find
  * PUBLIC:(SCR *, SEQ **, EVENT *, CHAR_T *, size_t, seq_t, int *);
  */
+
 SEQ *
 seq_find(SCR *sp, SEQ **lastqp, EVENT *e_input, CHAR_T *c_input, size_t ilen,
     seq_t stype, int *ispartialp)
@@ -177,14 +184,17 @@ seq_find(SCR *sp, SEQ **lastqp, EVENT *e_input, CHAR_T *c_input, size_t ilen,
          * search doesn't want the search limited to complete matches,
          * i.e. ilen may be longer than the match.
          */
+
         if (ispartialp != NULL)
                 *ispartialp = 0;
         for (lqp = NULL, qp = LIST_FIRST(&sp->gp->seqq);
             qp != NULL; lqp = qp, qp = LIST_NEXT(qp, q)) {
+
                 /*
                  * Fast checks on the first character and type, and then
                  * a real comparison.
                  */
+
                 if (e_input == NULL) {
                         if (qp->input[0] > c_input[0])
                                 break;
@@ -205,12 +215,14 @@ seq_find(SCR *sp, SEQ **lastqp, EVENT *e_input, CHAR_T *c_input, size_t ilen,
                         break;
                 if (diff < 0)
                         continue;
+
                 /*
                  * If the entry is the same length as the string, return a
                  * match.  If the entry is shorter than the string, return a
                  * match if called from the terminal key routine.  Otherwise,
                  * keep searching for a complete match.
                  */
+
                 if (qp->ilen <= ilen) {
                         if (qp->ilen == ilen || ispartialp != NULL) {
                                 if (lastqp != NULL)
@@ -219,11 +231,13 @@ seq_find(SCR *sp, SEQ **lastqp, EVENT *e_input, CHAR_T *c_input, size_t ilen,
                         }
                         continue;
                 }
+
                 /*
                  * If the entry longer than the string, return partial match
                  * if called from the terminal key routine.  Otherwise, no
                  * match.
                  */
+
                 if (ispartialp != NULL)
                         *ispartialp = 1;
                 break;
@@ -239,6 +253,7 @@ seq_find(SCR *sp, SEQ **lastqp, EVENT *e_input, CHAR_T *c_input, size_t ilen,
  *
  * PUBLIC: void seq_close(GS *);
  */
+
 void
 seq_close(GS *gp)
 {
@@ -259,6 +274,7 @@ seq_close(GS *gp)
  *
  * PUBLIC: int seq_dump(SCR *, seq_t, int);
  */
+
 int
 seq_dump(SCR *sp, seq_t stype, int isname)
 {
@@ -304,6 +320,7 @@ seq_dump(SCR *sp, seq_t stype, int isname)
  *
  * PUBLIC: int seq_save(SCR *, FILE *, char *, seq_t);
  */
+
 int
 seq_save(SCR *sp, FILE *fp, char *prefix, seq_t stype)
 {
@@ -346,6 +363,7 @@ seq_save(SCR *sp, FILE *fp, char *prefix, seq_t stype)
  *
  * PUBLIC: int e_memcmp(CHAR_T *, EVENT *, size_t);
  */
+
 int
 e_memcmp(CHAR_T *p1, EVENT *ep, size_t n)
 {
