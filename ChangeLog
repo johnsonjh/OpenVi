@@ -1,3 +1,6 @@
+OpenVi 7.1.18 -> OpenVi 7.2.19-dev: Fri Jul 29 04:03:03 2022
+        + OpenBSD 7.2 enter beta; bumping OpenBSD version to 7.2
+
 OpenVi 7.1.17 -> OpenVi 7.1.18: Sat Jul 23 19:40:59 2022
         + Quiet complaints when recovery directory is non-existent
         + Improve various status messages
