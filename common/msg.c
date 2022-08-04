@@ -424,6 +424,7 @@ msgq_status(SCR *sp, recno_t lno, unsigned int flags)
                 p += len;
                 needsep = 1;
         }
+#ifndef _AIX
         if (F_ISSET(sp->frp, FR_UNLOCKED)) {
                 if (needsep) {
                         *p++ = ',';
@@ -434,6 +435,7 @@ msgq_status(SCR *sp, recno_t lno, unsigned int flags)
                 p += len;
                 needsep = 1;
         }
+#endif /* ifndef _AIX */
         if (O_ISSET(sp, O_READONLY)) {
                 if (needsep) {
                         *p++ = ',';
