@@ -1,7 +1,7 @@
 ###############################################################################
 #                               -  O p e n V i  -                             #
 ###############################################################################
-# vim: filetype=make:tabstop=4:tw=79:noexpandtab:colorcolumn=79
+# vim: filetype=make:tabstop=4:tw=79:noexpandtab:colorcolumn=79:list
 # SPDX-License-Identifier: BSD-3-Clause
 ###############################################################################
 
@@ -154,10 +154,10 @@ LINKLIBS    += $(EXTRA_LIBS)
 
 ###############################################################################
 
-CFLAGS += -Ddbm_open=openbsd_dbm_open -Ddbm_close=openbsd_dbm_close           \
-          -Ddbm_fetch=openbsd_dbm_fetch -Ddbm_firstkey=openbsd_dbm_firstkey   \
-          -Ddbm_nextkey=openbsd_dbm_nextkey -Ddbm_delete=openbsd_dbm_delete   \
-          -Ddbm_store=openbsd_dbm_store -Ddbm_error=openbsd_dbm_error         \
+CFLAGS += -Ddbm_open=openbsd_dbm_open -Ddbm_close=openbsd_dbm_close          \
+          -Ddbm_fetch=openbsd_dbm_fetch -Ddbm_firstkey=openbsd_dbm_firstkey  \
+          -Ddbm_nextkey=openbsd_dbm_nextkey -Ddbm_delete=openbsd_dbm_delete  \
+          -Ddbm_store=openbsd_dbm_store -Ddbm_error=openbsd_dbm_error        \
           -Ddbm_clearerr=openbsd_dbm_clearerr -Ddbm_rdonly=openbsd_dbm_rdonly
 
 ###############################################################################
@@ -205,11 +205,12 @@ AWK         ?= awk
 CHMOD       ?= chmod
 CHOWN       ?= chown
 CP          ?= cp -f
+PENV        := env
 GETCONF     ?= getconf
 LN          ?= ln
 LNS          = $(LN) -fs
 MKDIR       ?= mkdir -p
-PAWK         = command -p env PATH="$$(command -p $(GETCONF) PATH)" $(AWK)
+PAWK         = command -p $(PENV) PATH="$$(command -p $(GETCONF) PATH)" $(AWK)
 PRINTF      ?= printf
 RMDIR       ?= rmdir
 RM          ?= rm
@@ -664,8 +665,9 @@ ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" \
         "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
 endif # DEBUG
-	-@$(VERBOSE); $(STRIP) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" || \
-            $(TRUE)
+	-@$(VERBOSE); $(PENV) OBJECT_MODE=$(MAIXBITS)              \
+        $(STRIP) "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" || \
+          $(TRUE)
 
 ###############################################################################
 
@@ -677,11 +679,13 @@ strip: bin/vi bin/ex bin/view bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
-	-@$(VERBOSE); $(STRIP) "./bin/vi" || $(TRUE)
+	-@$(VERBOSE); $(PENV) OBJECT_MODE=$(MAIXBITS) \
+        $(STRIP) "./bin/vi" || $(TRUE)
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/xinstall"
 endif # DEBUG
-	-@$(VERBOSE); $(STRIP) "./bin/xinstall" || $(TRUE)
+	-@$(VERBOSE); $(PENV) OBJECT_MODE=$(MAIXBITS) \
+        $(STRIP) "./bin/xinstall" || $(TRUE)
 
 ###############################################################################
 
@@ -705,7 +709,7 @@ superstrip sstrip: strip bin/vi bin/ex bin/view bin/xinstall
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
-	-@$(VERBOSE); $(STRIP) --strip-all  \
+	-@$(VERBOSE); $(PENV) OBJECT_MODE=$(MAIXBITS) $(STRIP) --strip-all  \
         -R '.gnu.build.attributes'      \
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
@@ -721,7 +725,7 @@ endif # DEBUG
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/xinstall"
 endif # DEBUG
-	-@$(VERBOSE); $(STRIP) --strip-all  \
+	-@$(VERBOSE); $(PENV) OBJECT_MODE=$(MAIXBITS) $(STRIP) --strip-all  \
         -R '.gnu.build.attributes'      \
         -R '.eh_frame'                  \
         -R '.eh_frame*'                 \
