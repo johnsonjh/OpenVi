@@ -1,7 +1,8 @@
-OpenVi 7.1.18 -> OpenVi 7.2.19-dev: Fri Jul 29 11:18:27 2022
+OpenVi 7.1.18 -> OpenVi 7.2.19-dev: Thu Aug 4 04:52:10 2022
+        + Set OBJECT_MODE when stripping compiled binaries
         + Add DEP5 metadata file to the source tree
         + Add SPDX license identifiers for REUSE compliance
-        + OpenBSD 7.2 enter beta; bumping OpenBSD version to 7.2
+        + OpenBSD 7.2 enters beta; bumping OpenBSD version to 7.2
 
 OpenVi 7.1.17 -> OpenVi 7.1.18: Sat Jul 23 19:40:59 2022
         + Quiet complaints when recovery directory is non-existent
