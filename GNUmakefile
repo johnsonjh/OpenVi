@@ -660,11 +660,11 @@ endif # DEBUG
 
 ###############################################################################
 
-.PHONY: install-strip
+.PHONY: install-strip installstrip
 ifneq (,$(findstring install-strip,$(MAKECMDGOALS)))
-.NOTPARALLEL: install-strip install
+.NOTPARALLEL: install-strip installstrip install
 endif # (,$(findstring install-strip,$(MAKECMDGOALS)))
-install-strip: install
+install-strip installstrip: install
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" \
             "$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)"
