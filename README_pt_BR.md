@@ -10,7 +10,7 @@
 
 - [Visão geral](#visão-geral)
   * [Porquê?](#porquê)
-    + [Por que não?](#por-que-não?)
+    + [Por que não?](#por-que-não)
 - [Construindo](#building)
   * [Pré-requisitos](#pré-requisitos)
     + [Pré-requisitos necessários](#pré-requisitos-necessários)
@@ -25,15 +25,15 @@
       - [Solaris](#solaris)
       - [Windows](#windows)
         * [Cygwin](#cygwin)
-- [Disponibilidade](#availability)
-  * [Códgo fonte](#source-code)
-  * [Pacotes](#packages)
-- [Versionamento](#versioning)
-- [histórico](#history)
-- [Licençaa](#license)
-- [Reconhecimentos](#acknowledgements)
-- [Projetos similares](#similar-projects)
-- [Veja também](#see-also)
+- [Disponibilidade](#disponibilidade)
+  * [Códgo fonte](#código-fonte)
+  * [Pacotes](#pacotes)
+- [Versionamento](#versionamento)
+- [Histórico](#histórico)
+- [Licença](#licença)
+- [Agradecimentos](#agradecimentos)
+- [Projetos similares](#projetos-similares)
+- [Veja também](#veja-também)
 
 <!-- tocstop -->
 
@@ -168,7 +168,7 @@ Alguns desses pontos podem ser características desejáveis, dependendo do seu p
   - *Intel* **oneAPI DPC++**/**C++** (*Linux*) V2021+
   - *Intel* **C Compiler Classic** (*Darwin*, *Linux*) V19.1+
   - *Oracle* **Developer Studio** (*Linux*, *Solaris*) V12.6+
-  - *PCC* **Compilador C Portátil** (*NetBSD*) V1.0.0+
+  - *PCC* **Portable C Compiler** (*NetBSD*) V1.0.0+
 
 Versões de sistema operacional e compilador mais recentes ou mais antigas, dentro do razoável, devem
 trabalhar. As versões listadas acima são aquelas regularmente testadas e comprovadamente funcionando.
@@ -228,7 +228,7 @@ env CC=clang DEBUG=1 V=1 gmake
 Para sistemas com *GNU Make* como `make` (*por exemplo* *GNU/Linux*), compilação básica
 deve ser bem-sucedido sem nenhuma opção ou configuração adicional necessária:
 ```sh
-faço
+make
 ```
 Com os privilégios apropriados para manipular arquivos dentro do `PREFIX` escolhido
 (usando `doas`, `sudo`, `su`, etc.), o executável compilado pode ser instalado —
@@ -260,7 +260,7 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
   ```
   ou
   ```sh
-  yum instalar ncurses ncurses-devel
+  yum install ncurses ncurses-devel
   ```
   O sistema base *IBM* **AIX** (e **PASE for i**, um sistema de tempo de execução integrado
   ambiente para aplicativos **AIX** no sistema operacional **IBM i**)
@@ -279,7 +279,7 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
     **AIX**.
   - Uma compilação de 64 bits é o padrão em sistemas operando no modo de 64 bits; para
     compilação de 32 bits, defina o valor da variável de ambiente `MAIXBITS` para
-    `32` (*ex.* ​​`exportar MAIXBITS=32`).
+    `32` (*ex.* ​​`export MAIXBITS=32`).
   - O valor da variável de ambiente `CC` deve ser definido como o caminho completo
     do compilador (*por exemplo* `/opt/freeware/bin/gcc`,
     `/opt/IBM/xlC/16.1.0/bin/gxlc`, `/opt/IBM/openxlC/17.1.0/bin/ibm-clang`,
@@ -294,181 +294,174 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
   
 ##### NetBSD
 
-- On **NetBSD** installations, the default ***OpenVi*** builds use the BSD
-  `curses` library provided by the NetBSD base system. To use `ncurses`
-  instead, set the values of the `CFLAGS`, `LDFLAGS`, and `CURSESLIB`
-  environment variables appropriately (*i.e.* `CFLAGS=-I/usr/pkg/include`
+- Nas instalações do **NetBSD**, as compilações padrão do ***OpenVi*** usam a biblioteca BSD `curses` 
+  fornecida pelo sistema base do NetBSD. Para usar `ncurses`, defina 
+  os valores de `CFLAGS`, `LDFLAGS` e `CURSESLIB`
+  variáveis ​​de ambiente apropriadamente (*isto é* `CFLAGS=-I/usr/pkg/include`
   `LDFLAGS=-L/usr/pkg/lib` `CURSESLIB=-lncurses`).
 
-- The *LLVM* **LLD** linker is required for link-time optimization (`LTO=1`)
-  using **Clang**. It is available as an installable package (*i.e.* `pkgin
-  install lld`).
+- O linker *LLVM* **LLD** é necessário para otimização de tempo de link (`LTO=1`)
+  usando **Clang**. Está disponível como um pacote instalável (*i.e.* `pkgin
+  instalar lld`).
 
 ##### illumos
 
-- Before building ***OpenVi*** on an **illumos** distribution (*i.e.*
-  **OpenIndiana**), install the `ncurses` libraries and headers. The
-  **OpenIndiana** distribution provides the necessary `ncurses` package in
-  *IPS* format. With the appropriate permissions (*e.g.* `root`), the package
-  can be installed using the **OpenIndiana** `pkg` utility, for example:
+- Antes de compilar o ***OpenVi*** em uma distribuição **illumos** (*i.e.*
+  **OpenIndiana**), instale as bibliotecas e cabeçalhos `ncurses`. 
+  A distribuição **OpenIndiana** fornece o pacote `ncurses` necessário no formato *IPS*. 
+  Com as permissões apropriadas (*por exemplo*       `root`), o pacote
+  pode ser instalado usando o utilitário `pkg` **OpenIndiana**, por exemplo:
   ```sh
   pkg install ncurses
   ```
-  The **OpenIndiana** base system provides `libcurses`, an *XPG4*/*XSI*
-  Extended Curses implementation derived from *AT&T System V*, which is **not**
-  yet supported for use with ***OpenVi***.
+  O sistema base **OpenIndiana** fornece `libcurses`, um *XPG4*/*XSI*
+  Implementação Extended Curses derivada do *AT&T System V*, que **não**
+  ainda suportado para uso com ***OpenVi***.
 
-- Link-time garbage collection (`LGC=1`) is **not** supported on
+- A coleta de lixo em tempo de link (`LGC=1`) **não** é suportada em
   **OpenIndiana**.
 
 ##### Solaris
 
-- Before building ***OpenVi*** on *Oracle* **Solaris** 11, install the
-  `ncurses` libraries and headers. *Oracle* provides provides the necessary
-  `ncurses` package for **Solaris** 11 in *IPS* format. With the appropriate
-  permissions (*e.g.* `root`), the package can be installed using the **Solaris**
-  `pkg` utility, for example:
+- Antes de compilar o ***OpenVi*** no *Oracle* **Solaris** 11, instale as
+  bibliotecas e cabeçalhos `ncurses`. *Oracle* fornece o pacote
+  `ncurses` necessário para **Solaris** 11 no formato *IPS*. Com as permissões
+  apropriadas (*por exemplo* `root`), o pacote pode ser instalado usando o utilitário 
+  **Solaris** `pkg`, por exemplo:
   ```sh
   pkg install ncurses
   ```
-  The base *Oracle* **Solaris** system provides `libcurses`, an *XPG4*/*XSI*
-  Extended Curses implementation derived from *AT&T System V*, which is **not**
-  yet supported for use with ***OpenVi***.
+  O sistema base *Oracle* **Solaris** fornece `libcurses`, uma *XPG4*/*XSI*
+  Implementação Extended Curses derivada do *AT&T System V*, que ainda **não**
+  não é suportado para uso com ***OpenVi***.
 
-- Compilation is supported using *Oracle* **Developer Studio**, **GCC**, and
+- A compilação é suportada usando *Oracle* **Developer Studio**, **GCC** e
   **Clang**:
-  - When using *Oracle* **Developer Studio**, invoke the compiler as `suncc`
-    or set the value of the `_OSLCC` environment variable to `1`.
-  - Link-time optimization (`LTO=1`) is currently supported **only** when using
-    **GCC** or **Clang**.
-  - Link-time garbage collection (`LGC=1`) is **not** supported on **Solaris**.
-  - When using the *Oracle* **Developer Studio** (`suncc`) compiler, a 64-bit
-    build is the default on systems operating in 64-bit mode; for a 32-bit
-    build, set the value of the `SUNBITS` environment variable to `32` (*e.g.*
+  - Ao usar *Oracle* **Developer Studio**, invoque o compilador como `suncc`
+    ou defina o valor da variável de ambiente `_OSLCC` para `1`.
+  - A otimização de tempo de link (`LTO=1`) é atualmente suportada **apenas** ao usar
+    **GCC** ou **Clang**.
+  - A coleta de lixo em tempo de link (`LGC=1`) **não** é suportada no **Solaris**.
+  - Ao usar o compilador *Oracle* **Developer Studio** (`suncc`), uma build 64-bit
+    é o padrão em sistemas operando no modo de 64 bits; para uma build em 32 bits, defina
+    o valor da variável de ambiente `SUNBITS` para `32` (*ex.*
     `export SUNBITS=32`).
 
-- File locking is unavailable due to the absence of `flock()` on **Solaris**.
-  This will be addressed by supporting *System V*-style `fcntl()` locking in a
-  future release.
+- O bloqueio de arquivo não está disponível devido à ausência de `flock()` no **Solaris**.
+  Isso será resolvido com o suporte ao bloqueio `fcntl()` estilo *System V* em um
+  lançamento futuro.
 
 ##### Windows
 
-- *Microsoft* **Windows** supports various development and runtime
-  environments, including *MSVC*, *Cygwin*, *Midipix*, *MSYS2*, *UWIN*, the
-  *Git Bash* environment, and others. Care must be taken to avoid mixing
-  incompatible libraries and tools.
+- *Microsoft* **Windows** suporta vários desenvolvimentos e tempo de execução, incluindo 
+  *MSVC*, *Cygwin*, *Midipix*, *MSYS2*, *UWIN*, o
+  ambiente *Git Bash* e outros. Deve-se tomar cuidado para evitar a mistura de
+  bibliotecas e ferramentas incompatíveis.
 
 ###### Cygwin
 
-- Compilation problems in the **Cygwin** environment are often caused by
-  incomplete or interrupted package installations, or by the installation of
-  packages using non-standard tools (*e.g.* `apt-cyg`), which can result in
-  missing files and dangling or missing symbolic links.
-- **Before** compiling ***OpenVi*** under **Cygwin**, it is *highly*
-  recommended to:
-  - Update the **Cygwin** `setup.exe` application to the latest available
-    version.
-  - Update all installed packages using the new **Cygwin** `setup.exe`
-    application.
-  - Install the required prerequisite packages (*i.e.* `make`, `gcc`, `ncurses`,
-    `ncurses-devel`) using the **Cygwin** `setup.exe` application.
-  - Invoke the `cygcheck` utility (*i.e.* `cygcheck -cv | grep -v "OK$"`) to
-    verify the integrity of all currently installed packages.
+- Problemas de compilação no ambiente **Cygwin** geralmente são causados ​​por
+  instalações de pacotes incompletos ou interrompidos, ou pela instalação de
+  pacotes usando ferramentas não padrão (*por exemplo* `apt-cyg`), o que pode resultar em
+  arquivos ausentes e links simbólicos pendentes ou ausentes.
+- **Antes** de compilar ***OpenVi*** em **Cygwin**, é *altamente*
+  recomendado que:
+  - Atualize o aplicativo **Cygwin** `setup.exe` para a última versão
+    disponível.
+  - Atualize todos os pacotes instalados usando a nova aplicação **Cygwin** `setup.exe`
+  - Instale os pacotes de pré-requisito necessários (*ou seja,* `make`, `gcc`, `ncurses`,
+    `ncurses-devel`) usando o aplicativo **Cygwin** `setup.exe`.
+  - Invoque o utilitário `cygcheck` (*i.e.* `cygcheck -cv | grep -v "OK$"`) para
+    verificar a integridade de todos os pacotes atualmente instalados.
 
-## Availability
+## Disponibilidade
 
-### Source Code
+### Código fonte
 
-- [GitHub source repository](https://github.com/johnsonjh/OpenVi)
-- [Latest source release](http://github.com/johnsonjh/OpenVi/releases/latest)
+- [Repositório de origem do GitHub](https://github.com/johnsonjh/OpenVi)
+- [Lançamento da fonte mais recente](http://github.com/johnsonjh/OpenVi/releases/latest)
 
-### Packages
+### Pacotes
 
-**OpenVi** is available to Linux and macOS users via the
-[Homebrew](https://brew.sh/) package manager.
+**OpenVi** está disponível para usuários de Linux e macOS por meio do
+Gerenciador de pacotes [Homebrew](https://brew.sh/).
 
 ```sh
 brew install openvi
 ```
 
-## Versioning
+## Versionamento
 
-The ***OpenVi*** version number is based on the version of the corresponding
-*OpenBSD* release, followed by the ***OpenVi*** release number. The `version`
-command can be used to display this information in the format shown below.
+O número da versão do ***OpenVi*** é baseado na versão do lançamento do *OpenBSD* correspondente, 
+seguido pelo número do lançamento do ***OpenVi***. O comando `version` pode ser usado para exibir esta 
+informação no formato mostrado abaixo.
 
 ```text
 Version 7.0.1 (OpenVi) 10/25/2021.
 ```
 
-This message indicates the editor in use is ***OpenVi***, release **1**,
-derived from *OpenBSD* version **7.0**, and is fully synchronized with the
-*OpenBSD* versions of ***`vi`***, ***`ex`***, ***`db`***, and ***`regex`***
-as of **10/25/2021** (*October 25th 2021*).
+Esta mensagem indica que o editor em uso é ***OpenVi***, versão **1**,
+derivado do *OpenBSD* versão **7.0**, e é totalmente sincronizado com as versões *OpenBSD* de 
+***`vi`***, ***`ex`***, ***`db`***, e ***`regex`***
+a partir de **10/25/2021** (*25 de outubro de 2021*).
 
-Changes **not** derived from *OpenBSD* commits do not advance this date.
-New *OpenBSD* releases do not reset the ***OpenVi*** release number.
+Alterações **não** derivadas de commits do *OpenBSD* não avançam nesta data.
+Novos lançamentos do *OpenBSD* não redefinem o número do lançamento do ***OpenVi***.
 
-## History
+## Histórico
 
 - ***OpenVi***
   - [`ChangeLog`](/ChangeLog)
-  - [Release history](http://github.com/johnsonjh/OpenVi/releases/)
-  - [Commit history](https://github.com/johnsonjh/OpenVi/commits/master)
+  - [Histórico de lançamento](http://github.com/johnsonjh/OpenVi/releases/)
+  - [Histórico de commits](https://github.com/johnsonjh/OpenVi/commits/master)
 
 - *OpenBSD* ***`vi`***
   - *OpenBSD* ***`vi`*** / ***`ex`***
-    - [Commit history](https://github.com/openbsd/src/commits/master/usr.bin/vi)
+    - [Histórico de commits](https://github.com/openbsd/src/commits/master/usr.bin/vi)
   - *OpenBSD* ***`db`***
-    - [Commit history](https://github.com/openbsd/src/commits/master/lib/libc/db)
+    - [Histórico de commits](https://github.com/openbsd/src/commits/master/lib/libc/db)
   - *OpenBSD* ***`regex`***
-    - [Commit history](https://github.com/openbsd/src/commits/master/lib/libc/regex)
+    - [Histórico de commits](https://github.com/openbsd/src/commits/master/lib/libc/regex)
 
-## License
+## Licença
 
-- ***OpenVi*** is distributed under the terms of a **3-clause BSD** license.
-- See the [`LICENSE.md`](/LICENSE.md) file for the full license and
-  distribution terms.
+- ***OpenVi*** é distribuído sob os termos de uma licença **3-clause BSD**.
+- Veja o arquivo [`LICENSE.md`](/LICENSE.md) para a licença completa e
+  termos de distribuição.
 
-## Acknowledgements
+## Agradecimentos
 
-- *rqsd* of *Libera.Chat* for the idea that inspired the project and testing.
+- *rqsd* de *Libera.Chat* pela ideia que inspirou o projeto e os testes.
 - [*S. V. Nickolas*](https://github.com/buricco/),
-  [*Jason Stevens*](https://virtuallyfun.com/), and the
-  [***Virtually Fun*** *Discord*](https://discord.gg/HMwevcN) community, for
-  support and feedback.
-- From the original **`vi`** acknowledgements (by *Bill Joy* & *Mark Horton*):
-  - *Bruce Englar* encouraged the early development of this display editor.
-  - *Peter Kessler* helped bring sanity to version 2's command layout.
-  - *Bill Joy* wrote version **1**, versions **2.0** through **2.7**, and
-    created the framework that users see in the present editor.
-  - *Mark Horton* added macros and other features, and made the editor work on
-    a large number of terminals and *UNIX* systems.
-  - The financial support of *UUNET Communications Services* is gratefully
-    acknowledged.
+  [*Jason Stevens*](https://virtuallyfun.com/), e o
+  [***Virtually Fun*** *Discord*](https://discord.gg/HMwevcN) comunidade, pelo
+  suporte e feedback.
+- Dos agradecimentos originais do **`vi`** (por *Bill Joy* e *Mark Horton*):
+  - *Bruce Englar* encorajou o desenvolvimento inicial deste editor de exibição.
+  - *Peter Kessler* ajudou a trazer sanidade ao layout de comando da versão 2.
+  - *Bill Joy* escreveu a versão **1**, versões **2.0** até **2.7** e
+    criou a estrutura que os usuários veem no editor atual.
+  - *Mark Horton* adicionou macros e outros recursos e fez o editor funcionar 
+    em um grande número de terminais e sistemas *UNIX*.
+  - Agradecemos o apoio financeiro dos *UUNET Communications Services*.
 
-## Similar Projects
+## Projetos Similares
 
-- *Martin Guy*'s [**`Xvi`**](http://martinwguy.github.io/xvi/), an enhanced
-  fork of *Tim Thompson*'s [**`STEVIE`**](https://timthompson.com/tjt/stevie/)
+- [**`Xvi`**](http://martinwguy.github.io/xvi/) de *Martin Guy*, 
+  uma versão melhorada de [**`STEVIE`**]( de *Tim Thompson* https://timthompson.com/tjt/stevie/)
 - *S. V. Nickolas*'
-  [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
-  cleaned-up fork of *Steve Kirkendall*'s
+  [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), um fork limpo de *Steve Kirkendall*
   [**`Elvis`**](http://elvis.the-little-red-haired-girl.org/)
-- *Andy Valencia*'s [**`Vim57`**](http://sources.vsta.org:7100/vim57/tree), a
-  simplified fork of version 5.7 of *Bram Moolenaar*'s
+- *Andy Valencia*'s [**`Vim57`**](http://sources.vsta.org:7100/vim57/tree), um
+  fork simplificado da versão 5.7 de *Bram Moolenaar*
   [**`Vim`**](https://www.vim.org/)
 
-## See Also
+## Veja também
 
 - [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/)
-  is a currently maintained fork of the original (**1BSD**/**2BSD**) branch
-  of the **`vi`** / **`ex`** editor, derived from *Gunnar Ritter*'s enhanced
-  version of the [**traditional** **`vi`**](http://ex-vi.sourceforge.net/)
-  editor.
-- [**`Nvi2`**](https://github.com/lichray/nvi2) is a currently maintained
-  *feature branch* of the new (**4BSD**) version of the **`nvi`** / **`nex`**
-  editor, with a focus on extensibility and new features.
-- [**`Nvi1`**](https://repo.or.cz/nvi.git) (*version* *1.8+*) is the
-  currently maintained *traditional branch* of the new (**4BSD**) version of
-  the **`nvi`** / **`nex`** editor, now developed by *Sven Verdoolaege*.
+  é um fork atualmente mantido do ramo original (**1BSD**/**2BSD**) do editor **`vi`** / **`ex`**, 
+  derivado do editor aprimorado de *Gunnar Ritter* versão do [**tradicional** do editor **`vi`**](http://ex-vi.sourceforge.net/).
+- [**`Nvi2`**](https://github.com/lichray/nvi2) é um *branch de recursos* atualmente mantido da nova versão (**4BSD**) do 
+  editor **`nvi`* * / **`nex`**, com foco em extensibilidade e novas funcionalidades.
+- [**`Nvi1`**](https://repo.or.cz/nvi.git) (*versão* *1.8+*) é o *branch tradicional* atualmente mantido do novo (**4BSD* *) versão do 
+  editor **`nvi`** / **`nex`**, agora desenvolvido por *Sven Verdoolaege*.
