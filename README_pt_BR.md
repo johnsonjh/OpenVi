@@ -4,7 +4,7 @@
 
 ***OpenVi*** — Portable *OpenBSD* **`vi`** / **`ex`**
 
-## Table of Contents
+## Índice
 
 <!-- toc -->
 
