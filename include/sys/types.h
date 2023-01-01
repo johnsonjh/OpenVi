@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *
@@ -36,8 +36,8 @@
 #ifndef _COMPAT_SYS_TYPES_H_
 # define _COMPAT_SYS_TYPES_H_
 /*
- * for major()/minor() macros with glibc, needs to be included before
- * <sys/types.h>
+ * for major() / minor() macros with glibc, needs to be included
+ *   before <sys/types.h>
  */
 # if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
 #  include <sys/sysmacros.h>

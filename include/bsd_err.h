@@ -1,12 +1,14 @@
 /*      $OpenBSD: err.h,v 1.13 2015/08/31 02:53:56 guenther Exp $       */
-/*      $NetBSD: err.h,v 1.11 1994/10/26 00:55:52 cgd Exp $     */
+/*      $NetBSD:  err.h,v 1.11 1994/10/26 00:55:52 cgd Exp $            */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1993
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

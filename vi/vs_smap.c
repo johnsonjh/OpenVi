@@ -2,12 +2,12 @@
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * See the LICENSE.md file for redistribution information.
  */
@@ -40,6 +40,7 @@ static int      vs_sm_up(SCR *, MARK *, recno_t, scroll_t, SMAP *);
  *
  * PUBLIC: int vs_change(SCR *, recno_t, lnop_t);
  */
+
 int
 vs_change(SCR *sp, recno_t lno, lnop_t op)
 {
@@ -60,6 +61,7 @@ vs_change(SCR *sp, recno_t lno, lnop_t op)
          *
          * Check for line #2 before going to the end of the file.
          */
+
         if (((op == LINE_APPEND && lno == 0) || (op == LINE_INSERT && lno == 1)) &&
             !db_exist(sp, 2)) {
                 lno = 1;

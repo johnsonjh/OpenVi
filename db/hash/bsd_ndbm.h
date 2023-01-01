@@ -1,12 +1,14 @@
 /*      $OpenBSD: ndbm.h,v 1.6 2004/05/03 17:27:50 millert Exp $        */
-/*      $NetBSD: ndbm.h,v 1.6 1995/07/20 23:31:11 jtc Exp $     */
+/*      $NetBSD:  ndbm.h,v 1.6 1995/07/20 23:31:11 jtc Exp $            */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1990, 1993
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Margo Seltzer.

@@ -2,10 +2,12 @@
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Mike Olson.
@@ -202,17 +204,17 @@ mswap(PAGE *pg)
         char *p;
 
         p = (char *)pg;
-        P_32_SWAP(p);           /* magic */
+        P_32_SWAP(p);             /* magic   */
         p += sizeof(u_int32_t);
-        P_32_SWAP(p);           /* version */
+        P_32_SWAP(p);             /* version */
         p += sizeof(u_int32_t);
-        P_32_SWAP(p);           /* psize */
+        P_32_SWAP(p);             /* psize   */
         p += sizeof(u_int32_t);
-        P_32_SWAP(p);           /* free */
+        P_32_SWAP(p);             /* free    */
         p += sizeof(u_int32_t);
-        P_32_SWAP(p);           /* nrecs */
+        P_32_SWAP(p);             /* nrecs   */
         p += sizeof(u_int32_t);
-        P_32_SWAP(p);           /* flags */
+        P_32_SWAP(p);             /* flags   */
         p += sizeof(u_int32_t);
         (void)p;
 }

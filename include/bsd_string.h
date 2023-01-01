@@ -1,11 +1,11 @@
 /*      $OpenBSD: string.h,v 1.31 2016/09/09 18:12:37 millert Exp $     */
-/*      $NetBSD: string.h,v 1.6 1994/10/26 00:56:30 cgd Exp $   */
+/*      $NetBSD:  string.h,v 1.6  1994/10/26 00:56:30 cgd Exp $         */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1990 The Regents of the University of California.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *

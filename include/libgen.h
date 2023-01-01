@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *
@@ -33,6 +33,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* Workarounds for header buglets */
 #ifdef __solaris__
 # undef _TIMESPEC_UTIL_H
 # define _TIMESPEC_UTIL_H 1

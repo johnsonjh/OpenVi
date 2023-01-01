@@ -5,7 +5,7 @@
 
 /*
  * Copyright (c) 2002 Todd C. Miller <millert@openbsd.org>
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -24,8 +24,9 @@
  * Materiel Command, USAF, under agreement number F39502-99-1-0512.
  */
 
-/*-
+/*
  * Copyright (c) 2000 The NetBSD Foundation, Inc.
+ *
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
@@ -71,16 +72,16 @@
 #undef open
 
 int   openbsd_opterr = 1;    /* if error message should be printed */
-int   openbsd_optind = 1;    /* index into parent argv vector */
-int   openbsd_optopt = '?';  /* character checked for validity */
-int   openbsd_optreset;      /* reset getopt */
-char *openbsd_optarg;        /* argument associated with option */
+int   openbsd_optind = 1;    /* index into parent argv vector      */
+int   openbsd_optopt = '?';  /* character checked for validity     */
+int   openbsd_optreset;      /* reset getopt                       */
+char *openbsd_optarg;        /* argument associated with option    */
 
 #define PRINT_ERROR (( openbsd_opterr ) && ( *options != ':' ))
 
-#define FLAG_PERMUTE  0x01  /* permute non-options to the end of argv */
+#define FLAG_PERMUTE  0x01  /* permute non-options to the end of argv   */
 #define FLAG_ALLARGS  0x02  /* treat non-options as args to option "-1" */
-#define FLAG_LONGONLY 0x04  /* operate as getopt_long_only */
+#define FLAG_LONGONLY 0x04  /* operate as getopt_long_only              */
 
 /* return values */
 #define BADCH (int)'?'
@@ -100,7 +101,7 @@ static void openbsd_permute_args(int, int, int, char *const *);
 
 static char *place = EMSG; /* option letter processing */
 
-static int openbsd_nonopt_start = -1; /* first non option argument (for permute) */
+static int openbsd_nonopt_start = -1; /* first non option argument (for permute)      */
 static int openbsd_nonopt_end   = -1; /* first option after non options (for permute) */
 
 /* Error messages */
@@ -114,6 +115,7 @@ static const char openbsd_illoptstring[] = "unknown option -- %s";
 /*
  * Compute the greatest common divisor of a and b.
  */
+
 static int
 openbsd_gcd(int a, int b)
 {
@@ -135,6 +137,7 @@ openbsd_gcd(int a, int b)
  * from nonopt_end to opt_end (keeping the same order of arguments
  * in each block).
  */
+
 static void
 openbsd_permute_args(int panonopt_start, int panonopt_end, int opt_end,
                      char *const *nargv)
@@ -143,8 +146,9 @@ openbsd_permute_args(int panonopt_start, int panonopt_end, int opt_end,
   char *swap;
 
   /*
-   * compute lengths of blocks and number and size of cycles
+   * Compute lengths of blocks and number and size of cycles ...
    */
+
   nnonopts = panonopt_end - panonopt_start;
   nopts = opt_end - panonopt_end;
   ncycle = openbsd_gcd(nnonopts, nopts);
@@ -175,8 +179,10 @@ openbsd_permute_args(int panonopt_start, int panonopt_end, int opt_end,
 /*
  * openbsd_parse_long_options --
  *      Parse long options in argc/argv argument vector.
+ *
  * Returns -1 if short_too is set and the option does not match long_options.
  */
+
 static int
 openbsd_parse_long_options(char *const *nargv, const char *options,
                            const struct option *long_options, int *idx,
@@ -224,6 +230,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
        * If this is a known short option, don't allow
        * a partial match of a single character.
        */
+
       if (short_too && current_argv_len == 1)
         {
           continue;
@@ -266,6 +273,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
           /*
            * XXX: GNU sets optopt to val regardless of flag
            */
+
           if (long_options[match].flag == NULL)
             {
               openbsd_optopt = long_options[match].val;
@@ -287,19 +295,23 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
             }
           else if (long_options[match].has_arg == required_argument)
             {
+
               /*
-               * optional argument doesn't use next nargv
+               * Optional argument doesn't use next nargv ...
                */
+
               openbsd_optarg = nargv[openbsd_optind++];
             }
         }
 
       if (( long_options[match].has_arg == required_argument ) && ( openbsd_optarg == NULL ))
         {
+
           /*
            * Missing argument; leading ':' indicates no error
            * should be generated.
            */
+
           if (PRINT_ERROR)
             {
               openbsd_warnx(openbsd_recargstring, current_argv);
@@ -308,6 +320,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
           /*
            * XXX: GNU sets optopt to val regardless of flag
            */
+
           if (long_options[match].flag == NULL)
             {
               openbsd_optopt = long_options[match].val;
@@ -358,6 +371,7 @@ openbsd_parse_long_options(char *const *nargv, const char *options,
  * openbsd_getopt_internal --
  *      Parse argc/argv argument vector.  Called by user level routines.
  */
+
 static int
 openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
                         const struct option *long_options, int *idx, int flags)
@@ -375,6 +389,7 @@ openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
    * Some GNU programs (like cvs) set optind to 0 instead of
    * using optreset.  Work around this braindamage.
    */
+
   if (openbsd_optind == 0)
     {
       openbsd_optind = openbsd_optreset = 1;
@@ -384,6 +399,7 @@ openbsd_getopt_internal(int nargc, char *const *nargv, const char *options,
    * Disable GNU extensions if POSIXLY_CORRECT or POSIX_ME_HARDER
    * is set, or if the options string begins with a '+'.
    */
+
   if (posixly_correct == -1 || openbsd_optreset)
     {
       posixly_correct = ( getenv("POSIXLY_CORRECT") != NULL );
@@ -429,10 +445,12 @@ start:
             }
           else if (openbsd_nonopt_start != -1)
             {
+
               /*
                * If we skipped non-options, set optind
                * to the first of them.
                */
+
               openbsd_optind = openbsd_nonopt_start;
             }
 
@@ -446,20 +464,24 @@ start:
           place = EMSG; /* found non-option */
           if (flags & FLAG_ALLARGS)
             {
+
               /*
                * GNU extension:
                * return non-option as argument to option 1
                */
+
               openbsd_optarg = nargv[openbsd_optind++];
               return INORDER;
             }
 
           if (!( flags & FLAG_PERMUTE ))
             {
+
               /*
                * If no permutation wanted, stop parsing
                * at first non-option.
                */
+
               return -1;
             }
 
@@ -488,14 +510,17 @@ start:
       /*
        * If we have "-" do nothing, if "--" we are done.
        */
+
       if (place[1] != '\0' && *++place == '-' && place[1] == '\0')
         {
           openbsd_optind++;
           place = EMSG;
+
           /*
            * We found an option (--), so if we skipped
            * non-options, we have to permute.
            */
+
           if (openbsd_nonopt_end != -1)
             {
               openbsd_permute_args(openbsd_nonopt_start, openbsd_nonopt_end, openbsd_optind, nargv);
@@ -513,6 +538,7 @@ start:
    *  2) the arg is not just "-"
    *  3) either the arg starts with -- we are openbsd_getopt_long_only()
    */
+
   if (long_options != NULL && place != nargv[openbsd_optind]
       && ( *place == '-' || ( flags & FLAG_LONGONLY )))
     {
@@ -631,9 +657,11 @@ start:
  * opembsd_getopt --
  *      Parse argc/argv argument vector.
  */
+
 int
 openbsd_getopt(int nargc, char *const *nargv, const char *options)
 {
+
   /*
    * We don't pass FLAG_PERMUTE to openbsd_getopt_internal() since
    * the BSD getopt(3) (unlike GNU) has never done this.
@@ -642,6 +670,7 @@ openbsd_getopt(int nargc, char *const *nargv, const char *options)
    * before dropping privileges it makes sense to keep things
    * as simple (and bug-free) as possible.
    */
+
   return openbsd_getopt_internal(nargc, nargv, options, NULL, NULL, 0);
 }
 
@@ -649,6 +678,7 @@ openbsd_getopt(int nargc, char *const *nargv, const char *options)
  * openbsd_getopt_long --
  *      Parse argc/argv argument vector.
  */
+
 int
 openbsd_getopt_long(int nargc, char *const *nargv, const char *options,
                     const struct option *long_options, int *idx)
@@ -666,6 +696,7 @@ openbsd_getopt_long(int nargc, char *const *nargv, const char *options,
  * getopt_long_only --
  *      Parse argc/argv argument vector.
  */
+
 int
 openbsd_getopt_long_only(int nargc, char *const *nargv, const char *options,
                          const struct option *long_options, int *idx)

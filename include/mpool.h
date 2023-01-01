@@ -1,12 +1,14 @@
 /*      $OpenBSD: mpool.h,v 1.1 2015/09/09 15:35:24 guenther Exp $      */
-/*      $NetBSD: mpool.h,v 1.7 1996/05/03 21:13:41 cgd Exp $    */
+/*      $NetBSD:  mpool.h,v 1.7 1996/05/03 21:13:41 cgd Exp $           */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -53,32 +55,32 @@
 # define HASHSIZE       128
 # define HASHKEY(pgno)  ((pgno - 1 + HASHSIZE) % HASHSIZE)
 
-/* The BKT structures are the elements of the queues. */
+/* The BKT structures are the elements of the queues... */
 typedef struct _bkt {
-        TAILQ_ENTRY(_bkt) hq;           /* hash queue */
-        TAILQ_ENTRY(_bkt) q;            /* lru queue */
-        void    *page;                  /* page */
-        pgno_t   pgno;                  /* page number */
+        TAILQ_ENTRY(_bkt) hq;           /* hash queue   */
+        TAILQ_ENTRY(_bkt) q;            /* lru queue    */
+        void    *page;                  /* page         */
+        pgno_t   pgno;                  /* page number. */
 
-# define MPOOL_DIRTY    0x01            /* page needs to be written */
+# define MPOOL_DIRTY    0x01            /* page needs to be written   */
 # define MPOOL_PINNED   0x02            /* page is pinned into memory */
-# define MPOOL_INUSE    0x04            /* page address is valid */
-        u_int8_t flags;                 /* flags */
+# define MPOOL_INUSE    0x04            /* page address is valid      */
+        u_int8_t flags;                 /* flags                      */
 } BKT;
 
 typedef struct MPOOL {
-        TAILQ_HEAD(_lqh, _bkt) lqh;     /* lru queue head */
-                                        /* hash queue array */
-        TAILQ_HEAD(_hqh, _bkt) hqh[HASHSIZE];
-        pgno_t  curcache;               /* current number of cached pages */
-        pgno_t  maxcache;               /* max number of cached pages */
-        pgno_t  npages;                 /* number of pages in the file */
-        unsigned long   pagesize;       /* file page size */
-        int     fd;                     /* file descriptor */
-                                        /* page in conversion routine */
-        void    (*pgin)(void *, pgno_t, void *);
-                                        /* page out conversion routine */
-        void    (*pgout)(void *, pgno_t, void *);
+        TAILQ_HEAD(_lqh, _bkt) lqh;     /* lru queue head                  */
+                                        /* hash queue array                */
+        TAILQ_HEAD(_hqh, _bkt) hqh[HASHSIZE]; /* ...                       */
+        pgno_t  curcache;               /* current number of cached pages  */
+        pgno_t  maxcache;               /* max number of cached pages      */
+        pgno_t  npages;                 /* number of pages in the file     */
+        unsigned long   pagesize;       /* file page size                  */
+        int     fd;                     /* file descriptor                 */
+                                        /* page in conversion routine      */
+        void    (*pgin)(void *, pgno_t, void *); /* ...                    */
+                                        /* page out conversion routine     */
+        void    (*pgout)(void *, pgno_t, void *); /* ...                   */
         void    *pgcookie;              /* cookie for page in/out routines */
 # ifdef STATISTICS
         unsigned long   cachehit;
@@ -93,7 +95,7 @@ typedef struct MPOOL {
 # endif /* ifdef STATISTICS */
 } MPOOL;
 
-# define MPOOL_IGNOREPIN     0x01       /* Ignore if the page is pinned. */
+# define MPOOL_IGNOREPIN     0x01       /* Ignore if the page is pinned.    */
 # define MPOOL_PAGE_REQUEST  0x01       /* New page w/ specific page number */
 # define MPOOL_PAGE_NEXT     0x02       /* New page w/ the next page number */
 

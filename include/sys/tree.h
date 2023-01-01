@@ -4,7 +4,8 @@
 
 /*
  * Copyright (c) 2002 Niels Provos <provos@citi.umich.edu>
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,10 +52,11 @@
  *
  * A red-black tree is a binary search tree with the node color as an
  * extra attribute.  It fulfills a set of conditions:
- *      - every search path from the root to a leaf consists of the
- *        same number of black nodes,
- *      - each red node (except for the root) has a black parent,
- *      - each leaf node is black.
+ *
+ *   - every search path from the root to a leaf consists of the
+ *     same number of black nodes,
+ *   - each red node (except for the root) has a black parent,
+ *   - each leaf node is black.
  *
  * Every operation on a red-black tree is bounded as O(lg n).
  * The maximum height of a red-black tree is 2lg (n+1).
@@ -65,7 +67,7 @@ struct name {                                                           \
         struct type *sph_root; /* root of the tree */                   \
 }
 
-# define SPLAY_INITIALIZER(root)                                                \
+# define SPLAY_INITIALIZER(root)                                        \
         { NULL }
 
 # define SPLAY_INIT(root) do {                                          \
@@ -117,7 +119,7 @@ struct {                                                                \
 
 /* Generates prototypes and inline functions */
 
-# define SPLAY_PROTOTYPE(name, type, field, cmp)                                \
+# define SPLAY_PROTOTYPE(name, type, field, cmp)                        \
 void name##_SPLAY(struct name *, struct type *);                        \
 void name##_SPLAY_MINMAX(struct name *, int);                           \
 struct type *name##_SPLAY_INSERT(struct name *, struct type *);         \
@@ -210,10 +212,10 @@ name##_SPLAY(struct name *head, struct type *elm)                       \
 {                                                                       \
         struct type __node, *__left, *__right, *__tmp;                  \
         int __comp;                                                     \
-\
+                                                                        \
         SPLAY_LEFT(&__node, field) = SPLAY_RIGHT(&__node, field) = NULL;\
         __left = __right = &__node;                                     \
-\
+                                                                        \
         while ((__comp = (cmp)(elm, (head)->sph_root))) {               \
                 if (__comp < 0) {                                       \
                         __tmp = SPLAY_LEFT((head)->sph_root, field);    \
@@ -243,13 +245,13 @@ name##_SPLAY(struct name *head, struct type *elm)                       \
 /* Splay with either the minimum or the maximum element                 \
  * Used to find minimum or maximum element in tree.                     \
  */                                                                     \
-void name##_SPLAY_MINMAX(struct name *head, int __comp) \
+void name##_SPLAY_MINMAX(struct name *head, int __comp)                 \
 {                                                                       \
         struct type __node, *__left, *__right, *__tmp;                  \
-\
+                                                                        \
         SPLAY_LEFT(&__node, field) = SPLAY_RIGHT(&__node, field) = NULL;\
         __left = __right = &__node;                                     \
-\
+                                                                        \
         while (1) {                                                     \
                 if (__comp < 0) {                                       \
                         __tmp = SPLAY_LEFT((head)->sph_root, field);    \
@@ -323,13 +325,13 @@ struct {                                                                \
 # define RB_ROOT(head)                  (head)->rbh_root
 # define RB_EMPTY(head)                 (RB_ROOT(head) == NULL)
 
-# define RB_SET(elm, parent, field) do {                                        \
+# define RB_SET(elm, parent, field) do {                                \
         RB_PARENT(elm, field) = parent;                                 \
         RB_LEFT(elm, field) = RB_RIGHT(elm, field) = NULL;              \
         RB_COLOR(elm, field) = RB_RED;                                  \
 } while (0)
 
-# define RB_SET_BLACKRED(black, red, field) do {                                \
+# define RB_SET_BLACKRED(black, red, field) do {                        \
         RB_COLOR(black, field) = RB_BLACK;                              \
         RB_COLOR(red, field) = RB_RED;                                  \
 } while (0)

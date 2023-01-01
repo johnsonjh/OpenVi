@@ -3,9 +3,9 @@
 
 /* SPDX-License-Identifier: BSD-2-Clause */
 
-/*-
+/*
  * Copyright (c) 2000 The NetBSD Foundation, Inc.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *

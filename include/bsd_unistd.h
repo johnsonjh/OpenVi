@@ -1,11 +1,11 @@
-/*      $OpenBSD: unistd.h,v 1.103 2016/09/12 19:36:26 guenther Exp $ */
-/*      $NetBSD: unistd.h,v 1.26.4.1 1996/05/28 02:31:51 mrg Exp $      */
+/*      $OpenBSD: unistd.h,v 1.103    2016/09/12 19:36:26 guenther Exp $ */
+/*      $NetBSD:  unistd.h,v 1.26.4.1 1996/05/28 02:31:51 mrg Exp $      */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1991 The Regents of the University of California.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *
@@ -46,7 +46,8 @@ int      openbsd_pledge(const char *, const char *);
 int      openbsd_getopt(int, char * const *, const char *);
 int      openbsd_getopt(int, char * const *, const char *);
 extern   char *openbsd_optarg;
-extern   int openbsd_opterr, openbsd_optind, openbsd_optopt, openbsd_optreset;
+extern   int openbsd_opterr, openbsd_optind, \
+             openbsd_optopt, openbsd_optreset;
 
 # ifdef __OpenBSD__
 #  include <sys/types.h>
@@ -54,9 +55,9 @@ extern   int openbsd_opterr, openbsd_optind, openbsd_optopt, openbsd_optreset;
 
 #  include <sys/types.h>
 
-#  define STDIN_FILENO  0       /* standard input file descriptor */
+#  define STDIN_FILENO  0       /* standard input file descriptor  */
 #  define STDOUT_FILENO 1       /* standard output file descriptor */
-#  define STDERR_FILENO 2       /* standard error file descriptor */
+#  define STDERR_FILENO 2       /* standard error file descriptor  */
 
 # endif /* _COMPAT_UNISTD_H_ */
 

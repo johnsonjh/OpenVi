@@ -1,13 +1,15 @@
 /*      $OpenBSD: regex.h,v 1.7 2012/12/05 23:19:57 deraadt Exp $       */
-/*      $NetBSD: regex.h,v 1.4.6.1 1996/06/10 18:57:07 explorer Exp $   */
+/*      $NetBSD:  regex.h,v 1.4.6.1 1996/06/10 18:57:07 explorer Exp $  */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1992 Henry Spencer.
  * Copyright (c) 1992, 1993
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Henry Spencer of the University of Toronto.
@@ -57,13 +59,13 @@ typedef off_t regoff_t;
 typedef struct {
         int re_magic;
         size_t re_nsub;         /* number of parenthesized subexpressions */
-        const char *re_endp;    /* end pointer for REG_PEND */
-        struct re_guts *re_g;   /* none of your business :-) */
+        const char *re_endp;    /* end pointer for REG_PEND               */
+        struct re_guts *re_g;   /* none of your business :-)              */
 } regex_t;
 
 typedef struct {
         regoff_t rm_so;         /* start of match */
-        regoff_t rm_eo;         /* end of match */
+        regoff_t rm_eo;         /* end of match   */
 } regmatch_t;
 
 /* regcomp() flags */
@@ -100,9 +102,9 @@ typedef struct {
 # define REG_NOTBOL     00001
 # define REG_NOTEOL     00002
 # define REG_STARTEND   00004
-# define REG_TRACE      00400   /* tracing of execution */
+# define REG_TRACE      00400   /* tracing of execution       */
 # define REG_LARGE      01000   /* force large representation */
-# define REG_BACKR      02000   /* force use of backref code */
+# define REG_BACKR      02000   /* force use of backref code  */
 
 # define regcomp        openbsd_regcomp
 # define regerror       openbsd_regerror

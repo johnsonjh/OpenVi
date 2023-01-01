@@ -1,12 +1,14 @@
 /*      $OpenBSD: bitstring.h,v 1.6 2020/05/10 00:56:06 guenther Exp $  */
-/*      $NetBSD: bitstring.h,v 1.5 1997/05/14 15:49:55 pk Exp $ */
+/*      $NetBSD:  bitstring.h,v 1.5 1997/05/14 15:49:55 pk Exp $        */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
  * Copyright (c) 1989, 1993
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Paul Vixie.

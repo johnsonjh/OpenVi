@@ -1,11 +1,12 @@
 /*      $OpenBSD: xinstall.c,v 1.76 2021/11/28 19:28:42 deraadt Exp $        */
-/*      $NetBSD: xinstall.c,v 1.9 1995/12/20 10:25:17 jonathan Exp $         */
+/*      $NetBSD:  xinstall.c,v 1.9  1995/12/20 10:25:17 jonathan Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
- * Copyright (c) 1987, 1993 The Regents of the University of California.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 1987, 1990, 1993
+ *        The Regents of the University of California.
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *
@@ -137,7 +138,7 @@ main(int argc, char *argv[])
 
         case 'B':
           suffix = openbsd_optarg;
-        /* FALLTHROUGH */
+        /*FALLTHROUGH*/ /* fall through */
 
         /* fall through; -B implies -b */
         case 'b':
@@ -250,7 +251,7 @@ main(int argc, char *argv[])
         }
 
       exit(0);
-      /* NOTREACHED */
+      /*NOTREACHED*/ /* unreachable */
     }
 
   if (dodest)
@@ -272,6 +273,7 @@ main(int argc, char *argv[])
        * the target file. If more restrictive permissions are required then
        * '-d -m' ought to be used instead.
        */
+
       if (strcmp(dest, "."))
         install_dir(dest, 0755);
     }
@@ -285,7 +287,7 @@ main(int argc, char *argv[])
         }
 
       exit(0);
-      /* NOTREACHED */
+      /*NOTREACHED*/ /* unreachable */
     }
 
   /* can't do file1 file2 directory/file */
@@ -317,13 +319,14 @@ main(int argc, char *argv[])
 
   install(*argv, to_name, iflags);
   exit(0);
-  /* NOTREACHED */
+  /*NOTREACHED*/ /* unreachable */
 }
 
 /*
  * install --
  *      build a path name and install the file
  */
+
 void
 install(char *from_name, char *to_name, unsigned int flags)
 {
@@ -407,6 +410,7 @@ install(char *from_name, char *to_name, unsigned int flags)
        * Re-open our fd on the target, in case we used a strip
        *  that does not work in-place -- like gnu binutils strip.
        */
+
       close(to_fd);
       if (( to_fd = open(tempfile, O_RDONLY)) == -1)
         {
@@ -417,6 +421,7 @@ install(char *from_name, char *to_name, unsigned int flags)
   /*
    * Compare the (possibly stripped) temp file to the target.
    */
+
   if (docompare)
     {
       int temp_fd = to_fd;
@@ -468,6 +473,7 @@ install(char *from_name, char *to_name, unsigned int flags)
   /*
    * Preserve the timestamp of the source file if necessary.
    */
+
   if (dopreserve && !files_match)
     {
       ts[0] = from_sb.st_atim;
@@ -479,6 +485,7 @@ install(char *from_name, char *to_name, unsigned int flags)
    * Set owner, group, mode for target; do the chown first,
    * chown may lose the setuid bits.
    */
+
   if (!dounpriv && ( gid != (gid_t)-1 || uid != (uid_t)-1 ) && fchown(to_fd, uid, gid))
     {
       serrno = errno;
@@ -516,6 +523,7 @@ install(char *from_name, char *to_name, unsigned int flags)
    * Move the new file into place if the files are different
    * or were not compared.
    */
+
   if (!files_match)
     {
       if (dobackup)
@@ -558,6 +566,7 @@ install(char *from_name, char *to_name, unsigned int flags)
  * copy --
  *      copy from one file to another
  */
+
 void
 copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
      int sparse)
@@ -588,6 +597,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
    * trash memory on big files.  This is really a minor hack, but it wins
    * some CPU back.  Sparse files need special treatment.
    */
+
   if (!nommap && !sparse && size <= 2 * 1048576)
     {
       size_t siz;
@@ -622,6 +632,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
        * Pass the blocksize of the file being written to the write
        * routine.  If the size is zero, use the default S_BLKSIZE.
        */
+
       if (fstat(to_fd, &sb) != 0 || sb.st_blksize == 0)
         {
           sz = S_BLKSIZE;
@@ -669,6 +680,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
  * compare --
  *      compare two files; non-zero means files differ
  */
+
 int
 compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
         const char *to_name, off_t to_len)
@@ -692,6 +704,7 @@ compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
    * Compare the two files being careful not to mmap
    * more than 2 MiB at a time.
    */
+
   from_off = to_off = (off_t)0;
   remainder = from_len;
   do
@@ -736,6 +749,7 @@ compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
  * strip --
  *      use strip(1) to strip the target file
  */
+
 void
 strip(char *to_name)
 {
@@ -781,6 +795,7 @@ strip(char *to_name)
  * install_dir --
  *      build directory hierarchy
  */
+
 void
 install_dir(char *path, int mode)
 {
@@ -801,14 +816,14 @@ install_dir(char *path, int mode)
                 {
                   /* Not there; use mkdir()s errno */
                   openbsd_errc(1, mkdir_errno, "%s", path);
-                  /* NOTREACHED */
+                  /*NOTREACHED*/ /* unreachable */
                 }
 
               if (!S_ISDIR(sb.st_mode))
                 {
                   /* Is there, but isn't a directory */
                   openbsd_errc(1, ENOTDIR, "%s", path);
-                  /* NOTREACHED */
+                  /*NOTREACHED*/ /* unreachable */
                 }
             }
 
@@ -836,6 +851,7 @@ install_dir(char *path, int mode)
  * usage --
  *      print a usage message and die
  */
+
 void
 usage(void)
 {
@@ -843,13 +859,14 @@ usage(void)
     "Usage: %s [-bCcDdFMpSsUv] [-B suffix] [-g group] [-m mode] [-o owner] source ... target ...\n",
     bsd_getprogname());
   exit(1);
-  /* NOTREACHED */
+  /*NOTREACHED*/ /* unreachable */
 }
 
 /*
  * create_tempfile --
  *      create a temporary file based on path and open it
  */
+
 int
 create_tempfile(char *path, char *temp, size_t tsize)
 {
@@ -873,6 +890,7 @@ create_tempfile(char *path, char *temp, size_t tsize)
 
 /*
  * file_write()
+ *
  *      Write/copy a file (during copy or archive extract). This routine knows
  *      how to copy files with lseek holes in it. (Which are read as file
  *      blocks containing all 0's but do not have any file blocks associated
@@ -882,6 +900,7 @@ create_tempfile(char *path, char *temp, size_t tsize)
  *      the holes read as all zeros so are probably stored on the archive that
  *      way (there is no way to determine if the file block is really a hole,
  *      we only know that a file block of all zero's can be a hole).
+ *
  *      At this writing, no major archive format knows how to archive files
  *      with holes. However, on extraction (or during copy, -rw) we have to
  *      deal with these files. Without detecting the holes, the files can
@@ -889,6 +908,7 @@ create_tempfile(char *path, char *temp, size_t tsize)
  *      for write when passed the basic allocation size of a file system block,
  *      uses lseek whenever it detects the input data is all 0 within that
  *      file block. In more detail, the strategy is as follows:
+ *
  *      While the input is all zero keep doing an lseek. Keep track of when we
  *      pass over file block boundaries. Only write when we hit a non zero
  *      input. once we have written a file block, we continue to write it to
@@ -909,12 +929,15 @@ create_tempfile(char *path, char *temp, size_t tsize)
  *      an empty block. A lot of file systems will not create an lseek hole at
  *      the end. In this case we drop a single 0 at the end to force the
  *      trailing 0's in the file.
+ *
  *      ---Parameters---
- *      rem: how many bytes left in this file system block
+ *
+ *      rem:    how many bytes left in this file system block
  *      isempt: have we written to the file block yet (is it empty)
- *      sz: basic file block allocation size
- *      cnt: number of bytes on this write
- *      str: buffer to write
+ *      sz:     basic file block allocation size
+ *      cnt:    number of bytes on this write
+ *      str:    buffer to write
+ *
  * Return:
  *      number of bytes written, -1 on write (or lseek) error.
  */
@@ -929,15 +952,18 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
   /*
    * while we have data to process
    */
+
   while (cnt)
     {
       if (!*rem)
         {
+
           /*
            * We are now at the start of file system block again
            * (or what we think one is...). start looking for
            * empty blocks again
            */
+
           *isempt = 1;
           *rem = sz;
         }
@@ -946,21 +972,25 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
        * only examine up to the end of the current file block or
        * remaining characters to write, whatever is smaller
        */
+
       size_t wcnt = MINIMUM(cnt, *rem);
       cnt -= wcnt;
       *rem -= wcnt;
       if (*isempt)
         {
+
           /*
            * have not written to this block yet, so we keep
            * looking for zero's
            */
+
           pt = st;
           end = st + wcnt;
 
           /*
            * look for a zero filled buffer
            */
+
           while (( pt < end ) && ( *pt == '\0' ))
             {
               ++pt;
@@ -968,9 +998,11 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
 
           if (pt == end)
             {
+
               /*
                * skip, buf is empty so far
                */
+
               if (lseek(fd, (off_t)wcnt, SEEK_CUR) == -1)
                 {
                   openbsd_warn("lseek");
@@ -984,12 +1016,14 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
           /*
            * drat, the buf is not zero filled
            */
+
           *isempt = 0;
         }
 
       /*
        * have non-zero data in this file system block, have to write
        */
+
       if (write(fd, st, wcnt) != wcnt)
         {
           openbsd_warn("write");
@@ -1007,6 +1041,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
  *      let us create a hole at the end. To get the last block with zeros, we
  *      write the last BYTE with a zero (back up one byte and write a zero).
  */
+
 void
 file_flush(int fd, int isempt)
 {
@@ -1016,6 +1051,7 @@ file_flush(int fd, int isempt)
    * silly test, but make sure we are only called when the last block is
    * filled with all zeros.
    */
+
   if (!isempt)
     {
       return;
@@ -1024,6 +1060,7 @@ file_flush(int fd, int isempt)
   /*
    * move back one byte and write a zero
    */
+
   if (lseek(fd, (off_t)-1, SEEK_CUR) == -1)
     {
       openbsd_warn("Failed seek on file");

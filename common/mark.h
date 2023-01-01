@@ -2,12 +2,12 @@
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * See the LICENSE.md file for redistribution information.
  *
@@ -29,17 +29,17 @@
 
 struct _mark {
 #define OOBLNO          0               /* Out-of-band line number. */
-        recno_t  lno;                   /* Line number. */
-        size_t   cno;                   /* Column number. */
+        recno_t  lno;                   /* Line number.             */
+        size_t   cno;                   /* Column number.           */
 };
 
 struct _lmark {
         LIST_ENTRY(_lmark) q;           /* Linked list of marks. */
-        recno_t  lno;                   /* Line number. */
-        size_t   cno;                   /* Column number. */
-        CHAR_T   name;                  /* Mark name. */
+        recno_t  lno;                   /* Line number.          */
+        size_t   cno;                   /* Column number.        */
+        CHAR_T   name;                  /* Mark name.            */
 
-#define MARK_DELETED    0x01            /* Mark was deleted. */
+#define MARK_DELETED    0x01            /* Mark was deleted.   */
 #define MARK_USERSET    0x02            /* User set this mark. */
         u_int8_t flags;
 };

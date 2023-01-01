@@ -1,12 +1,14 @@
 /*      $OpenBSD: db.h,v 1.12 2015/10/17 21:48:42 guenther Exp $        */
-/*      $NetBSD: db.h,v 1.13 1994/10/26 00:55:48 cgd Exp $      */
+/*      $NetBSD:  db.h,v 1.13 1994/10/26 00:55:48 cgd Exp $             */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1990, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -54,30 +56,30 @@
 # define RET_SPECIAL     1
 
 # define MAX_PAGE_NUMBER        0xffffffff      /* >= # of pages in a file */
-typedef u_int32_t       pgno_t;
+typedef u_int32_t               pgno_t;
 # define MAX_PAGE_OFFSET        65535           /* >= # of bytes in a page */
-typedef u_int16_t       indx_t;
+typedef u_int16_t               indx_t;
 # define MAX_REC_NUMBER         0xffffffff      /* >= # of records in a tree */
-typedef u_int32_t       recno_t;
+typedef u_int32_t               recno_t;
 
 /* Key/data structure -- a Data-Base Thang. */
 typedef struct {
-        void    *data;                  /* data */
+        void    *data;                  /* data        */
         size_t   size;                  /* data length */
 } DBT;
 
 /* Routine flags. */
-# define R_CURSOR       1               /* del, put, seq */
-# define __R_UNUSED     2               /* UNUSED */
-# define R_FIRST        3               /* seq */
-# define R_IAFTER       4               /* put (RECNO) */
-# define R_IBEFORE      5               /* put (RECNO) */
+# define R_CURSOR       1               /* del, put, seq      */
+# define __R_UNUSED     2               /* UNUSED             */
+# define R_FIRST        3               /* seq                */
+# define R_IAFTER       4               /* put (RECNO)        */
+# define R_IBEFORE      5               /* put (RECNO)        */
 # define R_LAST         6               /* seq (BTREE, RECNO) */
-# define R_NEXT         7               /* seq */
-# define R_NOOVERWRITE  8               /* put */
+# define R_NEXT         7               /* seq                */
+# define R_NOOVERWRITE  8               /* put                */
 # define R_PREV         9               /* seq (BTREE, RECNO) */
-# define R_SETCURSOR    10              /* put (RECNO) */
-# define R_RECNOSYNC    11              /* sync (RECNO) */
+# define R_SETCURSOR    10              /* put (RECNO)        */
+# define R_RECNOSYNC    11              /* sync (RECNO)       */
 
 typedef enum { DB_BTREE, DB_HASH, DB_RECNO } DBTYPE;
 
@@ -95,13 +97,13 @@ typedef enum { DB_BTREE, DB_HASH, DB_RECNO } DBTYPE;
  * the DB_LOCK flag isn't set.
  */
 # if UINT_MAX > 65535
-#  define DB_LOCK               0x20000000      /* Do locking. */
+#  define DB_LOCK               0x20000000      /* Do locking.        */
 #  define DB_SHMEM              0x40000000      /* Use shared memory. */
-#  define DB_TXN                0x80000000      /* Do transactions. */
+#  define DB_TXN                0x80000000      /* Do transactions.   */
 # else
-#  define DB_LOCK                   0x2000      /* Do locking. */
+#  define DB_LOCK                   0x2000      /* Do locking.        */
 #  define DB_SHMEM                  0x4000      /* Use shared memory. */
-#  define DB_TXN                    0x8000      /* Do transactions. */
+#  define DB_TXN                    0x8000      /* Do transactions.   */
 # endif /* if UINT_MAX > 65535 */
 
 /* Access method description structure. */
@@ -122,17 +124,17 @@ typedef struct __db {
 
 /* Structure used to pass parameters to the btree routines. */
 typedef struct {
-# define R_DUP          0x01    /* duplicate keys */
-        unsigned long   flags;
-        unsigned int    cachesize;      /* bytes to cache */
+# define R_DUP          0x01            /* duplicate keys        */
+        unsigned long   flags;          /* ...                   */
+        unsigned int    cachesize;      /* bytes to cache        */
         int             maxkeypage;     /* maximum keys per page */
         int             minkeypage;     /* minimum keys per page */
-        unsigned int    psize;          /* page size */
-        int             (*compare)      /* comparison function */
-                            (const DBT *, const DBT *);
-        size_t          (*prefix)       /* prefix function */
-                            (const DBT *, const DBT *);
-        int             lorder;         /* byte order */
+        unsigned int    psize;          /* page size             */
+        int             (*compare)      /* comparison function   */
+                            (const DBT *, const DBT *); /* ...   */
+        size_t          (*prefix)       /* prefix function       */
+                            (const DBT *, const DBT *); /* ...   */
+        int             lorder;         /* byte order            */
 } BTREEINFO;
 
 # define HASHMAGIC      0x061561
@@ -140,29 +142,29 @@ typedef struct {
 
 /* Structure used to pass parameters to the hashing routines. */
 typedef struct {
-        unsigned int    bsize;          /* bucket size */
-        unsigned int    ffactor;        /* fill factor */
+        unsigned int    bsize;          /* bucket size        */
+        unsigned int    ffactor;        /* fill factor        */
         unsigned int    nelem;          /* number of elements */
-        unsigned int    cachesize;      /* bytes to cache */
-        u_int32_t                       /* hash function */
-                        (*hash)(const void *, size_t);
-        int             lorder;         /* byte order */
+        unsigned int    cachesize;      /* bytes to cache     */
+        u_int32_t                       /* hash function      */
+                        (*hash)(const void *, size_t); /* ... */
+        int             lorder;         /* byte order         */
 } HASHINFO;
 
 /* Structure used to pass parameters to the record routines. */
 typedef struct {
-# define R_FIXEDLEN             0x01    /* fixed-length records */
-# define R_NOKEY                0x02    /* key not required */
-# define R_SNAPSHOT             0x04    /* snapshot the input */
-        unsigned long   flags;
-        unsigned int    cachesize;      /* bytes to cache */
-        unsigned int    psize;          /* page size */
-        int             lorder;         /* byte order */
-        size_t          reclen;         /* record length
-                                           (fixed-length records) */
-        unsigned char   bval;           /* delimiting byte
-                                           (variable-length records) */
-        char    *bfname;                /* btree file name */
+# define R_FIXEDLEN             0x01    /* fixed-length records      */
+# define R_NOKEY                0x02    /* key not required          */
+# define R_SNAPSHOT             0x04    /* snapshot the input        */
+        unsigned long   flags;          /* ...                       */
+        unsigned int    cachesize;      /* bytes to cache            */
+        unsigned int    psize;          /* page size                 */
+        int             lorder;         /* byte order                */
+        size_t          reclen;         /* record length             */
+                                        /* (fixed-length records)    */
+        unsigned char   bval;           /* delimiting byte           */
+                                        /* (variable-length records) */
+        char    *bfname;                /* btree file name           */
 } RECNOINFO;
 
 DB *dbopen(const char *, int, int, DBTYPE, const void *);

@@ -1,12 +1,14 @@
 /*      $OpenBSD: queue.h,v 1.43 2015/12/28 19:38:40 millert Exp $      */
-/*      $NetBSD: queue.h,v 1.11 1996/05/16 05:17:14 mycroft Exp $       */
+/*      $NetBSD:  queue.h,v 1.11 1996/05/16 05:17:14 mycroft Exp $      */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
  * Copyright (c) 1991, 1993
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ *
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

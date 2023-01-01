@@ -2,12 +2,12 @@
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1991, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1991, 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * See the LICENSE.md file for redistribution information.
  *
@@ -50,15 +50,15 @@
  * NULL.
  */
 
-#define OS_DEF          0x01            /* Set the default value. */
-#define OS_NOFREE       0x02            /* Don't free the old string. */
-#define OS_STR          0x04            /* Set to string argument. */
+#define OS_DEF          0x01            /* Set the default value.            */
+#define OS_NOFREE       0x02            /* Don't free the old string.        */
+#define OS_STR          0x04            /* Set to string argument.           */
 #define OS_STRDUP       0x08            /* Copy then set to string argument. */
 
 struct _option {
         union {
-                unsigned long   val;           /* Value or boolean. */
-                char    *str;           /* String. */
+                unsigned long   val;    /* Value or boolean. */
+                char           *str;    /* String.           */
         } o_cur;
 #define O_CLR(sp, o)            o_set((sp), (o), 0, NULL, 0)
 #define O_SET(sp, o)            o_set((sp), (o), 0, NULL, 1)
@@ -67,8 +67,8 @@ struct _option {
 #define O_ISSET(sp, o)          O_VAL((sp), (o))
 
         union {
-                unsigned long   val;           /* Value or boolean. */
-                char    *str;           /* String. */
+                unsigned long   val;    /* Value or boolean. */
+                char           *str;    /* String.           */
         } o_def;
 #define O_D_CLR(sp, o)          o_set((sp), (o), OS_DEF, NULL, 0)
 #define O_D_SET(sp, o)          o_set((sp), (o), OS_DEF, NULL, 1)
@@ -76,26 +76,26 @@ struct _option {
 #define O_D_VAL(sp, o)          O_V((sp), (o), o_def.val)
 #define O_D_ISSET(sp, o)        O_D_VAL((sp), (o))
 
-#define OPT_GLOBAL      0x01            /* Option is global. */
+#define OPT_GLOBAL      0x01            /* Option is global.     */
 #define OPT_SELECTED    0x02            /* Selected for display. */
         u_int8_t flags;
 };
 
 /* List of option names, associated update functions and information. */
 struct _optlist {
-        char    *name;                  /* Name. */
+        char    *name;                  /* Name.            */
                                         /* Change function. */
         int     (*func)(SCR *, OPTION *, char *, unsigned long *);
-                                        /* Type of object. */
+                                        /* Type of object.  */
         enum { OPT_0BOOL, OPT_1BOOL, OPT_NUM, OPT_STR } type;
 
-#define OPT_ADISP       0x001           /* Always display the option. */
+#define OPT_ADISP       0x001           /* Always display the option.        */
 #define OPT_ALWAYS      0x002           /* Always call the support function. */
-#define OPT_NDISP       0x004           /* Never display the option. */
-#define OPT_NOSAVE      0x008           /* Mkexrc command doesn't save. */
-#define OPT_NOUNSET     0x020           /* Option may not be unset. */
-#define OPT_NOZERO      0x040           /* Option may not be set to 0. */
-#define OPT_EARLYSET    0x080           /* Func called after value is set */
+#define OPT_NDISP       0x004           /* Never display the option.         */
+#define OPT_NOSAVE      0x008           /* Mkexrc command doesn't save.      */
+#define OPT_NOUNSET     0x020           /* Option may not be unset.          */
+#define OPT_NOZERO      0x040           /* Option may not be set to 0.       */
+#define OPT_EARLYSET    0x080           /* Func called after value is set    */
         u_int8_t flags;
 };
 

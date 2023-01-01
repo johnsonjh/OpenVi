@@ -2,12 +2,12 @@
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-/*-
+/*
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
- * Copyright (c) 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * See the LICENSE.md file for redistribution information.
  */
@@ -30,7 +30,7 @@
 #define MAXIMUM(a, b)   (((a) > (b)) ? (a) : (b))
 
 #define SUB_FIRST       0x01            /* The 'r' flag isn't reasonable. */
-#define SUB_MUSTSETR    0x02            /* The 'r' flag is required. */
+#define SUB_MUSTSETR    0x02            /* The 'r' flag is required.      */
 
 static int re_conv(SCR *, char **, size_t *, int *);
 static int re_sub(SCR *, char *, char **, size_t *, size_t *, regmatch_t [10]);

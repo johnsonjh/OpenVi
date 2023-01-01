@@ -20,7 +20,7 @@ Copyright (c) 2015 Philip Guenther <guenther@openbsd.org>
 Copyright (c) 2015 The DragonFly Project
 Copyright (c) 2018 Duncan Overbruck
 Copyright (c) 2022 Ørjan Malde <red@foxi.me>
-Copyright (c) 2021, 2022 Jeffrey H. Johnson <trnsz@pobox.com>
+Copyright (c) 2021, 2022, 2023 Jeffrey H. Johnson <trnsz@pobox.com>
 
 All rights reserved.
 
