@@ -1,3 +1,7 @@
+OpenVi 7.2.19 -> OpenVi 7.2.20: Sun Jan 1 05:36:31 2023
+        + Correctly incremental version identifier to match release
+        + Normalize comment blocks; no functional changes
+
 OpenVi 7.1.18 -> OpenVi 7.2.19: Tue Nov 29 22:04:43 2022
         + Add translation of README.md into Brazilian Portuguese
         + Suppress the "UNLOCKED" message on AIX

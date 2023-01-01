@@ -28,6 +28,7 @@
  *
  * PUBLIC: int ex_version(SCR *, EXCMD *);
  */
+
 int
 ex_version(SCR *sp, EXCMD *cmdp)
 {
