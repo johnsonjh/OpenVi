@@ -1,5 +1,5 @@
-OpenVi 7.2.20 -> OpenVi 7.2.21-dev: Sun Jan 1 05:43:41 2023
-        + Nothing yet ...
+OpenVi 7.2.20 -> OpenVi 7.2.21-dev: Sun Jan 1 05:52:47 2023
+        + Fix typo in `.gitattributes`; no code changes
 
 OpenVi 7.2.19 -> OpenVi 7.2.20: Sun Jan 1 05:36:31 2023
         + Correctly increment version identifier to match release
