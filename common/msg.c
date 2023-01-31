@@ -1,4 +1,4 @@
-/*      $OpenBSD: msg.c,v 1.27 2016/12/18 18:28:39 krw Exp $    */
+/*      $OpenBSD: msg.c,v 1.28 2022/12/26 19:16:03 jmc Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

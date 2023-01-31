@@ -1,4 +1,4 @@
-/*      $OpenBSD: cl_funcs.c,v 1.22 2021/09/02 11:19:02 schwarze Exp $  */
+/*      $OpenBSD: cl_funcs.c,v 1.23 2022/12/26 19:16:03 jmc Exp $  */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

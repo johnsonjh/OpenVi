@@ -1,4 +1,4 @@
-/*      $OpenBSD: util.h,v 1.4 2006/01/08 21:10:04 miod Exp $   */
+/*      $OpenBSD: util.h,v 1.5 2022/12/26 19:16:03 jmc Exp $   */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

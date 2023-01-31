@@ -154,8 +154,8 @@ rcv_tmp(SCR *sp, EXF *ep, char *name)
 
         dp = O_STR(sp, O_RECDIR);
         if (stat(dp, &sb)) {
-			    if (errno == ENOENT)
-					    goto err_quiet;
+          if (errno == ENOENT)
+            goto err_quiet;
                 if (!warned) {
                         warned = 1;
                         msgq(sp, M_SYSERR, "%s", dp);

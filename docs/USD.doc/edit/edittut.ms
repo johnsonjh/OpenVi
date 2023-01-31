@@ -1,4 +1,4 @@
-.\"        $OpenBSD: edittut.ms,v 1.7 2004/02/20 19:56:53 jmc Exp $
+.\"        $OpenBSD: edittut.ms,v 1.8 2022/12/26 19:16:03 jmc Exp $
 .\"
 .\" SPDX-License-Identifier: BSD-3-Clause
 .\"
