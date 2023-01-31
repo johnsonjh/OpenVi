@@ -1,4 +1,4 @@
-OpenVi 7.2.20 -> OpenVi 7.2.21-dev: Tue Jan 31 02:42:27 2023
+OpenVi 7.2.20 -> OpenVi 7.2.21: Tue Jan 31 03:26:07 2023
         + Fix handling of ex_range escaped backslashes; If there are two
           consecutive backslashes, skip past both so the second is not
           mistakenly treated as an escape character. This is consistent
