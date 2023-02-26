@@ -1158,7 +1158,9 @@ re_tag_conv(SCR *sp, char **ptrnp, size_t *plenp, int *replacedp)
         for (; len > 0; --len) {
                 if (p[0] == '\\' && (p[1] == '/' || p[1] == '?')) {
                         ++p;
-                        --len;
+                        if (len > 1) {
+                                --len;
+                        }
                 } else if (strchr("^.[]$*", p[0]))
                         *t++ = '\\';
                 *t++ = *p++;
