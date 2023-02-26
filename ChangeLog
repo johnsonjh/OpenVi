@@ -1,3 +1,7 @@
+OpenVi 7.2.21 -> OpenVi 7.2.22-dev: Sun Feb 26 06:47:19 2023
+        + Fix crash when tags file pattern has a trailing `\`, patch
+          via `nvi2`, co-authored by Craig Leres <leres@FreeBSD.org>
+
 OpenVi 7.2.20 -> OpenVi 7.2.21: Tue Jan 31 03:26:07 2023
         + Fix handling of ex_range escaped backslashes; If there are two
           consecutive backslashes, skip past both so the second is not
