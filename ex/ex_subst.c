@@ -635,7 +635,9 @@ nextmatch:      match[0].rm_so = offset;
                                         goto lquit;
                                 }
                         } else {
-                                if (ex_print(sp, cmdp, &from, &to, 0) ||
+                                const int flags =
+                                    O_ISSET(sp, O_NUMBER) ? E_C_HASH : 0;
+                                if (ex_print(sp, cmdp, &from, &to, flags) ||
                                     ex_scprint(sp, &from, &to))
                                         goto lquit;
                                 if (ex_txt(sp, &tiq, 0, TXT_CR))

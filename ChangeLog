@@ -1,6 +1,8 @@
-OpenVi 7.2.21 -> OpenVi 7.2.22-dev: Sun Feb 26 06:47:19 2023
+OpenVi 7.2.21 -> OpenVi 7.2.22-dev: Sun Feb 26 06:55:59 2023
+        + Autoprint line number to match the confirmation line;
+          patch from `nvi2` via millert@
         + Fix crash when tags file pattern has a trailing `\`, patch
-          via `nvi2`, co-authored by Craig Leres <leres@FreeBSD.org>
+          via `nvi2`; co-authored by Craig Leres <leres@FreeBSD.org>
 
 OpenVi 7.2.20 -> OpenVi 7.2.21: Tue Jan 31 03:26:07 2023
         + Fix handling of ex_range escaped backslashes; If there are two
@@ -340,7 +342,7 @@ OpenBSD 6.8 -> OpenBSD 6.9: Tue Apr 13 15:39:21 2021
           Erik Ruotsalainen, fixes a bug reported by Paul de Weerd
         + Ignore expandtab setting when in command mode. Fixes things like
           searching for a literal tab character when expandtab is enabled;
-          from nvi2 (leres); OK martijn@
+          from `nvi2` (leres); OK martijn@
 
 Mon Mar 8 02:47:25 2021
         + Add some references, most of these were removed when we stopped
@@ -609,7 +611,7 @@ Wed Jan 6 22:46:59 2016
 
 Mon Dec 28 19:24:01 2015
         + Use err() instead of custom perr() function. Also applied by
-          nvi2 upstream; From Martijn van Duren
+          `nvi2` upstream; From Martijn van Duren
 
 Mon Dec 7 20:39:19 2015
         + Remove needless type casts and corresponding type parameters
