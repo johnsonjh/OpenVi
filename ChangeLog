@@ -1,4 +1,6 @@
-OpenVi 7.2.21 -> OpenVi 7.2.22-dev: Sun Feb 26 06:55:59 2023
+OpenVi 7.2.21 -> OpenVi 7.3.22: Tue Apr 11 07:54:09 2023
+        + OpenBSD 7.3 released; bumping OpenBSD major version part to 7.3
+        + Bump OpenBSD date synchronization version part to 01/29/2023
         + Autoprint line number to match the confirmation line;
           patch from `nvi2` via millert@
         + Fix crash when tags file pattern has a trailing `\`, patch
