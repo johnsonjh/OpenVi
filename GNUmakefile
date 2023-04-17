@@ -582,16 +582,6 @@ install: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1  \
          scripts/virecover scripts/virecover.8            \
          bin/xinstall
 ifndef DEBUG
-	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "/var/tmp/vi.recover"
-endif # DEBUG
-	@$(VERBOSE); $(TEST) -d "/var/tmp/vi.recover" ||  \
-          {                                               \
-            $(MKDIR) "/var/tmp/vi.recover" &&             \
-            $(TEST) -d "/var/tmp/vi.recover" &&           \
-            $(CHOWN) "$(IUSGR)" "/var/tmp/vi.recover" &&  \
-            $(CHMOD) "1777" "/var/tmp/vi.recover";        \
-          }
-ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "$(PREFIX)/bin"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -d "$(PREFIX)/bin" || \
