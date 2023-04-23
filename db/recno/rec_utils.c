@@ -1,4 +1,4 @@
-/*      $OpenBSD: rec_utils.c,v 1.9 2015/01/16 16:48:51 deraadt Exp $ */
+/*      $OpenBSD: rec_utils.c,v 1.10 2022/12/17 17:10:06 jmc Exp $ */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -88,7 +88,7 @@ dataonly:
                 return (RET_SUCCESS);
 
         /*
-         * We must copy big keys/data to make them contigous.  Otherwise,
+         * We must copy big keys/data to make them contiguous.  Otherwise,
          * leave the page pinned and don't copy unless the user specified
          * concurrent access.
          */

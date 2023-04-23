@@ -1,4 +1,4 @@
-/*      $OpenBSD: bt_utils.c,v 1.12 2021/10/24 10:05:22 jsg Exp $       */
+/*      $OpenBSD: bt_utils.c,v 1.13 2022/12/27 17:10:10 jmc Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -78,7 +78,7 @@ __bt_ret(BTREE *t, EPG *e, DBT *key, DBT *rkey, DBT *data, DBT *rdata, int copy)
         bl = GETBLEAF(e->page, e->index);
 
         /*
-         * We must copy big keys/data to make them contigous.  Otherwise,
+         * We must copy big keys/data to make them contiguous.  Otherwise,
          * leave the page pinned and don't copy unless the user specified
          * concurrent access.
          */
