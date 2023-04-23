@@ -1,4 +1,4 @@
-/*      $OpenBSD: xinstall.c,v 1.76 2021/11/28 19:28:42 deraadt Exp $        */
+/*      $OpenBSD: xinstall.c,v 1.77 2022/12/04 23:50:50 cheloha Exp $        */
 /*      $NetBSD:  xinstall.c,v 1.9  1995/12/20 10:25:17 jonathan Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
@@ -204,7 +204,6 @@ main(int argc, char *argv[])
           dodir = 1;
           break;
 
-        case '?':
         default:
           usage();
         }
