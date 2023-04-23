@@ -1,3 +1,8 @@
+OpenVi 7.2.22 -> OpenVi 7.3.23-dev: Sun Apr 23 19:11:37 2023
+        + Packaging improvements from @jswank to honor DESTDIR to support
+          relocatable installation, use relative symlinks for `view` and `ex`
+          programs, and not create `/var/tmp/vi.recover` during installation
+
 OpenVi 7.2.21 -> OpenVi 7.3.22: Tue Apr 11 07:54:09 2023
         + OpenBSD 7.3 released; bumping OpenBSD major version part to 7.3
         + Bump OpenBSD date synchronization version part to 01/29/2023
