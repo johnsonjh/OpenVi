@@ -1,4 +1,5 @@
-OpenVi 7.2.22 -> OpenVi 7.3.23-dev: Sun Apr 23 20:29:12 2023
+OpenVi 7.2.22 -> OpenVi 7.3.23-dev: Sun Apr 23 20:49:24 2023
+        + Bump OpenBSD date synchronization version part to 02/17/2023
         + Remove unused `__cur_db` variable in Berkeley DB code; ok millert@
         + Spelling fixes (in comments only) for regex from Paul Tagliamonte
         + Remove vestigial `?` case from `xinstall` top-level `getopt` loop;
