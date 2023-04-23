@@ -1,4 +1,4 @@
-/*      $OpenBSD: regcomp.c,v 1.43 2021/01/03 17:07:57 tb Exp $ */
+/*      $OpenBSD: regcomp.c,v 1.44 2022/12/27 17:10:06 jmc Exp $ */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -578,9 +578,9 @@ p_bre(struct parse *p, int end1,  /* first terminating character */
 /*
  * - p_simp_re - parse a simple RE, an atom possibly followed by a repetition
  */
-static int /* was the simple RE an unbackslashed $? */
+static int /* was the simple RE an un-backslashed $? */
 p_simp_re(struct parse *p,
-          int    starordinary) /* is a leading * an ordinary character? */
+          int    starordinary)  /* is a leading * an ordinary character? */
 {
   int c;
   int count;
@@ -591,7 +591,7 @@ p_simp_re(struct parse *p,
 
 #define BACKSL ( 1 << CHAR_BIT )
 
-  pos = HERE();  /* repetion op, if any, covers from here */
+  pos = HERE();  /* repetition op, if any, covers from here */
 
   assert(MORE());   /* caller should have ensured this */
   c = GETNEXT();
