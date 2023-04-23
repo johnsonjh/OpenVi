@@ -75,8 +75,6 @@ _dbm_open(const char *file, const char *suff, int flags, mode_t mode)
         char path[PATH_MAX];
         int len;
 
-        (void)__cur_db;
-
         len = snprintf(path, sizeof path, "%s%s", file, suff);
         if (len < 0 || len >= sizeof path) {
                 errno = ENAMETOOLONG;
