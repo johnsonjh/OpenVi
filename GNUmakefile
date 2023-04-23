@@ -625,14 +625,14 @@ ifndef DEBUG
         "ln:" "$(DESTDIR)$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -x "$(DESTDIR)$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
-        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"                               \
+        $(LNS) "$(BINPREFIX)vi$(BINSUFFIX)"                                   \
             "$(DESTDIR)$(PREFIX)/bin/$(BINPREFIX)ex$(BINSUFFIX)"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
         "ln:" "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 endif # DEBUG
 	@$(VERBOSE); $(TEST) -x "$(DESTDIR)$(PREFIX)/bin/$(BINPREFIX)vi$(BINSUFFIX)" && \
-        $(LNS) "$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"                             \
+        $(LNS) "$(BINPREFIX)vi$(BINSUFFIX)"                                   \
             "$(DESTDIR)$(PREFIX)/bin/$(BINPREFIX)view$(BINSUFFIX)"
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" \
