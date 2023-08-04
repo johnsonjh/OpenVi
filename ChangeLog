@@ -1,4 +1,7 @@
-OpenVi 7.2.22 -> OpenVi 7.4.23: Sat Jun 24 03:12:41 2023
+OpenVi 7.4.23 -> OpenVi 7.4.24-dev: Fri Aug 4 21:16:17 2023
+        + Fix typo in last ChangeLog entry
+
+OpenVi 7.3.22 -> OpenVi 7.4.23: Sat Jun 24 03:12:41 2023
         + Bump OpenBSD date synchronization version part to 06/23/2023
         + Remove unused `__cur_db` variable in Berkeley DB code; ok millert@
         + Spelling fixes (in comments only) for regex from Paul Tagliamonte
