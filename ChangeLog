@@ -1,4 +1,10 @@
-OpenVi 7.4.23 -> OpenVi 7.4.24-dev: Fri Aug 4 21:16:17 2023
+OpenVi 7.4.23 -> OpenVi 7.4.24-dev: Mon Sep 11 21:08:56 2023
+        + Treat consecutive paragraph indicators as different paragraphs;
+          Consecutive empty lines count toward the same state, so there're
+          2x states (to get in and out). `^L` and `.PP` are counted as text,
+          hitting those in the text should be treated as getting out of a
+          paragraph and then getting in. From Walter Alejandro Iglesias and
+          Zhihao Yuan in nvi2; ok bluhm@
         + Fix typo in last ChangeLog entry
 
 OpenVi 7.3.22 -> OpenVi 7.4.23: Sat Jun 24 03:12:41 2023
