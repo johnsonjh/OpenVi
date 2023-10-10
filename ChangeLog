@@ -1,4 +1,5 @@
-OpenVi 7.4.23 -> OpenVi 7.4.24-dev: Mon Sep 11 21:08:56 2023
+OpenVi 7.4.23 -> OpenVi 7.4.24-dev: Tue Oct 10 19:47:07 2023
+        + Silence a warning when building with recent Clang compilers.
         + Treat consecutive paragraph indicators as different paragraphs;
           Consecutive empty lines count toward the same state, so there're
           2x states (to get in and out). `^L` and `.PP` are counted as text,

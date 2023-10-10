@@ -81,6 +81,7 @@ ex_aci(SCR *sp, EXCMD *cmdp, enum which cmd)
         u_int32_t flags;
         int need_newline;
 
+        (void)cnt;
         gp = sp->gp;
         NEEDFILE(sp, cmdp);
 
