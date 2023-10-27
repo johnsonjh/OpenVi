@@ -1,3 +1,8 @@
+OpenVi 7.4.25 -> OpenVi 7.4.26: Fri Oct 28 00:15:39 2023
+        + Add a fallback path for `altnotation` mode; fixes a crash on macOS
+        + Bump MAX_CHARACTER_COLUMNS to 6 for future usage
+        + Eliminate strcpy usage in ptym_open function
+
 OpenVi 7.4.24 -> OpenVi 7.4.25: Fri Oct 27 11:44:45 2023
         + Add a new option, `altnotation` (abbreviation `an`), inspired
           by the Nvi2 2.2.1 option of the same name; if set, most control
