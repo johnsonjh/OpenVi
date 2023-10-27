@@ -53,6 +53,8 @@ int f_imctrl (SCR *, OPTION *, char *, unsigned long *);
  */
 
 OPTLIST const optlist[] = {
+/* O_ALTNOTATION    Nvi2 */
+        {"altnotation", f_print,        OPT_0BOOL,      OPT_EARLYSET},
 /* O_ALTWERASE    4.4BSD */
         {"altwerase",   f_altwerase,    OPT_0BOOL,      0},
 /* O_AUTOINDENT     4BSD */
@@ -217,6 +219,7 @@ typedef struct abbrev {
 
 static OABBREV const abbrev[] = {
         {"ai",          O_AUTOINDENT},          /*     4BSD */
+        {"an",          O_ALTNOTATION},         /*     Nvi2 */
         {"ap",          O_AUTOPRINT},           /*     4BSD */
         {"aw",          O_AUTOWRITE},           /*     4BSD */
         {"bf",          O_BEAUTIFY},            /*     4BSD */

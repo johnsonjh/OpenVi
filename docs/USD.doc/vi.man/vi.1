@@ -2309,6 +2309,10 @@ and
 .Nm vi
 modes, unless otherwise specified.
 .Bl -tag -width Ds
+.It Cm altnotation , an Bq off
+Display most control characters less than 0x20 using <C-char> notation.
+Carriage feed, escape, and delete are displayed as <Ret>, <Esc>, and <Del>,
+respectively.
 .It Cm altwerase Bq off
 .Nm vi
 only.

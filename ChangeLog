@@ -1,3 +1,10 @@
+OpenVi 7.4.24 -> OpenVi 7.4.25: Fri Oct 27 11:44:45 2023
+        + Add a new option, `altnotation` (abbreviation `an`), inspired
+          by the Nvi2 2.2.1 option of the same name; if set, most control
+          characters less than 0x20 will be displayed in <C-char> notation,
+          and carriage feed, escape, and delete will be displayed as <Ret>,
+          <Esc>, and <Del>, respectively
+
 OpenVi 7.4.23 -> OpenVi 7.4.24: Tue Oct 10 19:47:07 2023
         + Silence a warning when building with recent Clang compilers.
         + Treat consecutive paragraph indicators as different paragraphs;
@@ -182,7 +189,7 @@ OpenVi 7.0.9 -> OpenVi 7.0.10: Wed Feb 9 16:36:25 2022
         + Handle `SIGQUIT` like `SIGINT`, which prevents `^\` (Control-\)
           from causing ex-mode to abort and drop core; aligns closer to
           Vim's behavior in ex-mode - which uses non-canonical input mode,
-          so `^\` doesn't cause a stop.  The rationale for this change is
+          so `^\` doesn't cause a stop. The rationale for this change is
           because we're using `^\` as a shortcut to enter our ex-mode (which
           for `nex` uses standard canonical line-based input), if `SIGQUIT`
           is unhandled, it's easy to abort by accident by sending more than

@@ -248,6 +248,10 @@ v_key_name(SCR *sp, CHAR_T ch)
          * followed by the character offset from the '@' character in the ASCII
          * character set.  Del (0x7f) is represented as '^' followed by '?'.
          *
+         * If set O_ALTNOTATION, most control characters less than 0x20 are
+         * displayed using <C-char> notation.  Carriage feed, escape, and
+         * delete are displayed as <Ret>, <Esc>, and <Del>, respectively.
+         *
          * XXX
          * The following code depends on the current locale being identical to
          * the ASCII map from 0x40 to 0x5f (since 0x1f + 0x40 == 0x5f).  I'm
@@ -267,9 +271,236 @@ pr:             sp->cname[0] = ch;
                 goto done;
         }
 nopr:   if (iscntrl(ch) && (ch < 0x20 || ch == 0x7f)) {
+            if (O_ISSET(sp, O_ALTNOTATION)) {
+                if (ch == 0x00) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = '@';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x01) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'a';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x02) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'b';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x03) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'c';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x04) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'd';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x05) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'e';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x06) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'f';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x07) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'g';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x08) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'h';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x0A) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'N';
+                    sp->cname[2] = 'L';
+                    sp->cname[3] = '>';
+                    len = 4;
+                } else if (ch == 0x0B) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'k';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x0C) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'l';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x0D) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'R';
+                    sp->cname[2] = 'e';
+                    sp->cname[3] = 't';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x0E) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'n';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x0F) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'o';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x10) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'p';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x11) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'q';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x12) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'r';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x13) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 's';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x14) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 't';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x15) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'u';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x16) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'v';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x17) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'w';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x18) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'x';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x19) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'y';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x1A) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = 'z';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x1B) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'E';
+                    sp->cname[2] = 's';
+                    sp->cname[3] = 'c';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x1C) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = '\\';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x1D) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = ']';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x1E) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = '^';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x1F) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'C';
+                    sp->cname[2] = '-';
+                    sp->cname[3] = '_';
+                    sp->cname[4] = '>';
+                    len = 5;
+                } else if (ch == 0x7F) {
+                    sp->cname[0] = '<';
+                    sp->cname[1] = 'D';
+                    sp->cname[2] = 'e';
+                    sp->cname[3] = 'l';
+                    sp->cname[4] = '>';
+                    len = 5;
+                }
+            } else {
                 sp->cname[0] = '^';
                 sp->cname[1] = ch == 0x7f ? '?' : '@' + ch;
                 len = 2;
+            }
         } else if (O_ISSET(sp, O_OCTAL)) {
 #define BITS    (sizeof(CHAR_T) * 8)
 #define SHIFT   (BITS - BITS % 3)
