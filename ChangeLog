@@ -1,3 +1,7 @@
+OpenVi 7.4.26 -> OpenVi 7.4.27-dev: Sun Oct 29 01:21:05 2023
+        + Use openbsd_strlcpy for strlcpy in ptym_open(); fixes compilation
+          on AIX and some other System V-derived systems.
+
 OpenVi 7.4.25 -> OpenVi 7.4.26: Fri Oct 28 00:15:39 2023
         + Add a fallback path for `altnotation` mode; fixes a crash on macOS
         + Bump MAX_CHARACTER_COLUMNS to 6 for future usage
