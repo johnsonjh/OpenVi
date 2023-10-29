@@ -792,7 +792,7 @@ ptym_open(char *pts_name)
     int fdm;
     char *ptr, *ptsname(int fdm);
 
-    strlcpy(pts_name, _PATH_SYSV_PTY, strlen(_PATH_SYSV_PTY));
+    openbsd_strlcpy(pts_name, _PATH_SYSV_PTY, strlen(_PATH_SYSV_PTY));
     if ((fdm = open(pts_name, O_RDWR)) < 0 )
         return (-1);
 
@@ -816,7 +816,7 @@ ptym_open(char *pts_name)
         close(fdm);
         return (-3);
     }
-    strlcpy(pts_name, ptr, strlen(_PATH_SYSV_PTY));
+    openbsd_strlcpy(pts_name, ptr, strlen(_PATH_SYSV_PTY));
     return (fdm);
 }
 
