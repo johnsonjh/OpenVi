@@ -498,8 +498,9 @@ db_last(SCR *sp, recno_t *lnop)
 void
 db_err(SCR *sp, recno_t lno)
 {
-        msgq(sp, M_ERR,
-            "Error: unable to retrieve line %'lu", (unsigned long)lno);
+        if (lno)
+            msgq(sp, M_ERR,
+                "Error: unable to retrieve line %'lu", (unsigned long)lno);
 }
 
 /*
