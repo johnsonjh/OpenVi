@@ -291,11 +291,11 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
 - As páginas man ***OpenVi*** são criadas com `mandoc` e requerem conversão
   antes de usar com o software `man` do **AIX** (que é derivado do *AT&T
   Sistema UNIX V*.)
-  
+
 ##### NetBSD
 
-- Nas instalações do **NetBSD**, as compilações padrão do ***OpenVi*** usam a biblioteca BSD `curses` 
-  fornecida pelo sistema base do NetBSD. Para usar `ncurses`, defina 
+- Nas instalações do **NetBSD**, as compilações padrão do ***OpenVi*** usam a biblioteca BSD `curses`
+  fornecida pelo sistema base do NetBSD. Para usar `ncurses`, defina
   os valores de `CFLAGS`, `LDFLAGS` e `CURSESLIB`
   variáveis ​​de ambiente apropriadamente (*isto é* `CFLAGS=-I/usr/pkg/include`
   `LDFLAGS=-L/usr/pkg/lib` `CURSESLIB=-lncurses`).
@@ -307,8 +307,8 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
 ##### illumos
 
 - Antes de compilar o ***OpenVi*** em uma distribuição **illumos** (*i.e.*
-  **OpenIndiana**), instale as bibliotecas e cabeçalhos `ncurses`. 
-  A distribuição **OpenIndiana** fornece o pacote `ncurses` necessário no formato *IPS*. 
+  **OpenIndiana**), instale as bibliotecas e cabeçalhos `ncurses`.
+  A distribuição **OpenIndiana** fornece o pacote `ncurses` necessário no formato *IPS*.
   Com as permissões apropriadas (*por exemplo*       `root`), o pacote
   pode ser instalado usando o utilitário `pkg` **OpenIndiana**, por exemplo:
   ```sh
@@ -326,7 +326,7 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
 - Antes de compilar o ***OpenVi*** no *Oracle* **Solaris** 11, instale as
   bibliotecas e cabeçalhos `ncurses`. *Oracle* fornece o pacote
   `ncurses` necessário para **Solaris** 11 no formato *IPS*. Com as permissões
-  apropriadas (*por exemplo* `root`), o pacote pode ser instalado usando o utilitário 
+  apropriadas (*por exemplo* `root`), o pacote pode ser instalado usando o utilitário
   **Solaris** `pkg`, por exemplo:
   ```sh
   pkg install ncurses
@@ -353,7 +353,7 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
 
 ##### Windows
 
-- *Microsoft* **Windows** suporta vários desenvolvimentos e tempo de execução, incluindo 
+- *Microsoft* **Windows** suporta vários desenvolvimentos e tempo de execução, incluindo
   *MSVC*, *Cygwin*, *Midipix*, *MSYS2*, *UWIN*, o
   ambiente *Git Bash* e outros. Deve-se tomar cuidado para evitar a mistura de
   bibliotecas e ferramentas incompatíveis.
@@ -384,7 +384,9 @@ pacotes de software de pré-requisito ou outra configuração do sistema, consul
 ### Pacotes
 
 **OpenVi** está disponível para usuários de Linux e macOS por meio do
-Gerenciador de pacotes [Homebrew](https://brew.sh/).
+Gerenciador de pacotes [Homebrew](https://formulae.brew.sh/formula/openvi).
+
+[![Homebrew](https://repology.org/badge/version-for-repo/homebrew/openvi.svg)](https://repology.org/project/openvi/versions)
 
 ```sh
 brew install openvi
@@ -392,8 +394,8 @@ brew install openvi
 
 ## Versionamento
 
-O número da versão do ***OpenVi*** é baseado na versão do lançamento do *OpenBSD* correspondente, 
-seguido pelo número do lançamento do ***OpenVi***. O comando `version` pode ser usado para exibir esta 
+O número da versão do ***OpenVi*** é baseado na versão do lançamento do *OpenBSD* correspondente,
+seguido pelo número do lançamento do ***OpenVi***. O comando `version` pode ser usado para exibir esta
 informação no formato mostrado abaixo.
 
 ```text
@@ -401,7 +403,7 @@ Version 7.0.1 (OpenVi) 10/25/2021.
 ```
 
 Esta mensagem indica que o editor em uso é ***OpenVi***, versão **1**,
-derivado do *OpenBSD* versão **7.0**, e é totalmente sincronizado com as versões *OpenBSD* de 
+derivado do *OpenBSD* versão **7.0**, e é totalmente sincronizado com as versões *OpenBSD* de
 ***`vi`***, ***`ex`***, ***`db`***, e ***`regex`***
 a partir de **10/25/2021** (*25 de outubro de 2021*).
 
@@ -441,13 +443,13 @@ Novos lançamentos do *OpenBSD* não redefinem o número do lançamento do ***Op
   - *Peter Kessler* ajudou a trazer sanidade ao layout de comando da versão 2.
   - *Bill Joy* escreveu a versão **1**, versões **2.0** até **2.7** e
     criou a estrutura que os usuários veem no editor atual.
-  - *Mark Horton* adicionou macros e outros recursos e fez o editor funcionar 
+  - *Mark Horton* adicionou macros e outros recursos e fez o editor funcionar
     em um grande número de terminais e sistemas *UNIX*.
   - Agradecemos o apoio financeiro dos *UUNET Communications Services*.
 
 ## Projetos Similares
 
-- [**`Xvi`**](http://martinwguy.github.io/xvi/) de *Martin Guy*, 
+- [**`Xvi`**](http://martinwguy.github.io/xvi/) de *Martin Guy*,
   uma versão melhorada de [**`STEVIE`**]( de *Tim Thompson* https://timthompson.com/tjt/stevie/)
 - *S. V. Nickolas*'
   [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), um fork limpo de *Steve Kirkendall*
@@ -459,9 +461,9 @@ Novos lançamentos do *OpenBSD* não redefinem o número do lançamento do ***Op
 ## Veja também
 
 - [*Carsten Kunze*'s **`vi`**](https://github.com/n-t-roff/heirloom-ex-vi/)
-  é um fork atualmente mantido do ramo original (**1BSD**/**2BSD**) do editor **`vi`** / **`ex`**, 
+  é um fork atualmente mantido do ramo original (**1BSD**/**2BSD**) do editor **`vi`** / **`ex`**,
   derivado do editor aprimorado de *Gunnar Ritter* versão do [**tradicional** do editor **`vi`**](http://ex-vi.sourceforge.net/).
-- [**`Nvi2`**](https://github.com/lichray/nvi2) é um *branch de recursos* atualmente mantido da nova versão (**4BSD**) do 
+- [**`Nvi2`**](https://github.com/lichray/nvi2) é um *branch de recursos* atualmente mantido da nova versão (**4BSD**) do
   editor **`nvi`* * / **`nex`**, com foco em extensibilidade e novas funcionalidades.
-- [**`Nvi1`**](https://repo.or.cz/nvi.git) (*versão* *1.8+*) é o *branch tradicional* atualmente mantido do novo (**4BSD* *) versão do 
+- [**`Nvi1`**](https://repo.or.cz/nvi.git) (*versão* *1.8+*) é o *branch tradicional* atualmente mantido do novo (**4BSD* *) versão do
   editor **`nvi`** / **`nex`**, agora desenvolvido por *Sven Verdoolaege*.

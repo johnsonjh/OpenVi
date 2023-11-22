@@ -388,7 +388,9 @@ vendor's documentation.
 ### Packages
 
 **OpenVi** is available to Linux and macOS users via the
-[Homebrew](https://brew.sh/) package manager.
+[Homebrew](https://formulae.brew.sh/formula/openvi) package manager.
+
+[![Homebrew](https://repology.org/badge/version-for-repo/homebrew/openvi.svg)](https://repology.org/project/openvi/versions)
 
 ```sh
 brew install openvi
