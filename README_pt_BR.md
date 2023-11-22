@@ -454,7 +454,7 @@ Novos lançamentos do *OpenBSD* não redefinem o número do lançamento do ***Op
 - *S. V. Nickolas*'
   [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), um fork limpo de *Steve Kirkendall*
   [**`Elvis`**](http://elvis.the-little-red-haired-girl.org/)
-- *Andy Valencia*'s [**`Vim57`**](http://sources.vsta.org:7100/vim57/tree), um
+- *Andy Valencia*'s [**`Vim57`**](https://sources.vsta.org:7100/vim57/tree), um
   fork simplificado da versão 5.7 de *Bram Moolenaar*
   [**`Vim`**](https://www.vim.org/)
 

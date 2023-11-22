@@ -460,7 +460,7 @@ New *OpenBSD* releases do not reset the ***OpenVi*** release number.
   [**`Sivle`**](https://github.com/buricco/lunaris/tree/main/src/usr.bin/ex), a
   cleaned-up fork of *Steve Kirkendall*'s
   [**`Elvis`**](http://elvis.the-little-red-haired-girl.org/)
-- *Andy Valencia*'s [**`Vim57`**](http://sources.vsta.org:7100/vim57/tree), a
+- *Andy Valencia*'s [**`Vim57`**](https://sources.vsta.org:7100/vim57/tree), a
   simplified fork of version 5.7 of *Bram Moolenaar*'s
   [**`Vim`**](https://www.vim.org/)
 
