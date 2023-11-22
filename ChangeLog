@@ -1,4 +1,4 @@
-OpenVi 7.4.26 -> OpenVi 7.4.27-dev: Wed Nov 22 19:24:06 2023
+OpenVi 7.4.26 -> OpenVi 7.4.27-dev: Wed Nov 22 19:28:50 2023
         + Update README files with additional distro packaging information
         + Always suppress db_err output when !lno; closes GitHub Issue #34
         + Update minpwcache.c to OpenBSD pwcache.c v1.16; contains spelling
