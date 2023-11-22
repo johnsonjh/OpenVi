@@ -1,9 +1,10 @@
-OpenVi 7.4.26 -> OpenVi 7.4.27-dev: Tue Nov 14 01:18:17 2023
+OpenVi 7.4.26 -> OpenVi 7.4.27-dev:
+        + Update README files with additional distro packaging information
         + Always suppress db_err output when !lno; closes GitHub Issue #34
         + Update minpwcache.c to OpenBSD pwcache.c v1.16; contains spelling
           fixes from Paul Tagliamonte; only comments, no user-facing change
         + Use openbsd_strlcpy for strlcpy in ptym_open(); fixes compilation
-          on AIX and some other System V-derived systems.
+          on AIX and some other System V-derived systems
 
 OpenVi 7.4.25 -> OpenVi 7.4.26: Fri Oct 28 00:15:39 2023
         + Add a fallback path for `altnotation` mode; fixes a crash on macOS
@@ -18,7 +19,7 @@ OpenVi 7.4.24 -> OpenVi 7.4.25: Fri Oct 27 11:44:45 2023
           <Esc>, and <Del>, respectively
 
 OpenVi 7.4.23 -> OpenVi 7.4.24: Tue Oct 10 19:47:07 2023
-        + Silence a warning when building with recent Clang compilers.
+        + Silence a warning when building with recent Clang compilers
         + Treat consecutive paragraph indicators as different paragraphs;
           Consecutive empty lines count toward the same state, so there're
           2x states (to get in and out). `^L` and `.PP` are counted as text,
@@ -92,9 +93,9 @@ OpenVi 7.0.15 -> OpenVi 7.1.16: Sun Mar 13 22:10:37 2022
         + Simplify compatibility headers
         + Make `sstrip` target depend on the `strip` target, since many
           platforms do not support all the sstrip options, so still stripping
-          as much as is possible is the most user-friendly thing to try.
+          as much as is possible is the most user-friendly thing to try
         + Add support for Solaris; tested on Oracle Solaris 11.4.0 with GCC,
-          Clang (V6+), and the Oracle Developer Studio V12.6 compiler.
+          Clang (V6+), and the Oracle Developer Studio V12.6 compiler
         + Add support for illumos; tested on OpenIndiana Hipster 2022.03
         + Add support for NetBSD; tested on NetBSD/amd64 9.2-stable with
           the system provided GCC and Clang from binary packages; compiling
@@ -205,7 +206,7 @@ OpenVi 7.0.9 -> OpenVi 7.0.10: Wed Feb 9 16:36:25 2022
           because we're using `^\` as a shortcut to enter our ex-mode (which
           for `nex` uses standard canonical line-based input), if `SIGQUIT`
           is unhandled, it's easy to abort by accident by sending more than
-          one `^\` in succession, which can happen on lagged connection.
+          one `^\` in succession, which can happen on lagged connection
         + Fix a long-standing bug where using `^G` on an empty file would
           include a random garbage byte in the displayed output
         + Reword "Already in the first column" to "Already at the first
@@ -255,7 +256,7 @@ OpenVi 7.0.6 -> OpenVi 7.0.7: Fri Jan 28 16:33:22 2022
 OpenVi 7.0.5 -> OpenVi 7.0.6: Thu Jan 27 16:45:12 2022
         + Important fix for back-end database file locking; also, switch
           back to using the system libc-provided mkstemp functions to elide
-          some issues that would otherwise occur on networked filesystems.
+          some issues that would otherwise occur on networked filesystems
         + Add proper attribution for DragonflyBSD Project to `LICENSE` text
         + Correct `GNUmakefile` messages for the `make install` target
         + Clean-up excess and trailing whitespace in source files
