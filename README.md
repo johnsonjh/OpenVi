@@ -396,6 +396,10 @@ vendor's documentation.
 brew install openvi
 ```
 
+Other (unofficial) distribution packages may be available.
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/openvi.svg)](https://repology.org/project/openvi/versions)
+
 ## Versioning
 
 The ***OpenVi*** version number is based on the version of the corresponding

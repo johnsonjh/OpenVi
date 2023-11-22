@@ -392,6 +392,10 @@ Gerenciador de pacotes [Homebrew](https://formulae.brew.sh/formula/openvi).
 brew install openvi
 ```
 
+Outros pacotes de distribuição (não oficiais) podem estar disponíveis.
+
+[![Status da embalagem](https://repology.org/badge/vertical-allrepos/openvi.svg)](https://repology.org/project/openvi/versions)
+
 ## Versionamento
 
 O número da versão do ***OpenVi*** é baseado na versão do lançamento do *OpenBSD* correspondente,
