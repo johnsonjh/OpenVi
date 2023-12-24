@@ -73,7 +73,6 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <bsd_err.h>
 #include <bsd_stdlib.h>
 #include <bsd_string.h>
 #include <bsd_unistd.h>
