@@ -1,5 +1,6 @@
-OpenVi 7.4.27 -> OpenVi 7.4.28-dev: Sun Dec 24 22:36:27 2023
+OpenVi 7.4.27 -> OpenVi 7.4.28-dev: Tue Feb 13 02:36:11 2024
         + Remove duplicate include statements from xinstall.c
+        + Add showfilename set option to display file name; OK millert@ otto@
 
 OpenVi 7.4.26 -> OpenVi 7.4.27: Wed Nov 22 19:30:41 2023
         + Update README file with additional links and packaging information
