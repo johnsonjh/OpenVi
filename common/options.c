@@ -161,6 +161,8 @@ OPTLIST const optlist[] = {
         {"shiftwidth",  NULL,           OPT_NUM,        OPT_NOZERO},
 /* O_SHOWMATCH      4BSD */
         {"showmatch",   NULL,           OPT_0BOOL,      0},
+/* O_SHOWFILENAME */
+        {"showfilename",NULL,           OPT_0BOOL,      0},
 /* O_SHOWMODE     4.4BSD */
         {"showmode",    NULL,           OPT_0BOOL,      0},
 /* O_SIDESCROLL   4.4BSD */
