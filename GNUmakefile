@@ -7,7 +7,7 @@
 
 ###############################################################################
 #
-# Copyright (c) 2021-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+# Copyright (c) 2021-2024 Jeffrey H. Johnson <trnsz@pobox.com>
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright

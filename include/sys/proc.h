@@ -7,7 +7,7 @@
  * Copyright (c) 1986, 1989, 1991, 1993
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1989, 1990, 1991, 1992, 1993 UNIX System Laboratories, Inc.
- * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *

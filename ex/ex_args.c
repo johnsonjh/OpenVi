@@ -7,7 +7,7 @@
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1991, 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
- * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * See the LICENSE.md file for redistribution information.
  */

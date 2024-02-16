@@ -4,7 +4,7 @@
 
 /*
  * Copyright (c) 2002 Niels Provos <provos@citi.umich.edu>
- * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *

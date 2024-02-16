@@ -5,7 +5,7 @@
 /*
  * Copyright (c) 1992 Keith Muller
  * Copyright (c) 1992, 1993 The Regents of the University of California
- * Copyright (c) 2022-2023 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
  *
  * All rights reserved.
  *
