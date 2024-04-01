@@ -573,6 +573,7 @@ file_cinit(SCR *sp)
                     "-C option", gp->C_option, strlen(gp->C_option), 1, 1))
                         return;
                 gp->C_option = NULL;
+                gp->c_option = NULL;
         } else if (gp->c_option != NULL && !F_ISSET(sp->frp, FR_NEWFILE)) {
                 if (db_last(sp, &sp->lno))
                         return;

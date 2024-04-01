@@ -167,8 +167,8 @@ editor(GS *gp, int argc, char *argv[])
                          * Should we support multiple -C options?
                          */
 
-                        if (gp->C_option != NULL) {
-                                openbsd_warnx("only one -C command may be specified.");
+                        if (gp->c_option != NULL || gp->C_option != NULL) {
+                                openbsd_warnx("only one -c or -C command may be specified.");
                                 return (1);
                         }
                         gp->C_option = openbsd_optarg;
@@ -180,8 +180,8 @@ editor(GS *gp, int argc, char *argv[])
                          * We should support multiple -c options.
                          */
 
-                        if (gp->c_option != NULL) {
-                                openbsd_warnx("only one -c command may be specified.");
+                        if (gp->C_option != NULL || gp->c_option != NULL) {
+                                openbsd_warnx("only one -c or -C command may be specified.");
                                 return (1);
                         }
                         gp->c_option = openbsd_optarg;
