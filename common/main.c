@@ -67,13 +67,13 @@ editor(GS *gp, int argc, char *argv[])
 
         static const char *optstr[3] = {
 #ifdef DEBUG
-                "c:D:FlRrSsT:t:vw:",
-                "c:D:eFlRrST:t:w:",
-                "c:D:eFlrST:t:w:"
+                "c:C:D:FlRrSsT:t:vw:",
+                "c:C:D:eFlRrST:t:w:",
+                "c:C:D:eFlrST:t:w:"
 #else
-                "c:FlRrSst:vw:",
-                "c:eFlRrSt:w:",
-                "c:eFlrSt:w:"
+                "c:C:FlRrSst:vw:",
+                "c:C:eFlRrSt:w:",
+                "c:C:eFlrSt:w:"
 #endif /* ifdef DEBUG */
         };
 
@@ -160,6 +160,19 @@ editor(GS *gp, int argc, char *argv[])
 
         while ((ch = openbsd_getopt(argc, argv, optstr[pmode])) != -1)
                 switch (ch) {
+                case 'C':               /* Run the command. */
+
+                        /*
+                         * XXX
+                         * Should we support multiple -C options?
+                         */
+
+                        if (gp->C_option != NULL) {
+                                openbsd_warnx("only one -C command may be specified.");
+                                return (1);
+                        }
+                        gp->C_option = openbsd_optarg;
+                        break;
                 case 'c':               /* Run the command. */
 
                         /*

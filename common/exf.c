@@ -562,7 +562,18 @@ file_cinit(SCR *sp)
          */
         nb = 0;
         gp = sp->gp;
-        if (gp->c_option != NULL && !F_ISSET(sp->frp, FR_NEWFILE)) {
+        if (gp->C_option != NULL) {
+                if (db_last(sp, &sp->lno))
+                        return;
+                if (sp->lno == 0) {
+                        sp->lno = 1;
+                        sp->cno = 0;
+                }
+                if (ex_run_str(sp,
+                    "-C option", gp->C_option, strlen(gp->C_option), 1, 1))
+                        return;
+                gp->C_option = NULL;
+        } else if (gp->c_option != NULL && !F_ISSET(sp->frp, FR_NEWFILE)) {
                 if (db_last(sp, &sp->lno))
                         return;
                 if (sp->lno == 0) {

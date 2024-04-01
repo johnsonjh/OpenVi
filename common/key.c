@@ -499,7 +499,7 @@ nopr:   if (iscntrl(ch) && (ch < 0x20 || ch == 0x7f)) {
                     sp->cname[0] = '^';
                     sp->cname[1] = ch == 0x7f ? '?' : '@' + ch;
                     len = 2;
-		}
+                }
             } else {
                 sp->cname[0] = '^';
                 sp->cname[1] = ch == 0x7f ? '?' : '@' + ch;

@@ -98,6 +98,7 @@ struct _gs {
         recno_t   if_lno;               /* Current associated line number. */
 
         char    *c_option;              /* Ex initial, command-line command. */
+        char    *C_option;              /* Ex initial, command-line command. */
 
 #ifdef DEBUG
         FILE    *tracefp;               /* Trace file pointer. */

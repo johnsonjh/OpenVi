@@ -820,7 +820,7 @@ vs_modeline(SCR *sp)
         /* If windowname is set, or >1 screen exists, then show the name */
         curlen = 0;
         if ((IS_SPLIT(sp)) || O_ISSET(sp, O_WINDOWNAME) ||
-	    O_ISSET(sp, O_SHOWFILENAME)) {
+            O_ISSET(sp, O_SHOWFILENAME)) {
                 for (p = sp->frp->name; *p != '\0'; ++p);
                 for (ellipsis = 0, cols = sp->cols / 2; --p > sp->frp->name;) {
                         if (*p == '/') {
