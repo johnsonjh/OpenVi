@@ -102,7 +102,8 @@ This is the POSIX 1003.2 interface for the historic
 .Dq +cmd
 syntax.
 .Nm oex Ns / Ns Nm ovi
-supports both the old and new syntax.
+supports both the old and new syntax.  This option is mutally
+exclusive with "-C"; if both are specified, "-C" takes precedence.
 .It Fl C Ar cmd
 Execute
 .Ar cmd
@@ -112,7 +113,8 @@ from the
 .Pa $HOME/.nexrc
 or
 .Pa $HOME/.exrc
-files.
+files.  This option is mutually exclusive with "-c"; if both are
+specified, this option takes precedence.
 .It Fl e
 Start editing in ex mode, as if the command name were
 .Nm ex .
