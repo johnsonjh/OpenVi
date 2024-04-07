@@ -1,4 +1,4 @@
-OpenVi 7.4.27 -> OpenVi 7.4.28-dev: Mon Apr 1 19:33:47 2024
+OpenVi 7.4.27 -> OpenVi 7.5.28: Sun Apr 7 19:06:02 2024
         + Add `-C cmd` startup option; similar to `-c` but always runs `cmd`.
         + Remove duplicate include statements from xinstall.c
         + Add showfilename set option to display file name; OK millert@ otto@

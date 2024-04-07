@@ -1,4 +1,4 @@
-/*      $OpenBSD: vs_refresh.c,v 1.22 2016/01/30 21:31:08 martijn Exp $ */
+/*      $OpenBSD: vs_refresh.c,v 1.23 2024/02/12 16:42:43 job Exp $ */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

@@ -1,4 +1,4 @@
-/*      $OpenBSD: options.c,v 1.29 2021/04/13 15:39:21 millert Exp $    */
+/*      $OpenBSD: options.c,v 1.30 2024/02/12 16:42:42 job Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
