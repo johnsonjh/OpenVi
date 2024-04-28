@@ -1,4 +1,4 @@
-/*      $OpenBSD: vs_refresh.c,v 1.23 2024/02/12 16:42:43 job Exp $ */
+/*      $OpenBSD: vs_refresh.c,v 1.25 2024/04/25 09:58:17 job Exp $ */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -783,7 +783,7 @@ vs_modeline(SCR *sp)
         size_t cols, curcol, curlen, endpoint, len, midpoint;
         const char *t = NULL;
         int ellipsis;
-        char *p, buf[20];
+        char *p, buf[30];
         recno_t last = 0;
 
         /*
