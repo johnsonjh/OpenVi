@@ -124,7 +124,7 @@ file_add(SCR *sp, CHAR_T *name)
 
 /*
  * file_init --
- *      Start editing a file, based on the FREF structure.  If successsful,
+ *      Start editing a file, based on the FREF structure.  If successful,
  *      let go of any previous file.  Don't release the previous file until
  *      absolutely sure we have the new one.
  *

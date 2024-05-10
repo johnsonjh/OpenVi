@@ -483,7 +483,7 @@ mpool_stat(MPOOL *mp)
         (void)fprintf(stderr, "%lu pages in the file\n",
             (unsigned long)mp->npages);
         (void)fprintf(stderr,
-            "page size %lu, cacheing %lu pages of %lu page max cache\n",
+            "page size %lu, caching %lu pages of %lu page max cache\n",
             (unsigned long)mp->pagesize,
             (unsigned long)mp->curcache,
             (unsigned long)mp->maxcache);

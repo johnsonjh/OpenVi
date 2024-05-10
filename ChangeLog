@@ -1,8 +1,9 @@
-OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Sun Apr 28 02:57:27 2024
+OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Fri May 10 04:24:44 2024
+        + Fix various spelling errors and typos, mostly in comments
         + Increase buf size
 
 OpenVi 7.4.27 -> OpenVi 7.5.28: Sun Apr 7 19:06:02 2024
-        + Add `-C cmd` startup option; similar to `-c` but always runs `cmd`.
+        + Add `-C cmd` startup option; similar to `-c` but always runs `cmd`
         + Remove duplicate include statements from xinstall.c
         + Add showfilename set option to display file name; OK millert@ otto@
         + Avoid use after free of frp and frp->tname; found by smatch,
@@ -202,7 +203,7 @@ OpenVi 7.0.10 -> OpenVi 7.0.11: Sat Feb 12 19:42:28 2022
 OpenVi 7.0.9 -> OpenVi 7.0.10: Wed Feb 9 16:36:25 2022
         + Silence some warnings and general style clean-up
         + Clarify text of some visual mode messages; use the POSIX thousands
-          numeric seperator for displaying most line and character counts
+          numeric separator for displaying most line and character counts
         + Use `/var/tmp` for the `vi.recover` directory; on most Linux
           systems, this persists across reboots and gives a higher chance
           of recovery than `/tmp` which is often a memory-backed filesystem

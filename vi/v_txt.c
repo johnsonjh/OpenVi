@@ -92,7 +92,7 @@ v_tcmd(SCR *sp, VICMD *vp, CHAR_T prompt, unsigned int flags)
         if (v_txt(sp, vp, NULL, NULL, 0, prompt, 0, 1, flags))
                 return (1);
 
-        /* Reenable the modeline updates. */
+        /* Re-enable the modeline updates. */
         F_CLR(sp, SC_TINPUT_INFO);
 
         /* Clean up the map. */
@@ -2847,7 +2847,7 @@ txt_Rresolve(SCR *sp, TEXTH *tiqh, TEXT *tp, const size_t orig_len)
 
         /*
          * If the user has entered less characters than the original line
-         * was long, restore any overwriteable characters to the original
+         * was long, restore any overwritable characters to the original
          * characters.  These characters are entered as "insert characters",
          * because they're after the cursor and we don't want to lose them.
          * (This is okay because the R command has no insert characters.)

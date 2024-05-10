@@ -855,7 +855,7 @@ uses a special notation to
 show the existence of non-printing characters.
 Suppose you had introduced the non-printing character ``control-A''
 into the word ``illustrate''
-by accidently pressing the \s-2CTRL\s0 key while
+by accidentally pressing the \s-2CTRL\s0 key while
 typing `a'.
 This can happen on many terminals
 because the \s-2CTRL\s+2 key and the `A' key

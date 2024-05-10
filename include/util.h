@@ -40,7 +40,7 @@
 typedef enum { B_NONE, B_OFF, B_READ, B_RECOVER, B_SEARCH, B_WRITE } bmsg_t;
 
 /*
- * Number handling defines and protoypes.
+ * Number handling defines and prototypes.
  *
  * NNFITS:      test for addition of two negative numbers under a limit
  * NPFITS:      test for addition of two positive numbers under a limit

@@ -236,7 +236,7 @@ cl_vi_init(SCR *sp)
         cl_putenv("COLUMNS", NULL, (unsigned long)O_VAL(sp, O_COLUMNS));
 
         /*
-         * The terminal is aways initialized, either in `main`, or by a
+         * The terminal is always initialized, either in `main`, or by a
          * previous call to newterm(3).
          */
         (void)del_curterm(cur_term);
