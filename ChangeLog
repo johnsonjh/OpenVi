@@ -1,4 +1,5 @@
-OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Fri May 10 04:24:44 2024
+OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Mon May 20 07:56:10 2024
+        + Show version command output even in ex silent mode.
         + Consistently use .Dq for double-quoting in man pages
         + Fix various spelling errors and typos, mostly in comments
         + Increase buf size
