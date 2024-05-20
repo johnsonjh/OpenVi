@@ -106,15 +106,15 @@ char *suffix = BACKUP_SUFFIX;
 uid_t uid = (uid_t)-1;
 gid_t gid = (gid_t)-1;
 
-void copy(int, char *, int, char *, off_t, int);
-int  compare(int, const char *, off_t, int, const char *, off_t);
-void install(char *, char *, unsigned int);
-void install_dir(char *, int);
-void strip(char *);
-void usage(void);
-int  create_tempfile(char *, char *, size_t);
-int  file_write(int, char *, size_t, int *, int *, int);
-void file_flush(int, int);
+static void copy(int, char *, int, char *, off_t, int);
+static int  compare(int, const char *, off_t, int, const char *, off_t);
+static void install(char *, char *, unsigned int);
+static void install_dir(char *, int);
+static void strip(char *);
+static void usage(void);
+static int  create_tempfile(char *, char *, size_t);
+static int  file_write(int, char *, size_t, int *, int *, int);
+static void file_flush(int, int);
 
 int
 main(int argc, char *argv[])
@@ -325,7 +325,7 @@ main(int argc, char *argv[])
  *      build a path name and install the file
  */
 
-void
+static void
 install(char *from_name, char *to_name, unsigned int flags)
 {
   struct stat from_sb, to_sb;
@@ -409,7 +409,7 @@ install(char *from_name, char *to_name, unsigned int flags)
        *  that does not work in-place -- like gnu binutils strip.
        */
 
-      close(to_fd);
+      (void)close(to_fd);
       if (( to_fd = open(tempfile, O_RDONLY)) == -1)
         {
           openbsd_err(1, "stripping %s", to_name);
@@ -450,7 +450,7 @@ install(char *from_name, char *to_name, unsigned int flags)
             {
               ts[0] = to_sb.st_atim;
               ts[1] = to_sb.st_mtim;
-              futimens(temp_fd, ts);
+              (void)futimens(temp_fd, ts);
             }
           else
             {
@@ -476,7 +476,7 @@ install(char *from_name, char *to_name, unsigned int flags)
     {
       ts[0] = from_sb.st_atim;
       ts[1] = from_sb.st_mtim;
-      futimens(to_fd, ts);
+      (void)futimens(to_fd, ts);
     }
 
   /*
@@ -508,7 +508,7 @@ install(char *from_name, char *to_name, unsigned int flags)
 
   if (flags & USEFSYNC)
     {
-      fsync(to_fd);
+      (void)fsync(to_fd);
     }
 
   (void)close(to_fd);
@@ -538,25 +538,25 @@ install(char *from_name, char *to_name, unsigned int flags)
           if (bres == -1 && berr != ENOENT)
             {
               serrno = errno;
-              unlink(tempfile);
+              (void)unlink(tempfile);
               openbsd_errx(1, "rename: '%s' to '%s': %s",
                            to_name, backup, strerror(serrno));
             }
           if (berr != ENOENT && doverbose && (!bdir && !S_ISDIR(bdst.st_mode)))
-            fprintf(stdout, "%s: created backup '%s' -> '%s'\n",
+            (void)fprintf(stdout, "%s: created backup '%s' -> '%s'\n",
                     bsd_getprogname(), to_name, backup);
         }
 
       if (rename(tempfile, to_name) == -1)
         {
           serrno = errno;
-          unlink(tempfile);
+          (void)unlink(tempfile);
           openbsd_errx(1, "rename: '%s' to '%s': %s",
                        tempfile, to_name, strerror(serrno));
         }
     }
   if (doverbose)
-    fprintf(stdout, "%s: installed '%s' -> '%s' (mode %o)\n",
+    (void)fprintf(stdout, "%s: installed '%s' -> '%s' (mode %o)\n",
             bsd_getprogname(), from_name, to_name, mode);
 }
 
@@ -565,7 +565,7 @@ install(char *from_name, char *to_name, unsigned int flags)
  *      copy from one file to another
  */
 
-void
+static void
 copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
      int sparse)
 {
@@ -609,7 +609,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
         }
 
 #ifdef MADV_SEQUENTIAL
-      madvise(p, size, MADV_SEQUENTIAL);
+      (void)madvise(p, size, MADV_SEQUENTIAL);
 #endif /* ifdef MADV_SEQUENTIAL */
       siz = (size_t)size;
       if (( nw = write(to_fd, p, siz)) != siz)
@@ -679,7 +679,7 @@ copy(int from_fd, char *from_name, int to_fd, char *to_name, off_t size,
  *      compare two files; non-zero means files differ
  */
 
-int
+static int
 compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
         const char *to_name, off_t to_len)
 {
@@ -725,8 +725,8 @@ compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
 #ifdef MADV_SEQUENTIAL
       if (length)
         {
-          madvise(p1, length, MADV_SEQUENTIAL);
-          madvise(p2, length, MADV_SEQUENTIAL);
+          (void)madvise(p1, length, MADV_SEQUENTIAL);
+          (void)madvise(p2, length, MADV_SEQUENTIAL);
         }
 #endif /* ifdef MADV_SEQUENTIAL */
 
@@ -748,7 +748,7 @@ compare(int from_fd, const char *from_name, off_t from_len, int to_fd,
  *      use strip(1) to strip the target file
  */
 
-void
+static void
 strip(char *to_name)
 {
   int serrno, status;
@@ -770,7 +770,7 @@ strip(char *to_name)
       /* FALLTHROUGH */
 
     case 0:
-      execl(path_strip, "strip", to_name, (char *)NULL);
+      (void)execl(path_strip, "strip", to_name, (char *)NULL);
       openbsd_warn("%s", path_strip);
       _exit(1);
 
@@ -794,7 +794,7 @@ strip(char *to_name)
  *      build directory hierarchy
  */
 
-void
+static void
 install_dir(char *path, int mode)
 {
   char *p = NULL;
@@ -840,7 +840,7 @@ install_dir(char *path, int mode)
   else
     {
       if (doverbose)
-        fprintf(stdout, "%s: created directory '%s' (mode %o)\n",
+        (void)fprintf(stdout, "%s: created directory '%s' (mode %o)\n",
                 bsd_getprogname(), path, mode);
     }
 }
@@ -850,7 +850,7 @@ install_dir(char *path, int mode)
  *      print a usage message and die
  */
 
-void
+static void
 usage(void)
 {
   (void)fprintf(stderr,
@@ -865,12 +865,12 @@ usage(void)
  *      create a temporary file based on path and open it
  */
 
-int
+static int
 create_tempfile(char *path, char *temp, size_t tsize)
 {
   char *p = NULL;
 
-  openbsd_strlcpy(temp, path, tsize);
+  (void)openbsd_strlcpy(temp, path, tsize);
   if (( p = strrchr(temp, '/')) != NULL)
     {
       p++;
@@ -881,7 +881,7 @@ create_tempfile(char *path, char *temp, size_t tsize)
     }
 
   *p = '\0';
-  openbsd_strlcat(p, "INS@XXXXXX", tsize);
+  (void)openbsd_strlcat(p, "INS@XXXXXX", tsize);
 
   return mkstemp(temp);
 }
@@ -940,7 +940,7 @@ create_tempfile(char *path, char *temp, size_t tsize)
  *      number of bytes written, -1 on write (or lseek) error.
  */
 
-int
+static int
 file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
 {
   char *pt;
@@ -1040,7 +1040,7 @@ file_write(int fd, char *str, size_t cnt, int *rem, int *isempt, int sz)
  *      write the last BYTE with a zero (back up one byte and write a zero).
  */
 
-void
+static void
 file_flush(int fd, int isempt)
 {
   static char blnk[] = "\0";
