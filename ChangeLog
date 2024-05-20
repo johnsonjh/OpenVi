@@ -1,5 +1,5 @@
 OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Mon May 20 07:56:10 2024
-        + Show version command output even in ex silent mode.
+        + Show version command output even in ex silent mode
         + Consistently use .Dq for double-quoting in man pages
         + Fix various spelling errors and typos, mostly in comments
         + Increase buf size
@@ -346,7 +346,7 @@ OpenVi 7.0.1 -> OpenVi 7.0.2: Tue Jan 25 13:44:48 2022
         + Update GNUmakefile; correct a typo in a message
         + Update LICENSE text and formatting
 
-OpenBSD 7.0.0 -> OpenVi 7.0.1: Mon Jan 24 10:37:28 2022
+OpenBSD 7.0 -> OpenVi 7.0.1: Mon Jan 24 10:37:28 2022
         + OpenVi created supporting glibc-based Linux systems
         + Create GNUmakefile and adapt build system
         + Attempt to detect and use mtmalloc or jemalloc if available
@@ -1171,7 +1171,7 @@ Sat Jan 8 05:22:25 2005
           one of the file names is larger than the screen width
         + When an error occurs in v_txt(), leave input mode
           too. Otherwise, (among other things) db_get() thinks it can
-          re-use the TEXT buffers when it's not true, leading to a crash
+          reuse the TEXT buffers when it's not true, leading to a crash
           because that TEXT buffer will be released just before it is
           actually used to create a new one. From NetBSD, fixes NetBSD
           PR#21797
