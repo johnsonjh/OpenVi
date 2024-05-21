@@ -1,5 +1,8 @@
-OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Mon May 20 09:12:31 2024
+OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Tue May 21 02:11:09 2024
+        + Add a new output level, M_XINFO, which outputs an informational
+          message and ignores the state of the verbose and silent flags
         + Show version command output even in ex silent mode
+        + Update the usage help text to document the new `-C` option
         + Minor changes to xinstall.c to appease Oracle Lint warnings
         + Consistently use .Dq for double-quoting in man pages
         + Fix various spelling errors and typos, mostly in comments

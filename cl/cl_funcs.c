@@ -673,25 +673,25 @@ cl_usage()
         case MODE_EX:
                 (void)fprintf(stderr, "Usage: "
 #ifdef DEBUG
-                    "ex [ -FRrSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
+                    "ex [ -FRrSsv ] [ -c cmd | -C cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-                    "ex [ -FRrSsv ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
+                    "ex [ -FRrSsv ] [ -c cmd | -C cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif /* ifdef DEBUG */
                 break;
         case MODE_VI:
                 (void)fprintf(stderr, "Usage: "
 #ifdef DEBUG
-                    "vi [ -eFRrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
+                    "vi [ -eFRrS ] [ -c cmd | -C cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-                    "vi [ -eFRrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
+                    "vi [ -eFRrS ] [ -c cmd | -C cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif /* ifdef DEBUG */
                 break;
         case MODE_VIEW:
                 (void)fprintf(stderr, "Usage: "
 #ifdef DEBUG
-                    "view [ -eFrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
+                    "view [ -eFrS ] [ -c cmd | -C cmd ] [ -t tag ] [ -w size ] [ -T tracefile ] [ file ... ]\n");
 #else
-                    "view [ -eFrS ] [ -c cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
+                    "view [ -eFrS ] [ -c cmd | -C cmd ] [ -t tag ] [ -w size ] [ file ... ]\n");
 #endif /* ifdef DEBUG */
                 break;
         }
