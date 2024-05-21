@@ -70,6 +70,9 @@ msgq(SCR *sp, mtype_t mt, const char *fmt, ...)
                         }
                         mt = M_ERR;
                         break;
+                case M_XINFO:
+                        mt = M_INFO;
+                        break;
                 case M_VINFO:
                         if (!O_ISSET(sp, O_VERBOSE))
                                 return;

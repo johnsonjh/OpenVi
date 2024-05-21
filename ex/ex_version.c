@@ -32,6 +32,6 @@
 int
 ex_version(SCR *sp, EXCMD *cmdp)
 {
-        ex_printf(sp, VI_VERSION ".\n");
+        msgq(sp, M_XINFO, VI_VERSION);
         return (0);
 }
