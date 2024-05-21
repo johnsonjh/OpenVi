@@ -60,6 +60,11 @@ ifeq ($(OS),sunos)
     _SUNOS = 1
 endif # sunos
 
+ifeq ($(OS),os400)
+    _OS400 = 1
+        OS = aix
+endif # os400
+
 ###############################################################################
 
 ifeq ($(OS),solaris)
@@ -113,9 +118,13 @@ ifeq ($(OS),netbsd)
 else # !netbsd
    CURSESLIB ?= -lncurses
 endif # netbsd
-ifeq ($(OS),aix)
+ifeq ($(OS),aix) # aix/os400
    MAIXBITS ?= $(shell command -p $(GETCONF) KERNEL_BITMODE 2> /dev/null || \
                     $(PRINTF) '%s' "32")
+      ifeq ($(_OS400),1)                 # IBM i (OS/400) PASE
+         CFLAGS  += -I/QOpenSys/pkgs/include/ncurses
+         LDFLAGS += -lutil -L/QOpenSys/pkgs/lib
+      endif
       ifneq (,$(findstring gcc,$(CC)))   # gcc (GNU C)
          CFLAGS  += $(WFLAGS) -maix$(MAIXBITS)
          LDFLAGS += -maix$(MAIXBITS) -Wl,-b$(MAIXBITS)
@@ -132,7 +141,7 @@ ifeq ($(OS),aix)
    LDFLAGS  += -L/opt/freeware/lib
    CFLAGS   += -I/opt/freeware/include
    LINKLIBS ?= -lbsd $(CURSESLIB) -lcurses
-else # !aix
+else # !aix/os400
 ifeq ($(OS),solaris)
      CFLAGS += -U__EXTENSIONS__ -D_XPG4_2 -D__solaris__ -D_REENTRANT \
                -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_XOPEN_SOURCE=600

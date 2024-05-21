@@ -1,4 +1,6 @@
-OpenVi 7.5.28 -> OpenVi 7.5.29-dev: Tue May 21 02:11:09 2024
+OpenVi 7.5.28 -> OpenVi 7.5.29: Tue May 21 05:26:38 2024
+        + Support building natively on OS/400; verified using PASE for IBM i
+          7.5 with GCC 10.5 (gcc10) and ncurses 6.0 (ncurses, ncurses-devel)
         + Add a new output level, M_XINFO, which outputs an informational
           message and ignores the state of the verbose and silent flags
         + Show version command output even in ex silent mode
