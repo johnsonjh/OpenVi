@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# Copyright (c) 2021-2024 Jeffrey H. Johnson <trnsz@pobox.com>
+version = 1
+SPDX-PackageName = "OpenVi"
+SPDX-PackageSupplier = "Jeffrey H. Johnson <trnsz@pobox.com>"
+SPDX-PackageDownloadLocation = "https://github.com/johnsonjh/OpenVi"
+annotations = []
