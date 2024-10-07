@@ -1,3 +1,6 @@
+OpenVi 7.5.29 -> OpenVi 7.6.30: Mon Oct 7 08:45:39 2024
+        + Bump for OpenBSD 7.6 release
+
 OpenVi 7.5.28 -> OpenVi 7.5.29: Tue May 21 05:26:38 2024
         + Support building natively on OS/400; verified using PASE for IBM i
           7.5 with GCC 10.5 (gcc10) and ncurses 6.0 (ncurses, ncurses-devel)
