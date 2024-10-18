@@ -1,3 +1,9 @@
+OpenVi 7.6.30 -> OpenVi 7.6.31-dev: Fri Oct 18 09:05:49 2024
+        + In xinstall's create_tempfile() pass pointer to full pathname to
+          strlcat(); fixes a potential buffer overrun; also check strlcpy()
+          and strlcat() return value to detect truncations; based on a diff
+          from naddy@; ok naddy@ tb@ deraadt@
+
 OpenVi 7.5.29 -> OpenVi 7.6.30: Mon Oct 7 08:45:39 2024
         + Bump for OpenBSD 7.6 release
 
