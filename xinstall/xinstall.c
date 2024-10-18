@@ -1,4 +1,4 @@
-/*      $OpenBSD: xinstall.c,v 1.77 2022/12/04 23:50:50 cheloha Exp $        */
+/*      $OpenBSD: xinstall.c,v 1.78 2024/10/17 15:38:38 millert Exp $        */
 /*      $NetBSD:  xinstall.c,v 1.9  1995/12/20 10:25:17 jonathan Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
@@ -870,7 +870,13 @@ create_tempfile(char *path, char *temp, size_t tsize)
 {
   char *p = NULL;
 
-  (void)openbsd_strlcpy(temp, path, tsize);
+  if (openbsd_strlcpy(temp, path, tsize) >= tsize)
+    {
+#if defined(ENAMETOOLONG)
+      errno = ENAMETOOLONG;
+#endif
+      return(-1);
+    }
   if (( p = strrchr(temp, '/')) != NULL)
     {
       p++;
@@ -881,7 +887,13 @@ create_tempfile(char *path, char *temp, size_t tsize)
     }
 
   *p = '\0';
-  (void)openbsd_strlcat(p, "INS@XXXXXX", tsize);
+  if (openbsd_strlcat(temp, "INS@XXXXXXXXXX", tsize) >= tsize)
+    {
+#if defined(ENAMETOOLONG)
+      errno = ENAMETOOLONG;
+#endif
+      return(-1);
+    }
 
   return mkstemp(temp);
 }
