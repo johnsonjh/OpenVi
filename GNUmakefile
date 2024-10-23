@@ -590,8 +590,7 @@ ifneq (,$(findstring install,$(MAKECMDGOALS)))
 .NOTPARALLEL: install
 endif # (,$(findstring install,$(MAKECMDGOALS)))
 install: bin/vi bin/ex bin/view docs/USD.doc/vi.man/vi.1  \
-         scripts/virecover scripts/virecover.8            \
-         bin/xinstall
+         scripts/virecover scripts/virecover.8
 ifndef DEBUG
 	-@$(PRINTF) "\r\t%s\t%42s\n" "mkdir:" "$(DESTDIR)$(PREFIX)/bin"
 endif # DEBUG
@@ -690,7 +689,7 @@ endif # DEBUG
 ifneq (,$(findstring strip,$(MAKECMDGOALS)))
 .NOTPARALLEL: strip
 endif # (,$(findstring strip,$(MAKECMDGOALS)))
-strip: bin/vi bin/ex bin/view bin/xinstall
+strip: bin/vi bin/ex bin/view
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG
@@ -720,7 +719,7 @@ else # netbsd
                -R '.note.netbsd.mcmodel'             \
                -R '.note.netbsd.pax' -R '.gnu.hash'
 endif # !netbsd
-superstrip sstrip: strip bin/vi bin/ex bin/view bin/xinstall
+superstrip sstrip: strip bin/vi bin/ex bin/view
 ifndef DEBUG
 	-@$(PRINTF) "\r\t$(STRIP):\t%42s\n" "bin/vi"
 endif # DEBUG

@@ -1,4 +1,6 @@
-OpenVi 7.6.30 -> OpenVi 7.6.31-dev: Fri Oct 18 09:05:49 2024
+OpenVi 7.6.30 -> OpenVi 7.6.31-dev: Wed Oct 23 07:02:11 2024
+        + Don't require xinstall to be built for `install`, `strip`, and
+          `sstrip` targets to complete successfully.
         + In xinstall's create_tempfile() pass pointer to full pathname to
           strlcat(); fixes a potential buffer overrun; also check strlcpy()
           and strlcat() return value to detect truncations; based on a diff
