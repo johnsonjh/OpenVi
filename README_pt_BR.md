@@ -157,6 +157,7 @@ Alguns desses pontos podem ser características desejáveis, dependendo do seu p
   - **OpenBSD** 6.9+
   - *OracleSolaris** 11+
   - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
+  - **Managarm**
 
 - Os seguintes compiladores são totalmente suportados e testados regularmente:
   - *LLVM* **Clang** (*BSD*, *Darwin*, *illumos*, *Linux*, *Solaris*,

@@ -476,7 +476,15 @@ cl_ex_init(SCR *sp)
          */
         clp->ex_enter = clp->orig;
         clp->ex_enter.c_lflag |=
-            ECHO | ECHOCTL | ECHOE | ECHOK | ECHOKE | ICANON | IEXTEN | ISIG;
+            ECHO
+#if !defined(__managarm__)
+	    | ECHOCTL
+#endif
+	    | ECHOE | ECHOK
+#if !defined(__managarm__)
+	    | ECHOKE
+#endif
+	    | ICANON | IEXTEN | ISIG;
         clp->ex_enter.c_iflag |= ICRNL;
         clp->ex_enter.c_oflag |= ONLCR | OPOST;
 

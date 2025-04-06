@@ -44,6 +44,13 @@
  */
 
 /* utility definitions */
+
+#if defined(__managarm__)
+# if !defined(_POSIX2_RE_DUP_MAX)
+#  define _POSIX2_RE_DUP_MAX 255
+# endif
+#endif
+
 #define DUPMAX          _POSIX2_RE_DUP_MAX
 #define INFINITY        (DUPMAX + 1)
 #define NC              (CHAR_MAX - CHAR_MIN + 1)

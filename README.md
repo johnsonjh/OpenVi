@@ -159,6 +159,7 @@ view.
   - **OpenBSD** 6.9+
   - *Oracle* **Solaris** 11+
   - *Microsoft* **Windows** (*Cygwin*, *Midipix*, *MSYS2*, *WSL*)
+  - **Managarm**
 
 - The following compilers are fully supported and regularly tested:
   - *LLVM* **Clang** (*BSD*, *Darwin*, *illumos*, *Linux*, *Solaris*,

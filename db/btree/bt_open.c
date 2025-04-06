@@ -426,7 +426,7 @@ tmp(void)
 
         (void)sigfillset(&set);
         (void)sigprocmask(SIG_BLOCK, &set, &oset);
-#if defined(_AIX) || defined(__solaris__)
+#if defined(_AIX) || defined(__solaris__) || defined(__managarm__)
         if ((fd = mkstemp(path)) != -1)
 #else
         if ((fd = mkostemp(path, O_CLOEXEC)) != -1)

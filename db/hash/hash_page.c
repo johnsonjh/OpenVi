@@ -915,7 +915,7 @@ open_temp(HTAB *hashp)
         /* Block signals; make sure file goes away at process exit. */
         (void)sigfillset(&set);
         (void)sigprocmask(SIG_BLOCK, &set, &oset);
-#if defined(_AIX) || defined(__solaris__)
+#if defined(_AIX) || defined(__solaris__) || defined(__managarm__)
         if ((hashp->fp = mkstemp(path)) != -1) {
 #else
         if ((hashp->fp = mkostemp(path, O_CLOEXEC)) != -1) {

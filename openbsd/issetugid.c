@@ -67,7 +67,8 @@ issetugid(void)
 
   errno = 0;
 # if !defined(_AIX) \
-  && !defined(__illumos__) && !defined(__solaris__)
+  && !defined(__illumos__) && !defined(__solaris__) \
+  && !defined(__managarm__)
   rv = getauxval(AT_SECURE) != 0;
 # endif /* if !defined(_AIX)
            && !defined(__illumos__) && !defined(__solaris__) */
