@@ -1,10 +1,11 @@
-OpenVi 7.6.30 -> OpenVi 7.6.31-dev: Wed Oct 23 07:02:11 2024
+OpenVi 7.6.30 -> OpenVi 7.6.31: Sun Apr 6 15:25:04 2025
         + Don't require xinstall to be built for `install`, `strip`, and
           `sstrip` targets to complete successfully.
         + In xinstall's create_tempfile() pass pointer to full pathname to
           strlcat(); fixes a potential buffer overrun; also check strlcpy()
           and strlcat() return value to detect truncations; based on a diff
           from naddy@; ok naddy@ tb@ deraadt@
+        + Support building for Managarm (xbstrap cross-compilation only)
 
 OpenVi 7.5.29 -> OpenVi 7.6.30: Mon Oct 7 08:45:39 2024
         + Bump for OpenBSD 7.6 release
