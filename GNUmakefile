@@ -117,7 +117,7 @@ ifeq ($(OS),netbsd)
       endif # clang
    endif # LTO
 else # !netbsd
-   CURSESLIB ?= -lncurses
+   CURSESLIB ?= -lncurses -ltinfo
 endif # netbsd
 ifeq ($(OS),aix) # aix/os400
    MAIXBITS ?= $(shell command -p $(GETCONF) KERNEL_BITMODE 2> /dev/null || \
