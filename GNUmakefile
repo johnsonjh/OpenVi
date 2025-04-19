@@ -103,6 +103,16 @@ ifeq ($(OS),solaris)
 endif # solaris
 
 ###############################################################################
+# Try to query pkg-config for ncurses flags and libraries
+
+ifndef CURSESLIB
+  CFLAGS    += $(shell $(PKGCFG) ncurses --cflags 2> /dev/null \
+                     || $(PKGCFG) curses --cflags 2> /dev/null)
+  CURSESLIB += $(shell $(PKGCFG) ncurses --libs 2> /dev/null \
+                     || $(PKGCFG) curses --libs 2> /dev/null)
+endif #!CURSESLIB
+
+###############################################################################
 
 # Default libraries to link
 ifeq ($(OS),netbsd)
