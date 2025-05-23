@@ -502,7 +502,7 @@ argv_lexp(SCR *sp, EXCMD *excp, char *path)
                 }
                 name = p + 1;
         }
-        nlen = strlen(name);
+        nlen = strlen(name) + 2;
 
         if ((dirp = opendir(dname)) == NULL) {
                 msgq_str(sp, M_SYSERR, dname, "%s");
@@ -513,22 +513,23 @@ argv_lexp(SCR *sp, EXCMD *excp, char *path)
                         if (dp->d_name[0] == '.')
                                 continue;
                 } else {
-                        if (dp->d_namlen < nlen ||
-                            memcmp(dp->d_name, name, nlen))
+                        if (memcmp(dp->d_name, name, nlen))
                                 continue;
                 }
 
                 /* Directory + name + slash + NULL. */
-                argv_alloc(sp, dlen + dp->d_namlen + 2);
+                argv_alloc(sp, dlen + nlen + 2);
                 p = exp->args[exp->argsoff]->bp;
+                if (p == NULL)
+                        return (1);
                 if (dlen != 0) {
                         memcpy(p, dname, dlen);
                         p += dlen;
                         if (dlen > 1 || dname[0] != '/')
                                 *p++ = '/';
                 }
-                memcpy(p, dp->d_name, dp->d_namlen + 1);
-                exp->args[exp->argsoff]->len = dlen + dp->d_namlen + 1;
+                memcpy(p, dp->d_name, nlen + 1);
+                exp->args[exp->argsoff]->len = dlen + nlen + 1;
                 ++exp->argsoff;
                 excp->argv = exp->args;
                 excp->argc = exp->argsoff;
