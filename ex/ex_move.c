@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_move.c,v 1.11 2016/01/06 22:28:52 millert Exp $    */
+/*      $OpenBSD: ex_move.c,v 1.12 2025/08/23 21:02:10 millert Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -60,7 +60,7 @@ ex_copy(SCR *sp, EXCMD *cmdp)
         /* Put the text into place. */
         tm.lno = cmdp->lineno;
         tm.cno = 0;
-        if (put(sp, &cb, NULL, &tm, &m, 1))
+        if (put(sp, &cb, NULL, &tm, &m, 1, 1))
                 rval = 1;
         else {
                 /*

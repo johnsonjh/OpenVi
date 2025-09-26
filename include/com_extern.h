@@ -114,7 +114,7 @@ int f_w300(SCR *, OPTION *, char *, unsigned long *);
 int f_w1200(SCR *, OPTION *, char *, unsigned long *);
 int f_w9600(SCR *, OPTION *, char *, unsigned long *);
 int f_window(SCR *, OPTION *, char *, unsigned long *);
-int put(SCR *, CB *, CHAR_T *, MARK *, MARK *, int);
+int put(SCR *, CB *, CHAR_T *, MARK *, MARK *, int, int);
 int rcv_tmp(SCR *, EXF *, char *);
 int rcv_init(SCR *);
 int rcv_sync(SCR *, unsigned int);
