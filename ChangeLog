@@ -1,5 +1,6 @@
 OpenVi 7.6.31 -> OpenVi 7.7.32: Fri Sep 26 20:42:09 2025
-        + Try to query `pkg-config` for ncurses flags and libraries
+        + Try to query `pkg-config` for ncurses flags and libraries, except
+          on NetBSD, where NetBSD provided curses is used.
         + Fix filename completion using `D_NAMLEN` as defined in the compat
           `include/compat.h` header; patch from @jerryfletcher21; closes #22.
         + Fix `p` command when used with a count
