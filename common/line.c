@@ -1,4 +1,4 @@
-/*      $OpenBSD: line.c,v 1.16 2022/02/20 19:45:51 tb Exp $        */
+/*      $OpenBSD: line.c,v 1.17 2025/07/30 22:19:13 millert Exp $        */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -52,7 +52,7 @@ db_eget(SCR *sp, recno_t lno, char **pp, size_t *lenp, int *isemptyp)
          * fails loudly.
          */
 
-        if ((lno == 0 || lno == 1) && db_last(sp, &l1))
+        if ((lno == OOBLNO || lno == 1) && db_last(sp, &l1))
                 return (1);
 
         /* If the file isn't empty, fail loudly. */
@@ -89,7 +89,7 @@ db_get(SCR *sp, recno_t lno, u_int32_t flags, char **pp, size_t *lenp)
          * buffer anyway.
          */
 
-        if (lno == 0)
+        if (lno == OOBLNO)
                 goto err1;
 
         /* Check for no underlying file. */

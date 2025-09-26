@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_shift.c,v 1.9 2020/04/30 10:40:21 millert Exp $    */
+/*      $OpenBSD: ex_shift.c,v 1.11 2025/07/30 22:19:13 millert Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -79,8 +79,12 @@ shift(SCR *sp, EXCMD *cmdp, enum which rl)
                 return (0);
         }
 
-        /* Copy the lines being shifted into the unnamed buffer. */
-        if (cut(sp, NULL, &cmdp->addr1, &cmdp->addr2, CUT_LINEMODE))
+        /*
+         * When not doing re-expand tabs, copy the lines being shifted into
+         * the unnamed buffer.
+         */
+        if (rl != RETAB &&
+            cut(sp, NULL, &cmdp->addr1, &cmdp->addr2, CUT_LINEMODE))
                 return (1);
 
         /*
