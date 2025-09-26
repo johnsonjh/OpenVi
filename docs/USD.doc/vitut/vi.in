@@ -1209,7 +1209,7 @@ list	nolist	Tabs print as ^I; end of lines $
 magic	magic	. [ and * are special in scans
 number	nonu	Lines prefixed with line numbers
 paragraphs	para=IPLPPPQPP LIpplpipbp	Macros which start paragraphs
-ruler	noruler	Display a row/column ruler.
+ruler	noruler	Display a row/column/percentage ruler.
 sections	sect=NHSHH HUnhsh	Macros which start new sections
 shiftwidth	sw=8	Shift distance for <, >, \fB^D\fP and \fB^T\fR
 showmatch	nosm	Show matching \fB(\fP or \fB{\fP
