@@ -61,6 +61,15 @@
 #  define DEF_WEAK(x)
 # endif /* if !defined( DEF_WEAK ) */
 
+/* #define d_namlen d_reclen */
+# if !defined D_NAMLEN
+#  if !defined( _DIRENT_HAVE_NAMLEN )
+#   define D_NAMLEN(x) strnlen(( x )->d_name, ( x )->d_reclen)
+#  else  /* if !defined( _DIRENT_HAVE_NAMLEN ) */
+#   define D_NAMLEN(x) ( x )->d_namlen
+#  endif /* if !defined( _DIRENT_HAVE_NAMLEN ) */
+# endif /* if !defined D_NAMLEN */
+
 # ifndef __OpenBSD__
 
 #  ifdef FAIL_INSTEAD_OF_TRYING_FALLBACK
@@ -160,13 +169,6 @@
 
 /* pwd.h */
 #  define _PW_NAME_LEN 63
-
-/* #define d_namlen d_reclen */
-#  if !defined( _DIRENT_HAVE_NAMLEN )
-#   define D_NAMLEN(x) strnlen(( x )->d_name, ( x )->d_reclen)
-#  else  /* if !defined( _DIRENT_HAVE_NAMLEN ) */
-#   define D_NAMLEN(x) ( x )->d_namlen
-#  endif /* if !defined( _DIRENT_HAVE_NAMLEN ) */
 
 #  ifndef S_BLKSIZE
 #   define S_BLKSIZE 512
