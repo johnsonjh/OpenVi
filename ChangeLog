@@ -1,3 +1,12 @@
+OpenVi 7.6.31 -> OpenVi 7.7.32: Fri Sep 26 20:42:09 2025
+        + Try to query `pkg-config` for ncurses flags and libraries
+        + Fix filename completion using `D_NAMLEN` as defined in the compat
+          `include/compat.h` header; patch from @jerryfletcher21; closes #22.
+        + Fix `p` command when used with a count
+        + Fix crash with expandtab and running external commands; fix from
+          Jerry Fletcher, OK job@
+        + Update docs to add percentage to ruler after recent changes
+
 OpenVi 7.6.30 -> OpenVi 7.6.31: Sun Apr 6 15:25:04 2025
         + Don't require xinstall to be built for `install`, `strip`, and
           `sstrip` targets to complete successfully.
