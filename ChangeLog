@@ -1,4 +1,4 @@
-OpenVi 7.6.31 -> OpenVi 7.7.32: Fri Sep 26 20:42:09 2025
+OpenVi 7.6.31 -> OpenVi 7.7.32: Thu Oct 2 03:49:26 2025
         + Try to query `pkg-config` for ncurses flags and libs on some systems
         + Fix filename completion using `D_NAMLEN` as defined in the compat
           `include/compat.h` header; patch from @jerryfletcher21; closes #22.
