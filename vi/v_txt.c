@@ -1110,14 +1110,14 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
                                         break;
                                 --tp->cno;
                                 ++tp->owrite;
-                                if (FL_ISSET(is_flags, IS_RUNNING))
+                                if (FL_ISSET(is_flags, IS_RUNNING) || O_ISSET(sp, O_BSERASE))
                                         tp->lb[tp->cno] = ' ';
                         }
                 else {
                         if (LF_ISSET(TXT_ALTWERASE)) {
                                 --tp->cno;
                                 ++tp->owrite;
-                                if (FL_ISSET(is_flags, IS_RUNNING))
+                                if (FL_ISSET(is_flags, IS_RUNNING) || O_ISSET(sp, O_BSERASE))
                                         tp->lb[tp->cno] = ' ';
                         }
                         if (tp->cno > max)
@@ -1128,7 +1128,7 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
                                         break;
                                 --tp->cno;
                                 ++tp->owrite;
-                                if (FL_ISSET(is_flags, IS_RUNNING))
+                                if (FL_ISSET(is_flags, IS_RUNNING) || O_ISSET(sp, O_BSERASE))
                                         tp->lb[tp->cno] = ' ';
                         }
                 }
@@ -1178,7 +1178,7 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
                  * Overwrite erased characters if doing incremental search;
                  * see comment above.
                  */
-                if (FL_ISSET(is_flags, IS_RUNNING))
+                if (FL_ISSET(is_flags, IS_RUNNING) || O_ISSET(sp, O_BSERASE))
                         do {
                                 tp->lb[--tp->cno] = ' ';
                         } while (tp->cno > max);
