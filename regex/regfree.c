@@ -6,7 +6,7 @@
  * Copyright (c) 1992, 1993, 1994 Henry Spencer.
  * Copyright (c) 1992, 1993, 1994
  *      The Regents of the University of California.  All rights reserved.
- * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson
  *
  * All rights reserved.
  *

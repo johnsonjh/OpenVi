@@ -2,7 +2,7 @@
 
 /*
  * Copyright (c) 2022 Ørjan Malde <red@foxi.me>
- * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson
  *
  * All rights reserved.
  *

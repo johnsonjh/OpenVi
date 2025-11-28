@@ -1,5 +1,5 @@
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
-<!-- Copyright (c) 2021-2024 Jeffrey H Johnson <trnsz@pobox.com> -->
+<!-- Copyright (c) 2021-2024 Jeffrey H Johnson -->
 [An English version of this README is available.](README.md)
 
 # OpenVi

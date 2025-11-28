@@ -5,7 +5,7 @@
 
 /*
  * Copyright (c) 1990 The Regents of the University of California.
- * Copyright (c) 2022-2024 Jeffrey H. Johnson <trnsz@pobox.com>
+ * Copyright (c) 2022-2024 Jeffrey H. Johnson
  *
  * All rights reserved.
  *
