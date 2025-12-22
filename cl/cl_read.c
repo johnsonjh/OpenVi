@@ -43,7 +43,12 @@
 
 #include <bsd_termios.h>
 #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
+#ifdef __linux__
+# include <termios.h>
+#endif
+#ifndef __linux__
 # include <termio.h>
+#endif
 #endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #include <bsd_unistd.h>
 

@@ -33,8 +33,13 @@
 #include <curses.h>
 #include <bsd_termios.h>
 #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
+#ifdef __linux__
+# include <termios.h>
+#endif
+#ifndef __linux__
 # include <termio.h>
-#endif /* #if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
+#endif
+#endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #ifdef __NetBSD__
 # include <term.h>
 #endif /* ifdef __NetBSD__ */
