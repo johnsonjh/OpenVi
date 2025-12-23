@@ -42,9 +42,6 @@
 #endif /* if defined(__solaris__) */
 
 #include <bsd_termios.h>
-#if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ)
-# include <termio.h>
-#endif /* if defined(__GNU_LIBRARY__) && defined(__GLIBC_PREREQ) */
 #include <bsd_unistd.h>
 
 #ifdef __solaris__
