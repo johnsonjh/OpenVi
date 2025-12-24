@@ -137,6 +137,7 @@ view.
 
 #### Optional prerequisites
 
+- **pkg-config**
 - **Perl** 5+
 - **C shell** (`csh`, `tcsh`, etc.)
 - `nroff`, `groff`, etc.

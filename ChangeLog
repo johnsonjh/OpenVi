@@ -1,4 +1,5 @@
-OpenVi 7.7.32 -> OpenVi 7.8.33-dev: Tue Dec 23 12:06:57 2025
+OpenVi 7.7.32 -> OpenVi 7.8.33-dev: Wed Dec 24 15:06:57 2025
+        + Update README to mention optional `pkg-config` prerequisite
         + Do not include termio.h on Linux systems
         + Update email address (johnsonjh.dev@gmail.com)
 

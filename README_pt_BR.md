@@ -135,6 +135,7 @@ Alguns desses pontos podem ser características desejáveis, dependendo do seu p
 
 #### Pré-requisitos opcionais
 
+- **pkg-config**
 - **Perl** 5+
 - **Cshell** (`csh`, `tcsh`, etc.)
 - `nroff`, `groff`, etc.
