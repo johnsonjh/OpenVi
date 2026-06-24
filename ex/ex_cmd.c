@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_cmd.c,v 1.12 2018/07/13 20:06:10 bentley Exp $     */
+/*      $OpenBSD: ex_cmd.c,v 1.13 2026/04/20 10:30:02 tb Exp $          */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

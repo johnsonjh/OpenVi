@@ -1,4 +1,4 @@
-/*      $OpenBSD: cl_read.c,v 1.23 2021/09/02 11:19:02 schwarze Exp $   */
+/*      $OpenBSD: cl_read.c,v 1.24 2026/04/20 10:30:02 tb Exp $         */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

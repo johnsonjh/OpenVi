@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_filter.c,v 1.15 2016/08/01 18:27:35 bentley Exp $  */
+/*      $OpenBSD: ex_filter.c,v 1.16 2026/04/20 10:30:02 tb Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

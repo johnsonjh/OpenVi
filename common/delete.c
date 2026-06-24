@@ -1,4 +1,4 @@
-/*      $OpenBSD: delete.c,v 1.12 2017/11/26 09:59:41 mestre Exp $      */
+/*      $OpenBSD: delete.c,v 1.13 2026/04/20 10:30:02 tb Exp $         */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

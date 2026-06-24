@@ -1,4 +1,4 @@
-/*      $OpenBSD: key.c,v 1.19 2022/04/21 17:50:50 millert Exp $        */
+/*      $OpenBSD: key.c,v 1.21 2026/04/20 10:30:02 tb Exp $             */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

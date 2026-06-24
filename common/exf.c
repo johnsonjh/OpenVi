@@ -1,4 +1,4 @@
-/*      $OpenBSD: exf.c,v 1.50 2024/02/15 00:55:01 jsg Exp $ */
+/*      $OpenBSD: exf.c,v 1.51 2026/04/20 10:30:02 tb Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

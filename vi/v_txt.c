@@ -1,4 +1,4 @@
-/*      $OpenBSD: v_txt.c,v 1.36 2022/12/26 19:16:01 jmc Exp $      */
+/*      $OpenBSD: v_txt.c,v 1.37 2026/04/20 10:30:02 tb Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

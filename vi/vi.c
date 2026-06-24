@@ -1,4 +1,4 @@
-/*      $OpenBSD: vi.c,v 1.23 2022/02/20 19:45:51 tb Exp $ */
+/*      $OpenBSD: vi.c,v 1.24 2026/04/20 10:30:02 tb Exp $  */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

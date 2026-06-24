@@ -1,4 +1,4 @@
-/*      $OpenBSD: v_yank.c,v 1.7 2014/11/12 04:28:41 bentley Exp $      */
+/*      $OpenBSD: v_yank.c,v 1.8 2026/04/20 10:30:02 tb Exp $           */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

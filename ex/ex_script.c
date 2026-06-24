@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_script.c,v 1.27 2017/04/18 01:45:35 deraadt Exp $  */
+/*      $OpenBSD: ex_script.c,v 1.28 2026/04/20 10:30:02 tb Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

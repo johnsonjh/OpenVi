@@ -1,4 +1,4 @@
-/*      $OpenBSD: vs_msg.c,v 1.20 2017/04/18 01:45:35 deraadt Exp $     */
+/*      $OpenBSD: vs_msg.c,v 1.21 2026/04/20 10:30:02 tb Exp $          */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

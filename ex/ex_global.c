@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_global.c,v 1.18 2026/04/20 08:44:48 tb Exp $       */
+/*      $OpenBSD: ex_global.c,v 1.19 2026/04/20 10:30:02 tb Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

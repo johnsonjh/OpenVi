@@ -1,4 +1,4 @@
-/*      $OpenBSD: v_cmd.c,v 1.5 2016/03/13 18:30:43 martijn Exp $       */
+/*      $OpenBSD: v_cmd.c,v 1.6 2026/04/20 10:30:02 tb Exp $            */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

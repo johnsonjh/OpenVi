@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_subst.c,v 1.31 2023/06/23 15:06:45 millert Exp $   */
+/*      $OpenBSD: ex_subst.c,v 1.32 2026/04/20 10:30:02 tb Exp $        */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

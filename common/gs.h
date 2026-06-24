@@ -1,4 +1,4 @@
-/*      $OpenBSD: gs.h,v 1.18 2016/05/27 09:18:11 martijn Exp $ */
+/*      $OpenBSD: gs.h,v 1.19 2026/04/20 10:30:02 tb Exp $      */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

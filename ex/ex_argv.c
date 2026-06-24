@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_argv.c,v 1.20 2016/05/27 09:18:12 martijn Exp $    */
+/*      $OpenBSD: ex_argv.c,v 1.22 2026/04/20 10:30:02 tb Exp $         */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

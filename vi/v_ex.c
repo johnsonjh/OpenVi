@@ -1,4 +1,4 @@
-/*      $OpenBSD: v_ex.c,v 1.13 2016/01/06 22:28:52 millert Exp $       */
+/*      $OpenBSD: v_ex.c,v 1.14 2026/04/20 10:30:02 tb Exp $            */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

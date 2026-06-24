@@ -1,4 +1,4 @@
-/*      $OpenBSD: cl_funcs.c,v 1.24 2026/04/20 08:44:48 tb Exp $   */
+/*      $OpenBSD: cl_funcs.c,v 1.25 2026/04/20 10:30:02 tb Exp $     */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 

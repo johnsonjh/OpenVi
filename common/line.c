@@ -1,4 +1,4 @@
-/*      $OpenBSD: line.c,v 1.17 2025/07/30 22:19:13 millert Exp $        */
+/*      $OpenBSD: line.c,v 1.18 2026/04/20 10:30:02 tb Exp $             */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
