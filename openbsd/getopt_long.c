@@ -567,7 +567,7 @@ start:
     }
 
   if (( openbsd_optchar = (int)*place++ ) == (int)':'
-      || ( oli = strchr(options, openbsd_optchar)) == NULL)
+      || ( oli = (char *)strchr(options, openbsd_optchar)) == NULL)
     {
       if (!*place)
         {

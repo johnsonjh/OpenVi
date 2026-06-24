@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_append.c,v 1.14 2016/05/27 09:18:12 martijn Exp $  */
+/*      $OpenBSD: ex_append.c,v 1.15 2026/04/20 08:44:48 tb Exp $       */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -76,12 +76,11 @@ ex_aci(SCR *sp, EXCMD *cmdp, enum which cmd)
         GS *gp;
         TEXT *tp;
         TEXTH tiq;
-        recno_t cnt, lno;
+        recno_t lno;
         size_t len;
         u_int32_t flags;
         int need_newline;
 
-        (void)cnt;
         gp = sp->gp;
         NEEDFILE(sp, cmdp);
 
@@ -249,11 +248,9 @@ ex_aci(SCR *sp, EXCMD *cmdp, enum which cmd)
         if (ex_txt(sp, &tiq, 0, flags))
                 return (1);
 
-        cnt = 0;
         TAILQ_FOREACH(tp, &tiq, q) {
                 if (db_append(sp, 1, lno++, tp->lb, tp->len))
                         return (1);
-                cnt++;
         }
 
         /*

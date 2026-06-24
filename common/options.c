@@ -1021,7 +1021,7 @@ opts_search(char *name)
 
         /* Check list of abbreviations. */
         atmp.name = name;
-        if ((ap = bsearch(&atmp, abbrev, sizeof(abbrev) / sizeof(OABBREV) - 1,
+        if ((ap = (OABBREV *)(uintptr_t)bsearch(&atmp, abbrev, sizeof(abbrev) / sizeof(OABBREV) - 1,
             sizeof(OABBREV), opts_abbcmp)) != NULL)
                 return (optlist + ap->offset);
 

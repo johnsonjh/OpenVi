@@ -1,4 +1,4 @@
-/*      $OpenBSD: vs_split.c,v 1.16 2016/05/27 09:18:12 martijn Exp $   */
+/*      $OpenBSD: vs_split.c,v 1.17 2026/04/20 08:44:48 tb Exp $        */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -459,12 +459,8 @@ vs_swap(SCR *sp, SCR **nspp, char *name)
 int
 vs_resize(SCR *sp, long count, adj_t adj)
 {
-        GS *gp;
         SCR *g, *s;
         size_t g_off, s_off;
-
-        gp = sp->gp;
-        (void)gp;
 
         /*
          * Figure out which screens will grow, which will shrink, and

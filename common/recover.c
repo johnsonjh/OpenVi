@@ -1,4 +1,4 @@
-/*      $OpenBSD: recover.c,v 1.32 2022/02/20 19:45:51 tb Exp $    */
+/*      $OpenBSD: recover.c,v 1.33 2026/04/20 08:44:48 tb Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -341,7 +341,6 @@ int
 rcv_mailfile(SCR *sp, int issync, char *cp_path)
 {
         EXF *ep;
-        GS *gp;
         struct passwd *pw;
         size_t len;
         time_t now;
@@ -351,8 +350,6 @@ rcv_mailfile(SCR *sp, int issync, char *cp_path)
         char *t1, *t2, *t3;
         char host[HOST_NAME_MAX+1];
 
-        gp = sp->gp;
-        (void)gp;
         if ((pw = getpwuid(uid = getuid())) == NULL) {
                 msgq(sp, M_ERR,
                     "Information on user id %u not found", uid);

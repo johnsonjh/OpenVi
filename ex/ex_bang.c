@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex_bang.c,v 1.13 2025/07/30 22:19:13 millert Exp $    */
+/*      $OpenBSD: ex_bang.c,v 1.14 2026/04/20 08:44:48 tb Exp $         */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -60,7 +60,6 @@ ex_bang(SCR *sp, EXCMD *cmdp)
         EX_PRIVATE *exp;
         MARK rm;
         recno_t lno;
-        int rval;
         const char *msg;
 
         ap = cmdp->argv[0];
@@ -153,9 +152,8 @@ ex_bang(SCR *sp, EXCMD *cmdp)
                                 ftype = FILTER_RBANG;
                         }
                 }
-                rval = ex_filter(sp, cmdp,
+                ex_filter(sp, cmdp,
                     &cmdp->addr1, &cmdp->addr2, &rm, ap->bp, ftype);
-                (void)rval;
 
                 /*
                  * If in vi mode, move to the first nonblank.
