@@ -1,4 +1,4 @@
-/*      $OpenBSD: delete.c,v 1.13 2026/04/20 10:30:02 tb Exp $         */
+/*      $OpenBSD: delete.c,v 1.14 2026/04/25 17:47:46 millert Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -102,8 +102,8 @@ del(SCR *sp, MARK *fm, MARK *tm, int lmode)
                         if (db_set(sp, fm->lno,
                             bp, len - ((tm->cno - fm->cno) + 1)))
                                 goto err;
-                        goto done;
                 }
+                goto done;
         }
 
         /*

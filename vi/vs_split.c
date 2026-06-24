@@ -1,4 +1,4 @@
-/*      $OpenBSD: vs_split.c,v 1.18 2026/04/20 10:30:02 tb Exp $        */
+/*      $OpenBSD: vs_split.c,v 1.19 2026/04/22 15:54:08 renaud Exp $    */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -43,6 +43,12 @@ vs_split(SCR *sp, SCR *new, int ccl)
         int issmallscreen, splitup;
 
         gp = sp->gp;
+
+	/* Source screen must have a visual map to split. */
+	if (VIP(sp) == NULL || _HMAP(sp) == NULL) {
+		msgq(sp, M_ERR, "Not in visual mode: cannot split screen");
+		return (1);
+        }
 
         /* Check to see if it's possible. */
         /* XXX: The IS_ONELINE fix will change this, too. */

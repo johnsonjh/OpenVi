@@ -2,10 +2,15 @@ OpenVi 7.7.32 -> OpenVi 7.8.33-dev: Wed Jun 24 23:28:42 UTC 2026
         + Update README to mention optional `pkg-config` prerequisite
         + Do not include termio.h on Linux systems
         + Update email address (johnsonjh.dev@gmail.com)
-        + Avoid set but not used warnings, from Walter Alejandro Iglesias;
-          ok claudio
+        + Avoid set but not used warnings, from Walter Alejandro Iglesias
         + Whitespace fixes, prompted by a diff by Walter Alejandro Iglesias
-        + Fix underflows in ex(1) and vi(1) +cmd parser; OK millert@
+        + Fix underflows in ex(1) and vi(1) +cmd parser
+        + vs_split() uses sp's visual map without checking it exists;
+        + When updating the ranges after an insertion or deletion, the range
+          should be up to and including the current line number.  This
+          behavior is consistent with historic vi as well as modern vim.
+          Reported by Tim Case, fix from Walter Alejandro Iglesias
+        + Fix a misapplied patch, the goto belongs outside the len check.
 
 OpenVi 7.6.31 -> OpenVi 7.7.32: Thu Oct 2 03:49:26 2025
         + Try to query `pkg-config` for ncurses flags and libs on some systems
