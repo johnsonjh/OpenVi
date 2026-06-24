@@ -1,4 +1,4 @@
-/*      $OpenBSD: screen.c,v 1.14 2017/04/18 01:45:35 deraadt Exp $     */
+/*      $OpenBSD: screen.c,v 1.15 2026/04/20 11:37:18 tb Exp $          */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
