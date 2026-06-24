@@ -1,4 +1,4 @@
-/*      $OpenBSD: ex.c,v 1.23 2023/06/23 15:06:45 millert Exp $  */
+/*      $OpenBSD: ex.c,v 1.24 2026/04/22 07:15:43 renaud Exp $   */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -813,7 +813,8 @@ skip_srch:      if (ecp->cmd == &cmds[C_VISUAL_EX] && F_ISSET(sp, SC_VI))
         ecp->cp = ecp->save_cmd;
         ecp->save_cmd = p;
         ecp->save_cmdlen = ecp->clen;
-        ecp->clen = ((ecp->save_cmd - ecp->cp) - 1) - discard;
+        len = ecp->save_cmd - ecp->cp;
+        ecp->clen = (len > 1 + discard) ? len - 1 - discard : 0;
 
         /*
          * QUOTING NOTE:
