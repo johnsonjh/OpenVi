@@ -1,16 +1,46 @@
-OpenVi 7.7.32 -> OpenVi 7.8.33-dev: Wed Jun 24 23:28:42 UTC 2026
+OpenVi 7.7.32 -> OpenVi 7.9.33-dev: Thu Jun 25 00:03:40 UTC 2026
         + Update README to mention optional `pkg-config` prerequisite
         + Do not include termio.h on Linux systems
         + Update email address (johnsonjh.dev@gmail.com)
         + Avoid set but not used warnings, from Walter Alejandro Iglesias
         + Whitespace fixes, prompted by a diff by Walter Alejandro Iglesias
-        + Fix underflows in ex(1) and vi(1) +cmd parser
-        + vs_split() uses sp's visual map without checking it exists;
+        + Fix underflows in `ex(1)` and `vi(1)` `+cmd` parser
+        + `vs_split()` uses `sp`'s visual map without checking it exists;
         + When updating the ranges after an insertion or deletion, the range
           should be up to and including the current line number.  This
-          behavior is consistent with historic vi as well as modern vim.
+          behavior is consistent with historic `vi` as well as modern `vim`.
           Reported by Tim Case, fix from Walter Alejandro Iglesias
-        + Fix a misapplied patch, the goto belongs outside the len check.
+        + Fix a misapplied patch, the `goto` belongs outside the `len` check.
+        + Prevent `(` from moving the cursor forward.  Fixes an issue where
+          `(` moved forward the start of the next (not previous) sentence
+          when used within whitespace at the start if a line.  From Debian
+          bug 193498 (Tommy Pettersson) via nvi2.
+        + Fix special case of `)` when the cursor is on white-space.  The
+          forward sentence code has a special case to support moving to the
+          start of the next sentence when it is in the middle of a empty line
+          or whitespace between sentences.  However, the logic was incorrect
+          and applied when the curson was on _any_ white-space.  This change
+          adds logic to look back and detect whether the cursor is actually
+          in between two sentences.  Based on a diff from Walter Alejandro.
+        + Allow `!}` and `!)` at EOF, even though there is no forward
+          movement.  The updated behavior differs from traditional `vi` but
+          matches `vim`.  It is already possible to run bang commands at `EOF`
+          in conjunction with some other forward movement commands such as
+          `l` and `w`.  From Walter Alejandro Iglesias.
+        + Check for `E_CLRFLAG` in `ecp->cmd->flags`, not `ecp->iflags`. Fixes
+          a problem where an extra line is printed at the end of the output
+          when the "number" command is given the "l" (literal display) flag.
+          From Jeremy Mates and Walter Alejandro Iglesias.
+        + Make the behavior of the `(` command match the `)` command.
+          Previously, the `)` command required a sentence to end with two
+          blanks, but `(` only required a single space.  Historic `vi` (and
+          the documentation) requires two spaces in both directions.  Based
+          on a diff from Walter Alejandro Iglesias.
+        + Allocate a buffer for the line cache instead of reaching into db
+          data.  Previously, `vi` used the db internal data buffer directly.
+          Fixes a problem where the line cache could become corrupted when
+          the db data changes out from under it.  From Walter Alejandro
+          Iglesias.
 
 OpenVi 7.6.31 -> OpenVi 7.7.32: Thu Oct 2 03:49:26 2025
         + Try to query `pkg-config` for ncurses flags and libs on some systems

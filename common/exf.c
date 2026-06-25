@@ -1,4 +1,4 @@
-/*      $OpenBSD: exf.c,v 1.51 2026/04/20 10:30:02 tb Exp $    */
+/*      $OpenBSD: exf.c,v 1.52 2026/06/19 14:45:26 millert Exp $  */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -450,7 +450,7 @@ err:
 oerr:   if (F_ISSET(ep, F_RCV_ON))
                 (void)unlink(ep->rcv_path);
         free(ep->rcv_path);
-        ep->rcv_path = NULL;
+        free(ep->c_buf);
         if (ep->db != NULL)
                 (void)ep->db->close(ep->db);
         free(ep);
@@ -748,6 +748,7 @@ file_end(SCR *sp, EXF *ep, int force)
                 (void)close(ep->rcv_fd);
         free(ep->rcv_path);
         free(ep->rcv_mpath);
+	free(ep->c_buf);
         free(ep);
         return (0);
 }

@@ -67,6 +67,7 @@ int db_insert(SCR *, recno_t, char *, size_t);
 int db_set(SCR *, recno_t, char *, size_t);
 int db_exist(SCR *, recno_t);
 int db_last(SCR *, recno_t *);
+int db_cache_update(SCR *, EXF *, recno_t, void *, size_t);
 void db_err(SCR *, recno_t);
 int log_init(SCR *, EXF *);
 int log_end(SCR *, EXF *);

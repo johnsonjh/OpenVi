@@ -1,4 +1,4 @@
-/*      $OpenBSD: v_paragraph.c,v 1.10 2023/09/07 11:17:32 tobhe Exp $ */
+/*      $OpenBSD: v_paragraph.c,v 1.11 2026/04/25 19:30:59 millert Exp $ */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -181,7 +181,8 @@ eof:    if (vp->m_start.lno == lno || vp->m_start.lno == lno - 1) {
                         vp->m_start.cno = 0;
                         return (0);
                 }
-                if (vp->m_start.cno == (len ? len - 1 : 0)) {
+                if (vp->m_start.lno == vp->m_stop.lno &&
+		    vp->m_start.cno == vp->m_stop.cno) {
                         v_eof(sp, NULL);
                         return (1);
                 }
