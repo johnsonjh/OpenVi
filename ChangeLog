@@ -1,6 +1,8 @@
-OpenVi 7.9.33 -> OpenVi 8.0.34-dev: Thu Aug 13 18:07:22 UTC 2026
+OpenVi 7.9.33 -> OpenVi 8.0.34-dev: Thu Aug 13 19:14:42 UTC 2026
         + Ensure numbering is repainted after completion redraw; closes
           GitHub Issue #4
+        + Use an alternate fix for a false `-Wmisleading-indentation` warning
+          in `vi/vs_refresh.c`
 
 OpenVi 7.7.32 -> OpenVi 7.9.33: Thu Jun 25 00:06:34 UTC 2026
         + Update README to mention optional `pkg-config` prerequisite

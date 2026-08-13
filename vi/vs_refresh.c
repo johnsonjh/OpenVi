@@ -581,8 +581,9 @@ fast:   (void)gp->scr_cursor(sp, &y, &notused);
          *
          * Walk through the map and find the current line.
          */
-slow:   for (smp = HMAP; smp->lno != LNO; ++smp);
-(void)(unsigned int)0;
+slow:   for (smp = HMAP; smp->lno != LNO; ++smp) {
+                ;
+	}
 
         /*
          * 7e: Leftright scrolling adjustment.
