@@ -1,4 +1,8 @@
-OpenVi 7.7.32 -> OpenVi 7.9.33-dev: Thu Jun 25 00:03:40 UTC 2026
+OpenVi 7.9.33 -> OpenVi 8.0.34-dev: Thu Aug 13 18:07:22 UTC 2026
+        + Ensure numbering is repainted after completion redraw; closes
+          GitHub Issue #4
+
+OpenVi 7.7.32 -> OpenVi 7.9.33: Thu Jun 25 00:06:34 UTC 2026
         + Update README to mention optional `pkg-config` prerequisite
         + Do not include termio.h on Linux systems
         + Update email address (johnsonjh.dev@gmail.com)
