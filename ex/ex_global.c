@@ -270,9 +270,9 @@ ex_g_insdel(SCR *sp, lnop_t op, recno_t lno)
                                 continue;
 
                         /*
-			 * If range is greater than or equal to the line,
-			 * decrement or increment the range.
-			 */
+                         * If range is greater than or equal to the line,
+                         * decrement or increment the range.
+                         */
                         if (rp->start >= lno) {
                                 if (op == LINE_DELETE) {
                                         --rp->start;

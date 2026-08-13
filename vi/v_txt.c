@@ -1189,7 +1189,7 @@ leftmargin:             tp->lb[tp->cno - 1] = ' ';
                  * see comment above.
                  */
                 if (FL_ISSET(is_flags, IS_RUNNING)
-		    || O_ISSET(sp, O_CWERASE))
+                    || O_ISSET(sp, O_CWERASE))
                         do {
                                 tp->lb[--tp->cno] = ' ';
                         } while (tp->cno > max);

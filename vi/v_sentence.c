@@ -67,26 +67,26 @@ v_sentencef(SCR *sp, VICMD *vp)
 
         /*
          * !!!
-	 * If in white-space, check if we are at a sentence boundary.
-	 * If so, the next start of sentence counts as one.
+         * If in white-space, check if we are at a sentence boundary.
+         * If so, the next start of sentence counts as one.
          */
         if (cs.cs_flags == CS_EMP || (cs.cs_flags == 0 && isblank(cs.cs_ch))) {
-		VCS tmp = cs;
+                VCS tmp = cs;
 
-		/* If we aren't in an empty line, find last non-blank. */
-		if (tmp.cs_flags != CS_EMP) {
-		        if (cs_bblank(sp, &tmp))
-		                return (1);
-		}
+                /* If we aren't in an empty line, find last non-blank. */
+                if (tmp.cs_flags != CS_EMP) {
+                        if (cs_bblank(sp, &tmp))
+                                return (1);
+                }
 
-		/* Check if the previous non-blank char started a sentence. */
-		if (tmp.cs_flags == CS_EMP || (tmp.cs_flags == 0 &&
-		    (tmp.cs_ch == '.' || tmp.cs_ch == '?' ||
-		    tmp.cs_ch == '!'))) {
-		        /* Empty line or space after a period, jump ahead. */
-		        if (cs_fblank(sp, &cs))
-		                return (1);
-		        if (--cnt == 0)
+                /* Check if the previous non-blank char started a sentence. */
+                if (tmp.cs_flags == CS_EMP || (tmp.cs_flags == 0 &&
+                    (tmp.cs_ch == '.' || tmp.cs_ch == '?' ||
+                    tmp.cs_ch == '!'))) {
+                        /* Empty line or space after a period, jump ahead. */
+                        if (cs_fblank(sp, &cs))
+                                return (1);
+                        if (--cnt == 0)
                                 goto okret;
                 }
         }
@@ -154,7 +154,7 @@ v_sentencef(SCR *sp, VICMD *vp)
 
         /* EOF is a movement sink, but it's an error not to have moved. */
         if (vp->m_start.lno == cs.cs_lno && vp->m_start.cno == cs.cs_cno &&
-	    !ISMOTION(vp)) {
+            !ISMOTION(vp)) {
                 v_eof(sp, NULL);
                 return (1);
         }
@@ -334,9 +334,9 @@ ret:                    slno = cs.cs_lno;
                             cs.cs_ch == ')' || cs.cs_ch == ']' ||
                             cs.cs_ch == '"' || cs.cs_ch == '\'' ? 1 : 0;
 
-			/* A sentence ends with two spaces. */
-			if (cs.cs_ch == ' ' && next != ' ')
-			        last = 0;
+                        /* A sentence ends with two spaces. */
+                        if (cs.cs_ch == ' ' && next != ' ')
+                                last = 0;
                 }
         }
 

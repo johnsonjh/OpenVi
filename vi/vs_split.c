@@ -44,10 +44,10 @@ vs_split(SCR *sp, SCR *new, int ccl)
 
         gp = sp->gp;
 
-	/* Source screen must have a visual map to split. */
-	if (VIP(sp) == NULL || _HMAP(sp) == NULL) {
-		msgq(sp, M_ERR, "Not in visual mode: cannot split screen");
-		return (1);
+        /* Source screen must have a visual map to split. */
+        if (VIP(sp) == NULL || _HMAP(sp) == NULL) {
+                msgq(sp, M_ERR, "Not in visual mode: cannot split screen");
+                return (1);
         }
 
         /* Check to see if it's possible. */

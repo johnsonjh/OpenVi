@@ -182,7 +182,7 @@ eof:    if (vp->m_start.lno == lno || vp->m_start.lno == lno - 1) {
                         return (0);
                 }
                 if (vp->m_start.lno == vp->m_stop.lno &&
-		    vp->m_start.cno == vp->m_stop.cno) {
+                    vp->m_start.cno == vp->m_stop.cno) {
                         v_eof(sp, NULL);
                         return (1);
                 }

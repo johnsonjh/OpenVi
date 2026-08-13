@@ -159,8 +159,8 @@ err3:           if (lenp != NULL)
         }
 
         /* Reset the cache. */
-	if (db_cache_update(sp, ep, lno, data.data, data.size))
-		goto err3;
+        if (db_cache_update(sp, ep, lno, data.data, data.size))
+                goto err3;
 
         if (lenp != NULL)
                 *lenp = data.size;
@@ -477,9 +477,9 @@ db_last(SCR *sp, recno_t *lnop)
 
         /* Fill the cache. */
         memcpy(&lno, key.data, sizeof(lno));
-	if (db_cache_update(sp, ep, lno, data.data, data.size))
-		return (1);
-	ep->c_nlines = lno;
+        if (db_cache_update(sp, ep, lno, data.data, data.size))
+                return (1);
+        ep->c_nlines = lno;
 
         /* Return the value. */
         *lnop = (F_ISSET(sp, SC_TINPUT) &&

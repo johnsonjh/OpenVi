@@ -181,7 +181,7 @@ cut_line_err:
         text_lfree(&cbp->textq);
         cbp->len = 0;
         cbp->flags = 0;
-	sp->gp->dcbp = NULL;
+        sp->gp->dcbp = NULL;
         return (1);
 }
 

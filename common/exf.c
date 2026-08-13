@@ -748,7 +748,7 @@ file_end(SCR *sp, EXF *ep, int force)
                 (void)close(ep->rcv_fd);
         free(ep->rcv_path);
         free(ep->rcv_mpath);
-	free(ep->c_buf);
+        free(ep->c_buf);
         free(ep);
         return (0);
 }

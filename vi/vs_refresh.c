@@ -583,7 +583,7 @@ fast:   (void)gp->scr_cursor(sp, &y, &notused);
          */
 slow:   for (smp = HMAP; smp->lno != LNO; ++smp) {
                 ;
-	}
+        }
 
         /*
          * 7e: Leftright scrolling adjustment.
