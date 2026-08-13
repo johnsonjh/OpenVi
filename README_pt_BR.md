@@ -68,7 +68,7 @@ Por que você deveria usar ***OpenVi*** em vez de ***AnotherVi***?
   - Aprimoramentos, comportamentos fora do padrão e novos recursos são conservadoramente
     e implementados de forma sensata com cuidado para equilibrar as expectativas do usuário,
     complexidade e precisão histórica
-- Extensões como `bserase`, `expandtab`, `imctrl`, `visibletab`, etc.
+- Extensões como `bserase`, `cwerase`, `expandtab`, `imctrl`, `visibletab`, etc.
 - A compilação requer apenas utilitários *GNU Make* e *POSIX* padrão
   - Fácil integração com bootstrap incorporado, mínimo ou iterativo
     ambientes e distribuições (como compilações *Linux From Scratch*)

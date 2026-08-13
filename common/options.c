@@ -69,6 +69,8 @@ OPTLIST const optlist[] = {
         {"beautify",    NULL,           OPT_0BOOL,      0},
 /* O_BSERASE      OpenVi */
         {"bserase",     NULL,           OPT_0BOOL,      0},
+/* O_CWERASE      OpenVi */
+        {"cwerase",     NULL,           OPT_0BOOL,      0},
 /* O_CDPATH       4.4BSD */
         {"cdpath",      NULL,           OPT_STR,        0},
 /* O_CEDIT        4.4BSD */

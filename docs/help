@@ -207,24 +207,24 @@ unabbreviate: delete an abbreviation
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 Edit options:
-noaltwerase     noerrorbells    nolist          remap           noterse
-noautoindent    noexpandtab     lock            report=5        notildeop
-autoprint       noexrc          magic           noruler         timeout
-noautowrite     noextended      matchtime=7     scroll=21       nottywerase
-backup=""       filec=" "       mesg            nosearchincr    noverbose
-nobeautify      noflash         noprint=""      nosecure        novisibletab
-nobserase       hardtabs=0      nonumber        shiftwidth=8    warn
-cdpath=":"      noiclower       nooctal         noshowmatch     window=42
-cedit=""        noignorecase    open            noshowmode      nowindowname
-columns=86      noimctrl        path=""         sidescroll=16   wraplen=0
-nocomment       keytime=6       print=""        tabstop=8       wrapmargin=0
-noedcompatible  noleftright     prompt          taglength=0     wrapscan
-escapetime=2    lines=43        noreadonly      tags="tags"     nowriteany
-directory="/tmp"
+noaltnotation   escapetime=2    nolist          report=5        notildeop
+noaltwerase     noerrorbells    lock            noruler         timeout
+noautoindent    noexpandtab     magic           scroll=14       nottywerase
+autoprint       noexrc          matchtime=7     nosearchincr    noverbose
+noautowrite     noextended      mesg            nosecure        novisibletab
+backup=""       filec=" "       noprint=""      shiftwidth=8    warn
+nobeautify      noflash         nonumber        noshowmatch     window=28
+nobserase       hardtabs=0      nooctal         noshowfilename  nowindowname
+nocwerase       noiclower       open            noshowmode      wraplen=0
+cdpath=":"      noignorecase    path=""         sidescroll=16   wrapmargin=0
+cedit=""        noimctrl        print=""        tabstop=8       wrapscan
+columns=83      keytime=6       prompt          taglength=0     nowriteany
+nocomment       noleftright     noreadonly      tags="tags"
+noedcompatible  lines=29        remap           noterse
 imkey="/?aioAIO"
-paragraphs="iplpppqpp lipplpipbp"
+paragraphs="IPLPPPQPP LIpplpipbpBlBdPpLpIt"
 recdir="/var/tmp/vi.recover"
-sections="NHSHH HUnhsh"
+sections="NHSHH HUnhshShSs"
 shell="/bin/sh"
 shellmeta="~{[*?$`'"\"
 term="vt100"
