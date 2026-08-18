@@ -1,4 +1,4 @@
-/*      $OpenBSD: v_txt.c,v 1.37 2026/04/20 10:30:02 tb Exp $       */
+/*      $OpenBSD: v_txt.c,v 1.38 2026/08/18 02:00:00 millert Exp $  */
 
 /* SPDX-License-Identifier: BSD-3-Clause */
 
@@ -7,7 +7,7 @@
  *      The Regents of the University of California.  All rights reserved.
  * Copyright (c) 1992, 1993, 1994, 1995, 1996
  *      Keith Bostic.  All rights reserved.
- * Copyright (c) 2022-2024 Jeffrey H. Johnson
+ * Copyright (c) 2022-2026 Jeffrey H. Johnson
  *
  * See the LICENSE.md file for redistribution information.
  */

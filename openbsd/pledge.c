@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
- * Copyright (c) 2021-2024 Jeffrey H. Johnson
+ * Copyright (c) 2021-2026 Jeffrey H. Johnson
  *
  * All rights reserved.
  *

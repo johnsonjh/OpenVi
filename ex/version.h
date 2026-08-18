@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 /*
- * Copyright (c) 2022-2024 Jeffrey H. Johnson
+ * Copyright (c) 2022-2026 Jeffrey H. Johnson
  *
  * All rights reserved.
  *
@@ -37,6 +37,6 @@
 # define _VERSION_H
 
 # define VI_VERSION \
-        "Version 8.0.34-dev (OpenVi) 06/19/2026"
+        "Version 8.0.34-dev (OpenVi) 08/18/2026"
 
 #endif /* ifndef _VERSION_H */
