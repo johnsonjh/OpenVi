@@ -6,14 +6,32 @@
 # Copyright (c) 2021-2026 Jeffrey H. Johnson
 
 BEGIN {
+        printf("#include <glob.h>\n");
         printf("enum {\n");
         first = 1;
 }
+
+/^#if.*OPT/ {
+        print;
+        next;
+}
+
+/^#el.*OPT/ {
+        print;
+        next;
+}
+
+/^#endif.*OPT/ {
+        print;
+        next;
+}
+
 /^\/\* O_[0-9A-Z_]*/ {
         printf("\t%s%s,\n", $2, first ? " = 0" : "");
         first = 0;
         next;
 }
+
 END {
         printf("\tO_OPTIONCOUNT\n};\n");
 }

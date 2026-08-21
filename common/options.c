@@ -97,14 +97,14 @@ OPTLIST const optlist[] = {
         {"filec",       NULL,           OPT_STR,        0},
 /* O_FLASH          HPUX */
         {"flash",       NULL,           OPT_0BOOL,      0},
-#ifdef GLOB_BRACE
+#ifdef GLOB_BRACE /* OPT */
 /* O_GLOBBRACE    OpenVi */
         {"globbrace",   NULL,           OPT_0BOOL,      0},
-#endif
-#ifdef GLOB_PERIOD
+#endif /* OPT */
+#ifdef GLOB_PERIOD /* OPT */
 /* O_GLOBDOT      OpenVi */
         {"globdot",     NULL,           OPT_0BOOL,      0},
-#endif
+#endif /* OPT */
 /* O_HARDTABS       4BSD */
         {"hardtabs",    NULL,           OPT_NUM,        0},
 /* O_ICLOWER      4.4BSD */
