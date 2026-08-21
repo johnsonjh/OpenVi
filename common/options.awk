@@ -11,17 +11,17 @@ BEGIN {
         first = 1;
 }
 
-/^#if.*OPT/ {
+/^#.*if.*OPT/ {
         print;
         next;
 }
 
-/^#el.*OPT/ {
+/^#.*el.*OPT/ {
         print;
         next;
 }
 
-/^#endif.*OPT/ {
+/^#.*endif.*OPT/ {
         print;
         next;
 }
