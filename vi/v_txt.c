@@ -25,6 +25,8 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include <glob.h>
+
 #include "../common/common.h"
 #include "vi.h"
 
@@ -1982,6 +1984,7 @@ txt_dent(SCR *sp, TEXT *tp, int swopt, int isindent)
 /*
  * txt_fc --
  *      File name completion.
+ *      Uses POSIX glob(3)
  */
 static int
 txt_fc(SCR *sp, TEXT *tp, int *redrawp)
@@ -1989,17 +1992,20 @@ txt_fc(SCR *sp, TEXT *tp, int *redrawp)
         struct stat sb;
         ARGS **argv;
         CHAR_T s_ch;
-        EXCMD cmd;
         size_t indx, len, nlen, off;
         int argc, trydir;
         char *p, *t;
+        glob_t g;
+        char *pat;
+        int gr;
+        int flags = 0;
 
         trydir = 0;
         *redrawp = 0;
 
         /*
-         * Find the beginning of this "word" -- if we're at the beginning
-         * of the line, it's a special case.
+         * Find the beginning of the "word".
+         * If we're at the beginning of the line, it's a special case.
          */
         if (tp->cno == 1) {
                 len = 0;
@@ -2016,13 +2022,7 @@ retry:          for (len = 0,
                                 break;
                 }
 
-        /*
-         * Get enough space for a wildcard character.
-         *
-         * XXX
-         * This won't work for "foo\", since the \ will escape the expansion
-         * character.  I'm not sure if that's a bug or not...
-         */
+        /* Get enough space for a wildcard character. */
         off = p - tp->lb;
         BINC_RET(sp, tp->lb, tp->lb_len, tp->len + 1);
         p = tp->lb + off;
@@ -2030,52 +2030,112 @@ retry:          for (len = 0,
         s_ch = p[len];
         p[len] = '*';
 
-        /* Build an ex command, and call the ex expansion routines. */
-        ex_cinit(&cmd, 0, 0, OOBLNO, OOBLNO, 0, NULL);
-        if (argv_init(sp, &cmd))
-                return (1);
-        if (argv_exp2(sp, &cmd, p, len + 1)) {
+        pat = malloc(len + 2); /* len chars + '*' + '\0' */
+        if (pat == NULL) {
                 p[len] = s_ch;
-                return (0);
+                return (1);
         }
-        argc = cmd.argc;
-        argv = cmd.argv;
+        memcpy(pat, p, len + 1); /* includes '*' */
+        pat[len + 1] = '\0';
 
-        p[len] = s_ch;
+#ifdef GLOB_MARK
+        flags |= GLOB_MARK;
+#endif
 
-        switch (argc) {
-        case 0:                         /* No matches. */
+#ifdef GLOB_BRACE
+        if (O_ISSET(sp, O_GLOBBRACE))
+                flags |= GLOB_BRACE;
+#endif
+
+#ifdef GLOB_PERIOD
+        if (O_ISSET(sp, O_GLOBDOT))
+                flags |= GLOB_PERIOD;
+#endif
+
+        memset(&g, 0, sizeof(g));
+        gr = glob(pat, flags, NULL, &g);
+        free(pat);
+
+        if (gr != 0 || g.gl_pathc == 0) {
+                p[len] = s_ch;
+                globfree(&g);
                 if (!trydir)
                         (void)sp->gp->scr_bell(sp);
                 return (0);
-        case 1:                         /* One match. */
-                /* If something changed, do the exchange. */
-                nlen = strlen(cmd.argv[0]->bp);
-                if (len != nlen || memcmp(cmd.argv[0]->bp, p, len))
+        }
+
+        argc = (int)g.gl_pathc;
+        argv = malloc(argc * sizeof(ARGS *));
+        if (argv == NULL) {
+                p[len] = s_ch;
+                globfree(&g);
+                return (1);
+        }
+        for (indx = 0; indx < (size_t)argc; ++indx) {
+                ARGS *a = calloc(1, sizeof(ARGS));
+                if (a == NULL) {
+                        /* simple cleanup on failure */
+                        while (indx > 0) {
+                                --indx;
+                                free(argv[indx]->bp);
+                                free(argv[indx]);
+                        }
+                        free(argv);
+                        p[len] = s_ch;
+                        globfree(&g);
+                        return (1);
+                }
+                a->bp = strdup(g.gl_pathv[indx]);
+                if (a->bp == NULL) {
+                        free(a);
+                        while (indx > 0) {
+                                --indx;
+                                free(argv[indx]->bp);
+                                free(argv[indx]);
+                        }
+                        free(argv);
+                        p[len] = s_ch;
+                        globfree(&g);
+                        return (1);
+                }
+                a->len = strlen(a->bp);
+                argv[indx] = a;
+        }
+
+        p[len] = s_ch;
+        globfree(&g);
+
+        switch (argc) {
+        case 0: /* No matches. */
+                if (!trydir)
+                        (void)sp->gp->scr_bell(sp);
+                goto done;
+
+        case 1: /* One match. */
+                nlen = strlen(argv[0]->bp);
+                if (len != nlen || memcmp(argv[0]->bp, p, len))
                         break;
 
-                /* If haven't done a directory test, do it now. */
                 if (!trydir &&
-                    !stat(cmd.argv[0]->bp, &sb) && S_ISDIR(sb.st_mode)) {
+                    !stat(argv[0]->bp, &sb) && S_ISDIR(sb.st_mode)) {
                         p += len;
                         goto isdir;
                 }
 
-                /* If nothing changed, period, ring the bell. */
                 if (!trydir)
                         (void)sp->gp->scr_bell(sp);
-                return (0);
-        default:                        /* Multiple matches. */
+                goto done;
+
+        default: /* Multiple matches. */
                 *redrawp = 1;
                 if (txt_fc_col(sp, argc, argv))
-                        return (1);
+                        goto done;
 
-                /* Find the length of the shortest match. */
-                for (nlen = cmd.argv[0]->len; --argc > 0;) {
-                        if (cmd.argv[argc]->len < nlen)
-                                nlen = cmd.argv[argc]->len;
+                for (nlen = argv[0]->len; --argc > 0;) {
+                        if (argv[argc]->len < nlen)
+                                nlen = argv[argc]->len;
                         for (indx = 0; indx < nlen &&
-                            cmd.argv[argc]->bp[indx] == cmd.argv[0]->bp[indx];
+                            argv[argc]->bp[indx] == argv[0]->bp[indx];
                             ++indx);
                         nlen = indx;
                 }
@@ -2083,20 +2143,17 @@ retry:          for (len = 0,
         }
 
         /* Overwrite the expanded text first. */
-        for (t = cmd.argv[0]->bp; len > 0 && nlen > 0; --len, --nlen)
+        for (t = argv[0]->bp; len > 0 && nlen > 0; --len, --nlen)
                 *p++ = *t++;
 
-        /* If lost text, make the remaining old text overwrite characters. */
         if (len) {
                 tp->cno -= len;
                 tp->owrite += len;
         }
 
-        /* Overwrite any overwrite characters next. */
         for (; nlen > 0 && tp->owrite > 0; --nlen, --tp->owrite, ++tp->cno)
                 *p++ = *t++;
 
-        /* Shift remaining text up, and move the cursor to the end. */
         if (nlen) {
                 off = p - tp->lb;
                 BINC_RET(sp, tp->lb, tp->lb_len, tp->len + nlen);
@@ -2111,8 +2168,8 @@ retry:          for (len = 0,
                         *p++ = *t++;
         }
 
-        /* If a single match and it's a directory, retry it. */
-        if (argc == 1 && !stat(cmd.argv[0]->bp, &sb) && S_ISDIR(sb.st_mode)) {
+        /* If a single match is a directory, retry */
+        if (argc == 1 && !stat(argv[0]->bp, &sb) && S_ISDIR(sb.st_mode)) {
 isdir:          if (tp->owrite == 0) {
                         off = p - tp->lb;
                         BINC_RET(sp, tp->lb, tp->lb_len, tp->len + 1);
@@ -2122,14 +2179,36 @@ isdir:          if (tp->owrite == 0) {
                         ++tp->len;
                 } else
                         --tp->owrite;
-
+#ifndef GLOB_MARK
                 ++tp->cno;
                 *p++ = '/';
-
+#else
+                --tp->len;
+#endif
                 trydir = 1;
-                goto retry;
+                /* free before retry */
+                goto retry_cleanup;
+        }
+
+done:
+        if (argv != NULL) {
+                for (indx = 0; indx < (size_t)argc; ++indx) {
+                        free(argv[indx]->bp);
+                        free(argv[indx]);
+                }
+                free(argv);
         }
         return (0);
+
+retry_cleanup:
+        if (argv != NULL) {
+                for (indx = 0; indx < (size_t)argc; ++indx) {
+                        free(argv[indx]->bp);
+                        free(argv[indx]);
+                }
+                free(argv);
+        }
+        goto retry;
 }
 
 /*
