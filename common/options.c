@@ -105,6 +105,10 @@ OPTLIST const optlist[] = {
 /* O_GLOBDOT      OpenVi */
         {"globdot",     NULL,           OPT_0BOOL,      0},
 #endif /* OPT */
+#ifdef GLOB_STAR /* OPT */
+/* O_GLOBSTAR     OpenVi */
+        {"globstar",    NULL,           OPT_0BOOL,      0},
+#endif /* OPT */
 /* O_HARDTABS       4BSD */
         {"hardtabs",    NULL,           OPT_NUM,        0},
 /* O_ICLOWER      4.4BSD */
