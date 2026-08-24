@@ -69,7 +69,7 @@ Why would you want to use ***OpenVi*** instead of ***AnotherVi***?
     and sanely implemented with care taken to balance user expectations,
     complexity, and historical accuracy
 - Extensions such as `bserase`, `cwerase`, `expandtab`, `imctrl`,
-  `visibletab`, etc.
+  `visibletab`, `globbrace`, `globdot`, etc.
 - Build requires only *GNU Make* and standard *POSIX* utilities
   - Easy integration with embedded, minimal, or iteratively bootstrapped
     environments and distributions (such as *Linux From Scratch* builds)

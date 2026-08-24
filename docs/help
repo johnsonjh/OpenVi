@@ -207,20 +207,20 @@ unabbreviate: delete an abbreviation
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 Edit options:
-noaltnotation   escapetime=2    nolist          report=5        notildeop
-noaltwerase     noerrorbells    lock            noruler         timeout
-noautoindent    noexpandtab     magic           scroll=14       nottywerase
-autoprint       noexrc          matchtime=7     nosearchincr    noverbose
-noautowrite     noextended      mesg            nosecure        novisibletab
-backup=""       filec=" "       noprint=""      shiftwidth=8    warn
-nobeautify      noflash         nonumber        noshowmatch     window=28
-nobserase       hardtabs=0      nooctal         noshowfilename  nowindowname
-nocwerase       noiclower       open            noshowmode      wraplen=0
-cdpath=":"      noignorecase    path=""         sidescroll=16   wrapmargin=0
-cedit=""        noimctrl        print=""        tabstop=8       wrapscan
-columns=83      keytime=6       prompt          taglength=0     nowriteany
-nocomment       noleftright     noreadonly      tags="tags"
-noedcompatible  lines=29        remap           noterse
+noaltnotation   escapetime=2    noleftright     noreadonly      tags="tags"
+noaltwerase     noerrorbells    lines=29        remap           noterse
+noautoindent    noexpandtab     nolist          report=5        notildeop
+autoprint       noexrc          lock            noruler         timeout
+noautowrite     noextended      magic           scroll=14       nottywerase
+backup=""       filec=" "       matchtime=7     nosearchincr    noverbose
+nobeautify      noflash         mesg            nosecure        novisibletab
+nobserase       noglobbrace     noprint=""      shiftwidth=8    warn
+cdpath=":"      noglobdot       nonumber        noshowmatch     window=28
+cedit=""        hardtabs=0      nooctal         noshowfilename  nowindowname
+columns=80      noiclower       open            noshowmode      wraplen=0
+nocomment       noignorecase    path=""         sidescroll=16   wrapmargin=0
+nocwerase       noimctrl        print=""        tabstop=8       wrapscan
+noedcompatible  keytime=6       prompt          taglength=0     nowriteany
 imkey="/?aioAIO"
 paragraphs="IPLPPPQPP LIpplpipbpBlBdPpLpIt"
 recdir="/var/tmp/vi.recover"

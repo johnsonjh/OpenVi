@@ -2351,10 +2351,6 @@ Discard control characters.
 .Nm vi
 only.
 Immediately erase backspaced characters from the screen.
-.It Cm cwerase , cwe Bq off
-.Nm vi
-only.
-Immediately erase characters deleted by ^W and ^U from the screen.
 .It Cm cdpath Bq "environment variable CDPATH, or current directory"
 The directory paths used as path prefixes for the
 .Cm cd
@@ -2367,6 +2363,10 @@ Set the number of columns in the screen.
 .Nm vi
 only.
 Skip leading comments in shell, C and C++ language files.
+.It Cm cwerase , cwe Bq off
+.Nm vi
+only.
+Immediately erase characters deleted by ^W and ^U from the screen.
 .It Cm edcompatible , ed Bq off
 Remember the values of the
 .Sq c
@@ -2415,6 +2415,14 @@ for more information on regular expressions.
 Set the character to perform file path completion on the colon command line.
 .It Cm flash Bq off
 Flash the screen instead of beeping the keyboard on error.
+.It Cm globbrace , cwe Bq off
+.Nm vi
+only.
+Enables csh-style brace expressions for filename completion
+.It Cm globdot , cwe Bq off
+.Nm vi
+only.
+Enables matching of dotfiles for filename completion
 .It Cm hardtabs , ht Bq 0
 Set the spacing between hardware tab settings.
 This option currently has no effect.
