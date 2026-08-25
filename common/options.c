@@ -30,6 +30,8 @@
 #include <bsd_string.h>
 #include <bsd_unistd.h>
 
+#include <glob.h>
+
 #include "errc.h"
 #include "common.h"
 #include "../vi/vi.h"
@@ -69,8 +71,6 @@ OPTLIST const optlist[] = {
         {"beautify",    NULL,           OPT_0BOOL,      0},
 /* O_BSERASE      OpenVi */
         {"bserase",     NULL,           OPT_0BOOL,      0},
-/* O_CWERASE      OpenVi */
-        {"cwerase",     NULL,           OPT_0BOOL,      0},
 /* O_CDPATH       4.4BSD */
         {"cdpath",      NULL,           OPT_STR,        0},
 /* O_CEDIT        4.4BSD */
@@ -79,6 +79,8 @@ OPTLIST const optlist[] = {
         {"columns",     f_columns,      OPT_NUM,        OPT_NOSAVE},
 /* O_COMMENT      4.4BSD */
         {"comment",     NULL,           OPT_0BOOL,      0},
+/* O_CWERASE      OpenVi */
+        {"cwerase",     NULL,           OPT_0BOOL,      0},
 /* O_EDCOMPATIBLE   4BSD */
         {"edcompatible",NULL,           OPT_0BOOL,      0},
 /* O_ESCAPETIME   4.4BSD */
@@ -95,6 +97,14 @@ OPTLIST const optlist[] = {
         {"filec",       NULL,           OPT_STR,        0},
 /* O_FLASH          HPUX */
         {"flash",       NULL,           OPT_0BOOL,      0},
+#ifdef GLOB_BRACE /* OPT */
+/* O_GLOBBRACE    OpenVi */
+        {"globbrace",   NULL,           OPT_0BOOL,      0},
+#endif /* OPT */
+#ifdef GLOB_PERIOD /* OPT */
+/* O_GLOBDOT      OpenVi */
+        {"globdot",     NULL,           OPT_0BOOL,      0},
+#endif /* OPT */
 /* O_HARDTABS       4BSD */
         {"hardtabs",    NULL,           OPT_NUM,        0},
 /* O_ICLOWER      4.4BSD */

@@ -22,7 +22,8 @@
 CC          ?= cc
 DEPFLAGS    ?= -MMD -MP
 INCLDS       = -Iinclude -Icommon -Iregex -Iopenbsd
-CFLAGS      += -std=gnu99 $(INCLDS)
+CSTD         = -std=gnu99
+CFLAGS      += $(CSTD) $(INCLDS)
 WFLAGS      ?= -Wall -Wno-pointer-sign -Wno-uninitialized
 
 ###############################################################################
