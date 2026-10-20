@@ -1,4 +1,4 @@
-OpenVi 7.9.33 -> OpenVi 8.0.34-dev: Mon Aug 24 21:53:20 UTC 2026
+OpenVi 7.9.33 -> OpenVi 8.0.34: Tue Oct 20 15:57:10 2026
         + Ensure numbering is repainted after completion redraw; closes
           GitHub Issue #4
         + Use an alternate fix for a false `-Wmisleading-indentation` warning
@@ -9,6 +9,7 @@ OpenVi 7.9.33 -> OpenVi 8.0.34-dev: Mon Aug 24 21:53:20 UTC 2026
         + New feature: Filename completion now uses glob(3), with two options:
           `globbrace` which enables `csh`-style brace expressions, and
           `globdot` which enables glob matching of dotfiles
+        + Bump for OpenBSD 8.0 release
 
 OpenVi 7.7.32 -> OpenVi 7.9.33: Thu Jun 25 00:06:34 UTC 2026
         + Update README to mention optional `pkg-config` prerequisite
